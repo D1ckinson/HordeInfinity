@@ -8,6 +8,7 @@
         MidasHand,
         Bombard,
         BlackHole,
-        StoneSpikes
+        StoneSpikes,
+        IceStuff
     }
 }

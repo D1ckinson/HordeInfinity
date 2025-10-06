@@ -36,6 +36,7 @@ namespace Assets.Code
                 [AbilityType.Bombard] = CreateBombard,
                 [AbilityType.BlackHole] = CreateBlackHole,
                 [AbilityType.StoneSpikes] = CreateStoneSpikes,
+                [AbilityType.IceStuff] = CreateIceStuff,
             };
         }
 
@@ -91,6 +92,13 @@ namespace Assets.Code
             AbilityConfig config = _configs[AbilityType.StoneSpikes];
 
             return new StoneSpikes(config, _hero, _abilityUnlockLevel);
+        }
+
+        private Ability CreateIceStuff()
+        {
+            AbilityConfig config = _configs[AbilityType.IceStuff];
+
+            return new IceStuff(config, _hero, _abilityUnlockLevel);
         }
     }
 }

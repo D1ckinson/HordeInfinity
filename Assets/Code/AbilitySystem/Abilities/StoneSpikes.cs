@@ -36,7 +36,7 @@ namespace Assets.Code.AbilitySystem.Abilities
 
         public override void Dispose()
         {
-            _pool.ForEach(spike => spike.DestroyGameObject());
+            _pool.DestroyAll();
         }
 
         protected override void Apply()

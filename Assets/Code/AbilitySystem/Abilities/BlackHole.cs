@@ -27,7 +27,7 @@ namespace Assets.Code.AbilitySystem.Abilities
         public override void Dispose()
         {
             _projectile.DestroyGameObject();
-            _effectPool.ForEach(effect => effect.DestroyGameObject());
+            _effectPool.DestroyAll();
         }
 
         protected override void Apply()

@@ -57,5 +57,13 @@ namespace Assets.Scripts.Tools
         {
             _items.ForEach(action);
         }
+
+        public void DestroyAll()
+        {
+            foreach (T item in _items)
+            {
+                UnityEngine.Object.Destroy(item.gameObject);
+            }
+        }
     }
 }

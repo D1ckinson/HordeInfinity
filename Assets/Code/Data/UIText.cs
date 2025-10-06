@@ -81,6 +81,7 @@ namespace Assets.Code.Data
                 [AbilityType.Bombard] = "Бомбарда",
                 [AbilityType.BlackHole] = "Черная дыра",
                 [AbilityType.StoneSpikes] = "Каменные иглы",
+                [AbilityType.IceStuff] = "Ледяной посох",
             };
         }
 
@@ -114,6 +115,7 @@ namespace Assets.Code.Data
                 [AbilityType.MidasHand] = "Bombard",
                 [AbilityType.BlackHole] = "Black hole",
                 [AbilityType.StoneSpikes] = "Stone spikes",
+                [AbilityType.IceStuff] = "Ice stuff",
             };
         }
 

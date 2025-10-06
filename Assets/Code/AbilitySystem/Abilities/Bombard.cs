@@ -58,7 +58,7 @@ namespace Assets.Code.AbilitySystem.Abilities
         public override void Dispose()
         {
             CoroutineService.StopAllCoroutines(this);
-            _bombPool.ForEach(bomb => bomb.DestroyGameObject());
+            _bombPool.DestroyAll();
         }
 
         protected override void UpdateStats(float damage, float range, int projectilesCount, bool isPiercing, int healthPercent, float pullForce)

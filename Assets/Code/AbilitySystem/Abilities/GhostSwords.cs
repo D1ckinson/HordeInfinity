@@ -92,7 +92,7 @@ namespace Assets.Code.AbilitySystem.Abilities
         public override void Dispose()
         {
             CoroutineService.StopAllCoroutines(this);
-            _pool.ForEach(sword => sword.DestroyGameObject());
+            _pool.DestroyAll();
         }
     }
 }

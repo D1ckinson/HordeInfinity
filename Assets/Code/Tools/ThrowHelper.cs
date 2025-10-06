@@ -7,12 +7,14 @@ namespace Assets.Code.Tools
 {
     public static class ThrowHelper
     {
-        public static void ThrowIfNotNormalize(this Vector3 vector)
+        public static Vector3 ThrowIfNotNormalize(this Vector3 vector)
         {
             if (Mathf.Approximately(vector.sqrMagnitude, Constants.One) == false)
             {
                 throw new VectorNotNormalizedException();
             }
+
+            return vector;
         }
 
         public static void ThrowIfNotNormalize(this Vector2 vector)

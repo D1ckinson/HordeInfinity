@@ -752,7 +752,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd15b1a0a32d6b74993a55afe5886368, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <SwingEffectPoint>k__BackingField: {fileID: 7567980103716653656}
+  <Center>k__BackingField: {fileID: 7567980103716653656}
 --- !u!136 &8721791577964659855
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1992,7 +1992,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7567980103716653656}
   m_Layer: 7
-  m_Name: Swing Effect Point
+  m_Name: Center
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

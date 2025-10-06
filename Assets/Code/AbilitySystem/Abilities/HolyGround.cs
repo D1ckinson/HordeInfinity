@@ -8,12 +8,12 @@ namespace Assets.Code.AbilitySystem.Abilities
     {
         private readonly HolyRune _holyRune;
 
-        public HolyGround(AbilityConfig config, Transform transform, Dictionary<AbilityType, int> abilityUnlockLevel, int level = 1) : base(config, transform, abilityUnlockLevel, level)
+        public HolyGround(AbilityConfig config, Dictionary<AbilityType, int> abilityUnlockLevel, Transform hero, int level = 1) : base(config, abilityUnlockLevel, level)
         {
             _holyRune = config.ThrowIfNull().ProjectilePrefab.GetComponentOrThrow<HolyRune>().Instantiate();
 
             AbilityStats stats = config.GetStats(level);
-            _holyRune.Initialize(stats.Damage, stats.Range, config.DamageLayer, transform);
+            _holyRune.Initialize(stats.Damage, stats.Range, config.DamageLayer, hero);
         }
 
         protected override void Apply()
@@ -21,9 +21,10 @@ namespace Assets.Code.AbilitySystem.Abilities
             _holyRune.DealDamage();
         }
 
-        protected override void UpdateStats(float damage, float range, int projectilesCount, bool isPiercing, int healthPercent, float pullForce)
+        protected override void UpdateStats(AbilityStats stats)
         {
-            _holyRune.SetStats(damage, range);
+            stats.ThrowIfNull();
+            _holyRune.SetStats(stats.Damage, stats.Range);
         }
 
         public override void Dispose()

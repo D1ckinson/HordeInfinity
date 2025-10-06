@@ -15,7 +15,7 @@ namespace Assets.Scripts
         public PlayerData()
         {
             Wallet = new();
-            StartAbility = AbilityType.IceStuff;
+            StartAbility = AbilityType.Shuriken;
 
             AbilityUnlockLevel = new()
             {
@@ -27,6 +27,7 @@ namespace Assets.Scripts
                 [AbilityType.BlackHole] = 1,
                 [AbilityType.StoneSpikes] = 1,
                 [AbilityType.IceStuff] = 1,
+                [AbilityType.Shuriken] = 1,
             };
         }
     }

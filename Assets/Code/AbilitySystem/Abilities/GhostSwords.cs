@@ -9,19 +9,19 @@ namespace Assets.Code.AbilitySystem.Abilities
     public class GhostSwords : Ability
     {
         private readonly WaitForSeconds _actionWait = new(0.05f);
-        private readonly Transform _hero;
+        private readonly Transform _heroCenter;
         private readonly Pool<GhostSword> _pool;
         private readonly List<GhostSword> _spawnedSwords = new();
 
         private float _damage;
         private int _projectilesCount;
 
-        public GhostSwords(AbilityConfig config, Transform transform, Dictionary<AbilityType, int> abilityUnlockLevel, int level = 1) : base(config, transform, abilityUnlockLevel, level)
+        public GhostSwords(AbilityConfig config, Dictionary<AbilityType, int> abilityUnlockLevel, Transform heroCenter, int level = 1) : base(config, abilityUnlockLevel, level)
         {
             AbilityStats stats = config.ThrowIfNull().GetStats(level.ThrowIfZeroOrLess());
             _damage = stats.Damage.ThrowIfNegative();
             _projectilesCount = stats.ProjectilesCount.ThrowIfNegative();
-            _hero = transform.ThrowIfNull();
+            _heroCenter = heroCenter.ThrowIfNull();
 
             GhostSword CreateSword()
             {
@@ -39,11 +39,12 @@ namespace Assets.Code.AbilitySystem.Abilities
             CoroutineService.StartCoroutine(SpawnSwords(), this);
         }
 
-        protected override void UpdateStats(float damage, float range, int projectilesCount, bool isPiercing, int healthPercent, float pullForce)
+        protected override void UpdateStats(AbilityStats stats)
         {
-            _damage = damage.ThrowIfNegative();
-            _projectilesCount = projectilesCount.ThrowIfNegative();
-            _pool.ForEach(sword => sword.SetStats(damage, isPiercing));
+            stats.ThrowIfNull();
+            _damage = stats.Damage;
+            _projectilesCount = stats.ProjectilesCount;
+            _pool.ForEach(sword => sword.SetStats(_damage, stats.IsPiercing));
         }
 
         private IEnumerator SpawnSwords()
@@ -53,12 +54,11 @@ namespace Assets.Code.AbilitySystem.Abilities
                 GhostSword sword = _pool.Get(false);
 
                 float angle = i * (Constants.FullCircleDegrees / _projectilesCount);
-                Vector3 position = CalculateSwordPosition(angle);
-                sword.transform.position = position;
-                sword.transform.rotation = Quaternion.LookRotation(sword.transform.position - _hero.transform.position);
+                sword.transform.position = CalculateSwordPosition(angle);
+                sword.transform.rotation = Quaternion.LookRotation(sword.transform.position - _heroCenter.position);
 
                 sword.SetActive(true);
-                sword.transform.SetParent(_hero);
+                sword.transform.SetParent(_heroCenter);
                 _spawnedSwords.Add(sword);
 
                 yield return _actionWait;
@@ -80,13 +80,12 @@ namespace Assets.Code.AbilitySystem.Abilities
 
         private Vector3 CalculateSwordPosition(float angle)
         {
-            Vector3 playerPosition = Position;
             float radianAngle = angle * Mathf.Deg2Rad;
 
-            float x = playerPosition.x + Mathf.Cos(radianAngle) * Constants.One;
-            float z = playerPosition.z + Mathf.Sin(radianAngle) * Constants.One;
+            float x = _heroCenter.position.x + Mathf.Cos(radianAngle) * Constants.One;
+            float z = _heroCenter.position.z + Mathf.Sin(radianAngle) * Constants.One;
 
-            return new Vector3(x, playerPosition.y, z);
+            return new Vector3(x, _heroCenter.position.y, z);
         }
 
         public override void Dispose()

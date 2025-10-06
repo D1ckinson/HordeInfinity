@@ -46,6 +46,8 @@ namespace Assets.Code.AbilitySystem.Abilities
 
         public void Fly(Vector3 from, Vector3 direction)
         {
+            direction.ThrowIfNotNormalize();
+
             transform.position = from;
             transform.rotation = Quaternion.LookRotation(new(direction.x, Constants.Zero, direction.z));
 

@@ -82,6 +82,7 @@ namespace Assets.Code.Data
                 [AbilityType.BlackHole] = "Черная дыра",
                 [AbilityType.StoneSpikes] = "Каменные иглы",
                 [AbilityType.IceStuff] = "Ледяной посох",
+                [AbilityType.Shuriken] = "Сюрикен",
             };
         }
 
@@ -116,6 +117,7 @@ namespace Assets.Code.Data
                 [AbilityType.BlackHole] = "Black hole",
                 [AbilityType.StoneSpikes] = "Stone spikes",
                 [AbilityType.IceStuff] = "Ice stuff",
+                [AbilityType.Shuriken] = "Shuriken",
             };
         }
 

@@ -11,7 +11,7 @@ namespace Assets.Code.AbilitySystem.Abilities
         private readonly Transform _blackHolePoint;
         private readonly Pool<ParticleSystem> _effectPool;
 
-        public BlackHole(AbilityConfig config, Transform transform, Dictionary<AbilityType, int> abilityUnlockLevel, Transform blackHolePoint, int level = 1) : base(config, transform, abilityUnlockLevel, level)
+        public BlackHole(AbilityConfig config, Dictionary<AbilityType, int> abilityUnlockLevel, Transform blackHolePoint, int level = 1) : base(config,  abilityUnlockLevel, level)
         {
             AbilityStats stats = config.ThrowIfNull().GetStats(level);
             _blackHolePoint = blackHolePoint.ThrowIfNull();
@@ -35,9 +35,10 @@ namespace Assets.Code.AbilitySystem.Abilities
             _projectile.Activate(_blackHolePoint.position);
         }
 
-        protected override void UpdateStats(float damage, float range, int projectilesCount, bool isPiercing, int healthPercent, float pullForce)
+        protected override void UpdateStats(AbilityStats stats)
         {
-            _projectile.SetStats(damage, range, pullForce);
+            stats.ThrowIfNull();
+            _projectile.SetStats(stats.Damage, stats.Range, stats.PullForce);
         }
     }
 }

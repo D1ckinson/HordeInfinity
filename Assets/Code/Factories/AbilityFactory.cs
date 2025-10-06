@@ -14,18 +14,20 @@ namespace Assets.Code
         private readonly Dictionary<AbilityType, Func<Ability>> _createFunctions;
         private readonly Transform _hero;
 
-        private readonly Transform _swingEffectPoint;
+        private readonly Transform _heroCenter;
         private readonly Dictionary<AbilityType, int> _abilityUnlockLevel;
         private readonly LootFactory _lootFactory;
+        private readonly Animator _animator;
 
-        public AbilityFactory(Dictionary<AbilityType, AbilityConfig> configs, Transform hero, Transform swingEffectPoint, Dictionary<AbilityType, int> abilityUnlockLevel, LootFactory lootFactory)
+        public AbilityFactory(Dictionary<AbilityType, AbilityConfig> configs, Transform hero, Transform heroCenter, Dictionary<AbilityType, int> abilityUnlockLevel, LootFactory lootFactory, Animator animator)
         {
             _configs = configs.ThrowIfNullOrEmpty();
             _hero = hero.ThrowIfNull();
 
-            _swingEffectPoint = swingEffectPoint.ThrowIfNull();
+            _heroCenter = heroCenter.ThrowIfNull();
             _abilityUnlockLevel = abilityUnlockLevel.ThrowIfNull();
             _lootFactory = lootFactory.ThrowIfNull();
+            _animator = animator.ThrowIfNull();
 
             _createFunctions = new()
             {
@@ -37,6 +39,7 @@ namespace Assets.Code
                 [AbilityType.BlackHole] = CreateBlackHole,
                 [AbilityType.StoneSpikes] = CreateStoneSpikes,
                 [AbilityType.IceStuff] = CreateIceStuff,
+                [AbilityType.Shuriken] = CreateShuriken,
             };
         }
 
@@ -49,56 +52,63 @@ namespace Assets.Code
         {
             AbilityConfig config = _configs[AbilityType.SwordStrike];
 
-            return new SwordStrike(config, _swingEffectPoint, _hero.GetComponentOrThrow<Animator>(), _abilityUnlockLevel);
+            return new SwordStrike(config, _abilityUnlockLevel, _heroCenter, _animator);
         }
 
         private Ability CreateGhostSwords()
         {
             AbilityConfig config = _configs[AbilityType.GhostSwords];
 
-            return new GhostSwords(config, _swingEffectPoint, _abilityUnlockLevel);
+            return new GhostSwords(config, _abilityUnlockLevel, _heroCenter);
         }
 
         private Ability CreateHolyGround()
         {
             AbilityConfig config = _configs[AbilityType.HolyGround];
 
-            return new HolyGround(config, _hero, _abilityUnlockLevel);
+            return new HolyGround(config, _abilityUnlockLevel, _hero);
         }
 
         private Ability CreateMidasHand()
         {
             AbilityConfig config = _configs[AbilityType.MidasHand];
 
-            return new MidasHand(config, _hero, _abilityUnlockLevel, _lootFactory);
+            return new MidasHand(config, _abilityUnlockLevel, _heroCenter, _lootFactory);
         }
 
         private Ability CreateBombard()
         {
             AbilityConfig config = _configs[AbilityType.Bombard];
 
-            return new Bombard(config, _hero, _abilityUnlockLevel);
+            return new Bombard(config, _abilityUnlockLevel, _heroCenter);
         }
 
         private Ability CreateBlackHole()
         {
             AbilityConfig config = _configs[AbilityType.BlackHole];
 
-            return new BlackHole(config, _hero, _abilityUnlockLevel, _swingEffectPoint);
+            return new BlackHole(config, _abilityUnlockLevel, _heroCenter);
         }
 
         private Ability CreateStoneSpikes()
         {
             AbilityConfig config = _configs[AbilityType.StoneSpikes];
 
-            return new StoneSpikes(config, _hero, _abilityUnlockLevel);
+            return new StoneSpikes(config, _abilityUnlockLevel, _hero);
         }
 
         private Ability CreateIceStuff()
         {
             AbilityConfig config = _configs[AbilityType.IceStuff];
 
-            return new IceStuff(config, _hero, _abilityUnlockLevel);
+            return new IceStuff(config, _abilityUnlockLevel, _heroCenter);
+        }
+
+        private Ability CreateShuriken()
+        {
+            AbilityConfig config = _configs[AbilityType.Shuriken];
+
+            return new Shuriken(config, _abilityUnlockLevel, _heroCenter);
         }
     }
 }

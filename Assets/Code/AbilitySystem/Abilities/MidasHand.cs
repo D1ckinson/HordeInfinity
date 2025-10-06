@@ -11,17 +11,17 @@ namespace Assets.Code.AbilitySystem.Abilities
     {
         private readonly LayerMask _damageLayer;
         private readonly Collider[] _colliders = new Collider[50];
-        private readonly Transform _transform;
+        private readonly Transform _heroCenter;
         private readonly LootFactory _lootFactory;
 
         private float _damage;
         private float _range;
         private int _healthPercent;
 
-        public MidasHand(AbilityConfig config, Transform transform, Dictionary<AbilityType, int> abilityUnlockLevel, LootFactory lootFactory, int level = 1) : base(config, transform, abilityUnlockLevel, level)
+        public MidasHand(AbilityConfig config, Dictionary<AbilityType, int> abilityUnlockLevel, Transform heroCenter, LootFactory lootFactory, int level = 1) : base(config, abilityUnlockLevel, level)
         {
             _damageLayer = config.DamageLayer.ThrowIfNull();
-            _transform = transform.ThrowIfNull();
+            _heroCenter = heroCenter.ThrowIfNull();
             _lootFactory = lootFactory.ThrowIfNull();
 
             AbilityStats stats = config.ThrowIfNull().GetStats(level);
@@ -35,14 +35,14 @@ namespace Assets.Code.AbilitySystem.Abilities
 
         protected override void Apply()
         {
-            int count = Physics.OverlapSphereNonAlloc(Position, _range, _colliders, _damageLayer);
+            int count = Physics.OverlapSphereNonAlloc(_heroCenter.position, _range, _colliders, _damageLayer);
             float distance = float.MaxValue;
             Collider closest = null;
 
             for (int i = Constants.Zero; i < count; i++)
             {
                 Collider collider = _colliders[i];
-                float sqrDistance = (collider.transform.position - _transform.position).sqrMagnitude;
+                float sqrDistance = (collider.transform.position - _heroCenter.position).sqrMagnitude;
 
                 if (sqrDistance < distance)
                 {
@@ -61,11 +61,12 @@ namespace Assets.Code.AbilitySystem.Abilities
             }
         }
 
-        protected override void UpdateStats(float damage, float range, int projectilesCount, bool isPiercing, int healthPercent, float pullForce)
+        protected override void UpdateStats(AbilityStats stats)
         {
-            _damage = damage.ThrowIfNegative();
-            _range = range.ThrowIfNegative();
-            _healthPercent = healthPercent.ThrowIfNegative();
+            stats.ThrowIfNull();
+            _damage = stats.Damage;
+            _range = stats.Range;
+            _healthPercent = stats.HealthPercent;
         }
     }
 }

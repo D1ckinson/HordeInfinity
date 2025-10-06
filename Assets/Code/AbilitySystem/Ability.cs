@@ -7,7 +7,6 @@ namespace Assets.Code.AbilitySystem
 {
     public abstract class Ability : IDisposable
     {
-        private readonly Transform _transform;
         private readonly AbilityConfig _config;
         private readonly Dictionary<AbilityType, int> _abilityUnlockLevel;
 
@@ -16,10 +15,9 @@ namespace Assets.Code.AbilitySystem
         private float _additionalDamage;
         private float _cooldownMultiplier = 1f;
 
-        protected Ability(AbilityConfig config, Transform transform, Dictionary<AbilityType, int> abilityUnlockLevel, int level = 1)
+        protected Ability(AbilityConfig config, Dictionary<AbilityType, int> abilityUnlockLevel, int level = 1)
         {
             _config = config.ThrowIfNull();
-            _transform = transform.ThrowIfNull();
             Level = level.ThrowIfZeroOrLess().ThrowIfMoreThan(_config.MaxLevel);
             _abilityUnlockLevel = abilityUnlockLevel.ThrowIfNullOrEmpty();
 
@@ -30,7 +28,6 @@ namespace Assets.Code.AbilitySystem
         public AbilityType Type => _config.Type;
         public int Level { get; private set; }
         public bool IsMaxed => Level == _abilityUnlockLevel[_config.Type];
-        protected Vector3 Position => _transform.position;
 
         public void Run()
         {
@@ -59,7 +56,7 @@ namespace Assets.Code.AbilitySystem
             AbilityStats stats = _config.GetStats(Level);
 
             _cooldown = stats.Cooldown;
-            UpdateStats(stats.Damage + _additionalDamage, stats.Range, stats.ProjectilesCount, stats.IsPiercing, stats.HealthPercent, stats.PullForce);
+            UpdateStats(stats);
         }
 
         public void SetAdditionalDamage(int value)
@@ -67,7 +64,9 @@ namespace Assets.Code.AbilitySystem
             _additionalDamage = value.ThrowIfNegative();
 
             AbilityStats stats = _config.GetStats(Level);
-            UpdateStats(stats.Damage + _additionalDamage, stats.Range, stats.ProjectilesCount, stats.IsPiercing, stats.HealthPercent, stats.PullForce);
+            //UpdateStats(stats.Damage + _additionalDamage, stats.Range, stats.ProjectilesCount, stats.IsPiercing, stats.HealthPercent, stats.PullForce);
+
+            throw new NotImplementedException();
         }
 
         public void SetCooldownPercent(float percent)
@@ -78,7 +77,7 @@ namespace Assets.Code.AbilitySystem
 
         public abstract void Dispose();
 
-        protected abstract void UpdateStats(float damage, float range, int projectilesCount, bool isPiercing, int healthPercent, float pullForce);
+        protected abstract void UpdateStats(AbilityStats stats);
 
         protected abstract void Apply();
     }

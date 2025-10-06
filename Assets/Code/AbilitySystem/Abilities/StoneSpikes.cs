@@ -10,14 +10,16 @@ namespace Assets.Code.AbilitySystem.Abilities
         private const float MinRadius = 1f;
 
         private readonly Pool<Spike> _pool;
+        private readonly Transform _hero;
 
         private float _damage;
         private float _maxRadius;
         private int _projectilesCount;
 
-        public StoneSpikes(AbilityConfig config, Transform transform, Dictionary<AbilityType, int> abilityUnlockLevel, int level = 1) : base(config, transform, abilityUnlockLevel, level)
+        public StoneSpikes(AbilityConfig config, Dictionary<AbilityType, int> abilityUnlockLevel, Transform hero, int level = 1) : base(config, abilityUnlockLevel, level)
         {
             AbilityStats stats = config.ThrowIfNull().GetStats(level);
+            _hero = hero.ThrowIfNull();
 
             _damage = stats.Damage;
             _projectilesCount = stats.ProjectilesCount;
@@ -43,17 +45,18 @@ namespace Assets.Code.AbilitySystem.Abilities
         {
             for (int i = Constants.Zero; i < _projectilesCount; i++)
             {
-                Vector3 position = Position + Utilities.GenerateRandomDirection() * Random.Range(MinRadius, _maxRadius);
+                Vector3 position = _hero.position + Utilities.GenerateRandomDirection() * Random.Range(MinRadius, _maxRadius);
 
                 _pool.Get().Strike(position);
             }
         }
 
-        protected override void UpdateStats(float damage, float range, int projectilesCount, bool isPiercing, int healthPercent, float pullForce)
+        protected override void UpdateStats(AbilityStats stats)
         {
-            _damage = damage.ThrowIfNegative();
-            _maxRadius = range.ThrowIfNegative();
-            _projectilesCount = projectilesCount.ThrowIfNegative();
+            stats.ThrowIfNull();
+            _damage = stats.Damage;
+            _maxRadius = stats.Range;
+            _projectilesCount = stats.ProjectilesCount;
         }
     }
 }

@@ -12,15 +12,17 @@ namespace Assets.Code.AbilitySystem.Abilities
         private readonly ParticleSystem _swingEffect;
         private readonly LayerMask _damageLayer;
         private readonly Collider[] _colliders;
+        private readonly Transform _heroCenter;
         private readonly Animator _animator;
 
         private float _damage;
         private float _radius;
 
-        public SwordStrike(AbilityConfig config, Transform transform, Animator animator, Dictionary<AbilityType, int> abilityUnlockLevel, int level = 1) : base(config, transform, abilityUnlockLevel, level)
+        public SwordStrike(AbilityConfig config, Dictionary<AbilityType, int> abilityUnlockLevel, Transform heroCenter, Animator animator, int level = 1) : base(config, abilityUnlockLevel, level)
         {
             _colliders = new Collider[MaxStrikeCount];
-            _swingEffect = config.Effect.Instantiate(transform.ThrowIfNull());
+            _heroCenter = heroCenter.ThrowIfNull();
+            _swingEffect = config.Effect.Instantiate(_heroCenter);
             _damageLayer = config.DamageLayer;
 
             AbilityStats stats = config.ThrowIfNull().GetStats(level.ThrowIfZeroOrLess());
@@ -38,7 +40,7 @@ namespace Assets.Code.AbilitySystem.Abilities
 
         protected sealed override void Apply()
         {
-            int count = Physics.OverlapSphereNonAlloc(Position, _radius, _colliders, _damageLayer);
+            int count = Physics.OverlapSphereNonAlloc(_heroCenter.position, _radius, _colliders, _damageLayer);
 
             for (int i = Constants.Zero; i < count; i++)
             {
@@ -56,10 +58,10 @@ namespace Assets.Code.AbilitySystem.Abilities
             _animator.SetTrigger(AnimationParameters.IsAttacking);
         }
 
-        protected override void UpdateStats(float damage, float range, int projectilesCount, bool isPiercing, int healthPercent, float pullForce)
+        protected override void UpdateStats(AbilityStats stats)
         {
-            _damage = damage.ThrowIfNegative();
-            _radius = range.ThrowIfNegative();
+            _damage = stats.Damage;
+            _radius = stats.Range;
             _swingEffect.SetShapeRadius(_radius);
         }
     }

@@ -61,7 +61,7 @@ namespace Assets.Scripts
             Dictionary<AbilityType, AbilityConfig> abilities = _levelSettings.AbilityConfigs;
 
             LootFactory lootFactory = new(_levelSettings.Loots);
-            AbilityFactory abilityFactory = new(abilities, heroComponents.transform, heroComponents.SwingEffectPoint, playerData.AbilityUnlockLevel, lootFactory);
+            AbilityFactory abilityFactory = new(abilities, heroComponents.transform, heroComponents.Center, playerData.AbilityUnlockLevel, lootFactory, heroComponents.Animator);
             EnemyFactory enemyFactory = new(_levelSettings.EnemyConfigs, lootFactory, heroComponents.transform, _levelSettings.EnemySpawnerSettings, gameAreaSettings, _levelSettings.GoldEnemy);
 
             LevelUpWindow levelUpWindow = new(_uIConfig.LevelUpCanvas, _uIConfig.LevelUpButton);

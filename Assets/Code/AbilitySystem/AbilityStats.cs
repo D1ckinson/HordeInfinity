@@ -16,6 +16,7 @@ namespace Assets.Code
         [field: SerializeField] public bool IsPiercing { get; private set; }
         [field: SerializeField] public int HealthPercent { get; private set; }
         [field: SerializeField] public int PullForce { get; private set; }
+        [field: SerializeField] public int BouncesQuantity { get; private set; }
         [field: SerializeField] public int Cost { get; private set; }
 
         public static AbilityStats operator -(AbilityStats a, AbilityStats b)

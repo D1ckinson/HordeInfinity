@@ -14,14 +14,16 @@ namespace Assets.Code.AbilitySystem.Abilities
         private readonly WaitForSeconds _delay = new(0.1f);
         private readonly Pool<Bomb> _bombPool;
         private readonly Pool<ParticleSystem> _effectPool;
+        private readonly Transform _launchPoint;
 
         private float _damage;
         private float _explosionRadius;
         private float _projectilesCount;
 
-        public Bombard(AbilityConfig config, Transform transform, Dictionary<AbilityType, int> abilityUnlockLevel, int level = 1) : base(config, transform, abilityUnlockLevel, level)
+        public Bombard(AbilityConfig config, Dictionary<AbilityType, int> abilityUnlockLevel, Transform launchPoint, int level = 1) : base(config, abilityUnlockLevel, level)
         {
             AbilityStats stats = config.ThrowIfNull().GetStats(level);
+            _launchPoint = launchPoint.ThrowIfNull();
 
             _damage = stats.Damage;
             _projectilesCount = stats.ProjectilesCount;
@@ -37,6 +39,7 @@ namespace Assets.Code.AbilitySystem.Abilities
 
                 return bomb;
             }
+
         }
 
         protected override void Apply()
@@ -49,7 +52,7 @@ namespace Assets.Code.AbilitySystem.Abilities
             for (int i = Constants.Zero; i < _projectilesCount; i++)
             {
                 Bomb bomb = _bombPool.Get();
-                bomb.Fly(Position, GenerateRandomPoint());
+                bomb.Fly(_launchPoint.position, GenerateRandomPoint());
 
                 yield return _delay;
             }
@@ -61,11 +64,13 @@ namespace Assets.Code.AbilitySystem.Abilities
             _bombPool.DestroyAll();
         }
 
-        protected override void UpdateStats(float damage, float range, int projectilesCount, bool isPiercing, int healthPercent, float pullForce)
+        protected override void UpdateStats(AbilityStats stats)
         {
-            _damage = damage.ThrowIfNegative();
-            _projectilesCount = projectilesCount.ThrowIfNegative();
-            _explosionRadius = range.ThrowIfNegative();
+            stats.ThrowIfNull();
+
+            _damage = stats.Damage;
+            _projectilesCount = stats.ProjectilesCount;
+            _explosionRadius = stats.Range;
 
             _bombPool.ForEach(bomb => bomb.SetStats(_damage, _explosionRadius));
         }
@@ -73,7 +78,7 @@ namespace Assets.Code.AbilitySystem.Abilities
         private Vector3 GenerateRandomPoint()
         {
             Vector3 distance = Utilities.GenerateRandomDirection() * Random.Range(Constants.One, MaxThrowDistance);
-            Vector3 point = Position + distance;
+            Vector3 point = _launchPoint.position + distance;
 
             return point;
         }

@@ -14,14 +14,16 @@ namespace Assets.Code.AbilitySystem.Abilities
         private readonly WaitForSeconds _delay = new(0.2f);
         private readonly Pool<IceSpike> _pool;
         private readonly LayerMask _damageLayer;
+        private readonly Transform _heroCenterPoint;
 
         private float _damage;
         private float _attackRadius;
         private int _projectilesCount;
 
-        public IceStuff(AbilityConfig config, Transform transform, Dictionary<AbilityType, int> abilityUnlockLevel, int level = 1) : base(config, transform, abilityUnlockLevel, level)
+        public IceStuff(AbilityConfig config, Dictionary<AbilityType, int> abilityUnlockLevel, Transform heroCenterPoint, int level = 1) : base(config, abilityUnlockLevel, level)
         {
             AbilityStats stats = config.ThrowIfNull().GetStats(level);
+            _heroCenterPoint = heroCenterPoint.ThrowIfNull();
 
             _damage = stats.Damage;
             _attackRadius = stats.Range;
@@ -50,10 +52,11 @@ namespace Assets.Code.AbilitySystem.Abilities
             CoroutineService.StartCoroutine(LaunchSpikes(), this);
         }
 
-        protected override void UpdateStats(float damage, float range, int projectilesCount, bool isPiercing, int healthPercent, float pullForce)
+        protected override void UpdateStats(AbilityStats stats)
         {
-            _damage = damage.ThrowIfNegative();
-            _projectilesCount = projectilesCount.ThrowIfNegative();
+            stats.ThrowIfNull();
+            _damage = stats.Damage;
+            _projectilesCount = stats.ProjectilesCount;
 
             _pool.ForEach(spike => spike.SetDamage(_damage));
         }
@@ -64,14 +67,14 @@ namespace Assets.Code.AbilitySystem.Abilities
 
             for (int i = Constants.Zero; i < _projectilesCount; i++)
             {
-                Physics.OverlapSphereNonAlloc(Position, _attackRadius, colliders, _damageLayer);
+                Physics.OverlapSphereNonAlloc(_heroCenterPoint.position, _attackRadius, colliders, _damageLayer);
 
                 Vector3 targetPosition = colliders
                     .Where(collider => collider.NotNull())
-                    .OrderBy(collider => (collider.transform.position - Position).sqrMagnitude)
+                    .OrderBy(collider => (collider.transform.position - _heroCenterPoint.position).sqrMagnitude)
                     .First().transform.position;
 
-                _pool.Get().Fly(Position, (targetPosition - Position).normalized);
+                _pool.Get().Fly(_heroCenterPoint.position, (targetPosition - _heroCenterPoint.position).normalized);
 
                 yield return _delay;
             }

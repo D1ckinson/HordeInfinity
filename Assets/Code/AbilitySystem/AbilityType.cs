@@ -9,6 +9,7 @@
         Bombard,
         BlackHole,
         StoneSpikes,
-        IceStuff
+        IceStuff,
+        Shuriken
     }
 }

@@ -46,12 +46,10 @@ namespace Assets.Code.AbilitySystem.Abilities
             {
                 Collider collider = _colliders[i];
 
-                if (collider.TryGetComponent(out Health health) == false)
+                if (collider.TryGetComponent(out Health health))
                 {
-                    continue;
+                    health.TakeDamage(_damage);
                 }
-
-                health.TakeDamage(_damage);
             }
 
             _swingEffect.Play();

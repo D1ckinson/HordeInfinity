@@ -50,6 +50,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: d943f98ed17a0d24f873245e56eaae86, type: 2}
   - {fileID: 11400000, guid: 782aa91345f933d49b8f4acfa1ebb47c, type: 2}
   - {fileID: 11400000, guid: 47df5121c2bf13846905754655efa7cb, type: 2}
+  - {fileID: 11400000, guid: 2c5701c1aaa07d4458adeec714f56762, type: 2}
   _fixedExperience: 1
   _experienceCoefficient: 1
   _degree: 1

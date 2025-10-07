@@ -41,6 +41,7 @@ namespace Assets.Code
                 [AbilityType.IceStuff] = CreateIceStuff,
                 [AbilityType.Shuriken] = CreateShuriken,
                 [AbilityType.Fireball] = CreateFireball,
+                [AbilityType.WindFlow] = CreateWindFlow
             };
         }
 
@@ -117,6 +118,13 @@ namespace Assets.Code
             AbilityConfig config = _configs[AbilityType.Fireball];
 
             return new Fireball(config, _abilityUnlockLevel, _heroCenter);
+        }
+
+        private Ability CreateWindFlow()
+        {
+            AbilityConfig config = _configs[AbilityType.WindFlow];
+
+            return new WindFlow(config, _abilityUnlockLevel, _hero);
         }
     }
 }

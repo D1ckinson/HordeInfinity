@@ -25,19 +25,14 @@ namespace Assets.Code.AbilitySystem.Abilities
         private void OnEnable()
         {
             _timer.Start(_lifeTime);
-            _timer.Completed += Stop;
-
-            void Stop()
-            {
-                _timer.Completed -= Stop;
-                this.SetActive(false);
-            }
+            _timer.Completed += Disable;
         }
 
         private void OnDisable()
         {
             _enemies.Clear();
             SetShape();
+            _timer.Completed -= Disable;
         }
 
         private void OnTriggerEnter(Collider other)
@@ -107,6 +102,11 @@ namespace Assets.Code.AbilitySystem.Abilities
 
             _effectZone.radius = radius;
             _effectPool?.ForEach(effect => effect.SetShapeRadius(radius));
+        }
+
+        private void Disable()
+        {
+            this.SetActive(false);
         }
     }
 }

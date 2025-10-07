@@ -11,6 +11,7 @@
         StoneSpikes,
         IceStuff,
         Shuriken,
-        Fireball
+        Fireball,
+        WindFlow
     }
 }

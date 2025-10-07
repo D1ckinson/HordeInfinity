@@ -29,6 +29,7 @@ namespace Assets.Scripts
                 [AbilityType.IceStuff] = 1,
                 [AbilityType.Shuriken] = 1,
                 [AbilityType.Fireball] = 1,
+                [AbilityType.WindFlow] = 1
             };
         }
     }

@@ -9,7 +9,7 @@ namespace Assets.Code.AbilitySystem.Abilities
     public class HolyRune : MonoBehaviour
     {
         [SerializeField] private SpriteRenderer _spriteRenderer;
-        [SerializeField] private SphereCollider _collider ;
+        [SerializeField] private SphereCollider _collider;
         [SerializeField] private Follower _follower;
 
         private readonly List<Health> _health = new();
@@ -37,7 +37,7 @@ namespace Assets.Code.AbilitySystem.Abilities
             }
         }
 
-        public void Initialize(float damage, float radius, LayerMask damageLayer,Transform followTarget)
+        public void Initialize(float damage, float radius, LayerMask damageLayer, Transform followTarget)
         {
             _damageLayer = damageLayer.ThrowIfNull();
             SetStats(damage, radius);
@@ -54,6 +54,7 @@ namespace Assets.Code.AbilitySystem.Abilities
 
         public void DealDamage()
         {
+            _health.RemoveAll(health => health.IsActive() == false);
             _health.ForEach(health => health.TakeDamage(_damage));
         }
     }

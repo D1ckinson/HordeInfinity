@@ -84,6 +84,7 @@ namespace Assets.Code.Data
                 [AbilityType.IceStuff] = "Ледяной посох",
                 [AbilityType.Shuriken] = "Сюрикен",
                 [AbilityType.Fireball] = "Огненный шар",
+                [AbilityType.WindFlow] = "Поток ветра"
             };
         }
 
@@ -120,6 +121,7 @@ namespace Assets.Code.Data
                 [AbilityType.IceStuff] = "Ice stuff",
                 [AbilityType.Shuriken] = "Shuriken",
                 [AbilityType.Fireball] = "Fireball",
+                [AbilityType.WindFlow] = "Wind Flow"
             };
         }
 

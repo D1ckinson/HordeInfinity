@@ -89,6 +89,8 @@ namespace Assets.Code.AbilitySystem.Abilities
 
                 yield return _delay;
             }
+
+            yield return null;
         }
     }
 }

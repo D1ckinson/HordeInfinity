@@ -10,6 +10,7 @@
         BlackHole,
         StoneSpikes,
         IceStuff,
-        Shuriken
+        Shuriken,
+        Fireball
     }
 }

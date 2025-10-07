@@ -14,7 +14,7 @@ namespace Assets.Code.AbilitySystem.Abilities
         private readonly WaitForSeconds _delay = new(0.2f);
         private readonly Pool<IceSpike> _pool;
         private readonly LayerMask _damageLayer;
-        private readonly Transform _heroCenterPoint;
+        private readonly Transform _heroCenter;
 
         private float _damage;
         private float _attackRadius;
@@ -23,7 +23,7 @@ namespace Assets.Code.AbilitySystem.Abilities
         public IceStuff(AbilityConfig config, Dictionary<AbilityType, int> abilityUnlockLevel, Transform heroCenterPoint, int level = 1) : base(config, abilityUnlockLevel, level)
         {
             AbilityStats stats = config.ThrowIfNull().GetStats(level);
-            _heroCenterPoint = heroCenterPoint.ThrowIfNull();
+            _heroCenter = heroCenterPoint.ThrowIfNull();
 
             _damage = stats.Damage;
             _attackRadius = stats.Range;
@@ -67,14 +67,25 @@ namespace Assets.Code.AbilitySystem.Abilities
 
             for (int i = Constants.Zero; i < _projectilesCount; i++)
             {
-                Physics.OverlapSphereNonAlloc(_heroCenterPoint.position, _attackRadius, colliders, _damageLayer);
+                Physics.OverlapSphereNonAlloc(_heroCenter.position, _attackRadius, colliders, _damageLayer);
 
-                Vector3 targetPosition = colliders
+                Collider collider = colliders
                     .Where(collider => collider.NotNull())
-                    .OrderBy(collider => (collider.transform.position - _heroCenterPoint.position).sqrMagnitude)
-                    .First().transform.position;
+                    .OrderBy(collider => (collider.transform.position - _heroCenter.position).sqrMagnitude)
+                    .First();
 
-                _pool.Get().Fly(_heroCenterPoint.position, (targetPosition - _heroCenterPoint.position).normalized);
+                Vector3 direction;
+
+                if (collider.IsNull())
+                {
+                    direction = Utilities.GenerateRandomDirection(_heroCenter.transform.position.y);
+                }
+                else
+                {
+                    direction = (collider.transform.position - _heroCenter.position).normalized;
+                }
+
+                _pool.Get().Fly(_heroCenter.position, direction);
 
                 yield return _delay;
             }

@@ -52,7 +52,7 @@ namespace Assets.Scripts.State_Machine
             _hero.AbilityContainer.Add(_abilityFactory.Create(_playerData.StartAbility));
             _hero.AbilityContainer.Run();
             _hero.Health.Died += ShowDeathWindow;
-            //_hero.LootCollector.Run();
+            _hero.LootCollector.Run();
             _hero.CharacterMovement.Run();
             _enemySpawner.Run();
             _timer.Start();

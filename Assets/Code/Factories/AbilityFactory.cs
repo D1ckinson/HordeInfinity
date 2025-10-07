@@ -40,6 +40,7 @@ namespace Assets.Code
                 [AbilityType.StoneSpikes] = CreateStoneSpikes,
                 [AbilityType.IceStuff] = CreateIceStuff,
                 [AbilityType.Shuriken] = CreateShuriken,
+                [AbilityType.Fireball] = CreateFireball,
             };
         }
 
@@ -109,6 +110,13 @@ namespace Assets.Code
             AbilityConfig config = _configs[AbilityType.Shuriken];
 
             return new Shuriken(config, _abilityUnlockLevel, _heroCenter);
+        }
+
+        private Ability CreateFireball()
+        {
+            AbilityConfig config = _configs[AbilityType.Fireball];
+
+            return new Fireball(config, _abilityUnlockLevel, _heroCenter);
         }
     }
 }

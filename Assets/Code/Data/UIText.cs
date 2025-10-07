@@ -83,6 +83,7 @@ namespace Assets.Code.Data
                 [AbilityType.StoneSpikes] = "Каменные иглы",
                 [AbilityType.IceStuff] = "Ледяной посох",
                 [AbilityType.Shuriken] = "Сюрикен",
+                [AbilityType.Fireball] = "Огненный шар",
             };
         }
 
@@ -118,6 +119,7 @@ namespace Assets.Code.Data
                 [AbilityType.StoneSpikes] = "Stone spikes",
                 [AbilityType.IceStuff] = "Ice stuff",
                 [AbilityType.Shuriken] = "Shuriken",
+                [AbilityType.Fireball] = "Fireball",
             };
         }
 

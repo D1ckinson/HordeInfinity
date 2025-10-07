@@ -54,17 +54,30 @@ namespace Assets.Code.AbilitySystem.Abilities
                 GhostSword sword = _pool.Get(false);
 
                 float angle = i * (Constants.FullCircleDegrees / _projectilesCount);
-                sword.transform.position = CalculateSwordPosition(angle);
-                sword.transform.rotation = Quaternion.LookRotation(sword.transform.position - _heroCenter.position);
+
+                Vector3 localPosition = CalculateSwordLocalPosition(angle);
+                sword.transform.SetParent(_heroCenter);
+                sword.transform.localPosition = localPosition;
+
+                sword.transform.localRotation = Quaternion.LookRotation(localPosition.normalized);
 
                 sword.SetActive(true);
-                sword.transform.SetParent(_heroCenter);
                 _spawnedSwords.Add(sword);
 
                 yield return _actionWait;
             }
 
             CoroutineService.StartCoroutine(LaunchSwords(), this);
+        }
+
+        private Vector3 CalculateSwordLocalPosition(float angle)
+        {
+            float radianAngle = angle * Mathf.Deg2Rad;
+
+            float x = Mathf.Cos(radianAngle) * Constants.One;
+            float z = Mathf.Sin(radianAngle) * Constants.One;
+
+            return new Vector3(x, Constants.Zero, z);
         }
 
         private IEnumerator LaunchSwords()
@@ -76,16 +89,6 @@ namespace Assets.Code.AbilitySystem.Abilities
 
                 yield return _actionWait;
             }
-        }
-
-        private Vector3 CalculateSwordPosition(float angle)
-        {
-            float radianAngle = angle * Mathf.Deg2Rad;
-
-            float x = _heroCenter.position.x + Mathf.Cos(radianAngle) * Constants.One;
-            float z = _heroCenter.position.z + Mathf.Sin(radianAngle) * Constants.One;
-
-            return new Vector3(x, _heroCenter.position.y, z);
         }
 
         public override void Dispose()

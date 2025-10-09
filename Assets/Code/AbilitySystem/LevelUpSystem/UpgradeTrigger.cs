@@ -36,7 +36,7 @@ namespace Assets.Code.AbilitySystem
         {
             if (_heroExperience.NotNull())
             {
-                _heroExperience.LevelRaised -= GenerateUpgrades;
+                _heroExperience.LevelChanged -= GenerateUpgrades;
             }
 
             if (_levelUpWindow.NotNull())
@@ -49,7 +49,7 @@ namespace Assets.Code.AbilitySystem
 
         public void Run()
         {
-            _heroExperience.LevelRaised += GenerateUpgrades;
+            _heroExperience.LevelChanged += GenerateUpgrades;
             _levelUpWindow.UpgradeChosen += UpgradeAbility;
         }
 
@@ -57,7 +57,7 @@ namespace Assets.Code.AbilitySystem
         {
             _levelUpWindow.Hide();
 
-            _heroExperience.LevelRaised -= GenerateUpgrades;
+            _heroExperience.LevelChanged -= GenerateUpgrades;
             _levelUpWindow.UpgradeChosen -= UpgradeAbility;
         }
 

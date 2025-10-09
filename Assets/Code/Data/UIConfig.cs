@@ -31,5 +31,6 @@ namespace Assets.Code.Data
         public Joystick Joystick;
         public LeaderboardWindow Leaderboard;
         public PauseWindow PauseWindow;
+        public GameWindow GameWindow;
     }
 }

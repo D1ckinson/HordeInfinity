@@ -20,38 +20,15 @@ namespace Assets.Scripts
         private float _attractionRadius;
         private Wallet _wallet;
         private HeroLevel _heroLevel;
-        private bool _isRunning;
 
         public float CollectedGold { get; private set; }
+
+        public event Action<int> GoldValueChanged;
 
         private void Awake()
         {
             _collectArea = GetComponent<SphereCollider>();
             _collectArea.isTrigger = true;
-        }
-
-        private void FixedUpdate()
-        {
-            if (_isRunning == false)
-            {
-                return;
-            }
-
-            for (int i = _toCollect.LastIndex(); i >= Constants.Zero; i--)
-            {
-                Loot loot = _toCollect[i];
-
-                Vector3 distance = transform.position - loot.transform.position;
-                Vector3 rawDirection = distance / (distance.magnitude + Constants.One);
-
-                loot.Rigidbody.velocity = rawDirection * _pullSpeed;
-                if (distance.sqrMagnitude <= CollectDistance)
-                {
-                    int collectValue = loot.Collect();
-                    CollectValue(loot.Type, collectValue);
-                    _toCollect.Remove(loot);
-                }
-            }
         }
 
         private void OnTriggerEnter(Collider other)
@@ -89,14 +66,14 @@ namespace Assets.Scripts
 
         public void Run()
         {
-            _isRunning = true;
             UpdateService.RegisterUpdate(TransferExperience);
+            UpdateService.RegisterFixedUpdate(AttractLoot);
         }
 
         public void Stop()
         {
-            _isRunning = false;
             UpdateService.UnregisterUpdate(TransferExperience);
+            UpdateService.UnregisterFixedUpdate(AttractLoot);
         }
 
         public void TransferGold()
@@ -104,6 +81,9 @@ namespace Assets.Scripts
             if (CollectedGold > Constants.Zero)
             {
                 _wallet.Add((int)CollectedGold);
+
+                CollectedGold = Constants.Zero;
+                GoldValueChanged?.Invoke((int)CollectedGold);
             }
         }
 
@@ -124,7 +104,27 @@ namespace Assets.Scripts
             if (_time > ExperienceTransferDelay)
             {
                 _heroLevel.Transfer();
-                _time = 0;
+                _time = Constants.Zero;
+            }
+        }
+
+        private void AttractLoot()
+        {
+            for (int i = _toCollect.LastIndex(); i >= Constants.Zero; i--)
+            {
+                Loot loot = _toCollect[i];
+
+                Vector3 distance = transform.position - loot.transform.position;
+                Vector3 rawDirection = distance / (distance.magnitude + Constants.One);
+
+                loot.Rigidbody.velocity = rawDirection * _pullSpeed;
+
+                if (distance.sqrMagnitude <= CollectDistance)
+                {
+                    int collectValue = loot.Collect();
+                    CollectValue(loot.Type, collectValue);
+                    _toCollect.Remove(loot);
+                }
             }
         }
 
@@ -145,12 +145,18 @@ namespace Assets.Scripts
                     break;
 
                 case LootType.Coin:
-                    CollectedGold += collectValue;
+                    CollectGold(collectValue);
                     break;
 
                 default:
                     throw new NotImplementedException();
             }
+        }
+
+        private void CollectGold(int collectValue)
+        {
+            CollectedGold += collectValue.ThrowIfNegative();
+            GoldValueChanged?.Invoke((int)CollectedGold);
         }
     }
 }

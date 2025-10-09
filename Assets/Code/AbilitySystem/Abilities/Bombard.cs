@@ -9,7 +9,7 @@ namespace Assets.Code.AbilitySystem.Abilities
 {
     public class Bombard : Ability
     {
-        private const float MaxThrowDistance = 10f;
+        private const float MaxThrowDistance = 15f;
 
         private readonly WaitForSeconds _delay = new(0.1f);
         private readonly Pool<Bomb> _bombPool;

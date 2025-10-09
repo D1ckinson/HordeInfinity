@@ -117,6 +117,7 @@ namespace Assets.Code.Ui.Windows
 
             UpdateAllOptions(_wallet.CoinsQuantity);
             YG2.SaveProgress();
+            YG2.saves.Save();
         }
 
         private void UpdateAllOptions(float coinsQuantity)

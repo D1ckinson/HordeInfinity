@@ -10,7 +10,7 @@ namespace Assets.Code.Spawners
     public class EnemySpawner
     {
         private readonly EnemyFactory _enemyFactory;
-        private readonly Timer _timer;
+        private readonly Timer _timer = new();
         private readonly SpawnTypeByTime[] _spawnTypeByTime;
 
         private int _spawnTypeIndex = -1;
@@ -24,8 +24,6 @@ namespace Assets.Code.Spawners
         {
             _enemyFactory = enemyFactory.ThrowIfNull();
             _spawnTypeByTime = spawnTypeByTime.ThrowIfNullOrEmpty();
-
-            _timer = new();
         }
 
         public void Run()

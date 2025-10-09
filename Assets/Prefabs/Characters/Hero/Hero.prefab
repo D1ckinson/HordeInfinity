@@ -753,6 +753,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <Center>k__BackingField: {fileID: 7567980103716653656}
+  <AudioSource>k__BackingField: {fileID: 0}
 --- !u!136 &8721791577964659855
 CapsuleCollider:
   m_ObjectHideFlags: 0

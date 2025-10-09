@@ -7,20 +7,18 @@ namespace Assets.Code.AbilitySystem.Abilities
 {
     public class SwordStrike : Ability
     {
-        private const int MaxStrikeCount = 50;
-
         private readonly ParticleSystem _swingEffect;
         private readonly LayerMask _damageLayer;
-        private readonly Collider[] _colliders;
+        private readonly Collider[] _colliders = new Collider[50];
         private readonly Transform _heroCenter;
         private readonly Animator _animator;
+        private readonly AudioSource _audioSource;
 
         private float _damage;
         private float _radius;
 
         public SwordStrike(AbilityConfig config, Dictionary<AbilityType, int> abilityUnlockLevel, Transform heroCenter, Animator animator, int level = 1) : base(config, abilityUnlockLevel, level)
         {
-            _colliders = new Collider[MaxStrikeCount];
             _heroCenter = heroCenter.ThrowIfNull();
             _swingEffect = config.Effect.Instantiate(_heroCenter);
             _damageLayer = config.DamageLayer;
@@ -30,12 +28,15 @@ namespace Assets.Code.AbilitySystem.Abilities
             _damage = stats.Damage;
             _radius = stats.Range;
             _swingEffect.SetShapeRadius(_radius);
-            _animator = animator;
+
+            _animator = animator.ThrowIfNull();
+            _audioSource = config.AudioSource.Instantiate();
         }
 
         public override void Dispose()
         {
             _swingEffect.DestroyGameObject();
+            _audioSource.DestroyGameObject();
         }
 
         protected sealed override void Apply()
@@ -54,6 +55,8 @@ namespace Assets.Code.AbilitySystem.Abilities
 
             _swingEffect.Play();
             _animator.SetTrigger(AnimationParameters.IsAttacking);
+            _audioSource.transform.position = _heroCenter.position;
+            _audioSource.PlayRandomPitch();
         }
 
         protected override void UpdateStats(AbilityStats stats)

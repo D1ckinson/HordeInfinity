@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 using Object = UnityEngine.Object;
+using Random = UnityEngine.Random;
 
 namespace Assets.Code.Tools
 {
@@ -220,6 +221,12 @@ namespace Assets.Code.Tools
         {
             ParticleSystem.ShapeModule shapeModule = system.shape;
             shapeModule.radius = radius;
+        }
+
+        public static void PlayRandomPitch(this AudioSource audioSource, float minPitch = 0.9f, float maxPitch = 1.1f)
+        {
+            audioSource.pitch = Random.Range(minPitch, maxPitch);
+            audioSource.Play();
         }
     }
 }

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 101ae2e3c0766ec4d989024aa13dfe6c, type: 3}
   m_Name: Bombard
   m_EditorClassIdentifier: 
-  <ProjectilePrefab>k__BackingField: {fileID: 4106377886605327342, guid: 9e08eaeb4e972c345871b9f7bbad234d, type: 3}
+  <ProjectilePrefab>k__BackingField: {fileID: 4606851820507417378, guid: 34077f8ae848ab045a237087d1d3b86c, type: 3}
   <Effect>k__BackingField: {fileID: 6149062793452012450, guid: 0ba8309ecf4fa3f4d91f7c04ff38d3ae, type: 3}
   <DamageLayer>k__BackingField:
     serializedVersion: 2
@@ -27,6 +27,7 @@ MonoBehaviour:
     <IsPiercing>k__BackingField: 0
     <HealthPercent>k__BackingField: 0
     <PullForce>k__BackingField: 0
+    <BouncesQuantity>k__BackingField: 0
     <Cost>k__BackingField: 10
   - <Cooldown>k__BackingField: 1
     <Damage>k__BackingField: 40
@@ -35,4 +36,5 @@ MonoBehaviour:
     <IsPiercing>k__BackingField: 0
     <HealthPercent>k__BackingField: 0
     <PullForce>k__BackingField: 0
+    <BouncesQuantity>k__BackingField: 0
     <Cost>k__BackingField: 20

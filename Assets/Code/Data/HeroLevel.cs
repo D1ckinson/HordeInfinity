@@ -12,18 +12,19 @@ namespace Assets.Scripts
 
         private float _buffer;
         private float _lootPercent = 1;
-        private float _levelUpValue;
 
         public int Level { get; private set; } = 1;
         public float Value { get; private set; } = 0;
+        public float LevelUpValue { get; private set; }
 
         public HeroLevel(Func<int, int> experienceFormula)
         {
             _experienceFormula = experienceFormula.ThrowIfNull();
-            _levelUpValue = _experienceFormula.Invoke(Level);
+            LevelUpValue = _experienceFormula.Invoke(Level);
         }
 
-        public event Action<int> LevelRaised;
+        public event Action<int> LevelChanged;
+        public event Action ValueChanged;
 
         public void Add(int value)
         {
@@ -35,7 +36,10 @@ namespace Assets.Scripts
             _buffer = Constants.Zero;
             Level = Constants.One;
             Value = Constants.Zero;
-            _levelUpValue = _experienceFormula.Invoke(Level);
+            LevelUpValue = _experienceFormula.Invoke(Level);
+
+            LevelChanged?.Invoke(Level);
+            ValueChanged?.Invoke();
         }
 
         public void SetLootPercent(int percent)
@@ -52,8 +56,9 @@ namespace Assets.Scripts
 
             _buffer -= TransferValue;
             Value += TransferValue;
+            ValueChanged?.Invoke();
 
-            if (Value >= _levelUpValue)
+            if (Value >= LevelUpValue)
             {
                 LevelUp();
             }
@@ -61,11 +66,13 @@ namespace Assets.Scripts
 
         private void LevelUp()
         {
-            Value -= _levelUpValue;
-            _levelUpValue = _experienceFormula.Invoke(Level);
+            Value -= LevelUpValue;
+            LevelUpValue = _experienceFormula.Invoke(Level);
+
+            ValueChanged?.Invoke();
 
             Level++;
-            LevelRaised?.Invoke(Level);
+            LevelChanged?.Invoke(Level);
         }
     }
 }

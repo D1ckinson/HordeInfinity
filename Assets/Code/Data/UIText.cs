@@ -13,6 +13,7 @@ namespace Assets.Code.Data
         private static Dictionary<AbilityType, string> _abilityName;
 
         public static string LevelMax { get; private set; }
+        public static string LevelCut { get; private set; }
         public static string Level { get; private set; }
         public static string Play { get; private set; }
         public static string Shop { get; private set; }
@@ -54,7 +55,8 @@ namespace Assets.Code.Data
         private static void FillRu()
         {
             LevelMax = "Макс";
-            Level = "Ур";
+            LevelCut = "Ур";
+            Level = "Уровень";
             Play = "Играть";
             Shop = "Магазин";
             Upgrade = "Улучшить";
@@ -91,7 +93,8 @@ namespace Assets.Code.Data
         private static void FillEn()
         {
             LevelMax = "Max";
-            Level = "Lvl";
+            LevelCut = "Lvl";
+            Level = "Level";
             Play = "Play";
             Shop = "Shop";
             Upgrade = "Upgrade";

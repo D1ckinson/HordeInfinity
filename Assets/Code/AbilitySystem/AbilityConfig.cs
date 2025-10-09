@@ -14,6 +14,7 @@ namespace Assets.Code
         [field: SerializeField] public LayerMask DamageLayer { get; private set; }
         [field: SerializeField] public AbilityType Type { get; private set; }
         [field: SerializeField] public Sprite Icon { get; private set; }
+        [field: SerializeField] public AudioSource AudioSource { get; private set; }
 
         [Header("Upgrades")]
         [SerializeField] private List<AbilityStats> _abilityStats;

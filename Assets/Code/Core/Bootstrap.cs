@@ -48,15 +48,16 @@ namespace Assets.Scripts
             PlayerData playerData = YG2.saves.Load();
             playerData.Wallet.Add(1000);///////////////////////////////
             ITimeService timeService = new TimeService();
-            UiFactory uiFactory = new(_uIConfig, playerData.Wallet, _levelSettings.UpgradeCost, _levelSettings.AbilityConfigs, playerData.AbilityUnlockLevel);
+            HeroLevel heroLevel = new(_levelSettings.CalculateExperienceForNextLevel);
+            UiFactory uiFactory = new(_uIConfig, playerData.Wallet, _levelSettings.UpgradeCost, _levelSettings.AbilityConfigs, playerData.AbilityUnlockLevel, heroLevel);
 
             IInputService inputService = new InputReader(uiFactory.Create<Joystick>(), timeService);
 
             GameAreaSettings gameAreaSettings = _levelSettings.GameAreaSettings;
 
-            HeroLevel heroLevel = new(_levelSettings.CalculateExperienceForNextLevel);
             HeroComponents heroComponents = new HeroFactory(_levelSettings.HeroConfig, playerData.Wallet, heroLevel, inputService).Create(gameAreaSettings.Center);
             heroComponents.Initialize(heroLevel, gameAreaSettings.Center);
+            uiFactory.AddLootCollector(heroComponents.LootCollector);
 
             Dictionary<AbilityType, AbilityConfig> abilities = _levelSettings.AbilityConfigs;
 

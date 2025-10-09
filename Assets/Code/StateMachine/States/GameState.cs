@@ -49,6 +49,9 @@ namespace Assets.Scripts.State_Machine
             deathWindow.BackToMenuButton.Subscribe(OnExit);
             deathWindow.ContinueForAddButton.Subscribe(ShowAdd);
 
+            GameWindow gameWindow = _uiFactory.Create<GameWindow>();
+            gameWindow.PauseButton.Subscribe(Pause);
+
             _hero.AbilityContainer.Add(_abilityFactory.Create(_playerData.StartAbility));
             _hero.AbilityContainer.Run();
             _hero.Health.Died += ShowDeathWindow;
@@ -77,6 +80,9 @@ namespace Assets.Scripts.State_Machine
             pauseWindow.ExitButton.Unsubscribe(OnExit);
             pauseWindow.ContinueButton.Unsubscribe(_timeService.Continue);
 
+            GameWindow gameWindow = _uiFactory.Create<GameWindow>(false);
+            gameWindow.PauseButton.Subscribe(Pause);
+
             _hero.Health.Died -= ShowDeathWindow;
             _hero.AbilityContainer.RemoveAll();
             _hero.LootCollector.TransferGold();
@@ -95,7 +101,7 @@ namespace Assets.Scripts.State_Machine
             _timer.Stop();
             _enemySpawner.Reset();
 
-            YG2.SaveProgress();
+            YG2.saves.Save();
         }
 
         private void OnExit()
@@ -115,7 +121,7 @@ namespace Assets.Scripts.State_Machine
 
         private void Continue()
         {
-            if (_upgradeTrigger.IsOffering==false)
+            if (_upgradeTrigger.IsOffering == false)
             {
                 _timeService.Continue();
             }

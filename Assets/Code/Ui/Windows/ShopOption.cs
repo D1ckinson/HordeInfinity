@@ -25,7 +25,7 @@ namespace Assets.Code.Ui.Windows
 
             AbilityName.SetText(UIText.AbilityName[abilityType]);
             UpgradeText.SetText(UIText.Upgrade);
-            LevelText.SetText(UIText.Level);
+            LevelText.SetText(UIText.LevelCut);
             LevelMaxText.SetText(UIText.LevelMax);
 
             return this;

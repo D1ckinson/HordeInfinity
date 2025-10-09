@@ -20,16 +20,22 @@ namespace Assets.Code.Ui
         private readonly Dictionary<AbilityType, int[]> _upgradeCost;
         private readonly Dictionary<AbilityType, int> _abilityUnlockLevel;
         private readonly Dictionary<AbilityType, int> _abilityMaxLevel;
+        private readonly HeroLevel _heroLevel;
 
-        public UiFactory(UIConfig uIConfig, Wallet wallet, Dictionary<AbilityType, int[]> upgradeCost, Dictionary<AbilityType, AbilityConfig> abilityConfigs, Dictionary<AbilityType, int> abilityUnlockLevel)
+        private LootCollector _lootCollector;
+
+        public UiFactory(UIConfig uIConfig, Wallet wallet, Dictionary<AbilityType, int[]> upgradeCost,
+            Dictionary<AbilityType, AbilityConfig> abilityConfigs, Dictionary<AbilityType, int> abilityUnlockLevel,
+            HeroLevel heroLevel)
         {
             _uIConfig = uIConfig.ThrowIfNull();
             _wallet = wallet.ThrowIfNull();
             _upgradeCost = upgradeCost.ThrowIfNullOrEmpty();
             _abilityConfigs = abilityConfigs.ThrowIfNullOrEmpty();
             _abilityUnlockLevel = abilityUnlockLevel.ThrowIfNullOrEmpty();
-            _abilityMaxLevel = abilityConfigs.ToDictionary(pair => pair.Key, pair => pair.Value.MaxLevel); ;
+            _abilityMaxLevel = abilityConfigs.ToDictionary(pair => pair.Key, pair => pair.Value.MaxLevel);
             _canvas = Object.Instantiate(_uIConfig.TestCanvasUiFactory);
+            _heroLevel = heroLevel.ThrowIfNull();
 
             _createMethods = new()
             {
@@ -40,8 +46,14 @@ namespace Assets.Code.Ui
                 [typeof(ShopWindow)] = CreateShopWindow,
                 [typeof(Joystick)] = CreateJoystick,
                 [typeof(LeaderboardWindow)] = CreateLeaderboardWindow,
-                [typeof(PauseWindow)] = CreatePauseWindow
+                [typeof(PauseWindow)] = CreatePauseWindow,
+                [typeof(GameWindow)] = CreateGameWindow
             };
+        }
+
+        public void AddLootCollector(LootCollector collector)
+        {
+            _lootCollector = collector.ThrowIfNull();
         }
 
         public T Create<T>(bool isActive = true) where T : BaseWindow
@@ -107,6 +119,11 @@ namespace Assets.Code.Ui
         private BaseWindow CreatePauseWindow()
         {
             return _uIConfig.PauseWindow.Instantiate(_canvas.Container, false);
+        }
+
+        private BaseWindow CreateGameWindow()
+        {
+            return _uIConfig.GameWindow.Instantiate(_canvas.Container, false).Initialize(_lootCollector, _heroLevel);
         }
     }
 }

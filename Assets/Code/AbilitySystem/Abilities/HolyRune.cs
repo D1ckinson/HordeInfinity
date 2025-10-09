@@ -8,8 +8,6 @@ namespace Assets.Code.AbilitySystem.Abilities
 {
     public class HolyRune : MonoBehaviour
     {
-        [SerializeField] private SpriteRenderer _spriteRenderer;
-        [SerializeField] private SphereCollider _collider;
         [SerializeField] private Follower _follower;
 
         private readonly List<Health> _health = new();
@@ -49,7 +47,7 @@ namespace Assets.Code.AbilitySystem.Abilities
             _damage = damage.ThrowIfNegative();
 
             float scale = radius.ThrowIfZeroOrLess() / Constants.Two;
-            transform.localScale = new(scale, scale, Constants.One);
+            transform.localScale = new(scale, Constants.One, scale);
         }
 
         public void DealDamage()

@@ -27,3 +27,4 @@ MonoBehaviour:
   Joystick: {fileID: 7908455361447458406, guid: 58897ad0fc4f97a42bd660c08c22efa7, type: 3}
   Leaderboard: {fileID: 2461835346802699086, guid: c2b4b5047ad2da54bada2c15a9245e8d, type: 3}
   PauseWindow: {fileID: 354101141810175712, guid: c77e84f3a7b00a5499360cf086ec1c6b, type: 3}
+  GameWindow: {fileID: 923566494473273800, guid: c24a4254e17bdb44ba63be1d40cdfd83, type: 3}

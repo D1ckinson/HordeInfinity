@@ -15,19 +15,23 @@ namespace Assets.Code.Ui.Windows
         [SerializeField] private TMP_Text _minutesQuantity;
         [SerializeField] private TMP_Text _coinsQuantity;
 
-        [field: SerializeField] public Button VolumeButton { get; private set; }
+        [field: SerializeField] public ToggleButton VolumeButton { get; private set; }
         [field: SerializeField] public Button LeaderboardButton { get; private set; }
         [field: SerializeField] public Button RemoveAdButton { get; private set; }
         [field: SerializeField] public Button ShopButton { get; private set; }
         [field: SerializeField] public Button PlayButton { get; private set; }
 
         private Wallet _wallet;
+        private AudioListener _listener;
 
         private void Awake()
         {
             LeaderboardButton.Subscribe(Disable);
             ShopButton.Subscribe(Disable);
             PlayButton.Subscribe(Disable);
+
+            _listener = Camera.main.GetComponentOrThrow<AudioListener>();
+            VolumeButton.Clicked += ToggleSound;
         }
 
         private void OnDestroy()
@@ -35,6 +39,7 @@ namespace Assets.Code.Ui.Windows
             LeaderboardButton.Unsubscribe(Disable);
             ShopButton.Unsubscribe(Disable);
             PlayButton.Unsubscribe(Disable);
+            VolumeButton.Clicked -= ToggleSound;
 
             if (_wallet.NotNull())
             {
@@ -58,6 +63,11 @@ namespace Assets.Code.Ui.Windows
         private void UpdateCoinsQuantity(float coinsQuantity)
         {
             _coinsQuantity.SetText((int)coinsQuantity);
+        }
+
+        private void ToggleSound(bool isOn)
+        {
+            _listener.enabled = isOn;
         }
     }
 }

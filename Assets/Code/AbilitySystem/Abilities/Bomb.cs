@@ -12,6 +12,7 @@ namespace Assets.Code.AbilitySystem.Abilities
 
         [SerializeField][Min(1)] private float _arcHeight = 5f;
         [SerializeField][Min(0.01f)] private float _airTime = 1f;
+        [SerializeField][Min(0.01f)] private float _rotationSpeed = 5f;
 
         private readonly Collider[] _colliders = new Collider[20];
 
@@ -20,6 +21,11 @@ namespace Assets.Code.AbilitySystem.Abilities
         private Pool<ParticleSystem> _effectPool;
         private LayerMask _damageLayer;
         private Tween _currentTween;
+
+        private void Update()
+        {
+            transform.Rotate(Constants.Zero, _rotationSpeed*Time.deltaTime, Constants.Zero);
+        }
 
         private void OnDestroy()
         {

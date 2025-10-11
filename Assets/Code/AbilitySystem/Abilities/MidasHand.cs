@@ -13,6 +13,7 @@ namespace Assets.Code.AbilitySystem.Abilities
         private readonly Collider[] _colliders = new Collider[50];
         private readonly Transform _heroCenter;
         private readonly LootFactory _lootFactory;
+        private readonly AudioSource _hitSound;
 
         private float _damage;
         private float _range;
@@ -29,9 +30,13 @@ namespace Assets.Code.AbilitySystem.Abilities
             _damage = stats.Damage.ThrowIfNegative();
             _range = stats.Range.ThrowIfNegative();
             _healthPercent = stats.HealthPercent.ThrowIfNegative();
+            _hitSound = config.HitSound.Instantiate(heroCenter);
         }
 
-        public override void Dispose() { }
+        public override void Dispose()
+        {
+            _hitSound.DestroyGameObject();
+        }
 
         protected override void Apply()
         {
@@ -57,7 +62,13 @@ namespace Assets.Code.AbilitySystem.Abilities
                 float floatPercent = (float)_healthPercent / Constants.Hundred;
                 int coinsCount = (int)(health.MaxValue * floatPercent);
 
+                if (coinsCount <= Constants.Zero)
+                {
+                    coinsCount = Constants.One;
+                }
+
                 _lootFactory.Spawn(LootType.Coin, closest.transform.position, coinsCount);
+                _hitSound.Play();
             }
         }
 

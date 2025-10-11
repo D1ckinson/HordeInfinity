@@ -13,8 +13,10 @@ namespace Assets.Code.AbilitySystem.Abilities
 
         private readonly WaitForSeconds _delay = new(0.1f);
         private readonly Pool<Bomb> _bombPool;
-        private readonly Pool<ParticleSystem> _effectPool;
+        private readonly Pool<ParticleSystem> _visualEffectPool;
+        private readonly Pool<AudioSource> _hitSoundPool;
         private readonly Transform _launchPoint;
+        private readonly AudioSource _throwSound;
 
         private float _damage;
         private float _explosionRadius;
@@ -29,17 +31,18 @@ namespace Assets.Code.AbilitySystem.Abilities
             _projectilesCount = stats.ProjectilesCount;
             _explosionRadius = stats.Range;
 
-            _effectPool = new(() => config.Effect.Instantiate());
+            _visualEffectPool = new(() => config.Effect.Instantiate());
+            _hitSoundPool = new(() => config.HitSound.Instantiate());
             _bombPool = new(CreateBomb);
+            _throwSound = config.ThrowSound.Instantiate();
 
             Bomb CreateBomb()
             {
                 Bomb bomb = config.ProjectilePrefab.GetComponentOrThrow<Bomb>().Instantiate();
-                bomb.Initialize(_damage, _explosionRadius, config.DamageLayer, _effectPool);
+                bomb.Initialize(_damage, _explosionRadius, config.DamageLayer, _visualEffectPool, _hitSoundPool);
 
                 return bomb;
             }
-
         }
 
         protected override void Apply()
@@ -53,6 +56,7 @@ namespace Assets.Code.AbilitySystem.Abilities
             {
                 Bomb bomb = _bombPool.Get();
                 bomb.Fly(_launchPoint.position, GenerateRandomPoint());
+                _throwSound.PlayRandomPitch();
 
                 yield return _delay;
             }
@@ -61,7 +65,11 @@ namespace Assets.Code.AbilitySystem.Abilities
         public override void Dispose()
         {
             CoroutineService.StopAllCoroutines(this);
+            _throwSound.DestroyGameObject();
+
             _bombPool.DestroyAll();
+            _hitSoundPool.DestroyAll();
+            _visualEffectPool.DestroyAll();
         }
 
         protected override void UpdateStats(AbilityStats stats)

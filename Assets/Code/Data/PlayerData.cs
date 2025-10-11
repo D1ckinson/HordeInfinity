@@ -15,7 +15,7 @@ namespace Assets.Scripts
         public PlayerData()
         {
             Wallet = new();
-            StartAbility = AbilityType.SwordStrike;
+            StartAbility = AbilityType.WindFlow;
 
             AbilityUnlockLevel = new()
             {

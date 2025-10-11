@@ -39,6 +39,26 @@ namespace Assets.Scripts.Tools
             return item;
         }
 
+        public T Get(Transform position, bool isActive = true)
+        {
+            T item = _items.FirstOrDefault(item => item.gameObject.activeSelf == false) ?? Create();
+
+            item.transform.position = position.position;
+            item.gameObject.SetActive(isActive);
+
+            return item;
+        }
+
+        public T Get(Vector3 position, bool isActive = true)
+        {
+            T item = _items.FirstOrDefault(item => item.gameObject.activeSelf == false) ?? Create();
+
+            item.transform.position = position;
+            item.gameObject.SetActive(isActive);
+
+            return item;
+        }
+
         public void DisableAll()
         {
             _items.ForEach(item => item.SetActive(false));

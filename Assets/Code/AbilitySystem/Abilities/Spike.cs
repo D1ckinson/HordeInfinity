@@ -53,7 +53,6 @@ namespace Assets.Code.AbilitySystem.Abilities
             Vector3 startPosition = position - _height;
             transform.position = startPosition;
 
-
             _animationSequence = DOTween.Sequence()
                 .Append(transform.DOMove(position, _revealDuration)
                 .SetEase(Ease.OutBack))

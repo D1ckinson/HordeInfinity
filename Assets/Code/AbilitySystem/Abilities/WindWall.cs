@@ -10,6 +10,7 @@ namespace Assets.Code.AbilitySystem.Abilities
         [SerializeField][Min(1f)] private float _speed = 10f;
         [SerializeField][Min(1f)] private float _lifeTime = 2f;
         [SerializeField][Min(1f)] private float _pushForce = 5f;
+        [SerializeField] private AudioSource _sound;
 
         private readonly Timer _timer = new();
 
@@ -46,6 +47,8 @@ namespace Assets.Code.AbilitySystem.Abilities
         {
             _timer.Start(_lifeTime);
             _timer.Completed += Disable;
+            _sound.PlayRandomPitch();
+
             UpdateService.RegisterUpdate(Move);
         }
 

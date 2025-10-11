@@ -228,5 +228,15 @@ namespace Assets.Code.Tools
             audioSource.pitch = Random.Range(minPitch, maxPitch);
             audioSource.Play();
         }
+
+        public static void SetPosition(this Component component, Transform transform)
+        {
+            component.transform.position = transform.position;
+        }
+
+        public static void SetPosition(this Component component, Vector3 position)
+        {
+            component.transform.position = position;
+        }
     }
 }

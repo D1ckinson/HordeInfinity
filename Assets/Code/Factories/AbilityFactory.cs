@@ -1,6 +1,7 @@
 ﻿using Assets.Code.AbilitySystem;
 using Assets.Code.AbilitySystem.Abilities;
 using Assets.Code.Tools;
+using Assets.Scripts;
 using Assets.Scripts.Factories;
 using System;
 using System.Collections.Generic;
@@ -18,8 +19,10 @@ namespace Assets.Code
         private readonly Dictionary<AbilityType, int> _abilityUnlockLevel;
         private readonly LootFactory _lootFactory;
         private readonly Animator _animator;
+        private readonly ITimeService _timeService;
 
-        public AbilityFactory(Dictionary<AbilityType, AbilityConfig> configs, Transform hero, Transform heroCenter, Dictionary<AbilityType, int> abilityUnlockLevel, LootFactory lootFactory, Animator animator)
+        public AbilityFactory(Dictionary<AbilityType, AbilityConfig> configs, Transform hero, Transform heroCenter,
+            Dictionary<AbilityType, int> abilityUnlockLevel, LootFactory lootFactory, Animator animator, ITimeService timeService)
         {
             _configs = configs.ThrowIfNullOrEmpty();
             _hero = hero.ThrowIfNull();
@@ -28,6 +31,7 @@ namespace Assets.Code
             _abilityUnlockLevel = abilityUnlockLevel.ThrowIfNull();
             _lootFactory = lootFactory.ThrowIfNull();
             _animator = animator.ThrowIfNull();
+            _timeService = timeService.ThrowIfNull();
 
             _createFunctions = new()
             {
@@ -68,7 +72,7 @@ namespace Assets.Code
         {
             AbilityConfig config = _configs[AbilityType.HolyGround];
 
-            return new HolyGround(config, _abilityUnlockLevel, _hero);
+            return new HolyGround(config, _abilityUnlockLevel, _hero, _timeService);
         }
 
         private Ability CreateMidasHand()
@@ -89,7 +93,7 @@ namespace Assets.Code
         {
             AbilityConfig config = _configs[AbilityType.BlackHole];
 
-            return new BlackHole(config, _abilityUnlockLevel, _heroCenter);
+            return new BlackHole(config, _abilityUnlockLevel, _heroCenter, _timeService);
         }
 
         private Ability CreateStoneSpikes()
@@ -110,14 +114,14 @@ namespace Assets.Code
         {
             AbilityConfig config = _configs[AbilityType.Shuriken];
 
-            return new Shuriken(config, _abilityUnlockLevel, _heroCenter);
+            return new Shuriken(config, _abilityUnlockLevel, _heroCenter, _timeService);
         }
 
         private Ability CreateFireball()
         {
             AbilityConfig config = _configs[AbilityType.Fireball];
 
-            return new Fireball(config, _abilityUnlockLevel, _heroCenter);
+            return new Fireball(config, _abilityUnlockLevel, _heroCenter, _timeService);
         }
 
         private Ability CreateWindFlow()

@@ -18,6 +18,8 @@ namespace Assets.Code.AbilitySystem.Abilities
 
         private LayerMask _damageLayer;
         private Pool<ParticleSystem> _effectPool;
+        private AudioSource _sound;
+
         private float _damage;
         private float _pullForce;
         private float _radius;
@@ -33,6 +35,11 @@ namespace Assets.Code.AbilitySystem.Abilities
             _enemies.Clear();
             SetShape();
             _timer.Completed -= Disable;
+        }
+
+        private void OnDestroy()
+        {
+            _sound.DestroyGameObject();
         }
 
         private void OnTriggerEnter(Collider other)
@@ -66,10 +73,11 @@ namespace Assets.Code.AbilitySystem.Abilities
             }
         }
 
-        public BlackHoleProjectile Initialize(LayerMask damageLayer, float damage, float radius, float pullForce, Pool<ParticleSystem> effectPool)
+        public BlackHoleProjectile Initialize(LayerMask damageLayer, float damage, float radius, float pullForce, Pool<ParticleSystem> effectPool, AudioSource sound)
         {
             _damageLayer = damageLayer.ThrowIfNull();
             _effectPool = effectPool.ThrowIfNull();
+            _sound = sound.ThrowIfNull();
 
             SetStats(damage, radius, pullForce);
 
@@ -87,8 +95,10 @@ namespace Assets.Code.AbilitySystem.Abilities
 
         public void Activate(Vector3 position)
         {
-            transform.position = position;
+            _sound.transform.position = position;
+            _sound.Play();
 
+            transform.position = position;
             this.SetActive(true);
 
             ParticleSystem effect = _effectPool.Get();

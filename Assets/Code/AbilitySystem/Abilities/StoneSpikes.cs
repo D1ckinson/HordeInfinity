@@ -11,6 +11,7 @@ namespace Assets.Code.AbilitySystem.Abilities
 
         private readonly Pool<Spike> _pool;
         private readonly Transform _hero;
+        private readonly AudioSource _sound;
 
         private float _damage;
         private float _maxRadius;
@@ -25,6 +26,7 @@ namespace Assets.Code.AbilitySystem.Abilities
             _projectilesCount = stats.ProjectilesCount;
             _maxRadius = stats.Range;
 
+            _sound = config.AppearingSound.Instantiate(_hero);
             _pool = new(CreateSpike);
 
             Spike CreateSpike()
@@ -49,6 +51,8 @@ namespace Assets.Code.AbilitySystem.Abilities
 
                 _pool.Get().Strike(position);
             }
+
+            _sound.PlayRandomPitch();
         }
 
         protected override void UpdateStats(AbilityStats stats)

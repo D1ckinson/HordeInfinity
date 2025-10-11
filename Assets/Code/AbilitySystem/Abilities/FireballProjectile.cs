@@ -1,5 +1,6 @@
 ﻿using Assets.Code.CharactersLogic;
 using Assets.Code.Tools;
+using Assets.Scripts;
 using Assets.Scripts.Tools;
 using System;
 using UnityEngine;
@@ -10,12 +11,14 @@ namespace Assets.Code.AbilitySystem.Abilities
     {
         [SerializeField][Min(1f)] private float _speed = 30f;
         [SerializeField][Min(1f)] private float _lifeTime = 3f;
+        [SerializeField] private SoundPause _soundPause;
 
         private readonly Collider[] _colliders = new Collider[30];
         private readonly Timer _timer = new();
 
         private LayerMask _damageLayer;
         private Pool<ParticleSystem> _explosionEffectPool;
+        private Pool<AudioSource> _explosionSoundPool;
         private float _damage;
         private float _explosionRadius;
         private Vector3 _direction;
@@ -35,10 +38,13 @@ namespace Assets.Code.AbilitySystem.Abilities
             _timer.Completed -= Explode;
         }
 
-        public void Initialize(LayerMask damageLayer, float damage, float explosionRadius, Pool<ParticleSystem> explosionEffectPool)
+        public void Initialize(LayerMask damageLayer, float damage, float explosionRadius,
+            Pool<ParticleSystem> explosionEffectPool, Pool<AudioSource> explosionSoundPool, ITimeService timeService)
         {
             _damageLayer = damageLayer.ThrowIfNull();
             _explosionEffectPool = explosionEffectPool.ThrowIfNull();
+            _explosionSoundPool = explosionSoundPool.ThrowIfNull();
+            _soundPause.Initialize(timeService);
 
             SetStats(damage, explosionRadius);
         }
@@ -80,6 +86,10 @@ namespace Assets.Code.AbilitySystem.Abilities
             ParticleSystem effect = _explosionEffectPool.Get();
             effect.transform.position = transform.position;
             effect.Play();
+
+            AudioSource sound = _explosionSoundPool.Get();
+            sound.transform.position = transform.position;
+            sound.Play();
 
             this.SetActive(false);
         }

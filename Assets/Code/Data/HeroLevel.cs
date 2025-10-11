@@ -16,6 +16,7 @@ namespace Assets.Scripts
         public int Level { get; private set; } = 1;
         public float Value { get; private set; } = 0;
         public float LevelUpValue { get; private set; }
+        public int LevelUpsCount { get; private set; } = 0;
 
         public HeroLevel(Func<int, int> experienceFormula)
         {
@@ -40,6 +41,7 @@ namespace Assets.Scripts
 
             LevelChanged?.Invoke(Level);
             ValueChanged?.Invoke();
+            LevelUpsCount = Constants.Zero;
         }
 
         public void SetLootPercent(int percent)
@@ -61,7 +63,13 @@ namespace Assets.Scripts
             if (Value >= LevelUpValue)
             {
                 LevelUp();
+                LevelUpsCount++;
             }
+        }
+
+        public void DecreaseLevelUpsCount()
+        {
+            LevelUpsCount--;
         }
 
         private void LevelUp()

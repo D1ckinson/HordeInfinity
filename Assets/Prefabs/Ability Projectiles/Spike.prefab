@@ -511,3 +511,4 @@ MonoBehaviour:
   _hideDuration: 0.5
   _rotationSpeed: 180
   _collider: {fileID: 2870388333479668814}
+  _sound: {fileID: 0}

@@ -9,6 +9,7 @@ namespace Assets.Code.AbilitySystem.Abilities
         [SerializeField] private Collider _collider;
         [SerializeField] private float _speed;
         [SerializeField] private float _lifeTime;
+        [SerializeField] private AudioSource _hitSound;
 
         private readonly Timer _timer = new();
 
@@ -39,6 +40,7 @@ namespace Assets.Code.AbilitySystem.Abilities
             if (_damageLayer.Contains(gameObject.layer) && gameObject.TryGetComponent(out Health health))
             {
                 health.TakeDamage(_damage);
+                _hitSound.Play();
 
                 if (_isPiercing == false)
                 {

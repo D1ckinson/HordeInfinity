@@ -18,13 +18,14 @@ namespace Assets.Code.AbilitySystem.Abilities
 
         private float _damage;
         private float _explosionRadius;
-        private Pool<ParticleSystem> _effectPool;
+        private Pool<ParticleSystem> _visualEffectPool;
+        private Pool<AudioSource> _soundEffectPool;
         private LayerMask _damageLayer;
         private Tween _currentTween;
 
         private void Update()
         {
-            transform.Rotate(Constants.Zero, _rotationSpeed*Time.deltaTime, Constants.Zero);
+            transform.Rotate(Constants.Zero, _rotationSpeed * Time.deltaTime, Constants.Zero);
         }
 
         private void OnDestroy()
@@ -32,11 +33,12 @@ namespace Assets.Code.AbilitySystem.Abilities
             _currentTween?.Kill();
         }
 
-        public void Initialize(float damage, float explosionRadius, LayerMask damageLayer, Pool<ParticleSystem> effectPool)
+        public void Initialize(float damage, float explosionRadius, LayerMask damageLayer, Pool<ParticleSystem> visualEffectPool, Pool<AudioSource> soundEffectPool)
         {
             SetStats(damage, explosionRadius);
 
-            _effectPool = effectPool.ThrowIfNull();
+            _visualEffectPool = visualEffectPool.ThrowIfNull();
+            _soundEffectPool = soundEffectPool.ThrowIfNull();
             _damageLayer = damageLayer.ThrowIfNull();
         }
 
@@ -70,7 +72,11 @@ namespace Assets.Code.AbilitySystem.Abilities
                 }
             }
 
-            ParticleSystem effect = _effectPool.Get();
+            AudioSource audio = _soundEffectPool.Get();
+            audio.transform.position = transform.position;
+            audio.PlayRandomPitch();
+
+            ParticleSystem effect = _visualEffectPool.Get();
             effect.transform.position = transform.position;
             effect.Play();
 

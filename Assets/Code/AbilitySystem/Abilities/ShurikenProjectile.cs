@@ -1,5 +1,7 @@
 ﻿using Assets.Code.CharactersLogic;
 using Assets.Code.Tools;
+using Assets.Scripts;
+using Assets.Scripts.Tools;
 using System;
 using System.Linq;
 using UnityEngine;
@@ -10,6 +12,7 @@ namespace Assets.Code.AbilitySystem.Abilities
     {
         [SerializeField][Min(5f)] private float _speed = 40f;
         [SerializeField][Min(1f)] private float _lifeTime = 3f;
+        [SerializeField] private SoundPause _soundPause;
 
         private readonly Collider[] _colliders = new Collider[10];
         private readonly Timer _timer = new();
@@ -22,6 +25,7 @@ namespace Assets.Code.AbilitySystem.Abilities
         private Vector3 _moveDirection;
         private Collider _target;
         private Collider _lastTarget;
+        private Pool<AudioSource> _hitSound;
 
         private void OnTriggerEnter(Collider other)
         {
@@ -59,6 +63,10 @@ namespace Assets.Code.AbilitySystem.Abilities
             if (_damageLayer.Contains(collider.gameObject.layer) && collider.TryGetComponent(out Health health))
             {
                 health.TakeDamage(_damage);
+                AudioSource sound = _hitSound.Get();
+                sound.transform.position = transform.position;
+                sound.PlayRandomPitch();
+
                 _lastTarget = _target;
 
                 return true;
@@ -67,9 +75,12 @@ namespace Assets.Code.AbilitySystem.Abilities
             return false;
         }
 
-        public void Initialize(LayerMask damageLayer, float damage, float searchRadius, int maxBounces)
+        public void Initialize(LayerMask damageLayer, float damage, float searchRadius, int maxBounces, Pool<AudioSource> hitSound, ITimeService timeService)
         {
             _damageLayer = damageLayer.ThrowIfNull();
+            _soundPause.Initialize(timeService);
+            _hitSound = hitSound.ThrowIfNull();
+
             SetStats(damage, searchRadius, maxBounces);
         }
 

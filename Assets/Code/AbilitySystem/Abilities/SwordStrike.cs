@@ -30,7 +30,7 @@ namespace Assets.Code.AbilitySystem.Abilities
             _swingEffect.SetShapeRadius(_radius);
 
             _animator = animator.ThrowIfNull();
-            _audioSource = config.AudioSource.Instantiate();
+            _audioSource = config.HitSound.Instantiate();
         }
 
         public override void Dispose()
@@ -55,6 +55,7 @@ namespace Assets.Code.AbilitySystem.Abilities
 
             _swingEffect.Play();
             _animator.SetTrigger(AnimationParameters.IsAttacking);
+            _audioSource.SetActive(true);
             _audioSource.transform.position = _heroCenter.position;
             _audioSource.PlayRandomPitch();
         }

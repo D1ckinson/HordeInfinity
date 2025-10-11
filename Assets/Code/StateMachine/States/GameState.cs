@@ -6,12 +6,16 @@ using Assets.Code.Spawners;
 using Assets.Code.Tools;
 using Assets.Code.Ui;
 using Assets.Code.Ui.Windows;
+using System.Collections;
+using UnityEngine;
 using YG;
 
 namespace Assets.Scripts.State_Machine
 {
     public class GameState : State
     {
+        private const float ToggleMusicDuration = 5f;
+
         private readonly HeroComponents _hero;
         private readonly AbilityFactory _abilityFactory;
         private readonly EnemySpawner _enemySpawner;
@@ -22,10 +26,12 @@ namespace Assets.Scripts.State_Machine
         private readonly IInputService _inputService;
         private readonly ITimeService _timeService;
         private readonly UpgradeTrigger _upgradeTrigger;
+        private readonly AudioSource _backgroundMusic;
+        private readonly float _musicVolume;
 
         public GameState(StateMachine stateMachine, HeroComponents heroComponents, EnemySpawner enemySpawner,
             AbilityFactory abilityFactory, UiFactory uiFactory, PlayerData playerData, IInputService inputService
-            , ITimeService timeService, UpgradeTrigger upgradeTrigger) : base(stateMachine)
+            , ITimeService timeService, UpgradeTrigger upgradeTrigger, AudioSource backgroundMusic) : base(stateMachine)
         {
             _hero = heroComponents.ThrowIfNull();
             _enemySpawner = enemySpawner.ThrowIfNull();
@@ -35,8 +41,15 @@ namespace Assets.Scripts.State_Machine
             _inputService = inputService.ThrowIfNull();
             _timeService = timeService.ThrowIfNull();
             _upgradeTrigger = upgradeTrigger.ThrowIfNull();
+            _backgroundMusic = backgroundMusic.ThrowIfNull().Instantiate(_hero.transform);
+            _musicVolume = _backgroundMusic.volume;
 
             _timer = new();
+        }
+
+        ~GameState()
+        {
+            CoroutineService.StopAllCoroutines(this);
         }
 
         public override void Enter()
@@ -62,6 +75,9 @@ namespace Assets.Scripts.State_Machine
             _upgradeTrigger.Run();
 
             _inputService.BackPressed += Pause;
+
+            CoroutineService.StopAllCoroutines(this);
+            CoroutineService.StartCoroutine(TurnOnMusic(), this);
         }
 
         public override void Update()
@@ -110,6 +126,10 @@ namespace Assets.Scripts.State_Machine
             _hero.LootCollector.Stop();
 
             _timeService.Continue();
+
+            CoroutineService.StopAllCoroutines(this);
+            CoroutineService.StartCoroutine(TurnOffMusic(), this);
+
             _uiFactory.Create<FadeWindow>().Show(SetState<MenuState>);
         }
 
@@ -157,6 +177,44 @@ namespace Assets.Scripts.State_Machine
             _timer.Continue();
 
             _uiFactory.Create<DeathWindow>(false).ContinueForAddButton.interactable = false;
+        }
+
+        private IEnumerator TurnOnMusic()
+        {
+            float elapsed = Constants.Zero;
+            _backgroundMusic.volume = Constants.Zero;
+            _backgroundMusic.Play();
+
+            while (elapsed < ToggleMusicDuration)
+            {
+                elapsed += Time.unscaledDeltaTime;
+
+                float progress = elapsed / ToggleMusicDuration;
+                _backgroundMusic.volume = Mathf.Lerp(Constants.Zero, _musicVolume, progress);
+
+                yield return null;
+            }
+
+            _backgroundMusic.volume = _musicVolume;
+        }
+
+        private IEnumerator TurnOffMusic()
+        {
+            float elapsed = Constants.Zero;
+            float musicVolume = _backgroundMusic.volume;
+
+            while (elapsed < ToggleMusicDuration)
+            {
+                elapsed += Time.unscaledDeltaTime;
+
+                float progress = elapsed / ToggleMusicDuration;
+                _backgroundMusic.volume = Mathf.Lerp(musicVolume, Constants.Zero, progress);
+
+                yield return null;
+            }
+
+            _backgroundMusic.volume = Constants.Zero;
+            _backgroundMusic.Stop();
         }
     }
 }

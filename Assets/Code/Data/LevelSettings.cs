@@ -31,6 +31,11 @@ namespace Assets.Scripts.Configs
 
         [field: SerializeField] private AbilityConfig[] _abilitiesConfigs;
 
+
+        [field: Header("Music")]
+        [field: SerializeField] public AudioSource BackgroundMusic { get; private set; }
+        [field: SerializeField] public AudioSource MenuMusic { get; private set; }
+
         [Header("Level Formula Settings")]
         [SerializeField][Min(1)] private int _fixedExperience = 100;
         [SerializeField][Min(1)] private int _experienceCoefficient = 50;

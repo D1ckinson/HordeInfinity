@@ -19,6 +19,10 @@ MonoBehaviour:
     m_Bits: 64
   <Type>k__BackingField: 3
   <Icon>k__BackingField: {fileID: 21300000, guid: fb2fbf87a1d5bde4aad048bbfc7448db, type: 3}
+  <ThrowSound>k__BackingField: {fileID: 0}
+  <AppearingSound>k__BackingField: {fileID: 0}
+  <HitSound>k__BackingField: {fileID: 6479885650959680342, guid: 4eb2b34b779815740893183d10041327, type: 3}
+  <ProjectileSound>k__BackingField: {fileID: 0}
   _abilityStats:
   - <Cooldown>k__BackingField: 4
     <Damage>k__BackingField: 9000
@@ -26,6 +30,8 @@ MonoBehaviour:
     <ProjectilesCount>k__BackingField: 0
     <IsPiercing>k__BackingField: 0
     <HealthPercent>k__BackingField: 10
+    <PullForce>k__BackingField: 0
+    <BouncesQuantity>k__BackingField: 0
     <Cost>k__BackingField: 100
   - <Cooldown>k__BackingField: 170
     <Damage>k__BackingField: 9000
@@ -33,4 +39,6 @@ MonoBehaviour:
     <ProjectilesCount>k__BackingField: 0
     <IsPiercing>k__BackingField: 0
     <HealthPercent>k__BackingField: 15
+    <PullForce>k__BackingField: 0
+    <BouncesQuantity>k__BackingField: 0
     <Cost>k__BackingField: 200

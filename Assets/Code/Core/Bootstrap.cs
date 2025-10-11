@@ -62,7 +62,7 @@ namespace Assets.Scripts
             Dictionary<AbilityType, AbilityConfig> abilities = _levelSettings.AbilityConfigs;
 
             LootFactory lootFactory = new(_levelSettings.Loots);
-            AbilityFactory abilityFactory = new(abilities, heroComponents.transform, heroComponents.Center, playerData.AbilityUnlockLevel, lootFactory, heroComponents.Animator);
+            AbilityFactory abilityFactory = new(abilities, heroComponents.transform, heroComponents.Center, playerData.AbilityUnlockLevel, lootFactory, heroComponents.Animator, timeService);
             EnemyFactory enemyFactory = new(_levelSettings.EnemyConfigs, lootFactory, heroComponents.transform, _levelSettings.EnemySpawnerSettings, gameAreaSettings, _levelSettings.GoldEnemy);
 
             LevelUpWindow levelUpWindow = new(_uIConfig.LevelUpCanvas, _uIConfig.LevelUpButton);
@@ -71,11 +71,12 @@ namespace Assets.Scripts
             EnemySpawner enemySpawner = new(enemyFactory, _levelSettings.SpawnTypeByTimes);
 
             uiFactory.Create<FPSWindow>();
+            AudioSource menuMusic = _levelSettings.MenuMusic.Instantiate(heroComponents.transform);
 
             _stateMachine = new();
             _stateMachine
-                .AddState(new MenuState(_stateMachine, uiFactory))
-                .AddState(new GameState(_stateMachine, heroComponents, enemySpawner, abilityFactory, uiFactory, playerData, inputService, timeService, upgradeTrigger));
+                .AddState(new MenuState(_stateMachine, uiFactory, menuMusic))
+                .AddState(new GameState(_stateMachine, heroComponents, enemySpawner, abilityFactory, uiFactory, playerData, inputService, timeService, upgradeTrigger, _levelSettings.BackgroundMusic));
 
             _stateMachine.SetState<MenuState>();
         }

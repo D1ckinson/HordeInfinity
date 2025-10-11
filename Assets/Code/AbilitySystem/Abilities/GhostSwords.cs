@@ -12,16 +12,22 @@ namespace Assets.Code.AbilitySystem.Abilities
         private readonly Transform _heroCenter;
         private readonly Pool<GhostSword> _pool;
         private readonly List<GhostSword> _spawnedSwords = new();
+        private readonly AudioSource _throwSound;
+        private readonly AudioSource _appearingSound;
 
         private float _damage;
         private int _projectilesCount;
 
         public GhostSwords(AbilityConfig config, Dictionary<AbilityType, int> abilityUnlockLevel, Transform heroCenter, int level = 1) : base(config, abilityUnlockLevel, level)
         {
-            AbilityStats stats = config.ThrowIfNull().GetStats(level.ThrowIfZeroOrLess());
-            _damage = stats.Damage.ThrowIfNegative();
-            _projectilesCount = stats.ProjectilesCount.ThrowIfNegative();
             _heroCenter = heroCenter.ThrowIfNull();
+            AbilityStats stats = config.ThrowIfNull().GetStats(level);
+
+            _damage = stats.Damage;
+            _projectilesCount = stats.ProjectilesCount;
+
+            _throwSound = config.ThrowSound.Instantiate(heroCenter.transform);
+            _appearingSound = config.AppearingSound.Instantiate(heroCenter.transform);
 
             GhostSword CreateSword()
             {
@@ -63,6 +69,7 @@ namespace Assets.Code.AbilitySystem.Abilities
 
                 sword.SetActive(true);
                 _spawnedSwords.Add(sword);
+                _appearingSound.Play();
 
                 yield return _actionWait;
             }
@@ -82,18 +89,22 @@ namespace Assets.Code.AbilitySystem.Abilities
 
         private IEnumerator LaunchSwords()
         {
-            for (int i = _spawnedSwords.LastIndex(); i >= Constants.Zero; i--)
+            for (int i = Constants.Zero; i < _spawnedSwords.Count; i++)
             {
                 _spawnedSwords[i].Launch();
-                _spawnedSwords.RemoveAt(i);
+                _throwSound.Play();
 
                 yield return _actionWait;
             }
+
+            _spawnedSwords.Clear();
         }
 
         public override void Dispose()
         {
             CoroutineService.StopAllCoroutines(this);
+            _appearingSound.DestroyGameObject();
+            _throwSound.DestroyGameObject();
             _pool.DestroyAll();
         }
     }

@@ -1,21 +1,39 @@
 ﻿using Assets.Code.Tools;
 using Assets.Code.Ui;
 using Assets.Code.Ui.Windows;
+using System.Collections;
+using UnityEngine;
 
 namespace Assets.Scripts.State_Machine
 {
     public class MenuState : State
     {
-        private readonly UiFactory _uiFactory;
+        private const float ToggleMusicDuration = 1f;
 
-        public MenuState(StateMachine stateMachine, UiFactory uiFactory) : base(stateMachine)
+        private readonly UiFactory _uiFactory;
+        private readonly AudioSource _backgroundMusic;
+        private readonly float _musicVolume;
+
+        public MenuState(StateMachine stateMachine, UiFactory uiFactory, AudioSource music) : base(stateMachine)
         {
             _uiFactory = uiFactory.ThrowIfNull();
+            _backgroundMusic = music.ThrowIfNull();
+
+            _backgroundMusic = music.ThrowIfNull();
+            _musicVolume = _backgroundMusic.volume;
+        }
+
+        ~MenuState()
+        {
+            CoroutineService.StopAllCoroutines(this);
         }
 
         public override void Enter()
         {
             _uiFactory.Create<FadeWindow>().Hide();
+
+            CoroutineService.StopAllCoroutines(this);
+            CoroutineService.StartCoroutine(TurnOnMusic(), this);
 
             _uiFactory.Create<ShopWindow>(false).ExitButton.Subscribe(ShowMenu);
             _uiFactory.Create<LeaderboardWindow>(false).ExitButton.Subscribe(ShowMenu);
@@ -51,8 +69,49 @@ namespace Assets.Scripts.State_Machine
             menuWindow.ShopButton.Unsubscribe(ShowShop);
             menuWindow.PlayButton.Unsubscribe(SetState<GameState>);
             menuWindow.LeaderboardButton.Unsubscribe(ShowLeaderboard);
+
+            CoroutineService.StopAllCoroutines(this);
+            CoroutineService.StartCoroutine(TurnOffMusic(), this);
         }
 
         public override void Update() { }
+
+        private IEnumerator TurnOnMusic()
+        {
+            float elapsed = Constants.Zero;
+            _backgroundMusic.volume = Constants.Zero;
+            _backgroundMusic.Play();
+
+            while (elapsed < ToggleMusicDuration)
+            {
+                elapsed += Time.unscaledDeltaTime;
+
+                float progress = elapsed / ToggleMusicDuration;
+                _backgroundMusic.volume = Mathf.Lerp(Constants.Zero, _musicVolume, progress);
+
+                yield return null;
+            }
+
+            _backgroundMusic.volume = _musicVolume;
+        }
+
+        private IEnumerator TurnOffMusic()
+        {
+            float elapsed = Constants.Zero;
+            float musicVolume = _backgroundMusic.volume;
+
+            while (elapsed < ToggleMusicDuration)
+            {
+                elapsed += Time.unscaledDeltaTime;
+
+                float progress = elapsed / ToggleMusicDuration;
+                _backgroundMusic.volume = Mathf.Lerp(musicVolume, Constants.Zero, progress);
+
+                yield return null;
+            }
+
+            _backgroundMusic.volume = Constants.Zero;
+            _backgroundMusic.Stop();
+        }
     }
 }

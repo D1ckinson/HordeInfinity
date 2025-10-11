@@ -1,5 +1,6 @@
 ﻿using Assets.Code.CharactersLogic;
 using Assets.Code.Tools;
+using Assets.Scripts.Tools;
 using System;
 using System.Linq;
 using UnityEngine;
@@ -13,6 +14,7 @@ namespace Assets.Code.AbilitySystem.Abilities
 
         private readonly Timer _timer = new();
 
+        private Pool<AudioSource> _hitSoundPool;
         private LayerMask _damageLayer;
         private float _damage;
 
@@ -21,6 +23,8 @@ namespace Assets.Code.AbilitySystem.Abilities
             if (_damageLayer.Contains(other.gameObject.layer) && other.TryGetComponent(out Health health))
             {
                 health.TakeDamage(_damage);
+                _hitSoundPool.Get(transform).PlayRandomPitch();
+
                 this.SetActive(false);
             }
         }
@@ -33,9 +37,11 @@ namespace Assets.Code.AbilitySystem.Abilities
             UpdateService.UnregisterUpdate(MoveForward);
         }
 
-        public void Initialize(LayerMask damageLayer, float damage)
+        public void Initialize(LayerMask damageLayer, float damage, Pool<AudioSource> hitSoundPool)
         {
             _damageLayer = damageLayer.ThrowIfNull();
+            _hitSoundPool = hitSoundPool.ThrowIfNull();
+
             SetDamage(damage);
         }
 

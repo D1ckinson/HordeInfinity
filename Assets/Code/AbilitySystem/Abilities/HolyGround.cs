@@ -1,4 +1,5 @@
 ﻿using Assets.Code.Tools;
+using Assets.Scripts;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,12 +9,12 @@ namespace Assets.Code.AbilitySystem.Abilities
     {
         private readonly HolyRune _holyRune;
 
-        public HolyGround(AbilityConfig config, Dictionary<AbilityType, int> abilityUnlockLevel, Transform hero, int level = 1) : base(config, abilityUnlockLevel, level)
+        public HolyGround(AbilityConfig config, Dictionary<AbilityType, int> abilityUnlockLevel, Transform hero, ITimeService timeService, int level = 1) : base(config, abilityUnlockLevel, level)
         {
             _holyRune = config.ThrowIfNull().ProjectilePrefab.GetComponentOrThrow<HolyRune>().Instantiate();
 
             AbilityStats stats = config.GetStats(level);
-            _holyRune.Initialize(stats.Damage, stats.Range, config.DamageLayer, hero);
+            _holyRune.Initialize(stats.Damage, stats.Range, config.DamageLayer, hero, timeService);
         }
 
         protected override void Apply()

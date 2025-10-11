@@ -1,4 +1,5 @@
 ﻿using Assets.Code.Tools;
+using Assets.Scripts;
 using Assets.Scripts.Tools;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,13 +13,15 @@ namespace Assets.Code.AbilitySystem.Abilities
         private readonly Transform _heroCenter;
         private readonly Pool<FireballProjectile> _projectilePool;
         private readonly Pool<ParticleSystem> _explosionEffectPool;
+        private readonly Pool<AudioSource> _explosionSoundPool;
+        private readonly AudioSource _throwSound;
         private readonly Collider[] _colliders = new Collider[20];
         private readonly LayerMask _damageLayer;
 
         private float _damage;
         private float _explosionRadius;
 
-        public Fireball(AbilityConfig config, Dictionary<AbilityType, int> abilityUnlockLevel, Transform heroCenter, int level = 1) : base(config, abilityUnlockLevel, level)
+        public Fireball(AbilityConfig config, Dictionary<AbilityType, int> abilityUnlockLevel, Transform heroCenter, ITimeService timeService, int level = 1) : base(config, abilityUnlockLevel, level)
         {
             AbilityStats stats = config.ThrowIfNull().GetStats(level);
             _heroCenter = heroCenter.ThrowIfNull();
@@ -27,23 +30,26 @@ namespace Assets.Code.AbilitySystem.Abilities
             _explosionRadius = stats.Range;
             _damageLayer = config.DamageLayer;
 
+            _throwSound = config.ThrowSound.Instantiate(heroCenter.transform);
             _explosionEffectPool = new(() => config.Effect.Instantiate(), Constants.One);
+            _explosionSoundPool = new(() => config.HitSound.Instantiate(), Constants.One);
             _projectilePool = new(CreateProjectile, Constants.One);
 
             FireballProjectile CreateProjectile()
             {
                 FireballProjectile projectile = config.ProjectilePrefab.Instantiate().GetComponentOrThrow<FireballProjectile>();
-                projectile.Initialize(_damageLayer, _damage, _explosionRadius, _explosionEffectPool);
+                projectile.Initialize(_damageLayer, _damage, _explosionRadius, _explosionEffectPool, _explosionSoundPool, timeService);
 
                 return projectile;
             }
-
         }
 
         public override void Dispose()
         {
             _projectilePool.DestroyAll();
             _explosionEffectPool.DestroyAll();
+            _explosionSoundPool.DestroyAll();
+            _throwSound.DestroyGameObject();
         }
 
         protected override void Apply()
@@ -69,7 +75,7 @@ namespace Assets.Code.AbilitySystem.Abilities
 
             if (closest.IsNull())
             {
-                direction = Utilities.GenerateRandomDirection(_heroCenter.position.y);
+                direction = Utilities.GenerateRandomDirection();
             }
             else
             {
@@ -79,6 +85,8 @@ namespace Assets.Code.AbilitySystem.Abilities
             }
 
             _projectilePool.Get().Fly(_heroCenter.position, direction);
+            _throwSound.Play();
+
         }
 
         protected override void UpdateStats(AbilityStats stats)

@@ -63,6 +63,11 @@ namespace Assets.Code.AbilitySystem
 
         private void GenerateUpgrades(int level)
         {
+            if (IsOffering)
+            {
+                return;
+            }
+
             List<AbilityType> possibleUpgrades = Constants.GetEnums<AbilityType>().Except(_abilityContainer.MaxedAbilities).ToList();
             List<UpgradeOption> upgradeOptions = new();
 
@@ -98,6 +103,7 @@ namespace Assets.Code.AbilitySystem
             if (upgradeOptions.Count == Constants.Zero)
             {
                 //Наградить
+                _heroExperience.DecreaseLevelUpsCount();
 
                 return;
             }
@@ -121,7 +127,16 @@ namespace Assets.Code.AbilitySystem
                     break;
             }
 
-            _timeService.Continue();
+            _heroExperience.DecreaseLevelUpsCount();
+
+            if (_heroExperience.LevelUpsCount > Constants.Zero)
+            {
+                GenerateUpgrades(_heroExperience.Level - _heroExperience.LevelUpsCount);
+            }
+            else
+            {
+                _timeService.Continue();
+            }
         }
     }
 }

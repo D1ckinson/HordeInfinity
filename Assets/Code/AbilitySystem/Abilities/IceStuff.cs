@@ -12,9 +12,11 @@ namespace Assets.Code.AbilitySystem.Abilities
         private const int MaxTargets = 10;
 
         private readonly WaitForSeconds _delay = new(0.2f);
-        private readonly Pool<IceSpike> _pool;
+        private readonly Pool<IceSpike> _projectilePool;
+        private readonly Pool<AudioSource> _hitSoundPool;
         private readonly LayerMask _damageLayer;
         private readonly Transform _heroCenter;
+        private readonly AudioSource _throwSound;
 
         private float _damage;
         private float _attackRadius;
@@ -30,12 +32,14 @@ namespace Assets.Code.AbilitySystem.Abilities
             _projectilesCount = stats.ProjectilesCount;
             _damageLayer = config.DamageLayer;
 
-            _pool = new(CreateIceSpike);
+            _throwSound = config.ThrowSound.Instantiate(heroCenterPoint);
+            _hitSoundPool = new(() => config.HitSound.Instantiate());
+            _projectilePool = new(CreateIceSpike);
 
             IceSpike CreateIceSpike()
             {
                 IceSpike iceSpike = config.ProjectilePrefab.Instantiate().GetComponentOrThrow<IceSpike>();
-                iceSpike.Initialize(_damageLayer, _damage);
+                iceSpike.Initialize(_damageLayer, _damage, _hitSoundPool);
 
                 return iceSpike;
             }
@@ -44,7 +48,10 @@ namespace Assets.Code.AbilitySystem.Abilities
         public override void Dispose()
         {
             CoroutineService.StopAllCoroutines(this);
-            _pool.DestroyAll();
+
+            _projectilePool.DestroyAll();
+            _hitSoundPool.DestroyAll();
+            _throwSound.DestroyGameObject();
         }
 
         protected override void Apply()
@@ -58,7 +65,7 @@ namespace Assets.Code.AbilitySystem.Abilities
             _damage = stats.Damage;
             _projectilesCount = stats.ProjectilesCount;
 
-            _pool.ForEach(spike => spike.SetDamage(_damage));
+            _projectilePool.ForEach(spike => spike.SetDamage(_damage));
         }
 
         private IEnumerator LaunchSpikes()
@@ -85,7 +92,8 @@ namespace Assets.Code.AbilitySystem.Abilities
                     direction = (collider.transform.position - _heroCenter.position).normalized;
                 }
 
-                _pool.Get().Fly(_heroCenter.position, direction);
+                _projectilePool.Get().Fly(_heroCenter.position, direction);
+                _throwSound.PlayRandomPitch();
 
                 yield return _delay;
             }

@@ -51,6 +51,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 782aa91345f933d49b8f4acfa1ebb47c, type: 2}
   - {fileID: 11400000, guid: 47df5121c2bf13846905754655efa7cb, type: 2}
   - {fileID: 11400000, guid: 2c5701c1aaa07d4458adeec714f56762, type: 2}
+  <BackgroundMusic>k__BackingField: {fileID: 3938373483914223881, guid: 155aac6fcb4fcaf48a2d000bdbbc50d9, type: 3}
+  <MenuMusic>k__BackingField: {fileID: 4333468301660195507, guid: 29ca130072e109246a0570d85be56e6f, type: 3}
   _fixedExperience: 1
   _experienceCoefficient: 1
   _degree: 1

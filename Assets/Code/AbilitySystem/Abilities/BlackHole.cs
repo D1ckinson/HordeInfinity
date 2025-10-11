@@ -1,4 +1,5 @@
 ﻿using Assets.Code.Tools;
+using Assets.Scripts;
 using Assets.Scripts.Tools;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,17 +12,20 @@ namespace Assets.Code.AbilitySystem.Abilities
         private readonly Transform _blackHolePoint;
         private readonly Pool<ParticleSystem> _effectPool;
 
-        public BlackHole(AbilityConfig config, Dictionary<AbilityType, int> abilityUnlockLevel, Transform blackHolePoint, int level = 1) : base(config,  abilityUnlockLevel, level)
+        public BlackHole(AbilityConfig config, Dictionary<AbilityType, int> abilityUnlockLevel, Transform blackHolePoint, ITimeService timeService, int level = 1) : base(config, abilityUnlockLevel, level)
         {
             AbilityStats stats = config.ThrowIfNull().GetStats(level);
             _blackHolePoint = blackHolePoint.ThrowIfNull();
 
             _effectPool = new(() => config.Effect.Instantiate(), Constants.One);
 
+            AudioSource sound = config.ProjectileSound.Instantiate();
+            sound.GetComponentOrThrow<SoundPause>().Initialize(timeService);
+
             _projectile = config.ProjectilePrefab
                 .GetComponentOrThrow<BlackHoleProjectile>()
                 .Instantiate(false)
-                .Initialize(config.DamageLayer, stats.Damage, stats.Range, stats.PullForce, _effectPool);
+                .Initialize(config.DamageLayer, stats.Damage, stats.Range, stats.PullForce, _effectPool, sound);
         }
 
         public override void Dispose()

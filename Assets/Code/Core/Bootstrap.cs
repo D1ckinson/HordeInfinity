@@ -14,7 +14,6 @@ using Assets.Scripts.State_Machine;
 using Assets.Scripts.Tools;
 using Assets.Scripts.Ui;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using YG;
 
@@ -46,7 +45,7 @@ namespace Assets.Scripts
         private void Awake()
         {
             PlayerData playerData = YG2.saves.Load();
-            playerData.Wallet.Add(1000);///////////////////////////////
+
             ITimeService timeService = new TimeService();
             HeroLevel heroLevel = new(_levelSettings.CalculateExperienceForNextLevel);
             UiFactory uiFactory = new(_uIConfig, playerData.Wallet, _levelSettings.UpgradeCost, _levelSettings.AbilityConfigs, playerData.AbilityUnlockLevel, heroLevel);

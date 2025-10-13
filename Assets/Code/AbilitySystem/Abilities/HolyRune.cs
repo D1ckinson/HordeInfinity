@@ -13,6 +13,7 @@ namespace Assets.Code.AbilitySystem.Abilities
         [SerializeField][Range(0.1f, 2f)] private float _scaleChangeDuration = 0.7f;
         [SerializeField] private Follower _follower;
         [SerializeField] private SoundPause _soundPause;
+        [SerializeField][Min(1.1f)] private float _scaleFactor = 1.5f;
 
         private readonly List<Health> _health = new();
 
@@ -31,6 +32,7 @@ namespace Assets.Code.AbilitySystem.Abilities
             if (_damageLayer.Contains(gameObject.layer) && gameObject.TryGetComponent(out Health health))
             {
                 _health.Add(health);
+                health.Died += Remove;
             }
         }
 
@@ -41,6 +43,7 @@ namespace Assets.Code.AbilitySystem.Abilities
             if (_damageLayer.Contains(gameObject.layer) && gameObject.TryGetComponent(out Health health))
             {
                 _health.Remove(health);
+                health.Died -= Remove;
             }
         }
 
@@ -57,13 +60,15 @@ namespace Assets.Code.AbilitySystem.Abilities
             _damage = damage.ThrowIfNegative();
 
             CoroutineService.StopAllCoroutines(this);
-            CoroutineService.StartCoroutine(SetScale(radius / Constants.Two), this);
+            CoroutineService.StartCoroutine(SetScale(radius * _scaleFactor), this);
         }
 
         public void DealDamage()
         {
-            _health.RemoveAll(health => health.IsActive() == false);
-            _health.ForEach(health => health.TakeDamage(_damage));
+            for (int i = _health.LastIndex(); i >= Constants.Zero; i--)
+            {
+                _health[i].TakeDamage(_damage);
+            }
         }
 
         private IEnumerator SetScale(float targetScale)
@@ -83,6 +88,12 @@ namespace Assets.Code.AbilitySystem.Abilities
             }
 
             transform.localScale = new(targetScale, targetScale, targetScale);
+        }
+
+        private void Remove(Health health)
+        {
+            health.Died -= Remove;
+            _health.Remove(health);
         }
     }
 }

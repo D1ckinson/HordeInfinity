@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Type>k__BackingField: 3
   <Prefab>k__BackingField: {fileID: 3207581003718073074, guid: 2f0b688c60e6b1e45814b109bdd0c7ea, type: 3}
-  <MaxHealth>k__BackingField: 100
+  <MaxHealth>k__BackingField: 300
   <InvincibilityDuration>k__BackingField: 0.1
   <MoveSpeed>k__BackingField: 6.2
   <RotationSpeed>k__BackingField: 200
@@ -27,7 +27,10 @@ MonoBehaviour:
   <Loot>k__BackingField:
   - <Type>k__BackingField: 3
     <Count>k__BackingField: 10
-    <DropChance>k__BackingField: 5
+    <DropChance>k__BackingField: 6
   - <Type>k__BackingField: 0
+    <Count>k__BackingField: 1
+    <DropChance>k__BackingField: 100
+  - <Type>k__BackingField: 1
     <Count>k__BackingField: 1
     <DropChance>k__BackingField: 100

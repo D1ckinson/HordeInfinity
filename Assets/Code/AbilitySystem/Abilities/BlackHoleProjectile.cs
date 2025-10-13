@@ -1,7 +1,9 @@
-﻿using Assets.Code.CharactersLogic.EnemyLogic;
+﻿using Assets.Code.CharactersLogic;
+using Assets.Code.CharactersLogic.EnemyLogic;
 using Assets.Code.Tools;
 using Assets.Scripts.Tools;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace Assets.Code.AbilitySystem.Abilities
@@ -11,9 +13,10 @@ namespace Assets.Code.AbilitySystem.Abilities
         [SerializeField][Min(0.1f)] private float _baseDamage = 1f;
         [SerializeField][Min(0.1f)] private float _radiusForEnemy = 0.2f;
         [SerializeField][Min(0.1f)] private float _lifeTime = 5f;
+        [SerializeField][Min(1.1f)] private float _scaleFactor = 1.6f;
         [SerializeField] private SphereCollider _effectZone;
 
-        private readonly List<EnemyComponents> _enemies = new();
+        private readonly Dictionary<Health, EnemyComponents> _enemies = new();
         private readonly Timer _timer = new();
 
         private LayerMask _damageLayer;
@@ -26,6 +29,7 @@ namespace Assets.Code.AbilitySystem.Abilities
 
         private void OnEnable()
         {
+            SetShape();
             _timer.Start(_lifeTime);
             _timer.Completed += Disable;
         }
@@ -46,8 +50,10 @@ namespace Assets.Code.AbilitySystem.Abilities
         {
             if (_damageLayer.Contains(other.gameObject.layer) && other.TryGetComponent(out EnemyComponents enemy))
             {
-                _enemies.Add(enemy);
+                _enemies.Add(enemy.Health, enemy);
                 SetShape();
+
+                enemy.Health.Died += Remove;
             }
         }
 
@@ -55,15 +61,18 @@ namespace Assets.Code.AbilitySystem.Abilities
         {
             if (other.TryGetComponent(out EnemyComponents enemy))
             {
-                _enemies.Remove(enemy);
+                _enemies.Remove(enemy.Health);
                 SetShape();
+
+                enemy.Health.Died -= Remove;
             }
         }
 
         private void FixedUpdate()
         {
-            foreach (EnemyComponents enemy in _enemies)
+            for (int i = _enemies.LastIndex(); i >= Constants.Zero; i--)
             {
+                EnemyComponents enemy = _enemies.Values.ElementAt(i);
                 enemy.Health.TakeDamage(_baseDamage + _damage * _enemies.Count);
 
                 Vector3 directionToCenter = (transform.position - enemy.transform.position).normalized;
@@ -88,7 +97,7 @@ namespace Assets.Code.AbilitySystem.Abilities
         {
             _damage = damage.ThrowIfNegative();
             _pullForce = pullForce.ThrowIfNegative();
-            _radius = radius.ThrowIfNegative();
+            _radius = radius.ThrowIfNegative() * _scaleFactor;
 
             SetShape();
         }
@@ -117,6 +126,12 @@ namespace Assets.Code.AbilitySystem.Abilities
         private void Disable()
         {
             this.SetActive(false);
+        }
+
+        private void Remove(Health health)
+        {
+            health.Died -= Remove;
+            _enemies.Remove(health);
         }
     }
 }

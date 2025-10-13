@@ -50,11 +50,6 @@ namespace Assets.Scripts.Movement
             _rotator = new(_rigidbody, rotationSpeed);
         }
 
-        public void SetMoveStat(float moveSpeed)
-        {
-            _mover.SetSpeed(moveSpeed.ThrowIfZeroOrLess());
-        }
-
         private void Move()
         {
             if (_direction == Vector3.zero)
@@ -71,6 +66,16 @@ namespace Assets.Scripts.Movement
             _direction = vector;
 
             _animator.SetBool(AnimationParameters.IsMoving, _direction != Vector3.zero);
+        }
+
+        public void AddSpeed(float value)
+        {
+            _mover.AddSpeed(value);
+        }
+
+        public void ResetSpeed()
+        {
+            _mover.ResetSpeed();
         }
 
         public void AddSlow(SlowEffect slow)

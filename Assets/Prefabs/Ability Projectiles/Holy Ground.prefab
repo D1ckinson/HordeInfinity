@@ -71,8 +71,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c292659b20c2ec4ebc43cb31c405729, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _scaleChangeDuration: 0.7
   _follower: {fileID: 376879225382709776}
   _soundPause: {fileID: -6912290768518316531}
+  _scaleFactor: 1.5
 --- !u!114 &376879225382709776
 MonoBehaviour:
   m_ObjectHideFlags: 0

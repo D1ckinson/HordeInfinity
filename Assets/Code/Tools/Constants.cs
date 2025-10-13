@@ -11,6 +11,7 @@ namespace Assets.Code.Tools
         public const int CompareAccuracy = 10;
         public const int FullCircleDegrees = 360;
         public const int Hundred = 100;
+        public const float SecondsInMinute = 60;
         public const string LeaderboardName = "TimeLeaderboard";
 
         public static float PercentToMultiplier(float value)

@@ -15,21 +15,36 @@ namespace Assets.Scripts
         public PlayerData()
         {
             Wallet = new();
-            StartAbility = AbilityType.WindFlow;
+            StartAbility = AbilityType.SwordStrike;
+
+            //AbilityUnlockLevel = new()
+            //{
+            //    [AbilityType.SwordStrike] = 10,
+            //    [AbilityType.GhostSwords] = 10,
+            //    [AbilityType.HolyGround] = 10,
+            //    [AbilityType.MidasHand] = 10,
+            //    [AbilityType.Bombard] = 10,
+            //    [AbilityType.BlackHole] = 10,
+            //    [AbilityType.StoneSpikes] = 10,
+            //    [AbilityType.IceStuff] = 10,
+            //    [AbilityType.Shuriken] = 10,
+            //    [AbilityType.Fireball] = 10,
+            //    [AbilityType.WindFlow] = 10
+            //};
 
             AbilityUnlockLevel = new()
             {
                 [AbilityType.SwordStrike] = 5,
                 [AbilityType.GhostSwords] = 5,
-                [AbilityType.HolyGround] = 3,
-                [AbilityType.MidasHand] = 1,
+                [AbilityType.HolyGround] = 2,
+                [AbilityType.MidasHand] = 0,
                 [AbilityType.Bombard] = 1,
-                [AbilityType.BlackHole] = 1,
-                [AbilityType.StoneSpikes] = 1,
-                [AbilityType.IceStuff] = 1,
-                [AbilityType.Shuriken] = 1,
-                [AbilityType.Fireball] = 1,
-                [AbilityType.WindFlow] = 1
+                [AbilityType.BlackHole] = 0,
+                [AbilityType.StoneSpikes] = 0,
+                [AbilityType.IceStuff] = 0,
+                [AbilityType.Shuriken] = 0,
+                [AbilityType.Fireball] = 0,
+                [AbilityType.WindFlow] = 0
             };
         }
     }

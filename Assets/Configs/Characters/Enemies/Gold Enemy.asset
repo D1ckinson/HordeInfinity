@@ -25,9 +25,9 @@ MonoBehaviour:
   <AttractionRadius>k__BackingField: 10
   <PullSpeed>k__BackingField: 5
   <Loot>k__BackingField:
-  - <Prefab>k__BackingField: {fileID: 8437288460240149484, guid: e894acc6883e27a4dbca2941bed52c75, type: 3}
-    <Count>k__BackingField: 10
-    <DropChance>k__BackingField: 5
-  - <Prefab>k__BackingField: {fileID: 6061571990834595463, guid: 8a6a64931f889084898f7f1cf244f517, type: 3}
+  - <Type>k__BackingField: 3
+    <Count>k__BackingField: 100
+    <DropChance>k__BackingField: 100
+  - <Type>k__BackingField: 0
     <Count>k__BackingField: 1
     <DropChance>k__BackingField: 100

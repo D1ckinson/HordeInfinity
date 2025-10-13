@@ -5,44 +5,24 @@ using UnityEngine;
 
 namespace Assets.Scripts.Movement
 {
-    internal class Mover
+    public class Mover
     {
+        private readonly List<float> _multipliers = new();
         private readonly Rigidbody _rigidbody;
-        private readonly List<float> _multipliers;
+        private readonly float _defaultSpeed;
 
-        private float _defaultSpeed;
         private float _speed;
         private float _additionalSpeed;
 
-        internal Mover(Rigidbody rigidbody, float speed)
+        public Mover(Rigidbody rigidbody, float speed)
         {
             _rigidbody = rigidbody.ThrowIfNull();
-            _multipliers = new();
-
-            SetSpeed(speed);
-        }
-
-        public void SetSpeed(float speed)
-        {
-            _defaultSpeed = speed.ThrowIfZeroOrLess() + _additionalSpeed;
+            _defaultSpeed = speed.ThrowIfNegative();
             _speed = _defaultSpeed;
+
         }
 
-        public void AddSpeed(float value)
-        {
-            float tempValue = value.ThrowIfNegative() - _additionalSpeed;
-
-            _additionalSpeed = value;
-            _defaultSpeed += tempValue;
-            _speed += tempValue;
-        }
-
-        internal void AddMultiplier(float multiplier)
-        {
-            _multipliers.Add(multiplier.ThrowIfZeroOrLess().ThrowIfMoreThan(Constants.One));
-        }
-
-        internal void Move(Vector3 direction)
+        public void Move(Vector3 direction)
         {
             direction.ThrowIfNotNormalize();
             direction.y = Constants.Zero;
@@ -51,7 +31,24 @@ namespace Assets.Scripts.Movement
             _rigidbody.MovePosition(position);
         }
 
-        internal void RemoveMultiplier(float multiplier)
+        public void AddSpeed(float value)
+        {
+            _additionalSpeed += value.ThrowIfNegative();
+            _speed = _defaultSpeed + _additionalSpeed;
+        }
+
+        public void ResetSpeed()
+        {
+            _additionalSpeed = Constants.Zero;
+            _speed = _defaultSpeed;
+        }
+
+        public void AddMultiplier(float multiplier)
+        {
+            _multipliers.Add(multiplier.ThrowIfZeroOrLess().ThrowIfMoreThan(Constants.One));
+        }
+
+        public void RemoveMultiplier(float multiplier)
         {
             if (_multipliers.Remove(multiplier) == false)
             {

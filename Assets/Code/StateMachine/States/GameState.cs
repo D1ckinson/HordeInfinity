@@ -1,5 +1,6 @@
 ﻿using Assets.Code;
 using Assets.Code.AbilitySystem;
+using Assets.Code.CharactersLogic;
 using Assets.Code.CharactersLogic.HeroLogic;
 using Assets.Code.InputActions;
 using Assets.Code.Spawners;
@@ -147,7 +148,7 @@ namespace Assets.Scripts.State_Machine
             }
         }
 
-        private void ShowDeathWindow()
+        private void ShowDeathWindow(Health health)
         {
             _hero.LootCollector.Stop();
             _hero.CharacterMovement.Stop();

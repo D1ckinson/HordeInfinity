@@ -14,7 +14,7 @@ namespace Assets.Code.CharactersLogic
         private float _resistMultiplier = 1;
         private Animator _animator;
 
-        public event Action Died;
+        public event Action<Health> Died;
         public event Action<float> ValueChanged;
 
         public float Value { get; private set; }
@@ -73,7 +73,7 @@ namespace Assets.Code.CharactersLogic
             if (tempValue <= Constants.Zero)
             {
                 Value = Constants.Zero;
-                Died?.Invoke();
+                Died?.Invoke(this);
             }
             else
             {

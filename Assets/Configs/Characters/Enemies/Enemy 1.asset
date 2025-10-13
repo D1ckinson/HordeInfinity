@@ -16,7 +16,7 @@ MonoBehaviour:
   <Prefab>k__BackingField: {fileID: 3207581003718073074, guid: 6fd464576b317cf49a3775c9a444959f, type: 3}
   <MaxHealth>k__BackingField: 100
   <InvincibilityDuration>k__BackingField: 0.1
-  <MoveSpeed>k__BackingField: 6.2
+  <MoveSpeed>k__BackingField: 4.2
   <RotationSpeed>k__BackingField: 200
   <Damage>k__BackingField: 10
   <DamageLayer>k__BackingField:
@@ -26,8 +26,8 @@ MonoBehaviour:
   <PullSpeed>k__BackingField: 5
   <Loot>k__BackingField:
   - <Type>k__BackingField: 3
-    <Count>k__BackingField: 20
-    <DropChance>k__BackingField: 100
+    <Count>k__BackingField: 6
+    <DropChance>k__BackingField: 2
   - <Type>k__BackingField: 0
     <Count>k__BackingField: 1
     <DropChance>k__BackingField: 100

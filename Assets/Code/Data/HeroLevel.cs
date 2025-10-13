@@ -6,12 +6,13 @@ namespace Assets.Scripts
     [Serializable]
     public class HeroLevel
     {
-        private const float TransferValue = 10f;
+        private const float DefaultTransferValue = 10f;
 
         private readonly Func<int, int> _experienceFormula;
 
         private float _buffer;
         private float _lootPercent = 1;
+        private float _transferValue = 1;
 
         public int Level { get; private set; } = 1;
         public float Value { get; private set; } = 0;
@@ -22,6 +23,7 @@ namespace Assets.Scripts
         {
             _experienceFormula = experienceFormula.ThrowIfNull();
             LevelUpValue = _experienceFormula.Invoke(Level);
+            CalculateTransferValue();
         }
 
         public event Action<int> LevelChanged;
@@ -42,6 +44,7 @@ namespace Assets.Scripts
             LevelChanged?.Invoke(Level);
             ValueChanged?.Invoke();
             LevelUpsCount = Constants.Zero;
+            CalculateTransferValue();
         }
 
         public void SetLootPercent(int percent)
@@ -51,14 +54,24 @@ namespace Assets.Scripts
 
         public void Transfer()
         {
-            if (_buffer < TransferValue)
+            if (_buffer <= Constants.One)
             {
                 return;
             }
 
-            _buffer -= TransferValue;
-            Value += TransferValue;
+            if (_buffer >= _transferValue)
+            {
+                _buffer -= _transferValue;
+                Value += _transferValue;
+            }
+            else
+            {
+                Value += _buffer;
+                _buffer -= _buffer;
+            }
+
             ValueChanged?.Invoke();
+
 
             if (Value >= LevelUpValue)
             {
@@ -81,6 +94,12 @@ namespace Assets.Scripts
 
             Level++;
             LevelChanged?.Invoke(Level);
+            CalculateTransferValue();
+        }
+
+        private void CalculateTransferValue()
+        {
+            _transferValue = DefaultTransferValue + DefaultTransferValue * Level;
         }
     }
 }

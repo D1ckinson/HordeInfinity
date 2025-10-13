@@ -24,12 +24,93 @@ MonoBehaviour:
   <HitSound>k__BackingField: {fileID: 0}
   <ProjectileSound>k__BackingField: {fileID: 0}
   _abilityStats:
-  - <Cooldown>k__BackingField: 5
+  - <Cooldown>k__BackingField: 10
     <Damage>k__BackingField: 20
     <Range>k__BackingField: 10
-    <ProjectilesCount>k__BackingField: 15
+    <ProjectilesCount>k__BackingField: 8
     <IsPiercing>k__BackingField: 0
     <HealthPercent>k__BackingField: 0
     <PullForce>k__BackingField: 0
     <BouncesQuantity>k__BackingField: 0
     <Cost>k__BackingField: 10
+  - <Cooldown>k__BackingField: 9
+    <Damage>k__BackingField: 22
+    <Range>k__BackingField: 14
+    <ProjectilesCount>k__BackingField: 11
+    <IsPiercing>k__BackingField: 0
+    <HealthPercent>k__BackingField: 0
+    <PullForce>k__BackingField: 0
+    <BouncesQuantity>k__BackingField: 0
+    <Cost>k__BackingField: 20
+  - <Cooldown>k__BackingField: 8
+    <Damage>k__BackingField: 26
+    <Range>k__BackingField: 16
+    <ProjectilesCount>k__BackingField: 13
+    <IsPiercing>k__BackingField: 0
+    <HealthPercent>k__BackingField: 0
+    <PullForce>k__BackingField: 0
+    <BouncesQuantity>k__BackingField: 0
+    <Cost>k__BackingField: 30
+  - <Cooldown>k__BackingField: 8.2
+    <Damage>k__BackingField: 30
+    <Range>k__BackingField: 18
+    <ProjectilesCount>k__BackingField: 15
+    <IsPiercing>k__BackingField: 0
+    <HealthPercent>k__BackingField: 0
+    <PullForce>k__BackingField: 0
+    <BouncesQuantity>k__BackingField: 0
+    <Cost>k__BackingField: 40
+  - <Cooldown>k__BackingField: 7.6
+    <Damage>k__BackingField: 32
+    <Range>k__BackingField: 22
+    <ProjectilesCount>k__BackingField: 16
+    <IsPiercing>k__BackingField: 0
+    <HealthPercent>k__BackingField: 0
+    <PullForce>k__BackingField: 0
+    <BouncesQuantity>k__BackingField: 0
+    <Cost>k__BackingField: 50
+  - <Cooldown>k__BackingField: 7.2
+    <Damage>k__BackingField: 32
+    <Range>k__BackingField: 26
+    <ProjectilesCount>k__BackingField: 16
+    <IsPiercing>k__BackingField: 0
+    <HealthPercent>k__BackingField: 0
+    <PullForce>k__BackingField: 0
+    <BouncesQuantity>k__BackingField: 0
+    <Cost>k__BackingField: 600
+  - <Cooldown>k__BackingField: 6.8
+    <Damage>k__BackingField: 34
+    <Range>k__BackingField: 34
+    <ProjectilesCount>k__BackingField: 18
+    <IsPiercing>k__BackingField: 0
+    <HealthPercent>k__BackingField: 0
+    <PullForce>k__BackingField: 0
+    <BouncesQuantity>k__BackingField: 0
+    <Cost>k__BackingField: 610
+  - <Cooldown>k__BackingField: 6.3
+    <Damage>k__BackingField: 36
+    <Range>k__BackingField: 36
+    <ProjectilesCount>k__BackingField: 20
+    <IsPiercing>k__BackingField: 0
+    <HealthPercent>k__BackingField: 0
+    <PullForce>k__BackingField: 0
+    <BouncesQuantity>k__BackingField: 0
+    <Cost>k__BackingField: 615
+  - <Cooldown>k__BackingField: 6
+    <Damage>k__BackingField: 36
+    <Range>k__BackingField: 40
+    <ProjectilesCount>k__BackingField: 22
+    <IsPiercing>k__BackingField: 0
+    <HealthPercent>k__BackingField: 0
+    <PullForce>k__BackingField: 0
+    <BouncesQuantity>k__BackingField: 0
+    <Cost>k__BackingField: 700
+  - <Cooldown>k__BackingField: 5.6
+    <Damage>k__BackingField: 40
+    <Range>k__BackingField: 50
+    <ProjectilesCount>k__BackingField: 25
+    <IsPiercing>k__BackingField: 0
+    <HealthPercent>k__BackingField: 0
+    <PullForce>k__BackingField: 0
+    <BouncesQuantity>k__BackingField: 0
+    <Cost>k__BackingField: 800

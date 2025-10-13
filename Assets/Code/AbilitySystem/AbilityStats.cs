@@ -15,7 +15,7 @@ namespace Assets.Code
         [field: SerializeField] public int ProjectilesCount { get; private set; }
         [field: SerializeField] public bool IsPiercing { get; private set; }
         [field: SerializeField] public int HealthPercent { get; private set; }
-        [field: SerializeField] public int PullForce { get; private set; }
+        [field: SerializeField] public float PullForce { get; private set; }
         [field: SerializeField] public int BouncesQuantity { get; private set; }
         [field: SerializeField] public int Cost { get; private set; }
 

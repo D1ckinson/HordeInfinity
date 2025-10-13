@@ -10,7 +10,7 @@ namespace Assets.Scripts
 
         public event Action<float> ValueChanged;
 
-        public float CoinsQuantity { get; private set; } = 0;
+        public float CoinsQuantity { get; private set; } = 20;
 
         public void Add(int value)
         {

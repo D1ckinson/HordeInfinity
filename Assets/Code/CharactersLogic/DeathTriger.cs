@@ -39,7 +39,7 @@ namespace Assets.Code.CharactersLogic
             _health.Died += OnDeath;
         }
 
-        private void OnDeath()
+        private void OnDeath(Health health)
         {
             foreach (LootDropInfo lootConfig in _loots)
             {

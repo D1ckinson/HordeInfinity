@@ -15,10 +15,11 @@ MonoBehaviour:
   <Type>k__BackingField: 2
   <Prefab>k__BackingField: {fileID: 3207581003718073074, guid: 57441eb0c4b94ba4ea5aa99d96f7a4b0, type: 3}
   <MaxHealth>k__BackingField: 150
+  <Regeneration>k__BackingField: 0
   <InvincibilityDuration>k__BackingField: 0.1
   <MoveSpeed>k__BackingField: 5.2
   <RotationSpeed>k__BackingField: 200
-  <Damage>k__BackingField: 10
+  <Damage>k__BackingField: 11
   <DamageLayer>k__BackingField:
     serializedVersion: 2
     m_Bits: 128

@@ -29,7 +29,7 @@ MonoBehaviour:
   - {fileID: 6061571990834595463, guid: 8a6a64931f889084898f7f1cf244f517, type: 3}
   <EnemySpawnerSettings>k__BackingField:
     <Radius>k__BackingField: 35
-    <Delay>k__BackingField: 0.5
+    <Delay>k__BackingField: 0.55
     <SpawnLimit>k__BackingField: 55
   <SpawnTypeByTimes>k__BackingField:
   - <Time>k__BackingField: 120

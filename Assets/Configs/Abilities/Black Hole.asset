@@ -30,7 +30,7 @@ MonoBehaviour:
     <ProjectilesCount>k__BackingField: 0
     <IsPiercing>k__BackingField: 0
     <HealthPercent>k__BackingField: 0
-    <PullForce>k__BackingField: 5
+    <PullForce>k__BackingField: 1
     <BouncesQuantity>k__BackingField: 0
     <Cost>k__BackingField: 10
   - <Cooldown>k__BackingField: 9.8
@@ -39,7 +39,7 @@ MonoBehaviour:
     <ProjectilesCount>k__BackingField: 0
     <IsPiercing>k__BackingField: 0
     <HealthPercent>k__BackingField: 0
-    <PullForce>k__BackingField: 7
+    <PullForce>k__BackingField: 2
     <BouncesQuantity>k__BackingField: 0
     <Cost>k__BackingField: 20
   - <Cooldown>k__BackingField: 9.5
@@ -48,7 +48,7 @@ MonoBehaviour:
     <ProjectilesCount>k__BackingField: 0
     <IsPiercing>k__BackingField: 0
     <HealthPercent>k__BackingField: 0
-    <PullForce>k__BackingField: 11
+    <PullForce>k__BackingField: 2
     <BouncesQuantity>k__BackingField: 0
     <Cost>k__BackingField: 30
   - <Cooldown>k__BackingField: 9.2
@@ -57,7 +57,7 @@ MonoBehaviour:
     <ProjectilesCount>k__BackingField: 0
     <IsPiercing>k__BackingField: 0
     <HealthPercent>k__BackingField: 0
-    <PullForce>k__BackingField: 14
+    <PullForce>k__BackingField: 3
     <BouncesQuantity>k__BackingField: 0
     <Cost>k__BackingField: 40
   - <Cooldown>k__BackingField: 8.8
@@ -66,7 +66,7 @@ MonoBehaviour:
     <ProjectilesCount>k__BackingField: 0
     <IsPiercing>k__BackingField: 0
     <HealthPercent>k__BackingField: 0
-    <PullForce>k__BackingField: 15
+    <PullForce>k__BackingField: 3
     <BouncesQuantity>k__BackingField: 0
     <Cost>k__BackingField: 50
   - <Cooldown>k__BackingField: 8.5
@@ -75,7 +75,7 @@ MonoBehaviour:
     <ProjectilesCount>k__BackingField: 0
     <IsPiercing>k__BackingField: 0
     <HealthPercent>k__BackingField: 0
-    <PullForce>k__BackingField: 17
+    <PullForce>k__BackingField: 4
     <BouncesQuantity>k__BackingField: 0
     <Cost>k__BackingField: 300
   - <Cooldown>k__BackingField: 8.1
@@ -84,7 +84,7 @@ MonoBehaviour:
     <ProjectilesCount>k__BackingField: 0
     <IsPiercing>k__BackingField: 0
     <HealthPercent>k__BackingField: 0
-    <PullForce>k__BackingField: 18
+    <PullForce>k__BackingField: 4
     <BouncesQuantity>k__BackingField: 0
     <Cost>k__BackingField: 350
   - <Cooldown>k__BackingField: 7.6
@@ -93,12 +93,12 @@ MonoBehaviour:
     <ProjectilesCount>k__BackingField: 0
     <IsPiercing>k__BackingField: 0
     <HealthPercent>k__BackingField: 0
-    <PullForce>k__BackingField: 18
+    <PullForce>k__BackingField: 4.2
     <BouncesQuantity>k__BackingField: 0
     <Cost>k__BackingField: 400
   - <Cooldown>k__BackingField: 7
     <Damage>k__BackingField: 1.1
-    <Range>k__BackingField: 4
+    <Range>k__BackingField: 4.4
     <ProjectilesCount>k__BackingField: 0
     <IsPiercing>k__BackingField: 0
     <HealthPercent>k__BackingField: 0
@@ -111,6 +111,6 @@ MonoBehaviour:
     <ProjectilesCount>k__BackingField: 0
     <IsPiercing>k__BackingField: 0
     <HealthPercent>k__BackingField: 0
-    <PullForce>k__BackingField: 20
+    <PullForce>k__BackingField: 5
     <BouncesQuantity>k__BackingField: 0
     <Cost>k__BackingField: 500

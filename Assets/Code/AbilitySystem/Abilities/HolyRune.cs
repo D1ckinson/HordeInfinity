@@ -20,6 +20,9 @@ namespace Assets.Code.AbilitySystem.Abilities
         private LayerMask _damageLayer;
         private float _damage;
 
+        private Dictionary<AbilityType, float> _damageDealt;
+        private Dictionary<AbilityType, int> _killCount;
+
         private void Awake()
         {
             transform.localScale = Vector3.zero;
@@ -47,12 +50,15 @@ namespace Assets.Code.AbilitySystem.Abilities
             }
         }
 
-        public void Initialize(float damage, float radius, LayerMask damageLayer, Transform followTarget, ITimeService timeService)
+        public void Initialize(float damage, float radius, LayerMask damageLayer, Transform followTarget, ITimeService timeService, Dictionary<AbilityType, float> damageDealt, Dictionary<AbilityType, int> killCount)
         {
             _damageLayer = damageLayer.ThrowIfNull();
             SetStats(damage, radius);
             _follower.Follow(followTarget);
             _soundPause.Initialize(timeService);
+
+            _damageDealt = damageDealt.ThrowIfNull();
+            _killCount = killCount.ThrowIfNull();
         }
 
         public void SetStats(float damage, float radius)
@@ -67,7 +73,12 @@ namespace Assets.Code.AbilitySystem.Abilities
         {
             for (int i = _health.LastIndex(); i >= Constants.Zero; i--)
             {
-                _health[i].TakeDamage(_damage);
+                _damageDealt[AbilityType.HolyGround] += _damage;
+
+                if (_health[i].TakeDamage(_damage))
+                {
+                    _killCount[AbilityType.HolyGround]++;
+                }
             }
         }
 

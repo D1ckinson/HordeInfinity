@@ -9,7 +9,7 @@
         Bombard,
         BlackHole,
         StoneSpikes,
-        IceStuff,
+        IceStaff,
         Shuriken,
         Fireball,
         WindFlow

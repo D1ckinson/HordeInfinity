@@ -695,6 +695,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b28fc5e850ac43448b730a1a240937f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _regenerationDelay: 5
 --- !u!135 &954724790542248766
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -753,7 +754,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <Center>k__BackingField: {fileID: 7567980103716653656}
-  <AudioSource>k__BackingField: {fileID: 0}
 --- !u!136 &8721791577964659855
 CapsuleCollider:
   m_ObjectHideFlags: 0

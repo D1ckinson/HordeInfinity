@@ -26,13 +26,13 @@ namespace Assets.Scripts.Movement
             _inputControls.Ui.Back.performed += OnPausePerformed;
 
             _joystick.DirectionChanged += OnJoystickMove;
-            _timeService.TimeChanged += ToggleJoystick;
+            _timeService.TimeChanging += ToggleJoystick;
         }
 
         ~InputReader()
         {
             _joystick.DirectionChanged -= OnJoystickMove;
-            _timeService.TimeChanged -= ToggleJoystick;
+            _timeService.TimeChanging -= ToggleJoystick;
 
             _inputControls.Player.Move.performed -= OnMovePerformed;
             _inputControls.Player.Move.canceled -= OnMoveCanceled;
@@ -68,18 +68,9 @@ namespace Assets.Scripts.Movement
             DirectionChanged?.Invoke(new Vector3(vector.x, Constants.Zero, vector.y));
         }
 
-        private void ToggleJoystick()
+        private void ToggleJoystick(bool isStopping)
         {
-            switch (Time.timeScale)
-            {
-                case Constants.One:
-                    _joystick.SetActive(true);
-                    break;
-
-                case Constants.Zero:
-                    _joystick.SetActive(false);
-                    break;
-            }
+            _joystick.SetActive(isStopping);
         }
 
         private void OnPausePerformed(InputAction.CallbackContext context)

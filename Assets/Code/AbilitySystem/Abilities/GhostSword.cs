@@ -1,5 +1,6 @@
 ﻿using Assets.Code.CharactersLogic;
 using Assets.Code.Tools;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Assets.Code.AbilitySystem.Abilities
@@ -16,6 +17,9 @@ namespace Assets.Code.AbilitySystem.Abilities
         private float _damage;
         private bool _isPiercing;
         private LayerMask _damageLayer;
+
+        private Dictionary<AbilityType, float> _damageDealt;
+        private Dictionary<AbilityType, int> _killCount;
 
         private void Awake()
         {
@@ -39,7 +43,13 @@ namespace Assets.Code.AbilitySystem.Abilities
 
             if (_damageLayer.Contains(gameObject.layer) && gameObject.TryGetComponent(out Health health))
             {
-                health.TakeDamage(_damage);
+                _damageDealt[AbilityType.GhostSwords] += _damage;
+
+                if (health.TakeDamage(_damage))
+                {
+                    _killCount[AbilityType.GhostSwords]++;
+                }
+
                 _hitSound.Play();
 
                 if (_isPiercing == false)
@@ -49,10 +59,13 @@ namespace Assets.Code.AbilitySystem.Abilities
             }
         }
 
-        public void Initialize(float damage, bool isPiercing, LayerMask damageLayer)
+        public void Initialize(float damage, bool isPiercing, LayerMask damageLayer, Dictionary<AbilityType, float> damageDealt, Dictionary<AbilityType, int> killCount)
         {
             SetStats(damage, isPiercing);
             _damageLayer = damageLayer.ThrowIfNull();
+
+            _damageDealt = damageDealt.ThrowIfNull();
+            _killCount = killCount.ThrowIfNull();
         }
 
         public void SetStats(float damage, bool isPiercing)

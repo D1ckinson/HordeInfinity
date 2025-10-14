@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace Assets.Code.AbilitySystem.Abilities
 {
-    public class IceStuff : Ability
+    public class IceStaff : Ability
     {
         private const int MaxTargets = 10;
 
@@ -22,7 +22,8 @@ namespace Assets.Code.AbilitySystem.Abilities
         private float _attackRadius;
         private int _projectilesCount;
 
-        public IceStuff(AbilityConfig config, Dictionary<AbilityType, int> abilityUnlockLevel, Transform heroCenterPoint, int level = 1) : base(config, abilityUnlockLevel, level)
+        public IceStaff(AbilityConfig config, Dictionary<AbilityType, int> abilityUnlockLevel, Transform heroCenterPoint,
+            Dictionary<AbilityType, float> damageDealt, Dictionary<AbilityType, int> killCount, int level = 1) : base(config, abilityUnlockLevel, level)
         {
             AbilityStats stats = config.ThrowIfNull().GetStats(level);
             _heroCenter = heroCenterPoint.ThrowIfNull();
@@ -39,7 +40,7 @@ namespace Assets.Code.AbilitySystem.Abilities
             IceSpike CreateIceSpike()
             {
                 IceSpike iceSpike = config.ProjectilePrefab.Instantiate().GetComponentOrThrow<IceSpike>();
-                iceSpike.Initialize(_damageLayer, _damage, _hitSoundPool);
+                iceSpike.Initialize(_damageLayer, _damage, _hitSoundPool, damageDealt, killCount);
 
                 return iceSpike;
             }

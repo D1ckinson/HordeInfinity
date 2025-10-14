@@ -11,7 +11,6 @@ using Assets.Scripts.Configs;
 using Assets.Scripts.Factories;
 using Assets.Scripts.Movement;
 using Assets.Scripts.State_Machine;
-using Assets.Scripts.Tools;
 using Assets.Scripts.Ui;
 using System.Collections.Generic;
 using UnityEngine;
@@ -26,26 +25,9 @@ namespace Assets.Scripts
 
         private StateMachine _stateMachine;
 
-#if UNITY_EDITOR
-        private void OnDrawGizmos()
-        {
-            if (_levelSettings.IsNull())
-            {
-                return;
-            }
-
-            Gizmos.color = Color.red;
-            GameAreaSettings gameAreaSettings = _levelSettings.GameAreaSettings;
-
-            Gizmos.DrawSphere(gameAreaSettings.Center, 1);
-            CustomGizmos.DrawCircle(gameAreaSettings.Center, gameAreaSettings.Radius, Color.red);
-        }
-#endif
-
         private void Awake()
         {
             PlayerData playerData = YG2.saves.Load();
-
             ITimeService timeService = new TimeService();
             HeroLevel heroLevel = new(_levelSettings.CalculateExperienceForNextLevel);
             UiFactory uiFactory = new(_uIConfig, playerData.Wallet, _levelSettings.UpgradeCost, _levelSettings.AbilityConfigs, playerData.AbilityUnlockLevel, heroLevel);
@@ -61,11 +43,11 @@ namespace Assets.Scripts
             Dictionary<AbilityType, AbilityConfig> abilities = _levelSettings.AbilityConfigs;
 
             LootFactory lootFactory = new(_levelSettings.Loots);
-            AbilityFactory abilityFactory = new(abilities, heroComponents.transform, heroComponents.Center, playerData.AbilityUnlockLevel, lootFactory, heroComponents.Animator, timeService);
+            AbilityFactory abilityFactory = new(abilities, heroComponents.transform, heroComponents.Center, playerData.AbilityUnlockLevel, playerData.DamageDealt, playerData.KillCount, lootFactory, heroComponents.Animator, timeService);
             EnemyFactory enemyFactory = new(_levelSettings.EnemyConfigs, lootFactory, heroComponents.transform, _levelSettings.EnemySpawnerSettings, gameAreaSettings, _levelSettings.GoldEnemy);
 
             LevelUpWindow levelUpWindow = new(_uIConfig.LevelUpCanvas, _uIConfig.LevelUpButton);
-            UpgradeTrigger upgradeTrigger = new(heroLevel, abilities, heroComponents.AbilityContainer, levelUpWindow, abilityFactory, timeService);
+            UpgradeTrigger upgradeTrigger = new(heroLevel, abilities, heroComponents.AbilityContainer, levelUpWindow, abilityFactory, timeService, playerData.AbilityUnlockLevel);
 
             EnemySpawner enemySpawner = new(enemyFactory, _levelSettings.SpawnTypeByTimes);
 

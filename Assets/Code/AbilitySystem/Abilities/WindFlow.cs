@@ -13,7 +13,8 @@ namespace Assets.Code.AbilitySystem.Abilities
         private float _damage;
         private int _projectilesCount;
 
-        public WindFlow(AbilityConfig config, Dictionary<AbilityType, int> abilityUnlockLevel, Transform hero, int level = 1) : base(config, abilityUnlockLevel, level)
+        public WindFlow(AbilityConfig config, Dictionary<AbilityType, int> abilityUnlockLevel, Transform hero,
+            Dictionary<AbilityType, float> damageDealt, Dictionary<AbilityType, int> killCount, int level = 1) : base(config, abilityUnlockLevel, level)
         {
             AbilityStats stats = config.ThrowIfNull().GetStats(level);
             _hero = hero.ThrowIfNull();
@@ -26,7 +27,7 @@ namespace Assets.Code.AbilitySystem.Abilities
             WindWall CreateWindWall()
             {
                 WindWall wall = config.ProjectilePrefab.Instantiate().GetComponentOrThrow<WindWall>();
-                wall.Initialize(config.DamageLayer, _damage);
+                wall.Initialize(config.DamageLayer, _damage, damageDealt, killCount);
 
                 return wall;
             }

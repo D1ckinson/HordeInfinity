@@ -26,11 +26,14 @@ namespace Assets.Code.Data
         public static string MenuText { get; private set; }
         public static string PersonalBest { get; private set; }
 
-        public static string Range { get; internal set; }
-        public static string Damage { get; internal set; }
-        public static string Cooldown { get; internal set; }
-        public static string ProjectilesCount { get; internal set; }
-        public static string HealthPercent { get; internal set; }
+        public static string Range { get; private set; }
+        public static string Damage { get; private set; }
+        public static string Cooldown { get; private set; }
+        public static string ProjectilesCount { get; private set; }
+        public static string HealthPercent { get; private set; }
+        public static string PullForce { get; private set; }
+        public static string BouncesQuantity { get; private set; }
+        public static string ThrowDistance { get; private set; }
 
         public static IReadOnlyDictionary<AbilityType, string> AbilityName => _abilityName;
 
@@ -72,7 +75,10 @@ namespace Assets.Code.Data
             Cooldown = "Перезарядка";
             Range = "Дальность";
             ProjectilesCount = "Количество снарядов";
-            HealthPercent = "Процент здоровья";
+            HealthPercent = "Процент от здоровья";
+            PullForce = "Сила притяжения";
+            BouncesQuantity = "Количество отскоков";
+            ThrowDistance = "Дистанция броска";
 
             _abilityName = new()
             {
@@ -83,7 +89,7 @@ namespace Assets.Code.Data
                 [AbilityType.Bombard] = "Бомбарда",
                 [AbilityType.BlackHole] = "Черная дыра",
                 [AbilityType.StoneSpikes] = "Каменные иглы",
-                [AbilityType.IceStuff] = "Ледяной посох",
+                [AbilityType.IceStaff] = "Ледяной посох",
                 [AbilityType.Shuriken] = "Сюрикен",
                 [AbilityType.Fireball] = "Огненный шар",
                 [AbilityType.WindFlow] = "Поток ветра"
@@ -110,7 +116,10 @@ namespace Assets.Code.Data
             Cooldown = "Cooldown";
             Range = "Range";
             ProjectilesCount = "Projectiles count";
-            HealthPercent = "Health percent";
+            HealthPercent = "Percent from health";
+            PullForce = "Pull force";
+            BouncesQuantity = "Bounces quantity";
+            ThrowDistance = "Throw distance";
 
             _abilityName = new()
             {
@@ -121,7 +130,7 @@ namespace Assets.Code.Data
                 [AbilityType.MidasHand] = "Bombard",
                 [AbilityType.BlackHole] = "Black hole",
                 [AbilityType.StoneSpikes] = "Stone spikes",
-                [AbilityType.IceStuff] = "Ice stuff",
+                [AbilityType.IceStaff] = "Ice staff",
                 [AbilityType.Shuriken] = "Shuriken",
                 [AbilityType.Fireball] = "Fireball",
                 [AbilityType.WindFlow] = "Wind Flow"

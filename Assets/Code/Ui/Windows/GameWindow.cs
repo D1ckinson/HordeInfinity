@@ -1,6 +1,7 @@
 ﻿using Assets.Code.Data;
 using Assets.Code.Tools;
 using Assets.Scripts;
+using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,6 +10,7 @@ namespace Assets.Code.Ui.Windows
 {
     public class GameWindow : BaseWindow
     {
+        [SerializeField][Range(0.1f, 1f)] private float _fillingDuration = 0.3f;
         [SerializeField] private TMP_Text _coinsCount;
         [SerializeField] private TMP_Text _levelText;
         [SerializeField] private TMP_Text _levelValue;
@@ -58,8 +60,8 @@ namespace Assets.Code.Ui.Windows
 
         private void OnExperienceChanged()
         {
-            float fillPercent = _heroLevel.Value / _heroLevel.LevelUpValue;
-            _barFilling.fillAmount = fillPercent;
+            float targetPercent = _heroLevel.Value / _heroLevel.LevelUpValue;
+            _barFilling.DOFillAmount(targetPercent, _fillingDuration);
         }
 
         private void OnGoldChanged(int value)

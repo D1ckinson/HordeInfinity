@@ -9,6 +9,10 @@ namespace Assets.Code.Spawners
 {
     public class EnemySpawner
     {
+        private const float GoldEnemyMinSpawnDelay = 120;
+        private const float GoldEnemyMaxSpawnDelay = 300;
+        private const float DelayDecreaseValue = 0.05f;
+
         private readonly EnemyFactory _enemyFactory;
         private readonly Timer _timer = new();
         private readonly SpawnTypeByTime[] _spawnTypeByTime;
@@ -16,8 +20,6 @@ namespace Assets.Code.Spawners
         private int _spawnTypeIndex = -1;
         private float _delay;
 
-        private const float GoldEnemyMinSpawnDelay = 10;
-        private const float GoldEnemyMaxSpawnDelay = 10;
         private float _goldEnemySpawnDelay;
 
         public EnemySpawner(EnemyFactory enemyFactory, SpawnTypeByTime[] spawnTypeByTime)
@@ -66,12 +68,14 @@ namespace Assets.Code.Spawners
             _delay += Time.deltaTime;
             _goldEnemySpawnDelay -= Time.deltaTime;
 
-            if (_delay < _enemyFactory.Delay)
+            if (_delay < _enemyFactory.Delay - DelayDecreaseValue * _spawnTypeIndex)
             {
                 return;
             }
 
-            EnemyComponents enemy = TrySpawnGoldEnemy() ?? _enemyFactory.Spawn(_spawnTypeByTime[_spawnTypeIndex].Type);
+            TrySpawnGoldEnemy();
+            _enemyFactory.Spawn(_spawnTypeByTime[_spawnTypeIndex].Type);
+
             _delay = Constants.Zero;
         }
 

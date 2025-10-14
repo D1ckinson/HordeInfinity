@@ -17,7 +17,8 @@ namespace Assets.Code.AbilitySystem.Abilities
         private float _projectilesCount;
         private int _bouncesQuantity;
 
-        public Shuriken(AbilityConfig config, Dictionary<AbilityType, int> abilityUnlockLevel, Transform heroCenter, ITimeService timeService, int level = 1) : base(config, abilityUnlockLevel, level)
+        public Shuriken(AbilityConfig config, Dictionary<AbilityType, int> abilityUnlockLevel, Transform heroCenter,
+            ITimeService timeService, Dictionary<AbilityType, float> damageDealt, Dictionary<AbilityType, int> killCount, int level = 1) : base(config, abilityUnlockLevel, level)
         {
             AbilityStats stats = config.ThrowIfNull().GetStats(level);
             _heroCenter = heroCenter.ThrowIfNull();
@@ -33,7 +34,7 @@ namespace Assets.Code.AbilitySystem.Abilities
             ShurikenProjectile CreateShurikenProjectile()
             {
                 ShurikenProjectile projectile = config.ProjectilePrefab.Instantiate(false).GetComponentOrThrow<ShurikenProjectile>();
-                projectile.Initialize(config.DamageLayer, _damage, _range, _bouncesQuantity, _hitSoundPool, timeService);
+                projectile.Initialize(config.DamageLayer, _damage, _range, _bouncesQuantity, _hitSoundPool, timeService, damageDealt, killCount);
 
                 return projectile;
             }

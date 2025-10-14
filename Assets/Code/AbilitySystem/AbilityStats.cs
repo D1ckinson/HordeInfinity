@@ -17,6 +17,7 @@ namespace Assets.Code
         [field: SerializeField] public int HealthPercent { get; private set; }
         [field: SerializeField] public float PullForce { get; private set; }
         [field: SerializeField] public int BouncesQuantity { get; private set; }
+        [field: SerializeField] public int ThrowDistance { get; private set; }
         [field: SerializeField] public int Cost { get; private set; }
 
         public static AbilityStats operator -(AbilityStats a, AbilityStats b)
@@ -40,8 +41,10 @@ namespace Assets.Code
             AddIfNotZero(description, UIText.Damage, Damage);
             AddIfNotZero(description, UIText.Range, Range);
             AddIfNotZero(description, UIText.ProjectilesCount, ProjectilesCount);
-            AddIfNotZero(description, UIText.ProjectilesCount, ProjectilesCount);
             AddIfNotZero(description, UIText.HealthPercent, HealthPercent);
+            AddIfNotZero(description, UIText.PullForce, PullForce);
+            AddIfNotZero(description, UIText.BouncesQuantity, BouncesQuantity);
+            AddIfNotZero(description, UIText.ThrowDistance, ThrowDistance);
 
             return description;
         }

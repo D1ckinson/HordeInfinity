@@ -1,6 +1,7 @@
 ﻿using Assets.Code.CharactersLogic.EnemyLogic;
 using Assets.Code.Tools;
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Assets.Code.AbilitySystem.Abilities
@@ -17,11 +18,20 @@ namespace Assets.Code.AbilitySystem.Abilities
         private LayerMask _damageLayer;
         private float _damage;
 
+        private Dictionary<AbilityType, float> _damageDealt;
+        private Dictionary<AbilityType, int> _killCount;
+
         private void OnTriggerEnter(Collider other)
         {
             if (_damageLayer.Contains(other.gameObject.layer) && other.TryGetComponent(out EnemyComponents enemy))
             {
-                enemy.Health.TakeDamage(_damage);
+                _damageDealt[AbilityType.WindFlow] += _damage;
+
+                if (enemy.Health.TakeDamage(_damage))
+                {
+                    _killCount[AbilityType.WindFlow]++;
+                }
+
                 enemy.Rigidbody.AddForce(transform.forward * _pushForce, ForceMode.Impulse);
             }
         }
@@ -32,10 +42,13 @@ namespace Assets.Code.AbilitySystem.Abilities
             UpdateService.UnregisterUpdate(Move);
         }
 
-        public void Initialize(LayerMask damageLayer, float damage)
+        public void Initialize(LayerMask damageLayer, float damage, Dictionary<AbilityType, float> damageDealt, Dictionary<AbilityType, int> killCount)
         {
             _damageLayer = damageLayer.ThrowIfNull();
             SetDamage(damage);
+
+            _damageDealt = damageDealt.ThrowIfNull();
+            _killCount = killCount.ThrowIfNull();
         }
 
         public void SetDamage(float damage)

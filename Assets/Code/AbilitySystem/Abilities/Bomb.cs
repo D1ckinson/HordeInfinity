@@ -2,6 +2,7 @@
 using Assets.Code.Tools;
 using Assets.Scripts.Tools;
 using DG.Tweening;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Assets.Code.AbilitySystem.Abilities
@@ -23,6 +24,14 @@ namespace Assets.Code.AbilitySystem.Abilities
         private LayerMask _damageLayer;
         private Tween _currentTween;
 
+        private Dictionary<AbilityType, float> _damageDealt;
+        private Dictionary<AbilityType, int> _killCount;
+
+        private void OnDrawGizmos()
+        {
+            Gizmos.DrawSphere(transform.position, _explosionRadius);
+        }
+
         private void Update()
         {
             transform.Rotate(Constants.Zero, _rotationSpeed * Time.deltaTime, Constants.Zero);
@@ -33,13 +42,16 @@ namespace Assets.Code.AbilitySystem.Abilities
             _currentTween?.Kill();
         }
 
-        public void Initialize(float damage, float explosionRadius, LayerMask damageLayer, Pool<ParticleSystem> visualEffectPool, Pool<AudioSource> soundEffectPool)
+        public void Initialize(float damage, float explosionRadius, LayerMask damageLayer, Pool<ParticleSystem> visualEffectPool, Pool<AudioSource> soundEffectPool, Dictionary<AbilityType, float> damageDealt, Dictionary<AbilityType, int> killCount)
         {
             SetStats(damage, explosionRadius);
 
             _visualEffectPool = visualEffectPool.ThrowIfNull();
             _soundEffectPool = soundEffectPool.ThrowIfNull();
             _damageLayer = damageLayer.ThrowIfNull();
+
+            _damageDealt = damageDealt.ThrowIfNull();
+            _killCount = killCount.ThrowIfNull();
         }
 
         public void SetStats(float damage, float explosionRadius)
@@ -68,7 +80,12 @@ namespace Assets.Code.AbilitySystem.Abilities
             {
                 if (_colliders[i].TryGetComponent(out Health health))
                 {
-                    health.TakeDamage(_damage);
+                    _damageDealt[AbilityType.Bombard] += _damage;
+
+                    if (health.TakeDamage(_damage))
+                    {
+                        _killCount[AbilityType.Bombard]++;
+                    }
                 }
             }
 

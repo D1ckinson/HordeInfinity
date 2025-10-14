@@ -3,6 +3,7 @@ using Assets.Code.Tools;
 using Assets.Scripts;
 using Assets.Scripts.Tools;
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Assets.Code.AbilitySystem.Abilities
@@ -23,6 +24,9 @@ namespace Assets.Code.AbilitySystem.Abilities
         private float _explosionRadius;
         private Vector3 _direction;
 
+        private Dictionary<AbilityType, float> _damageDealt;
+        private Dictionary<AbilityType, int> _killCount;
+
         private void OnTriggerEnter(Collider other)
         {
             if (_damageLayer.Contains(other.gameObject.layer))
@@ -39,12 +43,15 @@ namespace Assets.Code.AbilitySystem.Abilities
         }
 
         public void Initialize(LayerMask damageLayer, float damage, float explosionRadius,
-            Pool<ParticleSystem> explosionEffectPool, Pool<AudioSource> explosionSoundPool, ITimeService timeService)
+            Pool<ParticleSystem> explosionEffectPool, Pool<AudioSource> explosionSoundPool, ITimeService timeService, Dictionary<AbilityType, float> damageDealt, Dictionary<AbilityType, int> killCount)
         {
             _damageLayer = damageLayer.ThrowIfNull();
             _explosionEffectPool = explosionEffectPool.ThrowIfNull();
             _explosionSoundPool = explosionSoundPool.ThrowIfNull();
             _soundPause.Initialize(timeService);
+
+            _damageDealt = damageDealt.ThrowIfNull();
+            _killCount = killCount.ThrowIfNull();
 
             SetStats(damage, explosionRadius);
         }
@@ -79,7 +86,12 @@ namespace Assets.Code.AbilitySystem.Abilities
             {
                 if (_colliders[i].TryGetComponent(out Health health))
                 {
-                    health.TakeDamage(_damage);
+                    _damageDealt[AbilityType.Fireball] += _damage;
+
+                    if (health.TakeDamage(_damage))
+                    {
+                        _killCount[AbilityType.Fireball]++;
+                    }
                 }
             }
 

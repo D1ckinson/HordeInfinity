@@ -22,10 +22,12 @@ namespace Assets.Code.AbilitySystem.Abilities
         private LayerMask _damageLayer;
         private Pool<ParticleSystem> _effectPool;
         private AudioSource _sound;
-
         private float _damage;
         private float _pullForce;
         private float _radius;
+
+        private Dictionary<AbilityType, float> _damageDealt;
+        private Dictionary<AbilityType, int> _killCount;
 
         private void OnEnable()
         {
@@ -73,7 +75,14 @@ namespace Assets.Code.AbilitySystem.Abilities
             for (int i = _enemies.LastIndex(); i >= Constants.Zero; i--)
             {
                 EnemyComponents enemy = _enemies.Values.ElementAt(i);
-                enemy.Health.TakeDamage(_baseDamage + _damage * _enemies.Count);
+
+                float damage = _baseDamage + _damage * _enemies.Count;
+                _damageDealt[AbilityType.BlackHole] += damage;
+
+                if (enemy.Health.TakeDamage(damage))
+                {
+                    _killCount[AbilityType.BlackHole]++;
+                }
 
                 Vector3 directionToCenter = (transform.position - enemy.transform.position).normalized;
                 float pullForce = _pullForce * _enemies.Count;
@@ -82,11 +91,13 @@ namespace Assets.Code.AbilitySystem.Abilities
             }
         }
 
-        public BlackHoleProjectile Initialize(LayerMask damageLayer, float damage, float radius, float pullForce, Pool<ParticleSystem> effectPool, AudioSource sound)
+        public BlackHoleProjectile Initialize(LayerMask damageLayer, float damage, float radius, float pullForce, Pool<ParticleSystem> effectPool, AudioSource sound, Dictionary<AbilityType, float> damageDealt, Dictionary<AbilityType, int> killCount)
         {
             _damageLayer = damageLayer.ThrowIfNull();
             _effectPool = effectPool.ThrowIfNull();
             _sound = sound.ThrowIfNull();
+            _damageDealt = damageDealt.ThrowIfNull();
+            _killCount = killCount.ThrowIfNull();
 
             SetStats(damage, radius, pullForce);
 

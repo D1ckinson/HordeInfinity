@@ -9,8 +9,6 @@ namespace Assets.Code.AbilitySystem.Abilities
 {
     public class Bombard : Ability
     {
-        private const float MaxThrowDistance = 15f;
-
         private readonly WaitForSeconds _delay = new(0.1f);
         private readonly Pool<Bomb> _bombPool;
         private readonly Pool<ParticleSystem> _visualEffectPool;
@@ -19,10 +17,12 @@ namespace Assets.Code.AbilitySystem.Abilities
         private readonly AudioSource _throwSound;
 
         private float _damage;
+        private float _throwDistance = 10f;
         private float _explosionRadius;
         private float _projectilesCount;
 
-        public Bombard(AbilityConfig config, Dictionary<AbilityType, int> abilityUnlockLevel, Transform launchPoint, int level = 1) : base(config, abilityUnlockLevel, level)
+        public Bombard(AbilityConfig config, Dictionary<AbilityType, int> abilityUnlockLevel, Transform launchPoint,
+            Dictionary<AbilityType, float> damageDealt, Dictionary<AbilityType, int> killCount, int level = 1) : base(config, abilityUnlockLevel, level)
         {
             AbilityStats stats = config.ThrowIfNull().GetStats(level);
             _launchPoint = launchPoint.ThrowIfNull();
@@ -30,6 +30,7 @@ namespace Assets.Code.AbilitySystem.Abilities
             _damage = stats.Damage;
             _projectilesCount = stats.ProjectilesCount;
             _explosionRadius = stats.Range;
+            _throwDistance = stats.ThrowDistance;
 
             _visualEffectPool = new(() => config.Effect.Instantiate());
             _hitSoundPool = new(() => config.HitSound.Instantiate());
@@ -39,7 +40,7 @@ namespace Assets.Code.AbilitySystem.Abilities
             Bomb CreateBomb()
             {
                 Bomb bomb = config.ProjectilePrefab.GetComponentOrThrow<Bomb>().Instantiate();
-                bomb.Initialize(_damage, _explosionRadius, config.DamageLayer, _visualEffectPool, _hitSoundPool);
+                bomb.Initialize(_damage, _explosionRadius, config.DamageLayer, _visualEffectPool, _hitSoundPool, damageDealt, killCount);
 
                 return bomb;
             }
@@ -79,13 +80,14 @@ namespace Assets.Code.AbilitySystem.Abilities
             _damage = stats.Damage;
             _projectilesCount = stats.ProjectilesCount;
             _explosionRadius = stats.Range;
+            _throwDistance = stats.ThrowDistance;
 
             _bombPool.ForEach(bomb => bomb.SetStats(_damage, _explosionRadius));
         }
 
         private Vector3 GenerateRandomPoint()
         {
-            Vector3 distance = Utilities.GenerateRandomDirection() * Random.Range(Constants.One, MaxThrowDistance);
+            Vector3 distance = Utilities.GenerateRandomDirection() * Random.Range(Constants.One, _throwDistance);
             Vector3 point = _launchPoint.position + distance;
 
             return point;

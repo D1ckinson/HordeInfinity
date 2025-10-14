@@ -59,6 +59,11 @@ public class Joystick : BaseWindow, IPointerDownHandler, IDragHandler, IPointerU
         handle.anchoredPosition = Vector2.zero;
     }
 
+    private void OnDisable()
+    {
+        OnPointerUp(null);
+    }
+
     public virtual void OnPointerDown(PointerEventData eventData)
     {
         OnDrag(eventData);

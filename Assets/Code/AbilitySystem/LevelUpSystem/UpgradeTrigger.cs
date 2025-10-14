@@ -18,11 +18,12 @@ namespace Assets.Code.AbilitySystem
         private readonly LevelUpWindow _levelUpWindow;
         private readonly AbilityFactory _abilityFactory;
         private readonly ITimeService _timeService;
+        private readonly Dictionary<AbilityType, int> _abilityUnlockLevel;
 
         public UpgradeTrigger
             (HeroLevel heroExperience, Dictionary<AbilityType, AbilityConfig> abilityConfigs,
             AbilityContainer abilityContainer, LevelUpWindow levelUpWindow, AbilityFactory abilityFactory,
-            ITimeService timeService)
+            ITimeService timeService, Dictionary<AbilityType, int> abilityUnlockLevel)
         {
             _heroExperience = heroExperience.ThrowIfNull();
             _abilityContainer = abilityContainer.ThrowIfNull();
@@ -30,6 +31,7 @@ namespace Assets.Code.AbilitySystem
             _levelUpWindow = levelUpWindow.ThrowIfNull();
             _abilityFactory = abilityFactory.ThrowIfNull();
             _timeService = timeService.ThrowIfNull();
+            _abilityUnlockLevel = abilityUnlockLevel.ThrowIfNullOrEmpty();
         }
 
         ~UpgradeTrigger()
@@ -68,7 +70,11 @@ namespace Assets.Code.AbilitySystem
                 return;
             }
 
-            List<AbilityType> possibleUpgrades = Constants.GetEnums<AbilityType>().Except(_abilityContainer.MaxedAbilities).ToList();
+            List<AbilityType> possibleUpgrades = Constants.GetEnums<AbilityType>()
+                .Except(_abilityContainer.MaxedAbilities)
+                .Except(_abilityUnlockLevel.Where(pair => pair.Value == Constants.Zero).Select(pair => pair.Key))
+                .ToList();
+
             List<UpgradeOption> upgradeOptions = new();
 
             for (int i = Constants.Zero; i < SuggestedUpgradesCount; i++)

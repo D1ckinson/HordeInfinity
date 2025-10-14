@@ -18,15 +18,18 @@ namespace Assets.Scripts
         }
 
         public event Action TimeChanged;
+        public event Action<bool> TimeChanging;
 
         public void Pause()
         {
+            TimeChanging?.Invoke(false);
             CoroutineService.StopAllCoroutines(this);
             CoroutineService.StartCoroutine(SlowdownCoroutine(), this);
         }
 
         public void Continue()
         {
+            TimeChanging?.Invoke(true);
             CoroutineService.StopAllCoroutines(this);
             CoroutineService.StartCoroutine(SpeedupCoroutine(), this);
         }

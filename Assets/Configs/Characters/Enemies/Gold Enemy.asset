@@ -15,7 +15,9 @@ MonoBehaviour:
   <Type>k__BackingField: 8
   <Prefab>k__BackingField: {fileID: 3207581003718073074, guid: 02be7ddc4135d8349a1b99dc503b85ff, type: 3}
   <MaxHealth>k__BackingField: 100
+  <Regeneration>k__BackingField: 0
   <InvincibilityDuration>k__BackingField: 0.1
+  <InvincibilityTriggerPercent>k__BackingField: 90
   <MoveSpeed>k__BackingField: 6.2
   <RotationSpeed>k__BackingField: 200
   <Damage>k__BackingField: 10
@@ -26,8 +28,32 @@ MonoBehaviour:
   <PullSpeed>k__BackingField: 5
   <Loot>k__BackingField:
   - <Type>k__BackingField: 3
-    <Count>k__BackingField: 100
-    <DropChance>k__BackingField: 100
-  - <Type>k__BackingField: 0
-    <Count>k__BackingField: 1
-    <DropChance>k__BackingField: 100
+    <Count>k__BackingField: 10
+    <DropChance>k__BackingField: 10
+  - <Type>k__BackingField: 3
+    <Count>k__BackingField: 10
+    <DropChance>k__BackingField: 10
+  - <Type>k__BackingField: 3
+    <Count>k__BackingField: 10
+    <DropChance>k__BackingField: 10
+  - <Type>k__BackingField: 3
+    <Count>k__BackingField: 10
+    <DropChance>k__BackingField: 10
+  - <Type>k__BackingField: 3
+    <Count>k__BackingField: 10
+    <DropChance>k__BackingField: 10
+  - <Type>k__BackingField: 3
+    <Count>k__BackingField: 10
+    <DropChance>k__BackingField: 10
+  - <Type>k__BackingField: 3
+    <Count>k__BackingField: 10
+    <DropChance>k__BackingField: 10
+  - <Type>k__BackingField: 3
+    <Count>k__BackingField: 10
+    <DropChance>k__BackingField: 10
+  - <Type>k__BackingField: 3
+    <Count>k__BackingField: 10
+    <DropChance>k__BackingField: 10
+  - <Type>k__BackingField: 3
+    <Count>k__BackingField: 10
+    <DropChance>k__BackingField: 10

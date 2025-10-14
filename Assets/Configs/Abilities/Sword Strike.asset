@@ -25,92 +25,102 @@ MonoBehaviour:
   <ProjectileSound>k__BackingField: {fileID: 0}
   _abilityStats:
   - <Cooldown>k__BackingField: 2
-    <Damage>k__BackingField: 50
+    <Damage>k__BackingField: 40
     <Range>k__BackingField: 4
     <ProjectilesCount>k__BackingField: 0
     <IsPiercing>k__BackingField: 0
     <HealthPercent>k__BackingField: 0
     <PullForce>k__BackingField: 0
     <BouncesQuantity>k__BackingField: 0
+    <ThrowDistance>k__BackingField: 0
     <Cost>k__BackingField: 10
   - <Cooldown>k__BackingField: 1.8
-    <Damage>k__BackingField: 80
+    <Damage>k__BackingField: 50
     <Range>k__BackingField: 4.5
     <ProjectilesCount>k__BackingField: 0
     <IsPiercing>k__BackingField: 0
     <HealthPercent>k__BackingField: 0
     <PullForce>k__BackingField: 0
     <BouncesQuantity>k__BackingField: 0
+    <ThrowDistance>k__BackingField: 0
     <Cost>k__BackingField: 20
   - <Cooldown>k__BackingField: 1.7
-    <Damage>k__BackingField: 110
+    <Damage>k__BackingField: 55
     <Range>k__BackingField: 5
     <ProjectilesCount>k__BackingField: 0
     <IsPiercing>k__BackingField: 0
     <HealthPercent>k__BackingField: 0
     <PullForce>k__BackingField: 0
     <BouncesQuantity>k__BackingField: 0
+    <ThrowDistance>k__BackingField: 0
     <Cost>k__BackingField: 30
   - <Cooldown>k__BackingField: 1.5
-    <Damage>k__BackingField: 150
+    <Damage>k__BackingField: 60
     <Range>k__BackingField: 5.5
     <ProjectilesCount>k__BackingField: 0
     <IsPiercing>k__BackingField: 0
     <HealthPercent>k__BackingField: 0
     <PullForce>k__BackingField: 0
     <BouncesQuantity>k__BackingField: 0
+    <ThrowDistance>k__BackingField: 0
     <Cost>k__BackingField: 40
   - <Cooldown>k__BackingField: 1.4
-    <Damage>k__BackingField: 200
+    <Damage>k__BackingField: 70
     <Range>k__BackingField: 6
     <ProjectilesCount>k__BackingField: 0
     <IsPiercing>k__BackingField: 0
     <HealthPercent>k__BackingField: 0
     <PullForce>k__BackingField: 0
     <BouncesQuantity>k__BackingField: 0
+    <ThrowDistance>k__BackingField: 0
     <Cost>k__BackingField: 50
   - <Cooldown>k__BackingField: 1.3
-    <Damage>k__BackingField: 230
+    <Damage>k__BackingField: 85
     <Range>k__BackingField: 7
     <ProjectilesCount>k__BackingField: 0
     <IsPiercing>k__BackingField: 0
     <HealthPercent>k__BackingField: 0
     <PullForce>k__BackingField: 0
     <BouncesQuantity>k__BackingField: 0
-    <Cost>k__BackingField: 60
+    <ThrowDistance>k__BackingField: 0
+    <Cost>k__BackingField: 150
   - <Cooldown>k__BackingField: 1.2
-    <Damage>k__BackingField: 270
+    <Damage>k__BackingField: 90
     <Range>k__BackingField: 8
     <ProjectilesCount>k__BackingField: 0
     <IsPiercing>k__BackingField: 0
     <HealthPercent>k__BackingField: 0
     <PullForce>k__BackingField: 0
     <BouncesQuantity>k__BackingField: 0
-    <Cost>k__BackingField: 70
+    <ThrowDistance>k__BackingField: 0
+    <Cost>k__BackingField: 200
   - <Cooldown>k__BackingField: 1.1
-    <Damage>k__BackingField: 300
+    <Damage>k__BackingField: 100
     <Range>k__BackingField: 9
     <ProjectilesCount>k__BackingField: 0
     <IsPiercing>k__BackingField: 0
     <HealthPercent>k__BackingField: 0
     <PullForce>k__BackingField: 0
     <BouncesQuantity>k__BackingField: 0
-    <Cost>k__BackingField: 100
+    <ThrowDistance>k__BackingField: 0
+    <Cost>k__BackingField: 250
   - <Cooldown>k__BackingField: 1
-    <Damage>k__BackingField: 310
+    <Damage>k__BackingField: 110
     <Range>k__BackingField: 11
     <ProjectilesCount>k__BackingField: 0
     <IsPiercing>k__BackingField: 0
     <HealthPercent>k__BackingField: 0
     <PullForce>k__BackingField: 0
     <BouncesQuantity>k__BackingField: 0
-    <Cost>k__BackingField: 150
+    <ThrowDistance>k__BackingField: 0
+    <Cost>k__BackingField: 300
   - <Cooldown>k__BackingField: 1
-    <Damage>k__BackingField: 350
+    <Damage>k__BackingField: 150
     <Range>k__BackingField: 13
     <ProjectilesCount>k__BackingField: 0
     <IsPiercing>k__BackingField: 0
     <HealthPercent>k__BackingField: 0
     <PullForce>k__BackingField: 0
     <BouncesQuantity>k__BackingField: 0
-    <Cost>k__BackingField: 200
+    <ThrowDistance>k__BackingField: 0
+    <Cost>k__BackingField: 350

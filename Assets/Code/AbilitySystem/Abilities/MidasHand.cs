@@ -14,12 +14,14 @@ namespace Assets.Code.AbilitySystem.Abilities
         private readonly Transform _heroCenter;
         private readonly LootFactory _lootFactory;
         private readonly AudioSource _hitSound;
+        private readonly Dictionary<AbilityType, int> _killCount;
 
         private float _damage;
         private float _range;
         private int _healthPercent;
 
-        public MidasHand(AbilityConfig config, Dictionary<AbilityType, int> abilityUnlockLevel, Transform heroCenter, LootFactory lootFactory, int level = 1) : base(config, abilityUnlockLevel, level)
+        public MidasHand(AbilityConfig config, Dictionary<AbilityType, int> abilityUnlockLevel, Transform heroCenter,
+            LootFactory lootFactory, Dictionary<AbilityType, int> killCount, int level = 1) : base(config, abilityUnlockLevel, level)
         {
             _damageLayer = config.DamageLayer.ThrowIfNull();
             _heroCenter = heroCenter.ThrowIfNull();
@@ -31,6 +33,7 @@ namespace Assets.Code.AbilitySystem.Abilities
             _range = stats.Range.ThrowIfNegative();
             _healthPercent = stats.HealthPercent.ThrowIfNegative();
             _hitSound = config.HitSound.Instantiate(heroCenter);
+            _killCount = killCount;
         }
 
         public override void Dispose()
@@ -69,6 +72,8 @@ namespace Assets.Code.AbilitySystem.Abilities
 
                 _lootFactory.Spawn(LootType.Coin, closest.transform.position, coinsCount);
                 _hitSound.Play();
+
+                _killCount[AbilityType.MidasHand]++;
             }
         }
 

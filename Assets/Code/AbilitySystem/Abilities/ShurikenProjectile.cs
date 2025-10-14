@@ -3,6 +3,7 @@ using Assets.Code.Tools;
 using Assets.Scripts;
 using Assets.Scripts.Tools;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -26,6 +27,9 @@ namespace Assets.Code.AbilitySystem.Abilities
         private Collider _target;
         private Collider _lastTarget;
         private Pool<AudioSource> _hitSound;
+
+        private Dictionary<AbilityType, float> _damageDealt;
+        private Dictionary<AbilityType, int> _killCount;
 
         private void OnTriggerEnter(Collider other)
         {
@@ -62,7 +66,13 @@ namespace Assets.Code.AbilitySystem.Abilities
         {
             if (_damageLayer.Contains(collider.gameObject.layer) && collider.TryGetComponent(out Health health))
             {
-                health.TakeDamage(_damage);
+                _damageDealt[AbilityType.Shuriken] += _damage;
+
+                if (health.TakeDamage(_damage))
+                {
+                    _killCount[AbilityType.Shuriken]++;
+                }
+
                 AudioSource sound = _hitSound.Get();
                 sound.transform.position = transform.position;
                 sound.PlayRandomPitch();
@@ -75,11 +85,14 @@ namespace Assets.Code.AbilitySystem.Abilities
             return false;
         }
 
-        public void Initialize(LayerMask damageLayer, float damage, float searchRadius, int maxBounces, Pool<AudioSource> hitSound, ITimeService timeService)
+        public void Initialize(LayerMask damageLayer, float damage, float searchRadius, int maxBounces, Pool<AudioSource> hitSound, ITimeService timeService, Dictionary<AbilityType, float> damageDealt, Dictionary<AbilityType, int> killCount)
         {
             _damageLayer = damageLayer.ThrowIfNull();
             _soundPause.Initialize(timeService);
             _hitSound = hitSound.ThrowIfNull();
+
+            _damageDealt = damageDealt.ThrowIfNull();
+            _killCount = killCount.ThrowIfNull();
 
             SetStats(damage, searchRadius, maxBounces);
         }

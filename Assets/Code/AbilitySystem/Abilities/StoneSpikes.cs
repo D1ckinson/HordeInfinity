@@ -17,7 +17,8 @@ namespace Assets.Code.AbilitySystem.Abilities
         private float _maxRadius;
         private int _projectilesCount;
 
-        public StoneSpikes(AbilityConfig config, Dictionary<AbilityType, int> abilityUnlockLevel, Transform hero, int level = 1) : base(config, abilityUnlockLevel, level)
+        public StoneSpikes(AbilityConfig config, Dictionary<AbilityType, int> abilityUnlockLevel, Transform hero,
+            Dictionary<AbilityType, float> damageDealt, Dictionary<AbilityType, int> killCount, int level = 1) : base(config, abilityUnlockLevel, level)
         {
             AbilityStats stats = config.ThrowIfNull().GetStats(level);
             _hero = hero.ThrowIfNull();
@@ -32,7 +33,7 @@ namespace Assets.Code.AbilitySystem.Abilities
             Spike CreateSpike()
             {
                 Spike spike = config.ProjectilePrefab.Instantiate().GetComponentOrThrow<Spike>();
-                spike.Initialize(config.DamageLayer, _damage);
+                spike.Initialize(config.DamageLayer, _damage, damageDealt, killCount);
 
                 return spike;
             }

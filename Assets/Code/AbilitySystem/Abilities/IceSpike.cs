@@ -2,6 +2,7 @@
 using Assets.Code.Tools;
 using Assets.Scripts.Tools;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -18,11 +19,20 @@ namespace Assets.Code.AbilitySystem.Abilities
         private LayerMask _damageLayer;
         private float _damage;
 
+        private Dictionary<AbilityType, float> _damageDealt;
+        private Dictionary<AbilityType, int> _killCount;
+
         private void OnTriggerEnter(Collider other)
         {
             if (_damageLayer.Contains(other.gameObject.layer) && other.TryGetComponent(out Health health))
             {
-                health.TakeDamage(_damage);
+                _damageDealt[AbilityType.IceStaff] += _damage;
+
+                if (health.TakeDamage(_damage))
+                {
+                    _killCount[AbilityType.IceStaff]++;
+                }
+
                 _hitSoundPool.Get(transform).PlayRandomPitch();
 
                 this.SetActive(false);
@@ -37,10 +47,13 @@ namespace Assets.Code.AbilitySystem.Abilities
             UpdateService.UnregisterUpdate(MoveForward);
         }
 
-        public void Initialize(LayerMask damageLayer, float damage, Pool<AudioSource> hitSoundPool)
+        public void Initialize(LayerMask damageLayer, float damage, Pool<AudioSource> hitSoundPool, Dictionary<AbilityType, float> damageDealt, Dictionary<AbilityType, int> killCount)
         {
             _damageLayer = damageLayer.ThrowIfNull();
             _hitSoundPool = hitSoundPool.ThrowIfNull();
+
+            _damageDealt = damageDealt.ThrowIfNull();
+            _killCount = killCount.ThrowIfNull();
 
             SetDamage(damage);
         }

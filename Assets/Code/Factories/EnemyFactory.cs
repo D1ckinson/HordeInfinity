@@ -78,7 +78,7 @@ namespace Assets.Scripts.Factories
             enemy.Initialize(new DirectionTellerTo(enemy.transform));
 
             enemy.CharacterMovement.Initialize(config.MoveSpeed, config.RotationSpeed, enemy.DirectionTeller);
-            enemy.Health.Initialize(config.MaxHealth, config.InvincibilityDuration);
+            enemy.Health.Initialize(config.MaxHealth, config.InvincibilityDuration, config.InvincibilityTriggerPercent);
             enemy.CollisionDamage.Initialize(config.Damage, config.DamageLayer);
             enemy.DeathTriger.Initialize(enemy.Health, _lootFactory, config.Loot, enemy.CharacterMovement);
             enemy.DirectionTeller.SetTarget(_hero);
@@ -93,7 +93,7 @@ namespace Assets.Scripts.Factories
             enemy.Initialize(new DirectionTellerFrom(enemy.transform));
 
             enemy.CharacterMovement.Initialize(_goldEnemy.MoveSpeed, _goldEnemy.RotationSpeed, enemy.DirectionTeller);
-            enemy.Health.Initialize(_goldEnemy.MaxHealth, _goldEnemy.InvincibilityDuration);
+            enemy.Health.Initialize(_goldEnemy.MaxHealth, _goldEnemy.InvincibilityDuration, _goldEnemy.InvincibilityTriggerPercent);
             enemy.CollisionDamage.Initialize(_goldEnemy.Damage, _goldEnemy.DamageLayer);
             enemy.DeathTriger.Initialize(enemy.Health, _lootFactory, _goldEnemy.Loot, enemy.CharacterMovement);
             enemy.DirectionTeller.SetTarget(_hero);

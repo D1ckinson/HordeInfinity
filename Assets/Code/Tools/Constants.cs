@@ -16,7 +16,7 @@ namespace Assets.Code.Tools
 
         public static float PercentToMultiplier(float value)
         {
-            return One - value.ThrowIfNegative() / Hundred;
+            return One - value / Hundred;
         }
 
         public static IEnumerable<T> GetEnums<T>() where T : Enum

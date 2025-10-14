@@ -21,7 +21,8 @@ namespace Assets.Code.AbilitySystem.Abilities
         private float _damage;
         private float _explosionRadius;
 
-        public Fireball(AbilityConfig config, Dictionary<AbilityType, int> abilityUnlockLevel, Transform heroCenter, ITimeService timeService, int level = 1) : base(config, abilityUnlockLevel, level)
+        public Fireball(AbilityConfig config, Dictionary<AbilityType, int> abilityUnlockLevel, Transform heroCenter,
+            ITimeService timeService, Dictionary<AbilityType, float> damageDealt, Dictionary<AbilityType, int> killCount, int level = 1) : base(config, abilityUnlockLevel, level)
         {
             AbilityStats stats = config.ThrowIfNull().GetStats(level);
             _heroCenter = heroCenter.ThrowIfNull();
@@ -38,7 +39,7 @@ namespace Assets.Code.AbilitySystem.Abilities
             FireballProjectile CreateProjectile()
             {
                 FireballProjectile projectile = config.ProjectilePrefab.Instantiate().GetComponentOrThrow<FireballProjectile>();
-                projectile.Initialize(_damageLayer, _damage, _explosionRadius, _explosionEffectPool, _explosionSoundPool, timeService);
+                projectile.Initialize(_damageLayer, _damage, _explosionRadius, _explosionEffectPool, _explosionSoundPool, timeService, damageDealt, killCount);
 
                 return projectile;
             }

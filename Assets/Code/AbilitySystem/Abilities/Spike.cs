@@ -1,6 +1,7 @@
 ﻿using Assets.Code.CharactersLogic;
 using Assets.Code.Tools;
 using DG.Tweening;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Assets.Code.AbilitySystem.Abilities
@@ -18,6 +19,9 @@ namespace Assets.Code.AbilitySystem.Abilities
         private float _damage;
         private Sequence _animationSequence;
 
+        private Dictionary<AbilityType, float> _damageDealt;
+        private Dictionary<AbilityType, int> _killCount;
+
         private void Awake()
         {
             _height = new(Constants.Zero, _collider.bounds.size.y, Constants.Zero);
@@ -27,7 +31,12 @@ namespace Assets.Code.AbilitySystem.Abilities
         {
             if (_damageLayer.Contains(other.gameObject.layer) && other.TryGetComponent(out Health health))
             {
-                health.TakeDamage(_damage);
+                _damageDealt[AbilityType.StoneSpikes] += _damage;
+
+                if (health.TakeDamage(_damage))
+                {
+                    _killCount[AbilityType.StoneSpikes]++;
+                }
             }
         }
 
@@ -37,10 +46,13 @@ namespace Assets.Code.AbilitySystem.Abilities
             _animationSequence = null;
         }
 
-        public void Initialize(LayerMask damageLayer, float damage)
+        public void Initialize(LayerMask damageLayer, float damage, Dictionary<AbilityType, float> damageDealt, Dictionary<AbilityType, int> killCount)
         {
             _damageLayer = damageLayer.ThrowIfNull();
             SetDamage(damage);
+
+            _damageDealt = damageDealt.ThrowIfNull();
+            _killCount = killCount.ThrowIfNull();
         }
 
         public void SetDamage(float damage)

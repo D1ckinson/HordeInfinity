@@ -12,7 +12,9 @@ namespace Assets.Scripts.Configs
 
         [field: Header("Health Settings")]
         [field: SerializeField][field: Min(1f)] public float MaxHealth { get; private set; } = 100;
+        [field: SerializeField][field: Min(0f)] public float Regeneration { get; private set; } = 1f;
         [field: SerializeField][field: Min(0.1f)] public float InvincibilityDuration { get; private set; } = 0.1f;
+        [field: SerializeField][field: Range(0f, 100f)] public float InvincibilityTriggerPercent { get; private set; } = 50;
 
         [field: Header("Movement Settings")]
         [field: SerializeField][field: Min(1f)] public float MoveSpeed { get; private set; } = 10;

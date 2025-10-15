@@ -13,7 +13,7 @@ namespace Assets.Code.AbilitySystem.Abilities
         private readonly Pool<ParticleSystem> _effectPool;
 
         public BlackHole(AbilityConfig config, Dictionary<AbilityType, int> abilityUnlockLevel, Transform blackHolePoint,
-            ITimeService timeService, Dictionary<AbilityType, float> damageDealt, Dictionary<AbilityType, int> killCount, int level = 1) : base(config, abilityUnlockLevel, level)
+            ITimeService timeService, Dictionary<AbilityType, int> damageDealt, Dictionary<AbilityType, int> killCount, int level = 1) : base(config, abilityUnlockLevel, level)
         {
             AbilityStats stats = config.ThrowIfNull().GetStats(level);
             _blackHolePoint = blackHolePoint.ThrowIfNull();

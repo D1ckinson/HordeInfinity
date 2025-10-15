@@ -6,7 +6,7 @@ namespace Assets.Scripts
     [Serializable]
     public class HeroLevel
     {
-        private const float DefaultTransferValue = 10f;
+        private const float DefaultTransferValue = 30f;
 
         private readonly Func<int, int> _experienceFormula;
 

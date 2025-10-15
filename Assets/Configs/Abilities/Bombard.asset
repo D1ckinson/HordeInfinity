@@ -18,7 +18,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   <Type>k__BackingField: 4
-  <Icon>k__BackingField: {fileID: 21300000, guid: 92c47d80e27eaa54c9c9ea695d157b8b, type: 3}
+  <Icon>k__BackingField: {fileID: 21300000, guid: 84d400f4b6d067947978e23d1cd79446, type: 3}
   <ThrowSound>k__BackingField: {fileID: 300664449704740434, guid: 04c1c19410ccde648941cf1bddbb9ec7, type: 3}
   <AppearingSound>k__BackingField: {fileID: 0}
   <HitSound>k__BackingField: {fileID: 7358856440525958003, guid: 3154c9b2d32802344be1a59795bb8c62, type: 3}

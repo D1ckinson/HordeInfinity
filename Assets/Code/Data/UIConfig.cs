@@ -22,7 +22,7 @@ namespace Assets.Code.Data
 
         [Header("Other")]
         public DeathWindow DeathWindow;
-        public UiCanvas TestCanvasUiFactory;
+        public UiCanvas UiCanvas;
         public BaseWindow FadeWindow;
         public FPSWindow FPSWindow;
         public MenuWindow MenuWindow;
@@ -32,5 +32,7 @@ namespace Assets.Code.Data
         public LeaderboardWindow Leaderboard;
         public PauseWindow PauseWindow;
         public GameWindow GameWindow;
+        public ShopWindow1 ShopWindow1;
+        public StartAbilityOption StartAbilityOption;
     }
 }

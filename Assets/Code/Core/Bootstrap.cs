@@ -30,7 +30,7 @@ namespace Assets.Scripts
             PlayerData playerData = YG2.saves.Load();
             ITimeService timeService = new TimeService();
             HeroLevel heroLevel = new(_levelSettings.CalculateExperienceForNextLevel);
-            UiFactory uiFactory = new(_uIConfig, playerData.Wallet, _levelSettings.UpgradeCost, _levelSettings.AbilityConfigs, playerData.AbilityUnlockLevel, heroLevel);
+            UiFactory uiFactory = new(_uIConfig, _levelSettings.UpgradeCost, _levelSettings.AbilityConfigs, heroLevel, playerData);
 
             IInputService inputService = new InputReader(uiFactory.Create<Joystick>(), timeService);
 
@@ -47,7 +47,7 @@ namespace Assets.Scripts
             EnemyFactory enemyFactory = new(_levelSettings.EnemyConfigs, lootFactory, heroComponents.transform, _levelSettings.EnemySpawnerSettings, gameAreaSettings, _levelSettings.GoldEnemy);
 
             LevelUpWindow levelUpWindow = new(_uIConfig.LevelUpCanvas, _uIConfig.LevelUpButton);
-            UpgradeTrigger upgradeTrigger = new(heroLevel, abilities, heroComponents.AbilityContainer, levelUpWindow, abilityFactory, timeService, playerData.AbilityUnlockLevel);
+            UpgradeTrigger upgradeTrigger = new(heroLevel, abilities, heroComponents.AbilityContainer, levelUpWindow, abilityFactory, timeService, playerData.AbilityUnlockLevel, lootFactory, heroComponents.transform);
 
             EnemySpawner enemySpawner = new(enemyFactory, _levelSettings.SpawnTypeByTimes);
 

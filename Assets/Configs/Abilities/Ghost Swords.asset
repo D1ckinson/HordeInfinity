@@ -18,7 +18,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   <Type>k__BackingField: 1
-  <Icon>k__BackingField: {fileID: 21300000, guid: 6cd59cd8c3d1c5443a9d3eeecf2b775e, type: 3}
+  <Icon>k__BackingField: {fileID: 21300000, guid: b871d4604c2f9944c9c469731746bc22, type: 3}
   <ThrowSound>k__BackingField: {fileID: 3227123226062866197, guid: 1b09d67dcc6ae624fbeb16e74a78c1d0, type: 3}
   <AppearingSound>k__BackingField: {fileID: 8556341003477379683, guid: 303384604271841468462a05206a796f, type: 3}
   <HitSound>k__BackingField: {fileID: 0}
@@ -32,6 +32,7 @@ MonoBehaviour:
     <HealthPercent>k__BackingField: 0
     <PullForce>k__BackingField: 0
     <BouncesQuantity>k__BackingField: 0
+    <ThrowDistance>k__BackingField: 0
     <Cost>k__BackingField: 10
   - <Cooldown>k__BackingField: 4.9
     <Damage>k__BackingField: 210
@@ -41,6 +42,7 @@ MonoBehaviour:
     <HealthPercent>k__BackingField: 0
     <PullForce>k__BackingField: 0
     <BouncesQuantity>k__BackingField: 0
+    <ThrowDistance>k__BackingField: 0
     <Cost>k__BackingField: 20
   - <Cooldown>k__BackingField: 4.8
     <Damage>k__BackingField: 230
@@ -50,6 +52,7 @@ MonoBehaviour:
     <HealthPercent>k__BackingField: 0
     <PullForce>k__BackingField: 0
     <BouncesQuantity>k__BackingField: 0
+    <ThrowDistance>k__BackingField: 0
     <Cost>k__BackingField: 30
   - <Cooldown>k__BackingField: 4.8
     <Damage>k__BackingField: 240
@@ -59,6 +62,7 @@ MonoBehaviour:
     <HealthPercent>k__BackingField: 0
     <PullForce>k__BackingField: 0
     <BouncesQuantity>k__BackingField: 0
+    <ThrowDistance>k__BackingField: 0
     <Cost>k__BackingField: 40
   - <Cooldown>k__BackingField: 4.7
     <Damage>k__BackingField: 240
@@ -68,6 +72,7 @@ MonoBehaviour:
     <HealthPercent>k__BackingField: 0
     <PullForce>k__BackingField: 0
     <BouncesQuantity>k__BackingField: 0
+    <ThrowDistance>k__BackingField: 0
     <Cost>k__BackingField: 50
   - <Cooldown>k__BackingField: 4.4
     <Damage>k__BackingField: 260
@@ -77,6 +82,7 @@ MonoBehaviour:
     <HealthPercent>k__BackingField: 0
     <PullForce>k__BackingField: 0
     <BouncesQuantity>k__BackingField: 0
+    <ThrowDistance>k__BackingField: 0
     <Cost>k__BackingField: 130
   - <Cooldown>k__BackingField: 4.2
     <Damage>k__BackingField: 270
@@ -86,6 +92,7 @@ MonoBehaviour:
     <HealthPercent>k__BackingField: 0
     <PullForce>k__BackingField: 0
     <BouncesQuantity>k__BackingField: 0
+    <ThrowDistance>k__BackingField: 0
     <Cost>k__BackingField: 260
   - <Cooldown>k__BackingField: 4.2
     <Damage>k__BackingField: 270
@@ -95,6 +102,7 @@ MonoBehaviour:
     <HealthPercent>k__BackingField: 0
     <PullForce>k__BackingField: 0
     <BouncesQuantity>k__BackingField: 0
+    <ThrowDistance>k__BackingField: 0
     <Cost>k__BackingField: 520
   - <Cooldown>k__BackingField: 4
     <Damage>k__BackingField: 270
@@ -104,6 +112,7 @@ MonoBehaviour:
     <HealthPercent>k__BackingField: 0
     <PullForce>k__BackingField: 0
     <BouncesQuantity>k__BackingField: 0
+    <ThrowDistance>k__BackingField: 0
     <Cost>k__BackingField: 900
   - <Cooldown>k__BackingField: 4
     <Damage>k__BackingField: 300
@@ -113,4 +122,5 @@ MonoBehaviour:
     <HealthPercent>k__BackingField: 0
     <PullForce>k__BackingField: 0
     <BouncesQuantity>k__BackingField: 0
+    <ThrowDistance>k__BackingField: 0
     <Cost>k__BackingField: 1300

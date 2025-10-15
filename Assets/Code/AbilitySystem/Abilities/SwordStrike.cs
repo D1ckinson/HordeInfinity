@@ -14,14 +14,14 @@ namespace Assets.Code.AbilitySystem.Abilities
         private readonly Animator _animator;
         private readonly AudioSource _audioSource;
 
-        private readonly Dictionary<AbilityType, float> _damageDealt;
+        private readonly Dictionary<AbilityType, int> _damageDealt;
         private readonly Dictionary<AbilityType, int> _killCount;
 
         private float _damage;
         private float _radius;
 
         public SwordStrike(AbilityConfig config, Dictionary<AbilityType, int> abilityUnlockLevel, Transform heroCenter,
-            Animator animator, Dictionary<AbilityType, float> damageDealt, Dictionary<AbilityType, int> killCount, int level = 1) : base(config, abilityUnlockLevel, level)
+            Animator animator, Dictionary<AbilityType, int> damageDealt, Dictionary<AbilityType, int> killCount, int level = 1) : base(config, abilityUnlockLevel, level)
         {
             _heroCenter = heroCenter.ThrowIfNull();
             _swingEffect = config.Effect.Instantiate(_heroCenter);
@@ -56,7 +56,7 @@ namespace Assets.Code.AbilitySystem.Abilities
 
                 if (collider.TryGetComponent(out Health health))
                 {
-                    _damageDealt[AbilityType.SwordStrike] += _damage;
+                    _damageDealt[AbilityType.SwordStrike] += (int)_damage;
 
                     if (health.TakeDamage(_damage))
                     {

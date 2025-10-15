@@ -5,7 +5,6 @@ using Assets.Scripts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Object = UnityEngine.Object;
 
 namespace Assets.Code.Ui
 {
@@ -15,27 +14,23 @@ namespace Assets.Code.Ui
         private readonly Dictionary<Type, Func<BaseWindow>> _createMethods;
         private readonly UiCanvas _canvas;
         private readonly UIConfig _uIConfig;
-        private readonly Wallet _wallet;
         private readonly Dictionary<AbilityType, AbilityConfig> _abilityConfigs;
         private readonly Dictionary<AbilityType, int[]> _upgradeCost;
-        private readonly Dictionary<AbilityType, int> _abilityUnlockLevel;
         private readonly Dictionary<AbilityType, int> _abilityMaxLevel;
         private readonly HeroLevel _heroLevel;
-
+        private readonly PlayerData _playerData;
         private LootCollector _lootCollector;
 
-        public UiFactory(UIConfig uIConfig, Wallet wallet, Dictionary<AbilityType, int[]> upgradeCost,
-            Dictionary<AbilityType, AbilityConfig> abilityConfigs, Dictionary<AbilityType, int> abilityUnlockLevel,
-            HeroLevel heroLevel)
+        public UiFactory(UIConfig uIConfig, Dictionary<AbilityType, int[]> upgradeCost,
+            Dictionary<AbilityType, AbilityConfig> abilityConfigs, HeroLevel heroLevel, PlayerData playerData)
         {
             _uIConfig = uIConfig.ThrowIfNull();
-            _wallet = wallet.ThrowIfNull();
             _upgradeCost = upgradeCost.ThrowIfNullOrEmpty();
             _abilityConfigs = abilityConfigs.ThrowIfNullOrEmpty();
-            _abilityUnlockLevel = abilityUnlockLevel.ThrowIfNullOrEmpty();
             _abilityMaxLevel = abilityConfigs.ToDictionary(pair => pair.Key, pair => pair.Value.MaxLevel);
-            _canvas = Object.Instantiate(_uIConfig.TestCanvasUiFactory);
+            _canvas = _uIConfig.UiCanvas.Instantiate();
             _heroLevel = heroLevel.ThrowIfNull();
+            _playerData = playerData.ThrowIfNull();
 
             _createMethods = new()
             {
@@ -47,7 +42,8 @@ namespace Assets.Code.Ui
                 [typeof(Joystick)] = CreateJoystick,
                 [typeof(LeaderboardWindow)] = CreateLeaderboardWindow,
                 [typeof(PauseWindow)] = CreatePauseWindow,
-                [typeof(GameWindow)] = CreateGameWindow
+                [typeof(GameWindow)] = CreateGameWindow,
+                [typeof(ShopWindow1)] = CreateShopWindow1
             };
         }
 
@@ -88,12 +84,13 @@ namespace Assets.Code.Ui
 
         private BaseWindow CreateMenuWindow()
         {
-            return _uIConfig.MenuWindow.Instantiate(_canvas.Container, false).Initialize(_wallet);
+            return _uIConfig.MenuWindow.Instantiate(_canvas.Container, false).Initialize(_playerData.Wallet);
         }
 
         private BaseWindow CreateShopWindow()
         {
-            ShopWindow shopWindow = _uIConfig.ShopWindow.Instantiate(_canvas.Container, false).Initialize(_abilityUnlockLevel, _abilityMaxLevel, _upgradeCost, _wallet);
+            ShopWindow shopWindow = _uIConfig.ShopWindow.Instantiate(_canvas.Container, false).
+                Initialize(_playerData.AbilityUnlockLevel, _abilityMaxLevel, _upgradeCost, _playerData.Wallet);
 
             foreach (AbilityType abilityType in Constants.GetEnums<AbilityType>())
             {
@@ -101,6 +98,36 @@ namespace Assets.Code.Ui
                 shopOption.AbilityIcon.sprite = _abilityConfigs[abilityType].Icon;
 
                 shopWindow.AddOption(shopOption);
+            }
+
+            return shopWindow;
+        }
+
+        private BaseWindow CreateShopWindow1()
+        {
+            ShopWindow1 shopWindow = _uIConfig.ShopWindow1.Instantiate(_canvas.Container, false).
+                Initialize(_abilityMaxLevel, _upgradeCost, _playerData);
+
+            foreach (AbilityType abilityType in Constants.GetEnums<AbilityType>())
+            {
+                ShopOption shopOption = _uIConfig.ShopOption.Instantiate().Initialize(abilityType);
+                shopOption.AbilityIcon.sprite = _abilityConfigs[abilityType].Icon;
+
+                shopWindow.AddOption(shopOption);
+
+                if (_playerData.UnlockDamage.ContainsKey(abilityType))
+                {
+                    StartAbilityOption startAbilityOption = _uIConfig.StartAbilityOption.Instantiate().Initialize(abilityType);
+                    startAbilityOption.AbilityIcon.sprite = _abilityConfigs[abilityType].Icon;
+
+
+                    if (abilityType == AbilityType.SwordStrike)
+                    {
+                        startAbilityOption.Progress.SetActive(false);
+                    }
+
+                    shopWindow.AddStartAbilityOption(startAbilityOption);
+                }
             }
 
             return shopWindow;

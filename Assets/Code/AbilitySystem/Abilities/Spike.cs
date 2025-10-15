@@ -19,7 +19,7 @@ namespace Assets.Code.AbilitySystem.Abilities
         private float _damage;
         private Sequence _animationSequence;
 
-        private Dictionary<AbilityType, float> _damageDealt;
+        private Dictionary<AbilityType, int> _damageDealt;
         private Dictionary<AbilityType, int> _killCount;
 
         private void Awake()
@@ -31,7 +31,7 @@ namespace Assets.Code.AbilitySystem.Abilities
         {
             if (_damageLayer.Contains(other.gameObject.layer) && other.TryGetComponent(out Health health))
             {
-                _damageDealt[AbilityType.StoneSpikes] += _damage;
+                _damageDealt[AbilityType.StoneSpikes] += (int)_damage;
 
                 if (health.TakeDamage(_damage))
                 {
@@ -46,7 +46,7 @@ namespace Assets.Code.AbilitySystem.Abilities
             _animationSequence = null;
         }
 
-        public void Initialize(LayerMask damageLayer, float damage, Dictionary<AbilityType, float> damageDealt, Dictionary<AbilityType, int> killCount)
+        public void Initialize(LayerMask damageLayer, float damage, Dictionary<AbilityType, int> damageDealt, Dictionary<AbilityType, int> killCount)
         {
             _damageLayer = damageLayer.ThrowIfNull();
             SetDamage(damage);

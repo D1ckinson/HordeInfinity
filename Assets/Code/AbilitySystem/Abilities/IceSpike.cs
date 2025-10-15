@@ -19,14 +19,14 @@ namespace Assets.Code.AbilitySystem.Abilities
         private LayerMask _damageLayer;
         private float _damage;
 
-        private Dictionary<AbilityType, float> _damageDealt;
+        private Dictionary<AbilityType, int> _damageDealt;
         private Dictionary<AbilityType, int> _killCount;
 
         private void OnTriggerEnter(Collider other)
         {
             if (_damageLayer.Contains(other.gameObject.layer) && other.TryGetComponent(out Health health))
             {
-                _damageDealt[AbilityType.IceStaff] += _damage;
+                _damageDealt[AbilityType.IceStaff] += (int)_damage;
 
                 if (health.TakeDamage(_damage))
                 {
@@ -47,7 +47,7 @@ namespace Assets.Code.AbilitySystem.Abilities
             UpdateService.UnregisterUpdate(MoveForward);
         }
 
-        public void Initialize(LayerMask damageLayer, float damage, Pool<AudioSource> hitSoundPool, Dictionary<AbilityType, float> damageDealt, Dictionary<AbilityType, int> killCount)
+        public void Initialize(LayerMask damageLayer, float damage, Pool<AudioSource> hitSoundPool, Dictionary<AbilityType, int> damageDealt, Dictionary<AbilityType, int> killCount)
         {
             _damageLayer = damageLayer.ThrowIfNull();
             _hitSoundPool = hitSoundPool.ThrowIfNull();

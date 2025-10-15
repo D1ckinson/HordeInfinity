@@ -25,6 +25,7 @@ namespace Assets.Code.Data
         public static string Continue { get; private set; }
         public static string MenuText { get; private set; }
         public static string PersonalBest { get; private set; }
+        public static string Tip { get; private set; }
 
         public static string Range { get; private set; }
         public static string Damage { get; private set; }
@@ -70,6 +71,7 @@ namespace Assets.Code.Data
             Continue = "Продолжить";
             MenuText = "Меню";
             PersonalBest = "Личный рекорд";
+            Tip = "Нанесите достаточно урона, чтобы разблокировать стартовую способность";
 
             Damage = "Урон";
             Cooldown = "Перезарядка";
@@ -111,6 +113,7 @@ namespace Assets.Code.Data
             Continue = "Continue";
             MenuText = "Menu";
             PersonalBest = "Personal best";
+            Tip = "Deal enough damage to unlock the starting ability";
 
             Damage = "Damage";
             Cooldown = "Cooldown";

@@ -18,14 +18,14 @@ namespace Assets.Code.AbilitySystem.Abilities
         private LayerMask _damageLayer;
         private float _damage;
 
-        private Dictionary<AbilityType, float> _damageDealt;
+        private Dictionary<AbilityType, int> _damageDealt;
         private Dictionary<AbilityType, int> _killCount;
 
         private void OnTriggerEnter(Collider other)
         {
             if (_damageLayer.Contains(other.gameObject.layer) && other.TryGetComponent(out EnemyComponents enemy))
             {
-                _damageDealt[AbilityType.WindFlow] += _damage;
+                _damageDealt[AbilityType.WindFlow] += (int)_damage;
 
                 if (enemy.Health.TakeDamage(_damage))
                 {
@@ -42,7 +42,7 @@ namespace Assets.Code.AbilitySystem.Abilities
             UpdateService.UnregisterUpdate(Move);
         }
 
-        public void Initialize(LayerMask damageLayer, float damage, Dictionary<AbilityType, float> damageDealt, Dictionary<AbilityType, int> killCount)
+        public void Initialize(LayerMask damageLayer, float damage, Dictionary<AbilityType, int> damageDealt, Dictionary<AbilityType, int> killCount)
         {
             _damageLayer = damageLayer.ThrowIfNull();
             SetDamage(damage);

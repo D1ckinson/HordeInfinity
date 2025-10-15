@@ -20,11 +20,11 @@ namespace Assets.Code
         private readonly LootFactory _lootFactory;
         private readonly Animator _animator;
         private readonly ITimeService _timeService;
-        private readonly Dictionary<AbilityType, float> _damageDealt;
+        private readonly Dictionary<AbilityType, int> _damageDealt;
         private readonly Dictionary<AbilityType, int> _killCount;
 
         public AbilityFactory(Dictionary<AbilityType, AbilityConfig> configs, Transform hero, Transform heroCenter,
-            Dictionary<AbilityType, int> abilityUnlockLevel, Dictionary<AbilityType, float> damageDealt,
+            Dictionary<AbilityType, int> abilityUnlockLevel, Dictionary<AbilityType, int> damageDealt,
             Dictionary<AbilityType, int> killCount, LootFactory lootFactory, Animator animator, ITimeService timeService)
         {
             _configs = configs.ThrowIfNullOrEmpty();

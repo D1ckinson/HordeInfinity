@@ -14,7 +14,7 @@ namespace Assets.Code.AbilitySystem.Abilities
         private int _projectilesCount;
 
         public WindFlow(AbilityConfig config, Dictionary<AbilityType, int> abilityUnlockLevel, Transform hero,
-            Dictionary<AbilityType, float> damageDealt, Dictionary<AbilityType, int> killCount, int level = 1) : base(config, abilityUnlockLevel, level)
+            Dictionary<AbilityType, int> damageDealt, Dictionary<AbilityType, int> killCount, int level = 1) : base(config, abilityUnlockLevel, level)
         {
             AbilityStats stats = config.ThrowIfNull().GetStats(level);
             _hero = hero.ThrowIfNull();

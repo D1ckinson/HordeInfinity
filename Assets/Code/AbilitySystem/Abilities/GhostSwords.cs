@@ -19,7 +19,7 @@ namespace Assets.Code.AbilitySystem.Abilities
         private int _projectilesCount;
 
         public GhostSwords(AbilityConfig config, Dictionary<AbilityType, int> abilityUnlockLevel, Transform heroCenter,
-            Dictionary<AbilityType, float> damageDealt, Dictionary<AbilityType, int> killCount, int level = 1) : base(config, abilityUnlockLevel, level)
+            Dictionary<AbilityType, int> damageDealt, Dictionary<AbilityType, int> killCount, int level = 1) : base(config, abilityUnlockLevel, level)
         {
             _heroCenter = heroCenter.ThrowIfNull();
             AbilityStats stats = config.ThrowIfNull().GetStats(level);

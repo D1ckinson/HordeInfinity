@@ -26,7 +26,7 @@ namespace Assets.Code.AbilitySystem.Abilities
         private float _pullForce;
         private float _radius;
 
-        private Dictionary<AbilityType, float> _damageDealt;
+        private Dictionary<AbilityType, int> _damageDealt;
         private Dictionary<AbilityType, int> _killCount;
 
         private void OnEnable()
@@ -77,7 +77,7 @@ namespace Assets.Code.AbilitySystem.Abilities
                 EnemyComponents enemy = _enemies.Values.ElementAt(i);
 
                 float damage = _baseDamage + _damage * _enemies.Count;
-                _damageDealt[AbilityType.BlackHole] += damage;
+                _damageDealt[AbilityType.BlackHole] += (int)damage;
 
                 if (enemy.Health.TakeDamage(damage))
                 {
@@ -91,7 +91,8 @@ namespace Assets.Code.AbilitySystem.Abilities
             }
         }
 
-        public BlackHoleProjectile Initialize(LayerMask damageLayer, float damage, float radius, float pullForce, Pool<ParticleSystem> effectPool, AudioSource sound, Dictionary<AbilityType, float> damageDealt, Dictionary<AbilityType, int> killCount)
+        public BlackHoleProjectile Initialize(LayerMask damageLayer, float damage, float radius, float pullForce,
+            Pool<ParticleSystem> effectPool, AudioSource sound, Dictionary<AbilityType, int> damageDealt, Dictionary<AbilityType, int> killCount)
         {
             _damageLayer = damageLayer.ThrowIfNull();
             _effectPool = effectPool.ThrowIfNull();

@@ -10,7 +10,7 @@ namespace Assets.Code.AbilitySystem.Abilities
         private readonly HolyRune _holyRune;
 
         public HolyGround(AbilityConfig config, Dictionary<AbilityType, int> abilityUnlockLevel, Transform hero,
-            ITimeService timeService, Dictionary<AbilityType, float> damageDealt, Dictionary<AbilityType, int> killCount, int level = 1) : base(config, abilityUnlockLevel, level)
+            ITimeService timeService, Dictionary<AbilityType, int> damageDealt, Dictionary<AbilityType, int> killCount, int level = 1) : base(config, abilityUnlockLevel, level)
         {
             _holyRune = config.ThrowIfNull().ProjectilePrefab.GetComponentOrThrow<HolyRune>().Instantiate();
 

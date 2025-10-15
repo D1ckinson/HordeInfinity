@@ -24,7 +24,7 @@ namespace Assets.Code.AbilitySystem.Abilities
         private LayerMask _damageLayer;
         private Tween _currentTween;
 
-        private Dictionary<AbilityType, float> _damageDealt;
+        private Dictionary<AbilityType, int> _damageDealt;
         private Dictionary<AbilityType, int> _killCount;
 
         private void OnDrawGizmos()
@@ -42,7 +42,8 @@ namespace Assets.Code.AbilitySystem.Abilities
             _currentTween?.Kill();
         }
 
-        public void Initialize(float damage, float explosionRadius, LayerMask damageLayer, Pool<ParticleSystem> visualEffectPool, Pool<AudioSource> soundEffectPool, Dictionary<AbilityType, float> damageDealt, Dictionary<AbilityType, int> killCount)
+        public void Initialize(float damage, float explosionRadius, LayerMask damageLayer, Pool<ParticleSystem> visualEffectPool,
+            Pool<AudioSource> soundEffectPool, Dictionary<AbilityType, int> damageDealt, Dictionary<AbilityType, int> killCount)
         {
             SetStats(damage, explosionRadius);
 
@@ -80,7 +81,7 @@ namespace Assets.Code.AbilitySystem.Abilities
             {
                 if (_colliders[i].TryGetComponent(out Health health))
                 {
-                    _damageDealt[AbilityType.Bombard] += _damage;
+                    _damageDealt[AbilityType.Bombard] += (int)_damage;
 
                     if (health.TakeDamage(_damage))
                     {

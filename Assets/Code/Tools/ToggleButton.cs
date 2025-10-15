@@ -11,7 +11,7 @@ namespace Assets.Code.Tools
         [SerializeField] private Sprite _turnOffSprite;
         [SerializeField] private Button _button;
 
-        public bool IsOn { get; private set; }
+        public bool IsOn { get; private set; } = true;
 
         public event Action<bool> Clicked;
 

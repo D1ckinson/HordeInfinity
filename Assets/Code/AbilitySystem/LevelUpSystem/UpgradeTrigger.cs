@@ -5,12 +5,15 @@ using System.Collections.Generic;
 using System.Linq;
 using Random = UnityEngine.Random;
 using Assets.Code.Data;
+using Assets.Scripts.Factories;
+using UnityEngine;
 
 namespace Assets.Code.AbilitySystem
 {
     public class UpgradeTrigger
     {
         private const int SuggestedUpgradesCount = 3;
+        private const int CoinsCount = 5;
 
         private readonly HeroLevel _heroExperience;
         private readonly Dictionary<AbilityType, AbilityConfig> _abilityConfigs;
@@ -19,11 +22,13 @@ namespace Assets.Code.AbilitySystem
         private readonly AbilityFactory _abilityFactory;
         private readonly ITimeService _timeService;
         private readonly Dictionary<AbilityType, int> _abilityUnlockLevel;
+        private readonly LootFactory _lootFactory;
+        private readonly Transform _hero;
 
         public UpgradeTrigger
             (HeroLevel heroExperience, Dictionary<AbilityType, AbilityConfig> abilityConfigs,
             AbilityContainer abilityContainer, LevelUpWindow levelUpWindow, AbilityFactory abilityFactory,
-            ITimeService timeService, Dictionary<AbilityType, int> abilityUnlockLevel)
+            ITimeService timeService, Dictionary<AbilityType, int> abilityUnlockLevel, LootFactory lootFactory, Transform hero)
         {
             _heroExperience = heroExperience.ThrowIfNull();
             _abilityContainer = abilityContainer.ThrowIfNull();
@@ -32,6 +37,8 @@ namespace Assets.Code.AbilitySystem
             _abilityFactory = abilityFactory.ThrowIfNull();
             _timeService = timeService.ThrowIfNull();
             _abilityUnlockLevel = abilityUnlockLevel.ThrowIfNullOrEmpty();
+            _lootFactory = lootFactory.ThrowIfNull();
+            _hero = hero.ThrowIfNull();
         }
 
         ~UpgradeTrigger()
@@ -65,7 +72,7 @@ namespace Assets.Code.AbilitySystem
 
         private void GenerateUpgrades(int level)
         {
-            if (IsOffering)
+            if (IsOffering || level == Constants.One)
             {
                 return;
             }
@@ -108,7 +115,7 @@ namespace Assets.Code.AbilitySystem
 
             if (upgradeOptions.Count == Constants.Zero)
             {
-                //Наградить
+                _lootFactory.Spawn(Loot.LootType.Coin, _hero.position, CoinsCount);
                 _heroExperience.DecreaseLevelUpsCount();
 
                 return;

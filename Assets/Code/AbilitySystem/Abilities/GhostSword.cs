@@ -18,7 +18,7 @@ namespace Assets.Code.AbilitySystem.Abilities
         private bool _isPiercing;
         private LayerMask _damageLayer;
 
-        private Dictionary<AbilityType, float> _damageDealt;
+        private Dictionary<AbilityType, int> _damageDealt;
         private Dictionary<AbilityType, int> _killCount;
 
         private void Awake()
@@ -43,7 +43,7 @@ namespace Assets.Code.AbilitySystem.Abilities
 
             if (_damageLayer.Contains(gameObject.layer) && gameObject.TryGetComponent(out Health health))
             {
-                _damageDealt[AbilityType.GhostSwords] += _damage;
+                _damageDealt[AbilityType.GhostSwords] += (int)_damage;
 
                 if (health.TakeDamage(_damage))
                 {
@@ -59,7 +59,7 @@ namespace Assets.Code.AbilitySystem.Abilities
             }
         }
 
-        public void Initialize(float damage, bool isPiercing, LayerMask damageLayer, Dictionary<AbilityType, float> damageDealt, Dictionary<AbilityType, int> killCount)
+        public void Initialize(float damage, bool isPiercing, LayerMask damageLayer, Dictionary<AbilityType, int> damageDealt, Dictionary<AbilityType, int> killCount)
         {
             SetStats(damage, isPiercing);
             _damageLayer = damageLayer.ThrowIfNull();

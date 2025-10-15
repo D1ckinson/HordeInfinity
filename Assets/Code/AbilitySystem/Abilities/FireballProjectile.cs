@@ -24,7 +24,7 @@ namespace Assets.Code.AbilitySystem.Abilities
         private float _explosionRadius;
         private Vector3 _direction;
 
-        private Dictionary<AbilityType, float> _damageDealt;
+        private Dictionary<AbilityType, int> _damageDealt;
         private Dictionary<AbilityType, int> _killCount;
 
         private void OnTriggerEnter(Collider other)
@@ -43,7 +43,8 @@ namespace Assets.Code.AbilitySystem.Abilities
         }
 
         public void Initialize(LayerMask damageLayer, float damage, float explosionRadius,
-            Pool<ParticleSystem> explosionEffectPool, Pool<AudioSource> explosionSoundPool, ITimeService timeService, Dictionary<AbilityType, float> damageDealt, Dictionary<AbilityType, int> killCount)
+            Pool<ParticleSystem> explosionEffectPool, Pool<AudioSource> explosionSoundPool,
+            ITimeService timeService, Dictionary<AbilityType, int> damageDealt, Dictionary<AbilityType, int> killCount)
         {
             _damageLayer = damageLayer.ThrowIfNull();
             _explosionEffectPool = explosionEffectPool.ThrowIfNull();
@@ -86,7 +87,7 @@ namespace Assets.Code.AbilitySystem.Abilities
             {
                 if (_colliders[i].TryGetComponent(out Health health))
                 {
-                    _damageDealt[AbilityType.Fireball] += _damage;
+                    _damageDealt[AbilityType.Fireball] += (int)_damage;
 
                     if (health.TakeDamage(_damage))
                     {

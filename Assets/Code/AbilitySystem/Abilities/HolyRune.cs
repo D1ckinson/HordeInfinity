@@ -20,7 +20,7 @@ namespace Assets.Code.AbilitySystem.Abilities
         private LayerMask _damageLayer;
         private float _damage;
 
-        private Dictionary<AbilityType, float> _damageDealt;
+        private Dictionary<AbilityType, int> _damageDealt;
         private Dictionary<AbilityType, int> _killCount;
 
         private void Awake()
@@ -50,7 +50,8 @@ namespace Assets.Code.AbilitySystem.Abilities
             }
         }
 
-        public void Initialize(float damage, float radius, LayerMask damageLayer, Transform followTarget, ITimeService timeService, Dictionary<AbilityType, float> damageDealt, Dictionary<AbilityType, int> killCount)
+        public void Initialize(float damage, float radius, LayerMask damageLayer, Transform followTarget, ITimeService timeService,
+            Dictionary<AbilityType, int> damageDealt, Dictionary<AbilityType, int> killCount)
         {
             _damageLayer = damageLayer.ThrowIfNull();
             SetStats(damage, radius);
@@ -73,7 +74,7 @@ namespace Assets.Code.AbilitySystem.Abilities
         {
             for (int i = _health.LastIndex(); i >= Constants.Zero; i--)
             {
-                _damageDealt[AbilityType.HolyGround] += _damage;
+                _damageDealt[AbilityType.HolyGround] += (int)_damage;
 
                 if (_health[i].TakeDamage(_damage))
                 {

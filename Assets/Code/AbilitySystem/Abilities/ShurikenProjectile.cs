@@ -28,7 +28,7 @@ namespace Assets.Code.AbilitySystem.Abilities
         private Collider _lastTarget;
         private Pool<AudioSource> _hitSound;
 
-        private Dictionary<AbilityType, float> _damageDealt;
+        private Dictionary<AbilityType, int> _damageDealt;
         private Dictionary<AbilityType, int> _killCount;
 
         private void OnTriggerEnter(Collider other)
@@ -66,7 +66,7 @@ namespace Assets.Code.AbilitySystem.Abilities
         {
             if (_damageLayer.Contains(collider.gameObject.layer) && collider.TryGetComponent(out Health health))
             {
-                _damageDealt[AbilityType.Shuriken] += _damage;
+                _damageDealt[AbilityType.Shuriken] += (int)_damage;
 
                 if (health.TakeDamage(_damage))
                 {
@@ -85,7 +85,8 @@ namespace Assets.Code.AbilitySystem.Abilities
             return false;
         }
 
-        public void Initialize(LayerMask damageLayer, float damage, float searchRadius, int maxBounces, Pool<AudioSource> hitSound, ITimeService timeService, Dictionary<AbilityType, float> damageDealt, Dictionary<AbilityType, int> killCount)
+        public void Initialize(LayerMask damageLayer, float damage, float searchRadius, int maxBounces, Pool<AudioSource> hitSound,
+            ITimeService timeService, Dictionary<AbilityType, int> damageDealt, Dictionary<AbilityType, int> killCount)
         {
             _damageLayer = damageLayer.ThrowIfNull();
             _soundPause.Initialize(timeService);

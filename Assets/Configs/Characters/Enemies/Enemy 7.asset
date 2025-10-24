@@ -18,7 +18,7 @@ MonoBehaviour:
   <Regeneration>k__BackingField: 0
   <InvincibilityDuration>k__BackingField: 0.1
   <InvincibilityTriggerPercent>k__BackingField: 50
-  <MoveSpeed>k__BackingField: 8.1
+  <MoveSpeed>k__BackingField: 8.5
   <RotationSpeed>k__BackingField: 200
   <Damage>k__BackingField: 16
   <DamageLayer>k__BackingField:

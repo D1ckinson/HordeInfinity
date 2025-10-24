@@ -22,11 +22,10 @@ MonoBehaviour:
   FadeWindow: {fileID: 4848070085250355947, guid: 539177ec45e95cf4bb81b33e20c85e02, type: 3}
   FPSWindow: {fileID: 535586762388858540, guid: 103db9827fabc7f42ad0e086823d08b4, type: 3}
   MenuWindow: {fileID: 490244338105036238, guid: fd9db8f34bbff94468fe942a33bb93b2, type: 3}
-  ShopWindow: {fileID: 1337179142336339399, guid: ea4c9f0789982764b92e374c952fcee2, type: 3}
   ShopOption: {fileID: 4746062692151713293, guid: d40bae330f156f84b8c87130e9727c4b, type: 3}
-  Joystick: {fileID: 7908455361447458406, guid: 58897ad0fc4f97a42bd660c08c22efa7, type: 3}
   Leaderboard: {fileID: 2461835346802699086, guid: c2b4b5047ad2da54bada2c15a9245e8d, type: 3}
   PauseWindow: {fileID: 354101141810175712, guid: c77e84f3a7b00a5499360cf086ec1c6b, type: 3}
   GameWindow: {fileID: 923566494473273800, guid: c24a4254e17bdb44ba63be1d40cdfd83, type: 3}
-  ShopWindow1: {fileID: 6296731706325003290, guid: f2572161302a53344a4e5303289692dd, type: 3}
+  ShopWindow: {fileID: 1512223142725689881, guid: f2572161302a53344a4e5303289692dd, type: 3}
   StartAbilityOption: {fileID: 7419768218871908090, guid: 085ab357a4c2d0b49b852598d3494088, type: 3}
+  JoystickCanvas: {fileID: 3227278838595663803, guid: 1ee917e5887e27c48ab68a837a9525e8, type: 3}

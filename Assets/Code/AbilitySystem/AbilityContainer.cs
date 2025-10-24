@@ -1,21 +1,14 @@
 ﻿using Assets.Code.Tools;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEngine;
 
 namespace Assets.Code.AbilitySystem
 {
-    public class AbilityContainer : MonoBehaviour
+    public class AbilityContainer
     {
-        private Dictionary<AbilityType, Ability> _abilities;
+        private readonly Dictionary<AbilityType, Ability> _abilities = new();
 
         public IEnumerable<AbilityType> MaxedAbilities => _abilities.Values.Where(ability => ability.IsMaxed).Select(ability => ability.Type);
-
-        private void Awake()
-        {
-            _abilities = new();
-        }
 
         public void Run()
         {

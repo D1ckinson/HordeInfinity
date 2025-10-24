@@ -12,7 +12,7 @@ namespace Assets.Code.Tools
 
         static UpdateService()
         {
-            UpdateRunner updater = new GameObject("UnityUpdateHandler").AddComponent<UpdateRunner>();
+            UpdateRunner updater = new GameObject("UpdateService").AddComponent<UpdateRunner>();
             updater.hideFlags = HideFlags.HideAndDontSave;
             Object.DontDestroyOnLoad(updater.gameObject);
         }

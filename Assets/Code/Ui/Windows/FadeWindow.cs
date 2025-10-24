@@ -12,7 +12,7 @@ namespace Assets.Code.Ui.Windows
         private const float HiddenThreshold = 0.01f;
 
         [SerializeField] private Image _image;
-        [SerializeField][Min(0)] private float _fadeDuration = 0.5f;
+        [SerializeField][Min(0)] private float _fadeDuration1 = 0.5f;
 
         private Sequence _showSequence;
         private Sequence _hideSequence;
@@ -27,13 +27,13 @@ namespace Assets.Code.Ui.Windows
         {
             _showSequence = DOTween.Sequence()
            .SetAutoKill(false)
-           .Append(_image.DOFade(Constants.One, _fadeDuration))
+           .Append(_image.DOFade(Constants.One, _fadeDuration1))
            .OnComplete(() => _onShow?.Invoke())
            .Pause();
 
             _hideSequence = DOTween.Sequence()
                 .SetAutoKill(false)
-                .Append(_image.DOFade(Constants.Zero, _fadeDuration))
+                .Append(_image.DOFade(Constants.Zero, _fadeDuration1))
                 .OnComplete(() => _onHide?.Invoke())
                 .Pause();
         }

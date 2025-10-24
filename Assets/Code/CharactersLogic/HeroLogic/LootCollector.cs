@@ -12,7 +12,7 @@ namespace Assets.Scripts
         private const float CollectDistance = 1f;
         private const float ExperienceTransferDelay = 0.15f;
 
-        private readonly List<Loot> _toCollect = new();
+        private readonly List<Loot> _loots = new();
 
         private float _time;
         private float _pullSpeed;
@@ -33,25 +33,12 @@ namespace Assets.Scripts
 
         private void OnTriggerEnter(Collider other)
         {
-            if (other.TryGetComponent(out Loot loot) == false || _toCollect.Contains(loot))
+            if (other.TryGetComponent(out Loot loot) == false || _loots.Contains(loot))
             {
                 return;
             }
 
-            _toCollect.Add(loot);
-        }
-
-        private void OnDisable()
-        {
-            foreach (Loot loot in _toCollect)
-            {
-                if (loot.NotNull() && loot.Rigidbody.NotNull())
-                {
-                    loot.Rigidbody.velocity = Vector3.zero;
-                }
-            }
-
-            _toCollect.Clear();
+            _loots.Add(loot);
         }
 
         public void Initialize(float attractionRadius, float pullSpeed, Wallet wallet, HeroLevel heroLevel)
@@ -74,6 +61,14 @@ namespace Assets.Scripts
         {
             UpdateService.UnregisterUpdate(TransferExperience);
             UpdateService.UnregisterFixedUpdate(AttractLoot);
+
+            _loots.ForEach(loot => loot.Rigidbody.velocity = Vector3.zero);
+        }
+
+        public void Reset()
+        {
+            Stop();
+            _loots.Clear();
         }
 
         public void TransferGold()
@@ -110,9 +105,9 @@ namespace Assets.Scripts
 
         private void AttractLoot()
         {
-            for (int i = _toCollect.LastIndex(); i >= Constants.Zero; i--)
+            for (int i = _loots.LastIndex(); i >= Constants.Zero; i--)
             {
-                Loot loot = _toCollect[i];
+                Loot loot = _loots[i];
 
                 Vector3 distance = transform.position - loot.transform.position;
                 Vector3 rawDirection = distance / (distance.magnitude + Constants.One);
@@ -123,7 +118,7 @@ namespace Assets.Scripts
                 {
                     int collectValue = loot.Collect();
                     CollectValue(loot.Type, collectValue);
-                    _toCollect.Remove(loot);
+                    _loots.Remove(loot);
                 }
             }
         }

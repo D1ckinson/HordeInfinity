@@ -138,6 +138,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b28fc5e850ac43448b730a1a240937f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _regenerationDelay: 1
 --- !u!114 &2175265491864831217
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -187,7 +188,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _movement: {fileID: 5873338861754745828}
-  _speedForMinute: 5
+  _speedForMinute: 2
 --- !u!1 &470339634672599374
 GameObject:
   m_ObjectHideFlags: 0

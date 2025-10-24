@@ -25,7 +25,7 @@ namespace Assets.Code.CharactersLogic
         public float MaxValue { get; private set; }
         private bool IsInvincible => _invincibleTimer > Constants.Zero;
         private bool IsDead => Value <= Constants.Zero;
-
+            
         private void Awake()
         {
             _animator = GetComponent<Animator>();
@@ -147,6 +147,11 @@ namespace Assets.Code.CharactersLogic
             Value = MaxValue;
             ValueChanged?.Invoke(Value);
             _animator.SetBool(AnimationParameters.IsAlive, Value >= Constants.Zero);
+        }
+
+        public void AddMaxHealth(float value)
+        {
+            MaxValue += value.ThrowIfNegative();
         }
     }
 }

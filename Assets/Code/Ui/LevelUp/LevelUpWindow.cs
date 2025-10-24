@@ -1,12 +1,12 @@
 ﻿using Assets.Code;
 using Assets.Code.AbilitySystem;
+using Assets.Code.Data;
 using Assets.Code.Tools;
 using Assets.Code.Ui.LevelUp;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using Object = UnityEngine.Object;
 
 namespace Assets.Scripts.Ui
 {
@@ -17,16 +17,17 @@ namespace Assets.Scripts.Ui
 
         public LevelUpWindow(Canvas canvas, LevelUpButton buttonPrefab)
         {
-            _canvas = Object.Instantiate(canvas.ThrowIfNull());
+            _canvas = canvas.ThrowIfNull().Instantiate();
             Transform layoutGroup = _canvas.GetComponentInChildrenOrThrow<LayoutGroup>().transform;
 
             _buttons = new LevelUpButton[]
             {
-                Object.Instantiate(buttonPrefab, layoutGroup, false),
-                Object.Instantiate(buttonPrefab, layoutGroup, false),
-                Object.Instantiate(buttonPrefab, layoutGroup, false)
+                buttonPrefab.Instantiate(layoutGroup,false),
+                buttonPrefab.Instantiate(layoutGroup,false),
+                buttonPrefab.Instantiate(layoutGroup,false)
             };
 
+            _buttons.ForEach(button => button.LevelText.SetText(UIText.LevelCut));
             _buttons.ForEach(button => button.SetActive(false));
             _canvas.SetActive(false);
         }
@@ -44,6 +45,9 @@ namespace Assets.Scripts.Ui
                 LevelUpButton button = _buttons[i];
                 UpgradeOption upgradeOption = upgradeOptions[i];
                 button.SetDescription(upgradeOption.Name, upgradeOption.Icon, upgradeOption.Stats);
+
+                button.LevelNumber.SetText(upgradeOption.NextLevel);
+
                 button.Subscribe(() => Callback(upgradeOption.Type));
                 button.SetActive(true);
             }

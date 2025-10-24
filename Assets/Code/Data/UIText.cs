@@ -1,4 +1,4 @@
-﻿using System;
+﻿using Assets.Code.AbilitySystem;
 using System.Collections.Generic;
 using YG;
 
@@ -26,6 +26,8 @@ namespace Assets.Code.Data
         public static string MenuText { get; private set; }
         public static string PersonalBest { get; private set; }
         public static string Tip { get; private set; }
+        public static string Leaders { get; private set; }
+        public static string ChoseAbility { get; private set; }
 
         public static string Range { get; private set; }
         public static string Damage { get; private set; }
@@ -52,7 +54,8 @@ namespace Assets.Code.Data
                     FillTr();
                     break;
                 default:
-                    throw new NotImplementedException();
+                    FillEn();
+                    break;
             }
         }
 
@@ -71,6 +74,8 @@ namespace Assets.Code.Data
             Continue = "Продолжить";
             MenuText = "Меню";
             PersonalBest = "Личный рекорд";
+            Leaders = "Лидеры";
+            ChoseAbility = "Выберите способность";
             Tip = "Нанесите достаточно урона, чтобы разблокировать стартовую способность";
 
             Damage = "Урон";
@@ -113,6 +118,8 @@ namespace Assets.Code.Data
             Continue = "Continue";
             MenuText = "Menu";
             PersonalBest = "Personal best";
+            Leaders = "Leaders";
+            ChoseAbility = "Choose ability";
             Tip = "Deal enough damage to unlock the starting ability";
 
             Damage = "Damage";
@@ -130,7 +137,7 @@ namespace Assets.Code.Data
                 [AbilityType.GhostSwords] = "Ghost swords",
                 [AbilityType.HolyGround] = "Holy ground",
                 [AbilityType.MidasHand] = "Midas Hand",
-                [AbilityType.MidasHand] = "Bombard",
+                [AbilityType.Bombard] = "Bombard",
                 [AbilityType.BlackHole] = "Black hole",
                 [AbilityType.StoneSpikes] = "Stone spikes",
                 [AbilityType.IceStaff] = "Ice staff",
@@ -142,7 +149,46 @@ namespace Assets.Code.Data
 
         private static void FillTr()
         {
+            LevelMax = "Maks";
+            LevelCut = "Sev";
+            Level = "Seviye";
+            Play = "Oyna";
+            Shop = "Dükkan";
+            Upgrade = "Yükselt";
+            Leaderboard = "Lider Tablosu";
+            Earned = "Kazanılan";
+            YourTime = "Süreniz";
+            Minutes = "Dakika";
+            Continue = "Devam Et";
+            MenuText = "Menü";
+            PersonalBest = "Kişisel Rekor";
+            Leaders = "Liderler";
+            ChoseAbility = "Yeteneği seçin";
+            Tip = "Başlangıç yeteneğini açmak için yeterli hasar verin";
 
+            Damage = "Hasar";
+            Cooldown = "Bekleme Süresi";
+            Range = "Menzil";
+            ProjectilesCount = "Mermi Sayısı";
+            HealthPercent = "Sağlık Yüzdesi";
+            PullForce = "Çekme Gücü";
+            BouncesQuantity = "Sekme Sayısı";
+            ThrowDistance = "Atış Mesafesi";
+
+            _abilityName = new()
+            {
+                [AbilityType.SwordStrike] = "Kılıç Darbesi",
+                [AbilityType.GhostSwords] = "Hayalet Kılıçlar",
+                [AbilityType.HolyGround] = "Kutsal Zemin",
+                [AbilityType.MidasHand] = "Midas'ın Eli",
+                [AbilityType.Bombard] = "Bombardıman",
+                [AbilityType.BlackHole] = "Kara Delik",
+                [AbilityType.StoneSpikes] = "Taş Dikenler",
+                [AbilityType.IceStaff] = "Buz Asası",
+                [AbilityType.Shuriken] = "Şuriken",
+                [AbilityType.Fireball] = "Ateş Topu",
+                [AbilityType.WindFlow] = "Rüzgar Akışı"
+            };
         }
     }
 }

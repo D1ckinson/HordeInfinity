@@ -70,7 +70,8 @@ namespace Assets.Scripts.State_Machine
             _hero.AbilityContainer.Run();
             _hero.Health.Died += ShowDeathWindow;
             _hero.LootCollector.Run();
-            _hero.CharacterMovement.Run();
+            _hero.Mover.Run();
+            _hero.Rotator.Run();
             _enemySpawner.Run();
             _timer.Start();
             _upgradeTrigger.Run();
@@ -104,7 +105,8 @@ namespace Assets.Scripts.State_Machine
             _hero.AbilityContainer.RemoveAll();
             _hero.LootCollector.TransferGold();
             _hero.Health.ResetValue();
-            _hero.CharacterMovement.Stop();
+            _hero.Mover.Stop();
+            _hero.Rotator.Stop();
             _hero.SetDefaultPosition();
             _upgradeTrigger.Stop();
 
@@ -118,13 +120,18 @@ namespace Assets.Scripts.State_Machine
             _timer.Stop();
             _enemySpawner.Reset();
 
-            YG2.saves.Save();
+            YG2.saves.Save(_playerData);
+
+            if (_playerData.IsAdOn)
+            {
+                YG2.InterstitialAdvShow();
+            }
         }
 
         private void OnExit()
         {
             _hero.HeroLevel.Reset();
-            _hero.LootCollector.Stop();
+            _hero.LootCollector.Reset();
 
             _timeService.Continue();
 
@@ -151,7 +158,8 @@ namespace Assets.Scripts.State_Machine
         private void ShowDeathWindow(Health health)
         {
             _hero.LootCollector.Stop();
-            _hero.CharacterMovement.Stop();
+            _hero.Mover.Stop();
+            _hero.Rotator.Stop();
             _hero.AbilityContainer.Stop();
 
             _enemySpawner.Pause();
@@ -170,7 +178,8 @@ namespace Assets.Scripts.State_Machine
         private void Resurrect()
         {
             _hero.LootCollector.Run();
-            _hero.CharacterMovement.Run();
+            _hero.Mover.Run();
+            _hero.Rotator.Run();
             _hero.AbilityContainer.Run();
             _hero.Health.ResetValue();
 

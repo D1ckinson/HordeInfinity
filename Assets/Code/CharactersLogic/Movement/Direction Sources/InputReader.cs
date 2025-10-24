@@ -9,29 +9,29 @@ namespace Assets.Scripts.Movement
     public class InputReader : IInputService
     {
         private readonly InputControls _inputControls;
-        private readonly Joystick _joystick;
+        private readonly Canvas _joystickCanvas;
         private readonly ITimeService _timeService;
 
         private Vector2 _previousDirection;
 
-        public InputReader(Joystick joystick, ITimeService timeService)
+        public InputReader(Canvas joystickCanvas, ITimeService timeService)
         {
             _inputControls = new InputControls();
-            _joystick = joystick.ThrowIfNull();
+            _joystickCanvas = joystickCanvas.ThrowIfNull();
             _timeService = timeService.ThrowIfNull();
-            _joystick.SetActive(false);
+            _joystickCanvas.SetActive(false);
 
             _inputControls.Player.Move.performed += OnMovePerformed;
             _inputControls.Player.Move.canceled += OnMoveCanceled;
             _inputControls.Ui.Back.performed += OnPausePerformed;
 
-            _joystick.DirectionChanged += OnJoystickMove;
+            _joystickCanvas.GetComponentInChildrenOrThrow<Joystick>().DirectionChanged += OnJoystickMove;
             _timeService.TimeChanging += ToggleJoystick;
         }
 
         ~InputReader()
         {
-            _joystick.DirectionChanged -= OnJoystickMove;
+            _joystickCanvas.GetComponentInChildrenOrThrow<Joystick>().DirectionChanged -= OnJoystickMove;
             _timeService.TimeChanging -= ToggleJoystick;
 
             _inputControls.Player.Move.performed -= OnMovePerformed;
@@ -70,7 +70,7 @@ namespace Assets.Scripts.Movement
 
         private void ToggleJoystick(bool isStopping)
         {
-            _joystick.SetActive(isStopping);
+            _joystickCanvas.SetActive(isStopping);
         }
 
         private void OnPausePerformed(InputAction.CallbackContext context)
@@ -81,13 +81,13 @@ namespace Assets.Scripts.Movement
         public void Enable()
         {
             _inputControls.Enable();
-            _joystick.SetActive(true);
+            _joystickCanvas.SetActive(true);
         }
 
         public void Disable()
         {
             _inputControls.Disable();
-            _joystick.SetActive(false);
+            _joystickCanvas.SetActive(false);
         }
     }
 }

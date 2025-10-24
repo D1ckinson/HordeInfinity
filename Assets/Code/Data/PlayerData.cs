@@ -14,29 +14,12 @@ namespace Assets.Scripts
         public Dictionary<AbilityType, int> UnlockDamage;
         public Dictionary<AbilityType, int> KillCount;
         public float ScoreRecord;
+        public bool IsAdOn = true;
 
         public PlayerData()
         {
             Wallet = new();
             StartAbility = AbilityType.SwordStrike;
-
-            //AbilityUnlockLevel = new()
-            //{
-            //    [AbilityType.SwordStrike] = 10,
-            //    [AbilityType.GhostSwords] = 10,
-            //    [AbilityType.HolyGround] = 10,
-            //    [AbilityType.MidasHand] = 5,
-            //    [AbilityType.Bombard] = 10,
-            //    [AbilityType.BlackHole] = 10,
-            //    [AbilityType.StoneSpikes] = 10,
-            //    [AbilityType.IceStaff] = 10,
-            //    [AbilityType.Shuriken] = 10,
-            //    [AbilityType.Fireball] = 10,
-            //    [AbilityType.WindFlow] = 10
-            //};
-
-            //добавить информацию об уровне прокачиваемой способности
-            //сделать появление окна
 
             AbilityUnlockLevel = new()
             {
@@ -95,19 +78,6 @@ namespace Assets.Scripts
                 [AbilityType.Shuriken] = 1000000,
                 [AbilityType.Fireball] = 1000000,
             };
-
-            //UnlockDamage = new()
-            //{
-            //    [AbilityType.SwordStrike] = 0,
-            //    [AbilityType.GhostSwords] = 10,
-            //    [AbilityType.HolyGround] = 100,
-            //    [AbilityType.Bombard] = 1000,
-            //    [AbilityType.BlackHole] = 10000,
-            //    [AbilityType.StoneSpikes] = 10000,
-            //    [AbilityType.IceStaff] = 10000,
-            //    [AbilityType.Shuriken] = 10000,
-            //    [AbilityType.Fireball] = 10000,
-            //};
         }
     }
 }

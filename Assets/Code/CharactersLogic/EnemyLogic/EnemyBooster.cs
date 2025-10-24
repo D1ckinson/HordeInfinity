@@ -1,5 +1,5 @@
-﻿using Assets.Code.Tools;
-using Assets.Scripts.Movement;
+﻿using Assets.Code.CharactersLogic.Movement;
+using Assets.Code.Tools;
 using System;
 using UnityEngine;
 
@@ -7,10 +7,13 @@ namespace Assets.Code.CharactersLogic.EnemyLogic
 {
     public class EnemyBooster : MonoBehaviour
     {
-        [SerializeField] private CharacterMovement _movement;
-        [SerializeField][Range(0.1f, 100f)] private float _speedForMinute = 5f;
+        [SerializeField][Range(0f, 100f)] private float _speedForMinute = 5f;
+        [SerializeField][Min(1f)] private float _healthForMinute = 100f;
 
         private readonly Timer _timer = new();
+
+        private Health _health;
+        private NewMover _mover;
 
         private void OnEnable()
         {
@@ -20,14 +23,22 @@ namespace Assets.Code.CharactersLogic.EnemyLogic
 
         private void OnDisable()
         {
-            _movement.ResetSpeed();
+            _mover?.ResetSpeed();
+
             _timer.Stop();
             _timer.Completed -= Boost;
         }
 
+        public void Initialize(NewMover mover, Health health)
+        {
+            _mover = mover.ThrowIfNull();
+            _health = health.ThrowIfNull();
+        }
+
         private void Boost()
         {
-            _movement.AddSpeed(_speedForMinute);
+            _mover.AddSpeed(_speedForMinute);
+            _health.AddMaxHealth(_healthForMinute);
             _timer.Start(Constants.SecondsInMinute);
         }
     }

@@ -11,6 +11,7 @@ using Assets.Scripts.Configs;
 using Assets.Scripts.Factories;
 using Assets.Scripts.Movement;
 using Assets.Scripts.State_Machine;
+using Assets.Scripts.Tools;
 using Assets.Scripts.Ui;
 using System.Collections.Generic;
 using UnityEngine;
@@ -28,36 +29,34 @@ namespace Assets.Scripts
         private void Awake()
         {
             PlayerData playerData = YG2.saves.Load();
-            ITimeService timeService = new TimeService();
             HeroLevel heroLevel = new(_levelSettings.CalculateExperienceForNextLevel);
-            UiFactory uiFactory = new(_uIConfig, _levelSettings.UpgradeCost, _levelSettings.AbilityConfigs, heroLevel, playerData);
 
-            IInputService inputService = new InputReader(uiFactory.Create<Joystick>(), timeService);
+            ITimeService timeService = new TimeService();
+            IInputService inputService = new InputReader(_uIConfig.JoystickCanvas.Instantiate(), timeService);
 
-            GameAreaSettings gameAreaSettings = _levelSettings.GameAreaSettings;
+            HeroComponents hero = _levelSettings.HeroConfig.Prefab
+                .Instantiate(_levelSettings.GameAreaSettings.Center, Quaternion.identity)
+                .GetComponentOrThrow<HeroComponents>()
+                .Initialize(inputService, _levelSettings.HeroConfig, heroLevel, playerData.Wallet);
 
-            HeroComponents heroComponents = new HeroFactory(_levelSettings.HeroConfig, playerData.Wallet, heroLevel, inputService).Create(gameAreaSettings.Center);
-            heroComponents.Initialize(heroLevel, gameAreaSettings.Center);
-            uiFactory.AddLootCollector(heroComponents.LootCollector);
-
-            Dictionary<AbilityType, AbilityConfig> abilities = _levelSettings.AbilityConfigs;
+            Camera.main.GetComponentOrThrow<Follower>().Follow(hero.transform);
 
             LootFactory lootFactory = new(_levelSettings.Loots);
-            AbilityFactory abilityFactory = new(abilities, heroComponents.transform, heroComponents.Center, playerData.AbilityUnlockLevel, playerData.DamageDealt, playerData.KillCount, lootFactory, heroComponents.Animator, timeService);
-            EnemyFactory enemyFactory = new(_levelSettings.EnemyConfigs, lootFactory, heroComponents.transform, _levelSettings.EnemySpawnerSettings, gameAreaSettings, _levelSettings.GoldEnemy);
-
-            LevelUpWindow levelUpWindow = new(_uIConfig.LevelUpCanvas, _uIConfig.LevelUpButton);
-            UpgradeTrigger upgradeTrigger = new(heroLevel, abilities, heroComponents.AbilityContainer, levelUpWindow, abilityFactory, timeService, playerData.AbilityUnlockLevel, lootFactory, heroComponents.transform);
-
+            EnemyFactory enemyFactory = new(_levelSettings.EnemyConfigs, lootFactory, hero.transform, _levelSettings.EnemySpawnerSettings, _levelSettings.GameAreaSettings, _levelSettings.GoldEnemy);
             EnemySpawner enemySpawner = new(enemyFactory, _levelSettings.SpawnTypeByTimes);
 
+            Dictionary<AbilityType, AbilityConfig> abilities = _levelSettings.AbilityConfigs;
+            LevelUpWindow levelUpWindow = new(_uIConfig.LevelUpCanvas, _uIConfig.LevelUpButton);
+            AbilityFactory abilityFactory = new(abilities, hero.transform, hero.Center, playerData.AbilityUnlockLevel, playerData.DamageDealt, playerData.KillCount, lootFactory, hero.Animator, timeService);
+            UpgradeTrigger upgradeTrigger = new(heroLevel, abilities, hero.AbilityContainer, levelUpWindow, abilityFactory, timeService, playerData.AbilityUnlockLevel, lootFactory, hero.transform);
+
+            UiFactory uiFactory = new(_uIConfig, _levelSettings.UpgradeCost, _levelSettings.AbilityConfigs, heroLevel, playerData, hero.LootCollector);
             uiFactory.Create<FPSWindow>();
-            AudioSource menuMusic = _levelSettings.MenuMusic.Instantiate(heroComponents.transform);
 
             _stateMachine = new();
             _stateMachine
-                .AddState(new MenuState(_stateMachine, uiFactory, menuMusic))
-                .AddState(new GameState(_stateMachine, heroComponents, enemySpawner, abilityFactory, uiFactory, playerData, inputService, timeService, upgradeTrigger, _levelSettings.BackgroundMusic));
+                .AddState(new MenuState(_stateMachine, uiFactory, _levelSettings.MenuMusic.Instantiate(hero.transform)))
+                .AddState(new GameState(_stateMachine, hero, new(enemyFactory, _levelSettings.SpawnTypeByTimes), abilityFactory, uiFactory, playerData, inputService, timeService, upgradeTrigger, _levelSettings.BackgroundMusic));
 
             _stateMachine.SetState<MenuState>();
         }

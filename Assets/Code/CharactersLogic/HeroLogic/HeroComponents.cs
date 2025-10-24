@@ -1,43 +1,52 @@
 ﻿using Assets.Code.AbilitySystem;
-using Assets.Code.Animation;
+using Assets.Code.CharactersLogic.Movement;
 using Assets.Code.Tools;
 using Assets.Scripts;
+using Assets.Scripts.Configs;
 using Assets.Scripts.Movement;
 using UnityEngine;
 
 namespace Assets.Code.CharactersLogic.HeroLogic
 {
-    [RequireComponent(typeof(CharacterMovement))]
     [RequireComponent(typeof(Health))]
     [RequireComponent(typeof(LootCollector))]
-    [RequireComponent(typeof(AbilityContainer))]
     [RequireComponent(typeof(Animator))]
+    [RequireComponent(typeof(Rigidbody))]
     public class HeroComponents : MonoBehaviour
     {
         [field: SerializeField] public Transform Center { get; private set; }
 
-        public CharacterMovement CharacterMovement { get; private set; }
+        private Vector3 _defaultPosition;
+
         public Health Health { get; private set; }
         public LootCollector LootCollector { get; private set; }
-        public AbilityContainer AbilityContainer { get; private set; }
+        public AbilityContainer AbilityContainer { get; } = new();
         public HeroLevel HeroLevel { get; private set; }
         public Animator Animator { get; private set; }
-
-        private Vector3 _defaultPosition;
+        public NewMover Mover { get; private set; }
+        public NewRotator Rotator { get; private set; }
 
         private void Awake()
         {
-            CharacterMovement = GetComponent<CharacterMovement>();
             Health = GetComponent<Health>();
             LootCollector = GetComponent<LootCollector>();
-            AbilityContainer = GetComponent<AbilityContainer>();
             Animator = GetComponent<Animator>();
+
+            _defaultPosition = transform.position;
         }
 
-        public void Initialize(HeroLevel heroLevel, Vector3 defaultPosition)
+        public HeroComponents Initialize(ITellDirection directionSource, CharacterConfig config, HeroLevel heroLevel, Wallet wallet)
         {
+            Rigidbody rigidbody = GetComponent<Rigidbody>();
             HeroLevel = heroLevel.ThrowIfNull();
-            _defaultPosition = defaultPosition;
+
+            Mover = new(directionSource, rigidbody, Animator, config.MoveSpeed);
+            Rotator = new(directionSource, rigidbody, config.RotationSpeed);
+
+            Health.Initialize(config.MaxHealth, config.InvincibilityDuration, config.InvincibilityTriggerPercent);
+            LootCollector.Initialize(config.AttractionRadius, config.PullSpeed, wallet, heroLevel);
+
+            return this;
         }
 
         public void SetDefaultPosition()

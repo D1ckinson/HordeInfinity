@@ -19,10 +19,10 @@ namespace Assets.Code.Ui
         private readonly Dictionary<AbilityType, int> _abilityMaxLevel;
         private readonly HeroLevel _heroLevel;
         private readonly PlayerData _playerData;
-        private LootCollector _lootCollector;
+        private readonly LootCollector _lootCollector;
 
         public UiFactory(UIConfig uIConfig, Dictionary<AbilityType, int[]> upgradeCost,
-            Dictionary<AbilityType, AbilityConfig> abilityConfigs, HeroLevel heroLevel, PlayerData playerData)
+            Dictionary<AbilityType, AbilityConfig> abilityConfigs, HeroLevel heroLevel, PlayerData playerData, LootCollector lootCollector)
         {
             _uIConfig = uIConfig.ThrowIfNull();
             _upgradeCost = upgradeCost.ThrowIfNullOrEmpty();
@@ -31,6 +31,7 @@ namespace Assets.Code.Ui
             _canvas = _uIConfig.UiCanvas.Instantiate();
             _heroLevel = heroLevel.ThrowIfNull();
             _playerData = playerData.ThrowIfNull();
+            _lootCollector = lootCollector.ThrowIfNull();
 
             _createMethods = new()
             {
@@ -38,18 +39,11 @@ namespace Assets.Code.Ui
                 [typeof(FadeWindow)] = CreateFadeWindow,
                 [typeof(FPSWindow)] = CreateFPSView,
                 [typeof(MenuWindow)] = CreateMenuWindow,
-                [typeof(ShopWindow)] = CreateShopWindow,
-                [typeof(Joystick)] = CreateJoystick,
                 [typeof(LeaderboardWindow)] = CreateLeaderboardWindow,
                 [typeof(PauseWindow)] = CreatePauseWindow,
                 [typeof(GameWindow)] = CreateGameWindow,
-                [typeof(ShopWindow1)] = CreateShopWindow1
+                [typeof(ShopWindow)] = CreateShopWindow
             };
-        }
-
-        public void AddLootCollector(LootCollector collector)
-        {
-            _lootCollector = collector.ThrowIfNull();
         }
 
         public T Create<T>(bool isActive = true) where T : BaseWindow
@@ -89,24 +83,9 @@ namespace Assets.Code.Ui
 
         private BaseWindow CreateShopWindow()
         {
-            ShopWindow shopWindow = _uIConfig.ShopWindow.Instantiate(_canvas.Container, false).
-                Initialize(_playerData.AbilityUnlockLevel, _abilityMaxLevel, _upgradeCost, _playerData.Wallet);
-
-            foreach (AbilityType abilityType in Constants.GetEnums<AbilityType>())
-            {
-                ShopOption shopOption = _uIConfig.ShopOption.Instantiate().Initialize(abilityType);
-                shopOption.AbilityIcon.sprite = _abilityConfigs[abilityType].Icon;
-
-                shopWindow.AddOption(shopOption);
-            }
-
-            return shopWindow;
-        }
-
-        private BaseWindow CreateShopWindow1()
-        {
-            ShopWindow1 shopWindow = _uIConfig.ShopWindow1.Instantiate(_canvas.Container, false).
-                Initialize(_abilityMaxLevel, _upgradeCost, _playerData);
+            ShopWindow shopWindow = _uIConfig.ShopWindow
+                .Instantiate(_canvas.Container, false)
+                .Initialize(_abilityMaxLevel, _upgradeCost, _playerData);
 
             foreach (AbilityType abilityType in Constants.GetEnums<AbilityType>())
             {
@@ -120,7 +99,6 @@ namespace Assets.Code.Ui
                     StartAbilityOption startAbilityOption = _uIConfig.StartAbilityOption.Instantiate().Initialize(abilityType);
                     startAbilityOption.AbilityIcon.sprite = _abilityConfigs[abilityType].Icon;
 
-
                     if (abilityType == AbilityType.SwordStrike)
                     {
                         startAbilityOption.Progress.SetActive(false);
@@ -131,11 +109,6 @@ namespace Assets.Code.Ui
             }
 
             return shopWindow;
-        }
-
-        private BaseWindow CreateJoystick()
-        {
-            return _uIConfig.Joystick.Instantiate(_canvas.Container, false);
         }
 
         private BaseWindow CreateLeaderboardWindow()

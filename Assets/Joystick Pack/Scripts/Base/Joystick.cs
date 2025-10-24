@@ -152,11 +152,6 @@ public class Joystick : BaseWindow, IPointerDownHandler, IDragHandler, IPointerU
 
     public virtual void OnPointerUp(PointerEventData eventData)
     {
-        if (eventData == null)
-        {
-            return;
-        }
-
         input = Vector2.zero;
         handle.anchoredPosition = Vector2.zero;
 

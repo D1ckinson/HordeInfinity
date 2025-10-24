@@ -12,7 +12,6 @@ namespace Assets.Scripts.Factories
 {
     public class EnemyFactory
     {
-        private readonly Dictionary<CharacterType, CharacterConfig> _enemiesConfigs;
         private readonly LootFactory _lootFactory;
         private readonly Transform _hero;
         private readonly EnemySpawnerSettings _spawnerSettings;
@@ -23,7 +22,6 @@ namespace Assets.Scripts.Factories
         public EnemyFactory(Dictionary<CharacterType, CharacterConfig> enemiesConfigs, LootFactory lootFactory,
             Transform hero, EnemySpawnerSettings spawnerSettings, GameAreaSettings gameAreaSettings, CharacterConfig goldEnemy)
         {
-            _enemiesConfigs = enemiesConfigs.ThrowIfNullOrEmpty();
             _lootFactory = lootFactory.ThrowIfNull();
             _hero = hero.ThrowIfNull();
             _goldEnemy = goldEnemy.ThrowIfNull();
@@ -49,7 +47,8 @@ namespace Assets.Scripts.Factories
             EnemyComponents enemy = _pools[characterType.ThrowIfNull()].Get();
 
             SetTransform(enemy.transform);
-            enemy.CharacterMovement.Run();
+            enemy.Mover.Run();
+            enemy.Rotator.Run();
 
             return enemy;
         }
@@ -63,41 +62,33 @@ namespace Assets.Scripts.Factories
         public void StopAll()
         {
             IEnumerable<EnemyComponents> enemyComponents = _pools.Values.SelectMany(pool => pool.GetAllActive());
-            enemyComponents.ForEach(enemyComponent => enemyComponent.CharacterMovement.Stop());
+            enemyComponents.ForEach(enemyComponent => enemyComponent.Mover.Stop());
         }
 
         public void ContinueAll()
         {
             IEnumerable<EnemyComponents> enemyComponents = _pools.Values.SelectMany(pool => pool.GetAllActive());
-            enemyComponents.ForEach(enemyComponent => enemyComponent.CharacterMovement.Run());
+            enemyComponents.ForEach(enemyComponent => enemyComponent.Mover.Run());
         }
 
         private EnemyComponents Create(CharacterConfig config)
         {
-            EnemyComponents enemy = Object.Instantiate(config.Prefab).GetComponentOrThrow<EnemyComponents>();
-            enemy.Initialize(new DirectionTellerTo(enemy.transform));
+            EnemyComponents enemy = config.Prefab.Instantiate().GetComponentOrThrow<EnemyComponents>();
+            DirectionTellerTo directionSource = new(enemy.transform);
 
-            enemy.CharacterMovement.Initialize(config.MoveSpeed, config.RotationSpeed, enemy.DirectionTeller);
-            enemy.Health.Initialize(config.MaxHealth, config.InvincibilityDuration, config.InvincibilityTriggerPercent);
-            enemy.CollisionDamage.Initialize(config.Damage, config.DamageLayer);
-            enemy.DeathTriger.Initialize(enemy.Health, _lootFactory, config.Loot, enemy.CharacterMovement);
-            enemy.DirectionTeller.SetTarget(_hero);
-            enemy.SetType(config.Type);
+            directionSource.SetTarget(_hero);
+            enemy.Initialize(config, directionSource, _lootFactory);
 
             return enemy;
         }
 
         private EnemyComponents CreateGoldEnemy()
         {
-            EnemyComponents enemy = Object.Instantiate(_goldEnemy.Prefab).GetComponentOrThrow<EnemyComponents>();
-            enemy.Initialize(new DirectionTellerFrom(enemy.transform));
+            EnemyComponents enemy = _goldEnemy.Prefab.Instantiate().GetComponentOrThrow<EnemyComponents>();
+            DirectionTellerFrom directionSource = new(enemy.transform);
 
-            enemy.CharacterMovement.Initialize(_goldEnemy.MoveSpeed, _goldEnemy.RotationSpeed, enemy.DirectionTeller);
-            enemy.Health.Initialize(_goldEnemy.MaxHealth, _goldEnemy.InvincibilityDuration, _goldEnemy.InvincibilityTriggerPercent);
-            enemy.CollisionDamage.Initialize(_goldEnemy.Damage, _goldEnemy.DamageLayer);
-            enemy.DeathTriger.Initialize(enemy.Health, _lootFactory, _goldEnemy.Loot, enemy.CharacterMovement);
-            enemy.DirectionTeller.SetTarget(_hero);
-            enemy.SetType(_goldEnemy.Type);
+            directionSource.SetTarget(_hero);
+            enemy.Initialize(_goldEnemy, directionSource, _lootFactory);
 
             return enemy;
         }
@@ -124,6 +115,7 @@ namespace Assets.Scripts.Factories
         private bool IsPositionInGameArea(Vector3 position)
         {
             float distance = Vector3.Distance(_gameAreaSettings.Center, position);
+
             return distance <= _gameAreaSettings.Radius;
         }
     }

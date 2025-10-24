@@ -3,7 +3,6 @@ using System;
 
 namespace Assets.Scripts
 {
-    [Serializable]
     public class HeroLevel
     {
         private const float DefaultTransferValue = 30f;
@@ -12,7 +11,7 @@ namespace Assets.Scripts
 
         private float _buffer;
         private float _lootPercent = 1;
-        private float _transferValue = 1;
+        private float _transferValue = DefaultTransferValue;
 
         public int Level { get; private set; } = 1;
         public float Value { get; private set; } = 0;

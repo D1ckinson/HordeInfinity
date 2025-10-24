@@ -22,7 +22,6 @@ namespace Assets.Code.Ui.Windows
         [field: SerializeField] public Button PlayButton { get; private set; }
 
         private Wallet _wallet;
-        private AudioListener _listener;
 
         private void Awake()
         {
@@ -30,7 +29,6 @@ namespace Assets.Code.Ui.Windows
             ShopButton.Subscribe(Disable);
             PlayButton.Subscribe(Disable);
 
-            _listener = Camera.main.GetComponentOrThrow<AudioListener>();
             VolumeButton.Clicked += ToggleSound;
         }
 
@@ -67,7 +65,7 @@ namespace Assets.Code.Ui.Windows
 
         private void ToggleSound(bool isOn)
         {
-            _listener.enabled = isOn;
+            AudioListener.volume = isOn ? Constants.One : Constants.Zero;
         }
     }
 }

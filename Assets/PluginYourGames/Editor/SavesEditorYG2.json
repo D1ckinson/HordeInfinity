@@ -1,4 +1,5 @@
 {
+    "PlayerDataJson": "{\"Wallet\":{\"CoinsQuantity\":20.0},\"StartAbility\":0,\"AbilityUnlockLevel\":{\"SwordStrike\":8,\"GhostSwords\":5,\"HolyGround\":2,\"MidasHand\":0,\"Bombard\":2,\"BlackHole\":0,\"StoneSpikes\":0,\"IceStaff\":1,\"Shuriken\":1,\"Fireball\":0,\"WindFlow\":0},\"DamageDealt\":{\"SwordStrike\":16895,\"GhostSwords\":3760,\"HolyGround\":13755,\"MidasHand\":0,\"Bombard\":520,\"BlackHole\":0,\"StoneSpikes\":0,\"IceStaff\":1200,\"Shuriken\":1200,\"Fireball\":0,\"WindFlow\":0},\"UnlockDamage\":{\"SwordStrike\":0,\"GhostSwords\":100000,\"HolyGround\":1000000,\"Bombard\":1000000,\"BlackHole\":1000000,\"StoneSpikes\":100000,\"IceStaff\":1000000,\"Shuriken\":1000000,\"Fireball\":1000000},\"KillCount\":{\"SwordStrike\":128,\"GhostSwords\":16,\"HolyGround\":133,\"MidasHand\":0,\"Bombard\":5,\"BlackHole\":0,\"StoneSpikes\":0,\"IceStaff\":8,\"Shuriken\":5,\"Fireball\":0,\"WindFlow\":0},\"ScoreRecord\":89.43135,\"IsAdOn\":true}",
     "intExample": 5,
     "strExample": "Hello!",
     "boolExample": [
@@ -7,5 +8,5 @@
         false,
         false
     ],
-    "idSave": 153
+    "idSave": 197
 }

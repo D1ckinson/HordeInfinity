@@ -1,24 +1,22 @@
-﻿using Assets.Scripts;
-using UnityEngine;
+﻿using Assets.Code.Tools;
+using Assets.Scripts;
+using Newtonsoft.Json;
 
 namespace YG
 {
     public partial class SavesYG
     {
-        private string _playerDataJson;
-        private PlayerData _playerData;
+        public string PlayerDataJson;
 
-        public void Save()
+        public void Save(PlayerData playerData)
         {
-            _playerDataJson = JsonUtility.ToJson(_playerData);
+            PlayerDataJson = JsonConvert.SerializeObject(playerData);
             YG2.SaveProgress();
         }
 
         public PlayerData Load()
         {
-            _playerData = JsonUtility.FromJson<PlayerData>(_playerDataJson) ?? new();
-
-            return _playerData;
+            return PlayerDataJson.IsNull() ? new() : JsonConvert.DeserializeObject<PlayerData>(PlayerDataJson);
         }
     }
 }

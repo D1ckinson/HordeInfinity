@@ -186,6 +186,11 @@ namespace Assets.Code.Tools
             return @object;
         }
 
+        public static T Instantiate<T>(this T component, Vector3 position, Quaternion rotation) where T : Component
+        {
+            return Object.Instantiate(component, position, rotation);
+        }
+
         public static void SetText(this TMP_Text textWindow, int value)
         {
             textWindow.SetText(value.ToString());

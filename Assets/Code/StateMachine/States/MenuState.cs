@@ -35,7 +35,7 @@ namespace Assets.Scripts.State_Machine
             CoroutineService.StopAllCoroutines(this);
             CoroutineService.StartCoroutine(TurnOnMusic(), this);
 
-            _uiFactory.Create<ShopWindow1>(false).ExitButton.Subscribe(ShowMenu);
+            _uiFactory.Create<ShopWindow>(false).ExitButton.Subscribe(ShowMenu);
             _uiFactory.Create<LeaderboardWindow>(false).ExitButton.Subscribe(ShowMenu);
 
             MenuWindow menuWindow = _uiFactory.Create<MenuWindow>();
@@ -51,7 +51,7 @@ namespace Assets.Scripts.State_Machine
 
         private void ShowShop()
         {
-            _uiFactory.Create<ShopWindow1>();
+            _uiFactory.Create<ShopWindow>();
         }
 
         private void ShowLeaderboard()
@@ -62,7 +62,7 @@ namespace Assets.Scripts.State_Machine
 
         public override void Exit()
         {
-            _uiFactory.Create<ShopWindow1>(false).ExitButton.Unsubscribe(ShowMenu);
+            _uiFactory.Create<ShopWindow>(false).ExitButton.Unsubscribe(ShowMenu);
             _uiFactory.Create<LeaderboardWindow>(false).ExitButton.Unsubscribe(ShowMenu);
 
             MenuWindow menuWindow = _uiFactory.Create<MenuWindow>(false);

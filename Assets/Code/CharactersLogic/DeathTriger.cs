@@ -1,7 +1,7 @@
-﻿using Assets.Code.Tools;
+﻿using Assets.Code.CharactersLogic.Movement;
+using Assets.Code.Tools;
 using Assets.Scripts.Configs;
 using Assets.Scripts.Factories;
-using Assets.Scripts.Movement;
 using UnityEngine;
 
 namespace Assets.Code.CharactersLogic
@@ -11,7 +11,8 @@ namespace Assets.Code.CharactersLogic
         private Health _health;
         private LootFactory _lootFactory;
         private LootDropInfo[] _loots;
-        private CharacterMovement _characterMovement;
+        private NewMover _mover;
+        private NewRotator _rotator;
 
         private void OnEnable()
         {
@@ -29,12 +30,13 @@ namespace Assets.Code.CharactersLogic
             }
         }
 
-        public void Initialize(Health health, LootFactory lootFactory, LootDropInfo[] loots, CharacterMovement characterMovement)
+        public void Initialize(Health health, NewMover mover, NewRotator rotator, LootFactory lootFactory, LootDropInfo[] loots)
         {
             _health = health.ThrowIfNull();
             _lootFactory = lootFactory.ThrowIfNull();
             _loots = loots.ThrowIfNullOrEmpty();
-            _characterMovement = characterMovement.ThrowIfNull();
+            _mover = mover.ThrowIfNull();
+            _rotator = rotator.ThrowIfNull();
 
             _health.Died += OnDeath;
         }
@@ -52,7 +54,8 @@ namespace Assets.Code.CharactersLogic
             }
 
             this.SetActive(false);
-            _characterMovement.Stop();
+            _mover.Stop();
+            _rotator.Stop();
         }
     }
 }

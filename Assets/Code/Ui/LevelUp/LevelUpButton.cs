@@ -12,10 +12,8 @@ namespace Assets.Code.Ui.LevelUp
         [SerializeField] private Image _image;
         [SerializeField] private TMP_Text _stats;
 
-        public void SetText(string text)
-        {
-            _stats.text = text;
-        }
+        [field: SerializeField] public TMP_Text LevelText { get; private set; }
+        [field: SerializeField] public TMP_Text LevelNumber { get; private set; }
 
         public void SetDescription(string name, Sprite image, List<string> stats)
         {

@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 2175265491864831217}
   - component: {fileID: 1904415952192269760}
   - component: {fileID: 8173078710308518488}
+  - component: {fileID: 743263434789974673}
   m_Layer: 6
   m_Name: Gold Enemy
   m_TagString: Untagged
@@ -137,6 +138,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b28fc5e850ac43448b730a1a240937f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _regenerationDelay: 1
 --- !u!114 &2175265491864831217
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -173,6 +175,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb4cbe474ad978d4aa324d9c29c4e8c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &743263434789974673
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 409786301891173979}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dad9ade4597296d469b660f03dab4628, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _speedForMinute: 0
+  _healthForMinute: 100
 --- !u!1 &470339634672599374
 GameObject:
   m_ObjectHideFlags: 0

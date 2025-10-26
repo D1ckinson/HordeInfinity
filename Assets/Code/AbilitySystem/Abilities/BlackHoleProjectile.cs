@@ -17,7 +17,6 @@ namespace Assets.Code.AbilitySystem.Abilities
         [SerializeField] private SphereCollider _effectZone;
 
         private readonly Dictionary<Health, EnemyComponents> _enemies = new();
-        private readonly Timer _timer = new();
 
         private LayerMask _damageLayer;
         private Pool<ParticleSystem> _effectPool;
@@ -32,15 +31,13 @@ namespace Assets.Code.AbilitySystem.Abilities
         private void OnEnable()
         {
             SetShape();
-            _timer.Start(_lifeTime);
-            _timer.Completed += Disable;
+            TimerService.StartTimer(_lifeTime, ()=>this.SetActive(false));
         }
 
         private void OnDisable()
         {
             _enemies.Clear();
             SetShape();
-            _timer.Completed -= Disable;
         }
 
         private void OnDestroy()
@@ -133,11 +130,6 @@ namespace Assets.Code.AbilitySystem.Abilities
 
             _effectZone.radius = radius;
             _effectPool?.ForEach(effect => effect.SetShapeRadius(radius));
-        }
-
-        private void Disable()
-        {
-            this.SetActive(false);
         }
 
         private void Remove(Health health)

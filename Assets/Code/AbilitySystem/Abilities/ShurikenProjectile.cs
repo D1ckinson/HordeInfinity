@@ -16,7 +16,6 @@ namespace Assets.Code.AbilitySystem.Abilities
         [SerializeField] private SoundPause _soundPause;
 
         private readonly Collider[] _colliders = new Collider[10];
-        private readonly Timer _timer = new();
 
         private LayerMask _damageLayer;
         private float _damage;
@@ -50,16 +49,11 @@ namespace Assets.Code.AbilitySystem.Abilities
             }
         }
 
-        private void OnEnable()
-        {
-            _timer.Completed += Disable;
-        }
-
         private void OnDisable()
         {
             UpdateService.UnregisterUpdate(Move);
             UpdateService.UnregisterFixedUpdate(CalculateDirection);
-            _timer.Completed -= Disable;
+            TimerService.StopTimer(this, Disable);
         }
 
         private bool TryDamage(Collider collider)
@@ -117,7 +111,7 @@ namespace Assets.Code.AbilitySystem.Abilities
 
             UpdateService.RegisterUpdate(Move);
             UpdateService.RegisterFixedUpdate(CalculateDirection);
-            _timer.Start(_lifeTime);
+            TimerService.StartTimer(_lifeTime, Disable, this);
         }
 
         private void Disable()
@@ -174,10 +168,10 @@ namespace Assets.Code.AbilitySystem.Abilities
 
             if (_target.IsNull())
             {
-                _moveDirection = Utilities.GenerateRandomDirection(transform.position.y);
+                _moveDirection = Utilities.GenerateRandomDirection();
             }
 
-            _timer.Start(_lifeTime);
+            TimerService.StartTimer(_lifeTime, Disable, this);
         }
     }
 }

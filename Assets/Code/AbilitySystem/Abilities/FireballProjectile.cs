@@ -15,7 +15,6 @@ namespace Assets.Code.AbilitySystem.Abilities
         [SerializeField] private SoundPause _soundPause;
 
         private readonly Collider[] _colliders = new Collider[30];
-        private readonly Timer _timer = new();
 
         private LayerMask _damageLayer;
         private Pool<ParticleSystem> _explosionEffectPool;
@@ -38,8 +37,7 @@ namespace Assets.Code.AbilitySystem.Abilities
         private void OnDisable()
         {
             UpdateService.UnregisterUpdate(Move);
-            _timer.Stop();
-            _timer.Completed -= Explode;
+            TimerService.StopTimer(this, Explode);
         }
 
         public void Initialize(LayerMask damageLayer, float damage, float explosionRadius,
@@ -69,9 +67,7 @@ namespace Assets.Code.AbilitySystem.Abilities
             _direction = direction.ThrowIfNotNormalize();
 
             UpdateService.RegisterUpdate(Move);
-
-            _timer.Start(_lifeTime);
-            _timer.Completed += Explode;
+            TimerService.StartTimer(_lifeTime, Explode, this);
         }
 
         private void Move()

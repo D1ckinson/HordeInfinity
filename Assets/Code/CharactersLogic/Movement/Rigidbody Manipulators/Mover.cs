@@ -12,7 +12,6 @@ namespace Assets.Scripts.Movement
         private readonly float _defaultSpeed;
 
         private float _speed;
-        private float _additionalSpeed;
 
         public Mover(Rigidbody rigidbody, float speed)
         {
@@ -33,13 +32,11 @@ namespace Assets.Scripts.Movement
 
         public void AddSpeed(float value)
         {
-            _additionalSpeed += value.ThrowIfNegative();
-            _speed = _defaultSpeed + _additionalSpeed;
+            _speed = _defaultSpeed + value.ThrowIfNegative();
         }
 
         public void ResetSpeed()
         {
-            _additionalSpeed = Constants.Zero;
             _speed = _defaultSpeed;
         }
 

@@ -10,7 +10,6 @@ namespace Assets.Code.Spawners
     public class NewEnemySpawner
     {
         private readonly EnemyFactory _enemyFactory;
-        private readonly Timer _timer = new();
         private readonly SpawnTypeByTime[] _spawnTypeByTime;
 
         private int _spawnTypeIndex = -1;

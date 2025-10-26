@@ -125,7 +125,7 @@ namespace Assets.Code.BuffSystem
 
         protected override void Amplify(Health health, int resistPercent)
         {
-            health.SetResistPercent(resistPercent);
+            //health.AddResist(resistPercent);
         }
     }
 

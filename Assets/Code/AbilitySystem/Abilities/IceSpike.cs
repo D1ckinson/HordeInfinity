@@ -13,8 +13,6 @@ namespace Assets.Code.AbilitySystem.Abilities
         [SerializeField][Min(0.5f)] private float _lifeTime = 3f;
         [SerializeField][Min(1f)] private float _speed = 30f;
 
-        private readonly Timer _timer = new();
-
         private Pool<AudioSource> _hitSoundPool;
         private LayerMask _damageLayer;
         private float _damage;
@@ -41,10 +39,7 @@ namespace Assets.Code.AbilitySystem.Abilities
 
         private void OnDisable()
         {
-            _timer.Stop();
-            _timer.Completed -= Stop;
-
-            UpdateService.UnregisterUpdate(MoveForward);
+            Stop();
         }
 
         public void Initialize(LayerMask damageLayer, float damage, Pool<AudioSource> hitSoundPool, Dictionary<AbilityType, int> damageDealt, Dictionary<AbilityType, int> killCount)
@@ -71,15 +66,14 @@ namespace Assets.Code.AbilitySystem.Abilities
             transform.rotation = Quaternion.LookRotation(new(direction.x, Constants.Zero, direction.z));
 
             UpdateService.RegisterUpdate(MoveForward);
-
-            _timer.Start(_lifeTime);
-            _timer.Completed += Stop;
+            TimerService.StartTimer(_lifeTime, Stop, this);
         }
 
         private void Stop()
         {
             UpdateService.UnregisterUpdate(MoveForward);
-            _timer.Completed -= Stop;
+            TimerService.StopTimer(this, Stop);
+            this.SetActive(false);
         }
 
         private void MoveForward()

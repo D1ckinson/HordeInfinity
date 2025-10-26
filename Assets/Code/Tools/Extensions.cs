@@ -243,5 +243,10 @@ namespace Assets.Code.Tools
         {
             component.transform.position = position;
         }
+
+        public static bool Approximately(this float value, float second)
+        {
+            return Mathf.Approximately(value, second);
+        }
     }
 }

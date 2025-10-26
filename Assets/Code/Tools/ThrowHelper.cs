@@ -115,6 +115,16 @@ namespace Assets.Code.Tools
             return value;
         }
 
+        public static float ThrowIfLessThan(this float value, float range)
+        {
+            if (value < range)
+            {
+                throw new ArgumentOutOfRangeException();
+            }
+
+            return value;
+        }
+
         public static int ThrowIfMoreThan(this int value, int range)
         {
             if (value > range)

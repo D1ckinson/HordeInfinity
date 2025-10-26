@@ -34,29 +34,41 @@ namespace Assets.Scripts
             ITimeService timeService = new TimeService();
             IInputService inputService = new InputReader(_uIConfig.JoystickCanvas.Instantiate(), timeService);
 
+            GameAreaSettings gameAreaSettings = _levelSettings.GameAreaSettings;
             HeroComponents hero = _levelSettings.HeroConfig.Prefab
-                .Instantiate(_levelSettings.GameAreaSettings.Center, Quaternion.identity)
+                .Instantiate(gameAreaSettings.Center, Quaternion.identity)
                 .GetComponentOrThrow<HeroComponents>()
                 .Initialize(inputService, _levelSettings.HeroConfig, heroLevel, playerData.Wallet);
 
             Camera.main.GetComponentOrThrow<Follower>().Follow(hero.transform);
 
             LootFactory lootFactory = new(_levelSettings.Loots);
-            EnemyFactory enemyFactory = new(_levelSettings.EnemyConfigs, lootFactory, hero.transform, _levelSettings.EnemySpawnerSettings, _levelSettings.GameAreaSettings, _levelSettings.GoldEnemy);
+            EnemyFactory enemyFactory = new(_levelSettings.EnemyConfigs, lootFactory, hero.transform, _levelSettings.EnemySpawnerSettings,
+                _levelSettings.GameAreaSettings, _levelSettings.GoldEnemy);
+
             EnemySpawner enemySpawner = new(enemyFactory, _levelSettings.SpawnTypeByTimes);
 
             Dictionary<AbilityType, AbilityConfig> abilities = _levelSettings.AbilityConfigs;
             LevelUpWindow levelUpWindow = new(_uIConfig.LevelUpCanvas, _uIConfig.LevelUpButton);
-            AbilityFactory abilityFactory = new(abilities, hero.transform, hero.Center, playerData.AbilityUnlockLevel, playerData.DamageDealt, playerData.KillCount, lootFactory, hero.Animator, timeService);
-            UpgradeTrigger upgradeTrigger = new(heroLevel, abilities, hero.AbilityContainer, levelUpWindow, abilityFactory, timeService, playerData.AbilityUnlockLevel, lootFactory, hero.transform);
 
-            UiFactory uiFactory = new(_uIConfig, _levelSettings.UpgradeCost, _levelSettings.AbilityConfigs, heroLevel, playerData, hero.LootCollector);
+            AbilityFactory abilityFactory = new(abilities, hero.transform, hero.Center, playerData.AbilityUnlockLevel,
+                playerData.DamageDealt, playerData.KillCount, lootFactory, hero.Animator, timeService);
+
+            UpgradeTrigger upgradeTrigger = new(heroLevel, abilities, hero.AbilityContainer, levelUpWindow, abilityFactory,
+                timeService, playerData.AbilityUnlockLevel, lootFactory, hero.transform);
+
+            UiFactory uiFactory = new(_uIConfig, _levelSettings.UpgradeCost, _levelSettings.AbilityConfigs, heroLevel, playerData,
+                hero.LootCollector);
+
             uiFactory.Create<FPSWindow>();
+
+            SpellBookSpawner bookSpawner = new(hero.transform, _levelSettings.Books, gameAreaSettings, _levelSettings.BooksSpawnerSettings);
 
             _stateMachine = new();
             _stateMachine
                 .AddState(new MenuState(_stateMachine, uiFactory, _levelSettings.MenuMusic.Instantiate(hero.transform)))
-                .AddState(new GameState(_stateMachine, hero, new(enemyFactory, _levelSettings.SpawnTypeByTimes), abilityFactory, uiFactory, playerData, inputService, timeService, upgradeTrigger, _levelSettings.BackgroundMusic));
+                .AddState(new GameState(_stateMachine, hero, new(enemyFactory, _levelSettings.SpawnTypeByTimes), abilityFactory, uiFactory,
+                playerData, inputService, timeService, upgradeTrigger, _levelSettings.BackgroundMusic, bookSpawner));
 
             _stateMachine.SetState<MenuState>();
         }

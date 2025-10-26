@@ -43,7 +43,7 @@ MonoBehaviour:
     <PullForce>k__BackingField: 0
     <BouncesQuantity>k__BackingField: 0
     <ThrowDistance>k__BackingField: 0
-    <Cost>k__BackingField: 10
+    <Cost>k__BackingField: 20
   - <Cooldown>k__BackingField: 9.3
     <Damage>k__BackingField: 10
     <Range>k__BackingField: 0
@@ -53,7 +53,7 @@ MonoBehaviour:
     <PullForce>k__BackingField: 0
     <BouncesQuantity>k__BackingField: 0
     <ThrowDistance>k__BackingField: 0
-    <Cost>k__BackingField: 10
+    <Cost>k__BackingField: 30
   - <Cooldown>k__BackingField: 9
     <Damage>k__BackingField: 10
     <Range>k__BackingField: 0
@@ -63,7 +63,7 @@ MonoBehaviour:
     <PullForce>k__BackingField: 0
     <BouncesQuantity>k__BackingField: 0
     <ThrowDistance>k__BackingField: 0
-    <Cost>k__BackingField: 10
+    <Cost>k__BackingField: 40
   - <Cooldown>k__BackingField: 8.7
     <Damage>k__BackingField: 20
     <Range>k__BackingField: 0
@@ -73,7 +73,7 @@ MonoBehaviour:
     <PullForce>k__BackingField: 0
     <BouncesQuantity>k__BackingField: 0
     <ThrowDistance>k__BackingField: 0
-    <Cost>k__BackingField: 10
+    <Cost>k__BackingField: 50
   - <Cooldown>k__BackingField: 8.5
     <Damage>k__BackingField: 25
     <Range>k__BackingField: 0
@@ -83,7 +83,7 @@ MonoBehaviour:
     <PullForce>k__BackingField: 0
     <BouncesQuantity>k__BackingField: 0
     <ThrowDistance>k__BackingField: 0
-    <Cost>k__BackingField: 10
+    <Cost>k__BackingField: 300
   - <Cooldown>k__BackingField: 8
     <Damage>k__BackingField: 30
     <Range>k__BackingField: 0
@@ -93,7 +93,7 @@ MonoBehaviour:
     <PullForce>k__BackingField: 0
     <BouncesQuantity>k__BackingField: 0
     <ThrowDistance>k__BackingField: 0
-    <Cost>k__BackingField: 10
+    <Cost>k__BackingField: 350
   - <Cooldown>k__BackingField: 8
     <Damage>k__BackingField: 30
     <Range>k__BackingField: 0
@@ -103,7 +103,7 @@ MonoBehaviour:
     <PullForce>k__BackingField: 0
     <BouncesQuantity>k__BackingField: 0
     <ThrowDistance>k__BackingField: 0
-    <Cost>k__BackingField: 10
+    <Cost>k__BackingField: 400
   - <Cooldown>k__BackingField: 7
     <Damage>k__BackingField: 30
     <Range>k__BackingField: 0
@@ -113,7 +113,7 @@ MonoBehaviour:
     <PullForce>k__BackingField: 0
     <BouncesQuantity>k__BackingField: 0
     <ThrowDistance>k__BackingField: 0
-    <Cost>k__BackingField: 10
+    <Cost>k__BackingField: 450
   - <Cooldown>k__BackingField: 6
     <Damage>k__BackingField: 50
     <Range>k__BackingField: 0
@@ -123,4 +123,4 @@ MonoBehaviour:
     <PullForce>k__BackingField: 0
     <BouncesQuantity>k__BackingField: 0
     <ThrowDistance>k__BackingField: 0
-    <Cost>k__BackingField: 10
+    <Cost>k__BackingField: 500

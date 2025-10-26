@@ -22,17 +22,18 @@ namespace Assets.Scripts.State_Machine
         private readonly EnemySpawner _enemySpawner;
         private readonly UiFactory _uiFactory;
         private readonly string _resurrectRewardId = "resurrect";
-        private readonly Timer _timer;
         private readonly PlayerData _playerData;
         private readonly IInputService _inputService;
         private readonly ITimeService _timeService;
         private readonly UpgradeTrigger _upgradeTrigger;
         private readonly AudioSource _backgroundMusic;
         private readonly float _musicVolume;
+        private readonly SpellBookSpawner _bookSpawner;
 
         public GameState(StateMachine stateMachine, HeroComponents heroComponents, EnemySpawner enemySpawner,
-            AbilityFactory abilityFactory, UiFactory uiFactory, PlayerData playerData, IInputService inputService
-            , ITimeService timeService, UpgradeTrigger upgradeTrigger, AudioSource backgroundMusic) : base(stateMachine)
+            AbilityFactory abilityFactory, UiFactory uiFactory, PlayerData playerData, IInputService inputService,
+            ITimeService timeService, UpgradeTrigger upgradeTrigger, AudioSource backgroundMusic,
+            SpellBookSpawner bookSpawner) : base(stateMachine)
         {
             _hero = heroComponents.ThrowIfNull();
             _enemySpawner = enemySpawner.ThrowIfNull();
@@ -42,10 +43,9 @@ namespace Assets.Scripts.State_Machine
             _inputService = inputService.ThrowIfNull();
             _timeService = timeService.ThrowIfNull();
             _upgradeTrigger = upgradeTrigger.ThrowIfNull();
+            _bookSpawner = bookSpawner.ThrowIfNull();
             _backgroundMusic = backgroundMusic.ThrowIfNull().Instantiate(_hero.transform);
             _musicVolume = _backgroundMusic.volume;
-
-            _timer = new();
         }
 
         ~GameState()
@@ -67,19 +67,21 @@ namespace Assets.Scripts.State_Machine
             gameWindow.PauseButton.Subscribe(Pause);
 
             _hero.AbilityContainer.Add(_abilityFactory.Create(_playerData.StartAbility));
+            //_hero.AbilityContainer.Add(_abilityFactory.Create(AbilityType.IceStaff));
             _hero.AbilityContainer.Run();
             _hero.Health.Died += ShowDeathWindow;
             _hero.LootCollector.Run();
             _hero.Mover.Run();
             _hero.Rotator.Run();
             _enemySpawner.Run();
-            _timer.Start();
+            _bookSpawner.Run();
             _upgradeTrigger.Run();
 
             _inputService.BackPressed += Pause;
 
             CoroutineService.StopAllCoroutines(this);
             CoroutineService.StartCoroutine(TurnOnMusic(), this);
+            TimerService.StartTimer(this);
         }
 
         public override void Update()
@@ -110,15 +112,18 @@ namespace Assets.Scripts.State_Machine
             _hero.SetDefaultPosition();
             _upgradeTrigger.Stop();
 
-            if (_timer.Duration > _playerData.ScoreRecord)
+            float time = TimerService.GetElapsedTime(this);
+
+            if (time > _playerData.ScoreRecord)
             {
-                _playerData.ScoreRecord = _timer.Duration;
+                _playerData.ScoreRecord = time;
                 YG2.SetLBTimeConvert(Constants.LeaderboardName, _playerData.ScoreRecord);
             }
 
             _inputService.BackPressed -= Pause;
-            _timer.Stop();
+            TimerService.StopTimer(this);
             _enemySpawner.Reset();
+            _bookSpawner.Stop();
 
             YG2.saves.Save(_playerData);
 
@@ -163,11 +168,12 @@ namespace Assets.Scripts.State_Machine
             _hero.AbilityContainer.Stop();
 
             _enemySpawner.Pause();
-            _timer.Pause();
+            _bookSpawner.Pause();
+            TimerService.PauseTimer(this);
 
             DeathWindow deathWindow = _uiFactory.Create<DeathWindow>();
             deathWindow.CoinsQuantity.SetText(_hero.LootCollector.CollectedGold.ToString(StringFormat.WholeNumber));
-            deathWindow.MinutesQuantity.SetText(_timer.Duration.ToMinutesString());
+            deathWindow.MinutesQuantity.SetText(TimerService.GetElapsedTime(this).ToMinutesString());
         }
 
         private void ShowAdd()
@@ -184,7 +190,8 @@ namespace Assets.Scripts.State_Machine
             _hero.Health.ResetValue();
 
             _enemySpawner.Continue();
-            _timer.Continue();
+            _bookSpawner.Continue();
+            TimerService.ResumeTimer(this);
 
             _uiFactory.Create<DeathWindow>(false).ContinueForAddButton.interactable = false;
         }

@@ -9,13 +9,15 @@ namespace Assets.Code.CharactersLogic
     {
         [SerializeField][Min(0.1f)] private float _regenerationDelay = 1;
 
+        private readonly float _defaultResist = 0;
+
         private float _regenerationCurrentDelay;
         private float _invincibleTimer;
         private float _invincibilityDuration;
         private float _regeneration;
         private float _invincibilityTriggerValue;
         private float _additionalValue;
-        private float _resistMultiplier = 1;
+        private float _resist = 0;
         private Animator _animator;
 
         public event Action<Health> Died;
@@ -25,7 +27,7 @@ namespace Assets.Code.CharactersLogic
         public float MaxValue { get; private set; }
         private bool IsInvincible => _invincibleTimer > Constants.Zero;
         private bool IsDead => Value <= Constants.Zero;
-            
+
         private void Awake()
         {
             _animator = GetComponent<Animator>();
@@ -43,7 +45,6 @@ namespace Assets.Code.CharactersLogic
             {
                 _invincibleTimer -= Time.deltaTime;
             }
-
 
             if (Value >= MaxValue || _regeneration == Constants.Zero)
             {
@@ -86,7 +87,14 @@ namespace Assets.Code.CharactersLogic
                 return false;
             }
 
-            float tempValue = Value - damage.ThrowIfNegative() * _resistMultiplier;
+            float resultDamage = damage.ThrowIfNegative() - _resist;
+
+            if (resultDamage <= Constants.Zero)
+            {
+                return false;
+            }
+
+            float tempValue = Value - resultDamage;
 
             if (tempValue <= Constants.Zero)
             {
@@ -129,15 +137,27 @@ namespace Assets.Code.CharactersLogic
             _regeneration = value.ThrowIfNegative();
         }
 
-        public void SetResistPercent(int resistPercent)
+        public void IncreaseResist(float value, float time = -1)
         {
-            _resistMultiplier = Constants.PercentToMultiplier(resistPercent.ThrowIfNegative());
+            if (time > Constants.Zero)
+            {
+                TimerService.StartTimer(time, () => DecreaseResist(value));
+            }
+
+            _resist += value.ThrowIfNegative();
+        }
+
+        public void DecreaseResist(float value)
+        {
+            float result = _resist - value.ThrowIfNegative();
+            _resist = result < _defaultResist ? _defaultResist : result;
         }
 
         private void Heal()
         {
             float tempValue = Value + _regeneration * Time.deltaTime;
             Value = tempValue > MaxValue ? MaxValue : tempValue;
+
             _animator.SetBool(AnimationParameters.IsAlive, Value >= Constants.Zero);
             ValueChanged?.Invoke(Value);
         }

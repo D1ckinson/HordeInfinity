@@ -12,8 +12,6 @@ namespace Assets.Code.AbilitySystem.Abilities
         [SerializeField] private float _lifeTime;
         [SerializeField] private AudioSource _hitSound;
 
-        private readonly Timer _timer = new();
-
         private float _damage;
         private bool _isPiercing;
         private LayerMask _damageLayer;
@@ -29,12 +27,7 @@ namespace Assets.Code.AbilitySystem.Abilities
 
         private void OnDestroy()
         {
-            UpdateService.UnregisterUpdate(Fly);
-
-            if (_timer.NotNull())
-            {
-                _timer.Completed -= Stop;
-            }
+            Stop();
         }
 
         private void OnTriggerEnter(Collider other)
@@ -76,17 +69,18 @@ namespace Assets.Code.AbilitySystem.Abilities
 
         public void Launch()
         {
-            UpdateService.RegisterUpdate(Fly);
             _collider.enabled = true;
             transform.SetParent(null);
-            _timer.Start(_lifeTime);
-            _timer.Completed += Stop;
+
+            UpdateService.RegisterUpdate(Fly);
+            TimerService.StartTimer(_lifeTime, Stop);
         }
 
         private void Stop()
         {
             UpdateService.UnregisterUpdate(Fly);
-            _timer.Completed -= Stop;
+            TimerService.StopTimer(_lifeTime, Stop);
+
             _collider.enabled = false;
             this.SetActive(false);
         }

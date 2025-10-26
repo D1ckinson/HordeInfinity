@@ -1,6 +1,7 @@
 using Assets.Code;
 using Assets.Code.Data.Setting_Structures;
 using Assets.Code.Shop;
+using Assets.Code.Spawners;
 using Assets.Code.Tools;
 using System;
 using System.Collections.Generic;
@@ -23,6 +24,10 @@ namespace Assets.Scripts.Configs
         [field: Header("Enemy Spawn Settings")]
         [field: SerializeField] public EnemySpawnerSettings EnemySpawnerSettings { get; private set; }
         [field: SerializeField] public SpawnTypeByTime[] SpawnTypeByTimes { get; private set; }
+
+        [field: Header("Book Spawn Settings")]
+        [field: SerializeField] public BooksSpawnerSettings BooksSpawnerSettings { get; private set; }
+        [field: SerializeField] public SpellBook[] Books { get; private set; }
 
         [field: Header("Game Area Settings")]
         [field: SerializeField] public GameAreaSettings GameAreaSettings { get; private set; }

@@ -10,23 +10,23 @@ namespace Assets.Code.CharactersLogic.EnemyLogic
         [SerializeField][Range(0f, 100f)] private float _speedForMinute = 5f;
         [SerializeField][Min(1f)] private float _healthForMinute = 100f;
 
-        private readonly Timer _timer = new();
-
         private Health _health;
         private NewMover _mover;
 
         private void OnEnable()
         {
-            _timer.Start(Constants.SecondsInMinute);
-            _timer.Completed += Boost;
+            if (TimerService.IsTimerExists(this, BoostHealth) == false)
+            {
+                TimerService.StartTimer(Constants.SecondsInMinute, BoostHealth, this, true);
+            }
+
+            TimerService.StartTimer(Constants.SecondsInMinute, BoostSpeed, this, true);
         }
 
         private void OnDisable()
         {
+            TimerService.StopTimer(this, BoostSpeed);
             _mover?.ResetSpeed();
-
-            _timer.Stop();
-            _timer.Completed -= Boost;
         }
 
         public void Initialize(NewMover mover, Health health)
@@ -35,11 +35,20 @@ namespace Assets.Code.CharactersLogic.EnemyLogic
             _health = health.ThrowIfNull();
         }
 
-        private void Boost()
+        public void ResetHealthBoost()
+        {
+            TimerService.StopTimer(this, BoostHealth);
+            _health.ResetValue();
+        }
+
+        private void BoostHealth()
+        {
+            _health.AddMaxHealth(_healthForMinute);
+        }
+
+        private void BoostSpeed()
         {
             _mover.AddSpeed(_speedForMinute);
-            _health.AddMaxHealth(_healthForMinute);
-            _timer.Start(Constants.SecondsInMinute);
         }
     }
 }

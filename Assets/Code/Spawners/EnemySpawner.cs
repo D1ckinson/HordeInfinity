@@ -14,7 +14,6 @@ namespace Assets.Code.Spawners
         private const float DelayDecreaseValue = 0.05f;
 
         private readonly EnemyFactory _enemyFactory;
-        private readonly Timer _timer = new();
         private readonly SpawnTypeByTime[] _spawnTypeByTime;
 
         private int _spawnTypeIndex = -1;
@@ -37,24 +36,26 @@ namespace Assets.Code.Spawners
 
         public void Pause()
         {
-            _timer.Pause();
             _enemyFactory.StopAll();
+
+            TimerService.PauseTimer(this, SetSpawnType);
             UpdateService.UnregisterUpdate(SpawnEnemy);
         }
 
         public void Continue()
         {
-            _timer.Continue();
             _enemyFactory.ContinueAll();
+
+            TimerService.ResumeTimer(this, SetSpawnType);
             UpdateService.RegisterUpdate(SpawnEnemy);
         }
 
         public void Reset()
         {
             UpdateService.UnregisterUpdate(SpawnEnemy);
+            TimerService.StopTimer(this, SetSpawnType);
+
             _spawnTypeIndex = -Constants.One;
-            _timer.Stop();
-            _timer.Completed -= SetSpawnType;
             _enemyFactory.DisableAll();
         }
 
@@ -81,7 +82,6 @@ namespace Assets.Code.Spawners
 
         private void SetSpawnType()
         {
-            _timer.Completed -= SetSpawnType;
             int nextIndex = _spawnTypeIndex + Constants.One;
 
             if (_spawnTypeByTime.Length == nextIndex)
@@ -91,20 +91,19 @@ namespace Assets.Code.Spawners
 
             int time = _spawnTypeByTime[nextIndex].Time;
             _spawnTypeIndex = nextIndex;
-            _timer.Start(time);
-            _timer.Completed += SetSpawnType;
+
+            TimerService.StartTimer(time, SetSpawnType, this);
         }
 
-        private EnemyComponents TrySpawnGoldEnemy()
+        private void TrySpawnGoldEnemy()
         {
             if (_goldEnemySpawnDelay > Constants.Zero)
             {
-                return null;
+                return;
             }
 
             _goldEnemySpawnDelay = Random.Range(GoldEnemyMinSpawnDelay, GoldEnemyMaxSpawnDelay);
-
-            return _enemyFactory.Spawn(CharacterType.GoldEnemy);
+            _enemyFactory.Spawn(CharacterType.GoldEnemy);
         }
     }
 }

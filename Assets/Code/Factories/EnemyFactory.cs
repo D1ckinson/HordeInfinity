@@ -56,6 +56,7 @@ namespace Assets.Scripts.Factories
         public void DisableAll()
         {
             _pools.ForEachValues(pool => pool.DisableAll());
+            _pools.ForEachValues(pool => pool.ForEach(enemy => enemy.Booster.ResetHealthBoost()));
             _lootFactory.DisableAll();
         }
 

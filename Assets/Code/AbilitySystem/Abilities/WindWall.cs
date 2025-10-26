@@ -13,8 +13,6 @@ namespace Assets.Code.AbilitySystem.Abilities
         [SerializeField][Min(1f)] private float _pushForce = 5f;
         [SerializeField] private AudioSource _sound;
 
-        private readonly Timer _timer = new();
-
         private LayerMask _damageLayer;
         private float _damage;
 
@@ -38,7 +36,7 @@ namespace Assets.Code.AbilitySystem.Abilities
 
         private void OnDisable()
         {
-            _timer.Completed -= Disable;
+            TimerService.StopTimer(this, Disable);
             UpdateService.UnregisterUpdate(Move);
         }
 
@@ -58,10 +56,9 @@ namespace Assets.Code.AbilitySystem.Abilities
 
         public void Launch()
         {
-            _timer.Start(_lifeTime);
-            _timer.Completed += Disable;
             _sound.PlayRandomPitch();
 
+            TimerService.StartTimer(_lifeTime, Disable, this);
             UpdateService.RegisterUpdate(Move);
         }
 

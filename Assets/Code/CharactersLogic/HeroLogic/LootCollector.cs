@@ -16,8 +16,9 @@ namespace Assets.Scripts
 
         private float _time;
         private float _pullSpeed;
-        private SphereCollider _collectArea;
+        private float _defaultAttractionRadius;
         private float _attractionRadius;
+        private SphereCollider _collectArea;
         private Wallet _wallet;
         private HeroLevel _heroLevel;
 
@@ -44,7 +45,8 @@ namespace Assets.Scripts
         public void Initialize(float attractionRadius, float pullSpeed, Wallet wallet, HeroLevel heroLevel)
         {
             _pullSpeed = pullSpeed.ThrowIfZeroOrLess();
-            _attractionRadius = attractionRadius.ThrowIfNegative();
+            _defaultAttractionRadius = attractionRadius.ThrowIfNegative();
+            _attractionRadius = _defaultAttractionRadius;
             _wallet = wallet.ThrowIfNull();
             _heroLevel = heroLevel.ThrowIfNull();
 
@@ -82,9 +84,23 @@ namespace Assets.Scripts
             }
         }
 
-        public void AddAttractionRadius(int value)
+        public void AddAttractionRadius(float value, float time = -1)
         {
-            _collectArea.radius = _attractionRadius + value.ThrowIfNegative();
+            if (time > Constants.Zero)
+            {
+                TimerService.StartTimer(time, () => RemoveAttractionRadius(value));
+            }
+
+            _attractionRadius += value.ThrowIfNegative();
+            _collectArea.radius = _attractionRadius;
+        }
+
+        public void RemoveAttractionRadius(float value)
+        {
+            float radius = _attractionRadius - value.ThrowIfNegative();
+            _attractionRadius = radius < _defaultAttractionRadius ? _defaultAttractionRadius : radius;
+
+            _collectArea.radius = _attractionRadius;
         }
 
         private void TransferExperience()

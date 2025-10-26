@@ -9,14 +9,13 @@ namespace Assets.Code.AbilitySystem.Abilities
 {
     public class IceStaff : Ability
     {
-        private const int MaxTargets = 10;
-
         private readonly WaitForSeconds _delay = new(0.2f);
         private readonly Pool<IceSpike> _projectilePool;
         private readonly Pool<AudioSource> _hitSoundPool;
         private readonly LayerMask _damageLayer;
         private readonly Transform _heroCenter;
         private readonly AudioSource _throwSound;
+        private readonly Collider[] _colliders = new Collider[10];
 
         private float _damage;
         private float _attackRadius;
@@ -64,6 +63,7 @@ namespace Assets.Code.AbilitySystem.Abilities
         {
             stats.ThrowIfNull();
             _damage = stats.Damage;
+            _attackRadius = stats.Range;
             _projectilesCount = stats.ProjectilesCount;
 
             _projectilePool.ForEach(spike => spike.SetDamage(_damage));
@@ -71,25 +71,22 @@ namespace Assets.Code.AbilitySystem.Abilities
 
         private IEnumerator LaunchSpikes()
         {
-            Collider[] colliders = new Collider[MaxTargets];
-
             for (int i = Constants.Zero; i < _projectilesCount; i++)
             {
-                Physics.OverlapSphereNonAlloc(_heroCenter.position, _attackRadius, colliders, _damageLayer);
-
-                Collider collider = colliders
-                    .Where(collider => collider.NotNull())
-                    .OrderBy(collider => (collider.transform.position - _heroCenter.position).sqrMagnitude)
-                    .First();
-
+                int count = Physics.OverlapSphereNonAlloc(_heroCenter.position, _attackRadius, _colliders, _damageLayer);
                 Vector3 direction;
 
-                if (collider.IsNull())
+                if (count == Constants.Zero)
                 {
-                    direction = Utilities.GenerateRandomDirection(_heroCenter.transform.position.y);
+                    direction = Utilities.GenerateRandomDirection();
                 }
                 else
                 {
+                    Collider collider = _colliders
+                        .Where(collider => collider.NotNull())
+                        .OrderBy(collider => (collider.transform.position - _heroCenter.position).sqrMagnitude)
+                        .First();
+
                     direction = (collider.transform.position - _heroCenter.position).normalized;
                 }
 

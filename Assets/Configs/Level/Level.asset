@@ -54,6 +54,7 @@ MonoBehaviour:
   - {fileID: 5815543813697898494, guid: c015c8627b453ec48bb7fdcba579eb09, type: 3}
   - {fileID: 2248584985164727363, guid: 4b16fd90fc439fe4db6789f9cea72aff, type: 3}
   - {fileID: 8066079651115570909, guid: 3f8ffb08a9984b84592187cd66a12a6e, type: 3}
+  - {fileID: 4162629360678717662, guid: 25d667e6c0387d64fbd47cde55ed4820, type: 3}
   <GameAreaSettings>k__BackingField:
     <Center>k__BackingField: {x: 100, y: 0, z: 100}
     <Radius>k__BackingField: 90

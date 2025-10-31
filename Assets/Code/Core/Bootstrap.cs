@@ -52,7 +52,7 @@ namespace Assets.Scripts
             LevelUpWindow levelUpWindow = new(_uIConfig.LevelUpCanvas, _uIConfig.LevelUpButton);
 
             AbilityFactory abilityFactory = new(abilities, hero.transform, hero.Center, playerData.AbilityUnlockLevel,
-                playerData.DamageDealt, playerData.KillCount, lootFactory, hero.Animator, timeService);
+                playerData.BattleMetrics, lootFactory, hero.Animator, timeService);
 
             UpgradeTrigger upgradeTrigger = new(heroLevel, abilities, hero.AbilityContainer, levelUpWindow, abilityFactory,
                 timeService, playerData.AbilityUnlockLevel, lootFactory, hero.transform);

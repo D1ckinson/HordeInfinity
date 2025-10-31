@@ -115,6 +115,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3295969736645070040}
+  - {fileID: 8511805075655492227}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8066079651115570909
@@ -158,3 +159,77 @@ CapsuleCollider:
   m_Height: 3.0685444
   m_Direction: 1
   m_Center: {x: 0, y: 1.0342722, z: 0}
+--- !u!1001 &4549743700883882274
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1739026442600708455}
+    m_Modifications:
+    - target: {fileID: 855687268811888922, guid: 4dbdd93f826538a4590005bc9aff02c4, type: 3}
+      propertyPath: m_Name
+      value: Spell Book Effect
+      objectReference: {fileID: 0}
+    - target: {fileID: 3918966555122854670, guid: 4dbdd93f826538a4590005bc9aff02c4, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.b
+      value: 0.5411765
+      objectReference: {fileID: 0}
+    - target: {fileID: 3918966555122854670, guid: 4dbdd93f826538a4590005bc9aff02c4, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.g
+      value: 0.78823537
+      objectReference: {fileID: 0}
+    - target: {fileID: 3918966555122854670, guid: 4dbdd93f826538a4590005bc9aff02c4, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.r
+      value: 0.64705884
+      objectReference: {fileID: 0}
+    - target: {fileID: 5261310835276465057, guid: 4dbdd93f826538a4590005bc9aff02c4, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5261310835276465057, guid: 4dbdd93f826538a4590005bc9aff02c4, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.794
+      objectReference: {fileID: 0}
+    - target: {fileID: 5261310835276465057, guid: 4dbdd93f826538a4590005bc9aff02c4, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5261310835276465057, guid: 4dbdd93f826538a4590005bc9aff02c4, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5261310835276465057, guid: 4dbdd93f826538a4590005bc9aff02c4, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5261310835276465057, guid: 4dbdd93f826538a4590005bc9aff02c4, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5261310835276465057, guid: 4dbdd93f826538a4590005bc9aff02c4, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5261310835276465057, guid: 4dbdd93f826538a4590005bc9aff02c4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 5261310835276465057, guid: 4dbdd93f826538a4590005bc9aff02c4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5261310835276465057, guid: 4dbdd93f826538a4590005bc9aff02c4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 4dbdd93f826538a4590005bc9aff02c4, type: 3}
+--- !u!4 &8511805075655492227 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5261310835276465057, guid: 4dbdd93f826538a4590005bc9aff02c4, type: 3}
+  m_PrefabInstance: {fileID: 4549743700883882274}
+  m_PrefabAsset: {fileID: 0}

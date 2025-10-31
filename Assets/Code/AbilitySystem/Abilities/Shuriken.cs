@@ -12,29 +12,24 @@ namespace Assets.Code.AbilitySystem.Abilities
         private readonly Pool<ShurikenProjectile> _projectilePool;
         private readonly Pool<AudioSource> _hitSoundPool;
 
-        private float _damage;
-        private float _range;
-        private float _projectilesCount;
-        private int _bouncesQuantity;
-
         public Shuriken(AbilityConfig config, Dictionary<AbilityType, int> abilityUnlockLevel, Transform heroCenter,
-            ITimeService timeService, Dictionary<AbilityType, int> damageDealt, Dictionary<AbilityType, int> killCount, int level = 1) : base(config, abilityUnlockLevel, level)
+            ITimeService timeService, BattleMetrics battleMetrics, int level = 1) : base(config, abilityUnlockLevel, battleMetrics, level)
         {
-            AbilityStats stats = config.ThrowIfNull().GetStats(level);
             _heroCenter = heroCenter.ThrowIfNull();
-
-            _damage = stats.Damage;
-            _range = stats.Range;
-            _projectilesCount = stats.ProjectilesCount;
-            _bouncesQuantity = stats.BouncesQuantity;
-
+            config.ThrowIfNull();
             _hitSoundPool = new(() => config.HitSound.Instantiate());
             _projectilePool = new(CreateShurikenProjectile);
 
             ShurikenProjectile CreateShurikenProjectile()
             {
-                ShurikenProjectile projectile = config.ProjectilePrefab.Instantiate(false).GetComponentOrThrow<ShurikenProjectile>();
-                projectile.Initialize(config.DamageLayer, _damage, _range, _bouncesQuantity, _hitSoundPool, timeService, damageDealt, killCount);
+                ShurikenProjectile projectile = config.ProjectilePrefab
+                    .Instantiate(false)
+                    .GetComponentOrThrow<ShurikenProjectile>()
+                    .Initialize(config.DamageLayer, CurrentStats.Get(FloatStatType.Damage), CurrentStats.Get(FloatStatType.Range),
+                    CurrentStats.Get(IntStatType.BouncesQuantity),
+                    _hitSoundPool, timeService);
+
+                projectile.Hit += RecordHitResult;
 
                 return projectile;
             }
@@ -42,28 +37,24 @@ namespace Assets.Code.AbilitySystem.Abilities
 
         public override void Dispose()
         {
+            _projectilePool.ForEach(projectile => projectile.Hit -= RecordHitResult);
             _projectilePool.DestroyAll();
+
             _hitSoundPool.DestroyAll();
         }
 
         protected override void Apply()
         {
-            for (int i = Constants.Zero; i < _projectilesCount; i++)
+            for (int i = Constants.Zero; i < CurrentStats.Get(IntStatType.ProjectilesCount); i++)
             {
                 _projectilePool.Get().Launch(_heroCenter.position, Utilities.GenerateRandomDirection());
             }
         }
 
-        protected override void UpdateStats(AbilityStats stats)
+        protected override void OnStatsUpdate()
         {
-            stats.ThrowIfNull();
-
-            _damage = stats.Damage;
-            _range = stats.Range;
-            _projectilesCount = stats.ProjectilesCount;
-            _bouncesQuantity = stats.BouncesQuantity;
-
-            _projectilePool.ForEach(projectile => projectile.SetStats(_damage, _range, _bouncesQuantity));
+            _projectilePool.ForEach(projectile => projectile.SetStats(CurrentStats.Get(FloatStatType.Damage),
+                CurrentStats.Get(FloatStatType.Range), CurrentStats.Get(IntStatType.BouncesQuantity)));
         }
     }
 }

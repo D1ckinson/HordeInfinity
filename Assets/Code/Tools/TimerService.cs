@@ -75,6 +75,38 @@ public static class TimerService
         _ownerTimers.Add(owner, timerData);
     }
 
+    public static void StartTimerWithUpdate(float duration, Action onComplete, Action<float> onUpdate, object owner = null, bool isLooping = false)
+    {
+        if (onComplete == null || onUpdate == null)
+        {
+            return;
+        }
+
+        string key = GetTimerKey(owner, onComplete);
+
+        if (_activeTimers.ContainsKey(key))
+        {
+            _activeTimers[key].Duration = duration;
+            _activeTimers[key].Elapsed = Zero;
+            _activeTimers[key].IsLooping = isLooping;
+            _activeTimers[key].IsPaused = false;
+            _activeTimers[key].OnUpdate = onUpdate;
+            return;
+        }
+
+        TimerData timerData = new()
+        {
+            Duration = duration,
+            Elapsed = Zero,
+            OnComplete = onComplete,
+            OnUpdate = onUpdate,
+            IsLooping = isLooping,
+            Owner = owner
+        };
+
+        _activeTimers.Add(key, timerData);
+    }
+
     public static float GetElapsedTime(object owner, Action onComplete)
     {
         string key = GetTimerKey(owner, onComplete);
@@ -272,6 +304,7 @@ public static class TimerService
         public float Duration;
         public float Elapsed;
         public Action OnComplete;
+        public Action<float> OnUpdate;
         public bool IsLooping;
         public bool IsPaused;
         public object Owner;
@@ -295,7 +328,11 @@ public static class TimerService
             for (int i = keys.Count - One; i >= Zero; i--)
             {
                 string key = keys[i];
-                TimerData timer = _activeTimers[key];
+
+                if (_activeTimers.TryGetValue(key, out TimerData timer) == false)
+                {
+                    continue;
+                }
 
                 if (timer.IsPaused)
                 {
@@ -303,6 +340,13 @@ public static class TimerService
                 }
 
                 timer.Elapsed += deltaTime;
+
+                if (timer.OnUpdate != null)
+                {
+                    float progress = Mathf.Clamp01(timer.Elapsed / timer.Duration);
+                    timer.OnUpdate.Invoke(progress);
+                }
+
 
                 if (timer.Elapsed >= timer.Duration)
                 {
@@ -321,10 +365,14 @@ public static class TimerService
 
             List<object> ownerKeys = new(_ownerTimers.Keys);
 
-            for (int i = ownerKeys.Count - 1; i >= 0; i--)
+            for (int i = ownerKeys.Count - One; i >= Zero; i--)
             {
                 object key = ownerKeys[i];
-                TimerData timer = _ownerTimers[key];
+
+                if (_ownerTimers.TryGetValue(key, out TimerData timer) == false)
+                {
+                    continue;
+                }
 
                 if (timer.IsPaused)
                 {

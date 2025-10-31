@@ -1,5 +1,4 @@
-﻿using Assets.Code.AbilitySystem;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using YG;
 
 namespace Assets.Code.Data
@@ -11,6 +10,9 @@ namespace Assets.Code.Data
         private const string Turkish = "tr";
 
         private static Dictionary<AbilityType, string> _abilityName;
+        private static Dictionary<FloatStatType, string> _floatStatName;
+        private static Dictionary<IntStatType, string> _intStatName;
+        private static Dictionary<BoolStatType, string> _boolStatName;
 
         public static string LevelMax { get; private set; }
         public static string LevelCut { get; private set; }
@@ -29,16 +31,10 @@ namespace Assets.Code.Data
         public static string Leaders { get; private set; }
         public static string ChoseAbility { get; private set; }
 
-        public static string Range { get; private set; }
-        public static string Damage { get; private set; }
-        public static string Cooldown { get; private set; }
-        public static string ProjectilesCount { get; private set; }
-        public static string HealthPercent { get; private set; }
-        public static string PullForce { get; private set; }
-        public static string BouncesQuantity { get; private set; }
-        public static string ThrowDistance { get; private set; }
-
         public static IReadOnlyDictionary<AbilityType, string> AbilityName => _abilityName;
+        public static IReadOnlyDictionary<FloatStatType, string> FloatStatName => _floatStatName;
+        public static IReadOnlyDictionary<IntStatType, string> IntStatName => _intStatName;
+        public static IReadOnlyDictionary<BoolStatType, string> BoolStatName => _boolStatName;
 
         static UIText()
         {
@@ -78,15 +74,6 @@ namespace Assets.Code.Data
             ChoseAbility = "Выберите способность";
             Tip = "Нанесите достаточно урона, чтобы разблокировать стартовую способность";
 
-            Damage = "Урон";
-            Cooldown = "Перезарядка";
-            Range = "Дальность";
-            ProjectilesCount = "Количество снарядов";
-            HealthPercent = "Процент от здоровья";
-            PullForce = "Сила притяжения";
-            BouncesQuantity = "Количество отскоков";
-            ThrowDistance = "Дистанция броска";
-
             _abilityName = new()
             {
                 [AbilityType.SwordStrike] = "Удар мечом",
@@ -100,6 +87,27 @@ namespace Assets.Code.Data
                 [AbilityType.Shuriken] = "Сюрикен",
                 [AbilityType.Fireball] = "Огненный шар",
                 [AbilityType.WindFlow] = "Поток ветра"
+            };
+
+            _floatStatName = new()
+            {
+                [FloatStatType.Cooldown] = "Перезарядка",
+                [FloatStatType.Damage] = "Урон",
+                [FloatStatType.HealthPercent] = "Процент от здоровья",
+                [FloatStatType.PullForce] = "Сила притяжения",
+                [FloatStatType.Range] = "Дальность",
+                [FloatStatType.ThrowDistance] = "Дистанция броска"
+            };
+
+            _intStatName = new()
+            {
+                [IntStatType.ProjectilesCount] = "Количество снарядов",
+                [IntStatType.BouncesQuantity] = "Количество отскоков"
+            };
+
+            _boolStatName = new()
+            {
+                [BoolStatType.IsPiercing] = "Пронзание"
             };
         }
 
@@ -122,15 +130,6 @@ namespace Assets.Code.Data
             ChoseAbility = "Choose ability";
             Tip = "Deal enough damage to unlock the starting ability";
 
-            Damage = "Damage";
-            Cooldown = "Cooldown";
-            Range = "Range";
-            ProjectilesCount = "Projectiles count";
-            HealthPercent = "Percent from health";
-            PullForce = "Pull force";
-            BouncesQuantity = "Bounces quantity";
-            ThrowDistance = "Throw distance";
-
             _abilityName = new()
             {
                 [AbilityType.SwordStrike] = "Sword strike",
@@ -145,6 +144,27 @@ namespace Assets.Code.Data
                 [AbilityType.Fireball] = "Fireball",
                 [AbilityType.WindFlow] = "Wind Flow"
             };
+
+            _floatStatName = new()
+            {
+                [FloatStatType.Cooldown] = "Cooldown",
+                [FloatStatType.Damage] = "Damage",
+                [FloatStatType.HealthPercent] = "Percent from health",
+                [FloatStatType.PullForce] = "Pull force",
+                [FloatStatType.Range] = "Range",
+                [FloatStatType.ThrowDistance] = "Throw distance"
+            };
+
+            _intStatName = new()
+            {
+                [IntStatType.ProjectilesCount] = "Projectiles count",
+                [IntStatType.BouncesQuantity] = "Bounces quantity"
+            };
+
+            _boolStatName = new()
+            {
+                [BoolStatType.IsPiercing] = "Piercing"
+            };
         }
 
         private static void FillTr()
@@ -155,39 +175,51 @@ namespace Assets.Code.Data
             Play = "Oyna";
             Shop = "Dükkan";
             Upgrade = "Yükselt";
-            Leaderboard = "Lider Tablosu";
+            Leaderboard = "Lider tablosu";
             Earned = "Kazanılan";
             YourTime = "Süreniz";
             Minutes = "Dakika";
-            Continue = "Devam Et";
+            Continue = "Devam et";
             MenuText = "Menü";
-            PersonalBest = "Kişisel Rekor";
+            PersonalBest = "Kişisel rekor";
             Leaders = "Liderler";
             ChoseAbility = "Yeteneği seçin";
             Tip = "Başlangıç yeteneğini açmak için yeterli hasar verin";
 
-            Damage = "Hasar";
-            Cooldown = "Bekleme Süresi";
-            Range = "Menzil";
-            ProjectilesCount = "Mermi Sayısı";
-            HealthPercent = "Sağlık Yüzdesi";
-            PullForce = "Çekme Gücü";
-            BouncesQuantity = "Sekme Sayısı";
-            ThrowDistance = "Atış Mesafesi";
-
             _abilityName = new()
             {
-                [AbilityType.SwordStrike] = "Kılıç Darbesi",
-                [AbilityType.GhostSwords] = "Hayalet Kılıçlar",
-                [AbilityType.HolyGround] = "Kutsal Zemin",
-                [AbilityType.MidasHand] = "Midas'ın Eli",
+                [AbilityType.SwordStrike] = "Kılıç darbesi",
+                [AbilityType.GhostSwords] = "Hayalet kılıçlar",
+                [AbilityType.HolyGround] = "Kutsal zemin",
+                [AbilityType.MidasHand] = "Midas'ın eli",
                 [AbilityType.Bombard] = "Bombardıman",
-                [AbilityType.BlackHole] = "Kara Delik",
-                [AbilityType.StoneSpikes] = "Taş Dikenler",
-                [AbilityType.IceStaff] = "Buz Asası",
+                [AbilityType.BlackHole] = "Kara delik",
+                [AbilityType.StoneSpikes] = "Taş dikenler",
+                [AbilityType.IceStaff] = "Buz asası",
                 [AbilityType.Shuriken] = "Şuriken",
-                [AbilityType.Fireball] = "Ateş Topu",
-                [AbilityType.WindFlow] = "Rüzgar Akışı"
+                [AbilityType.Fireball] = "Ateş topu",
+                [AbilityType.WindFlow] = "Rüzgar akışı"
+            };
+
+            _floatStatName = new()
+            {
+                [FloatStatType.Cooldown] = "Bekleme süresi",
+                [FloatStatType.Damage] = "Hasar",
+                [FloatStatType.HealthPercent] = "Sağlık yüzdesi",
+                [FloatStatType.PullForce] = "Çekme gücü",
+                [FloatStatType.Range] = "Menzil",
+                [FloatStatType.ThrowDistance] = "Atış mesafesi"
+            };
+
+            _intStatName = new()
+            {
+                [IntStatType.ProjectilesCount] = "Mermi sayısı",
+                [IntStatType.BouncesQuantity] = "Sekme sayısı"
+            };
+
+            _boolStatName = new()
+            {
+                [BoolStatType.IsPiercing] = "Kazığa geçme"
             };
         }
     }

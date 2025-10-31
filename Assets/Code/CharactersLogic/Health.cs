@@ -16,13 +16,13 @@ namespace Assets.Code.CharactersLogic
         private float _invincibilityDuration;
         private float _regeneration;
         private float _invincibilityTriggerValue;
-        private float _additionalValue;
         private float _resist = 0;
         private Animator _animator;
 
         public event Action<Health> Died;
         public event Action<float> ValueChanged;
 
+        public float DefaultMaxValue { get; private set; }
         public float Value { get; private set; }
         public float MaxValue { get; private set; }
         private bool IsInvincible => _invincibleTimer > Constants.Zero;
@@ -64,7 +64,8 @@ namespace Assets.Code.CharactersLogic
 
         public void Initialize(float maxValue, float invincibilityDuration, float invincibilityTriggerPercent, float regeneration = 0)
         {
-            MaxValue = maxValue.ThrowIfZeroOrLess();
+            DefaultMaxValue = maxValue.ThrowIfZeroOrLess();
+            MaxValue = DefaultMaxValue;
             Value = MaxValue;
 
             _regeneration = regeneration.ThrowIfNegative();
@@ -77,21 +78,21 @@ namespace Assets.Code.CharactersLogic
 
         public void SetMaxValue(float value)
         {
-            MaxValue = value.ThrowIfZeroOrLess() + _additionalValue;
+            MaxValue = value.ThrowIfZeroOrLess();
         }
 
-        public bool TakeDamage(float damage)
+        public HitResult TakeDamage(float damage)
         {
             if (IsInvincible || IsDead)
             {
-                return false;
+                return new(Constants.Zero, false);
             }
 
             float resultDamage = damage.ThrowIfNegative() - _resist;
 
             if (resultDamage <= Constants.Zero)
             {
-                return false;
+                return new(Constants.Zero, false);
             }
 
             float tempValue = Value - resultDamage;
@@ -101,7 +102,7 @@ namespace Assets.Code.CharactersLogic
                 Value = Constants.Zero;
                 Died?.Invoke(this);
 
-                return true;
+                return new(resultDamage, true);
             }
             else
             {
@@ -117,19 +118,7 @@ namespace Assets.Code.CharactersLogic
             ValueChanged?.Invoke(Value);
             _animator.SetBool(AnimationParameters.IsAlive, Value > Constants.Zero);
 
-            return false;
-        }
-
-        public void SetAdditionalValue(int value)
-        {
-            float tempValue = value.ThrowIfNegative() - _additionalValue;
-
-            _additionalValue = value;
-            MaxValue += tempValue;
-            Value += tempValue;
-
-            ValueChanged?.Invoke(Value);
-            _animator.SetBool(AnimationParameters.IsAlive, Value >= Constants.Zero);
+            return new(resultDamage, false);
         }
 
         public void SetRegeneration(int value)
@@ -164,14 +153,17 @@ namespace Assets.Code.CharactersLogic
 
         public void ResetValue()
         {
+            MaxValue = DefaultMaxValue;
             Value = MaxValue;
             ValueChanged?.Invoke(Value);
             _animator.SetBool(AnimationParameters.IsAlive, Value >= Constants.Zero);
         }
 
-        public void AddMaxHealth(float value)
+        public void AddMaxValue(float value)
         {
             MaxValue += value.ThrowIfNegative();
+            Value += value;
+            ValueChanged?.Invoke(Value);
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Assets.Code.Tools;
+using Assets.Scripts;
 using Assets.Scripts.Tools;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,24 +11,20 @@ namespace Assets.Code.AbilitySystem.Abilities
         private readonly Pool<WindWall> _pool;
         private readonly Transform _hero;
 
-        private float _damage;
-        private int _projectilesCount;
-
         public WindFlow(AbilityConfig config, Dictionary<AbilityType, int> abilityUnlockLevel, Transform hero,
-            Dictionary<AbilityType, int> damageDealt, Dictionary<AbilityType, int> killCount, int level = 1) : base(config, abilityUnlockLevel, level)
+            BattleMetrics battleMetrics, int level = 1) : base(config, abilityUnlockLevel, battleMetrics, level)
         {
-            AbilityStats stats = config.ThrowIfNull().GetStats(level);
             _hero = hero.ThrowIfNull();
-
-            _damage = stats.Damage;
-            _projectilesCount = stats.ProjectilesCount;
-
             _pool = new(CreateWindWall);
 
             WindWall CreateWindWall()
             {
-                WindWall wall = config.ProjectilePrefab.Instantiate().GetComponentOrThrow<WindWall>();
-                wall.Initialize(config.DamageLayer, _damage, damageDealt, killCount);
+                WindWall wall = config.ProjectilePrefab
+                    .Instantiate()
+                    .GetComponentOrThrow<WindWall>()
+                    .Initialize(config.DamageLayer, CurrentStats.Get(FloatStatType.Damage));
+
+                wall.Hit += RecordHitResult;
 
                 return wall;
             }
@@ -35,14 +32,15 @@ namespace Assets.Code.AbilitySystem.Abilities
 
         public override void Dispose()
         {
+            _pool.ForEach(wall => wall.Hit -= RecordHitResult);
             _pool.DestroyAll();
         }
 
         protected override void Apply()
         {
-            float angleStep = Constants.FullCircleDegrees / _projectilesCount;
+            float angleStep = Constants.FullCircleDegrees / CurrentStats.Get(IntStatType.ProjectilesCount);
 
-            for (int i = Constants.Zero; i < _projectilesCount; i++)
+            for (int i = Constants.Zero; i < CurrentStats.Get(IntStatType.ProjectilesCount); i++)
             {
                 WindWall wall = _pool.Get();
 
@@ -56,13 +54,9 @@ namespace Assets.Code.AbilitySystem.Abilities
             }
         }
 
-        protected override void UpdateStats(AbilityStats stats)
+        protected override void OnStatsUpdate()
         {
-            stats.ThrowIfNull();
-            _damage = stats.Damage;
-            _projectilesCount = stats.ProjectilesCount;
-
-            _pool.ForEach(wall => wall.SetDamage(_damage));
+            _pool.ForEach(wall => wall.SetDamage(CurrentStats.Get(FloatStatType.Damage)));
         }
     }
 }

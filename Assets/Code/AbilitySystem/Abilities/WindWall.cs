@@ -1,12 +1,12 @@
-﻿using Assets.Code.CharactersLogic.EnemyLogic;
+﻿using Assets.Code.CharactersLogic;
+using Assets.Code.CharactersLogic.EnemyLogic;
 using Assets.Code.Tools;
 using System;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Assets.Code.AbilitySystem.Abilities
 {
-    public class WindWall : MonoBehaviour
+    public class WindWall : MonoBehaviour, IProjectile
     {
         [SerializeField][Min(1f)] private float _speed = 10f;
         [SerializeField][Min(1f)] private float _lifeTime = 2f;
@@ -16,20 +16,13 @@ namespace Assets.Code.AbilitySystem.Abilities
         private LayerMask _damageLayer;
         private float _damage;
 
-        private Dictionary<AbilityType, int> _damageDealt;
-        private Dictionary<AbilityType, int> _killCount;
+        public event Action<HitResult> Hit;
 
         private void OnTriggerEnter(Collider other)
         {
             if (_damageLayer.Contains(other.gameObject.layer) && other.TryGetComponent(out EnemyComponents enemy))
             {
-                _damageDealt[AbilityType.WindFlow] += (int)_damage;
-
-                if (enemy.Health.TakeDamage(_damage))
-                {
-                    _killCount[AbilityType.WindFlow]++;
-                }
-
+                Hit?.Invoke(enemy.Health.TakeDamage(_damage));
                 enemy.Rigidbody.AddForce(transform.forward * _pushForce, ForceMode.Impulse);
             }
         }
@@ -40,13 +33,12 @@ namespace Assets.Code.AbilitySystem.Abilities
             UpdateService.UnregisterUpdate(Move);
         }
 
-        public void Initialize(LayerMask damageLayer, float damage, Dictionary<AbilityType, int> damageDealt, Dictionary<AbilityType, int> killCount)
+        public WindWall Initialize(LayerMask damageLayer, float damage)
         {
             _damageLayer = damageLayer.ThrowIfNull();
             SetDamage(damage);
 
-            _damageDealt = damageDealt.ThrowIfNull();
-            _killCount = killCount.ThrowIfNull();
+            return this;
         }
 
         public void SetDamage(float damage)

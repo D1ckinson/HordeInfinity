@@ -10,28 +10,32 @@ namespace Assets.Code.AbilitySystem.Abilities
         private readonly HolyRune _holyRune;
 
         public HolyGround(AbilityConfig config, Dictionary<AbilityType, int> abilityUnlockLevel, Transform hero,
-            ITimeService timeService, Dictionary<AbilityType, int> damageDealt, Dictionary<AbilityType, int> killCount, int level = 1) : base(config, abilityUnlockLevel, level)
+            ITimeService timeService, BattleMetrics battleMetrics, int level = 1) : base(config, abilityUnlockLevel, battleMetrics, level)
         {
-            _holyRune = config.ThrowIfNull().ProjectilePrefab.GetComponentOrThrow<HolyRune>().Instantiate();
+            _holyRune = config.ThrowIfNull()
+                .ProjectilePrefab
+                .GetComponentOrThrow<HolyRune>()
+                .Instantiate()
+                .Initialize(CurrentStats.Get(FloatStatType.Damage), CurrentStats.Get(FloatStatType.Range), config.DamageLayer, hero, timeService);
 
-            AbilityStats stats = config.GetStats(level);
-            _holyRune.Initialize(stats.Damage, stats.Range, config.DamageLayer, hero, timeService, damageDealt, killCount);
+            _holyRune.Hit += RecordHitResult;
         }
 
         protected override void Apply()
         {
             _holyRune.DealDamage();
-        }
-
-        protected override void UpdateStats(AbilityStats stats)
-        {
-            stats.ThrowIfNull();
-            _holyRune.SetStats(stats.Damage, stats.Range);
+            Debug.Log(CurrentStats.Get(FloatStatType.Damage));
         }
 
         public override void Dispose()
         {
+            _holyRune.Hit -= RecordHitResult;
             _holyRune.DestroyGameObject();
+        }
+
+        protected override void OnStatsUpdate()
+        {
+            _holyRune.SetStats(CurrentStats.Get(FloatStatType.Damage), CurrentStats.Get(FloatStatType.Range));
         }
     }
 }

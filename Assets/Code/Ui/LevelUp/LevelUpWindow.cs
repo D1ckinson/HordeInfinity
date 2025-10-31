@@ -36,14 +36,14 @@ namespace Assets.Scripts.Ui
 
         public bool IsOn => _canvas.IsActive();
 
-        public void Show(List<UpgradeOption> upgradeOptions, int level = 1)
+        public void Show(List<AbilityUpgradeOption> upgradeOptions, int level = 1)
         {
             upgradeOptions.ThrowIfNullOrEmpty();
 
             for (int i = Constants.Zero; i < upgradeOptions.Count; i++)
             {
                 LevelUpButton button = _buttons[i];
-                UpgradeOption upgradeOption = upgradeOptions[i];
+                AbilityUpgradeOption upgradeOption = upgradeOptions[i];
                 button.SetDescription(upgradeOption.Name, upgradeOption.Icon, upgradeOption.Stats);
 
                 button.LevelNumber.SetText(upgradeOption.NextLevel);

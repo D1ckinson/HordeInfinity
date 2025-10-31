@@ -2,12 +2,12 @@
 using Assets.Code.Tools;
 using Assets.Scripts.Tools;
 using DG.Tweening;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 
 namespace Assets.Code.AbilitySystem.Abilities
 {
-    public class Bomb : MonoBehaviour
+    public class Bomb : MonoBehaviour, IProjectile
     {
         private const float MidPointFactor = 0.5f;
 
@@ -24,13 +24,7 @@ namespace Assets.Code.AbilitySystem.Abilities
         private LayerMask _damageLayer;
         private Tween _currentTween;
 
-        private Dictionary<AbilityType, int> _damageDealt;
-        private Dictionary<AbilityType, int> _killCount;
-
-        private void OnDrawGizmos()
-        {
-            Gizmos.DrawSphere(transform.position, _explosionRadius);
-        }
+        public event Action<HitResult> Hit;
 
         private void Update()
         {
@@ -42,8 +36,8 @@ namespace Assets.Code.AbilitySystem.Abilities
             _currentTween?.Kill();
         }
 
-        public void Initialize(float damage, float explosionRadius, LayerMask damageLayer, Pool<ParticleSystem> visualEffectPool,
-            Pool<AudioSource> soundEffectPool, Dictionary<AbilityType, int> damageDealt, Dictionary<AbilityType, int> killCount)
+        public Bomb Initialize(float damage, float explosionRadius, LayerMask damageLayer,
+            Pool<ParticleSystem> visualEffectPool, Pool<AudioSource> soundEffectPool)
         {
             SetStats(damage, explosionRadius);
 
@@ -51,8 +45,7 @@ namespace Assets.Code.AbilitySystem.Abilities
             _soundEffectPool = soundEffectPool.ThrowIfNull();
             _damageLayer = damageLayer.ThrowIfNull();
 
-            _damageDealt = damageDealt.ThrowIfNull();
-            _killCount = killCount.ThrowIfNull();
+            return this;
         }
 
         public void SetStats(float damage, float explosionRadius)
@@ -81,12 +74,7 @@ namespace Assets.Code.AbilitySystem.Abilities
             {
                 if (_colliders[i].TryGetComponent(out Health health))
                 {
-                    _damageDealt[AbilityType.Bombard] += (int)_damage;
-
-                    if (health.TakeDamage(_damage))
-                    {
-                        _killCount[AbilityType.Bombard]++;
-                    }
+                    Hit?.Invoke(health.TakeDamage(_damage));
                 }
             }
 

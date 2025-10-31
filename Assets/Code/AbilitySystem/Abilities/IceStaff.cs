@@ -1,4 +1,5 @@
 ﻿using Assets.Code.Tools;
+using Assets.Scripts;
 using Assets.Scripts.Tools;
 using System.Collections;
 using System.Collections.Generic;
@@ -17,20 +18,11 @@ namespace Assets.Code.AbilitySystem.Abilities
         private readonly AudioSource _throwSound;
         private readonly Collider[] _colliders = new Collider[10];
 
-        private float _damage;
-        private float _attackRadius;
-        private int _projectilesCount;
-
         public IceStaff(AbilityConfig config, Dictionary<AbilityType, int> abilityUnlockLevel, Transform heroCenterPoint,
-            Dictionary<AbilityType, int> damageDealt, Dictionary<AbilityType, int> killCount, int level = 1) : base(config, abilityUnlockLevel, level)
+            BattleMetrics battleMetrics, int level = 1) : base(config, abilityUnlockLevel, battleMetrics, level)
         {
-            AbilityStats stats = config.ThrowIfNull().GetStats(level);
             _heroCenter = heroCenterPoint.ThrowIfNull();
-
-            _damage = stats.Damage;
-            _attackRadius = stats.Range;
-            _projectilesCount = stats.ProjectilesCount;
-            _damageLayer = config.DamageLayer;
+            _damageLayer = config.ThrowIfNull().DamageLayer;
 
             _throwSound = config.ThrowSound.Instantiate(heroCenterPoint);
             _hitSoundPool = new(() => config.HitSound.Instantiate());
@@ -38,10 +30,14 @@ namespace Assets.Code.AbilitySystem.Abilities
 
             IceSpike CreateIceSpike()
             {
-                IceSpike iceSpike = config.ProjectilePrefab.Instantiate().GetComponentOrThrow<IceSpike>();
-                iceSpike.Initialize(_damageLayer, _damage, _hitSoundPool, damageDealt, killCount);
+                IceSpike spike = config.ProjectilePrefab
+                    .Instantiate()
+                    .GetComponentOrThrow<IceSpike>()
+                    .Initialize(_damageLayer, CurrentStats.Get(FloatStatType.Damage), _hitSoundPool);
 
-                return iceSpike;
+                spike.Hit += RecordHitResult;
+
+                return spike;
             }
         }
 
@@ -49,7 +45,9 @@ namespace Assets.Code.AbilitySystem.Abilities
         {
             CoroutineService.StopAllCoroutines(this);
 
+            _projectilePool.ForEach(spike => spike.Hit -= RecordHitResult);
             _projectilePool.DestroyAll();
+
             _hitSoundPool.DestroyAll();
             _throwSound.DestroyGameObject();
         }
@@ -59,21 +57,16 @@ namespace Assets.Code.AbilitySystem.Abilities
             CoroutineService.StartCoroutine(LaunchSpikes(), this);
         }
 
-        protected override void UpdateStats(AbilityStats stats)
+        protected override void OnStatsUpdate()
         {
-            stats.ThrowIfNull();
-            _damage = stats.Damage;
-            _attackRadius = stats.Range;
-            _projectilesCount = stats.ProjectilesCount;
-
-            _projectilePool.ForEach(spike => spike.SetDamage(_damage));
+            _projectilePool.ForEach(spike => spike.SetDamage(CurrentStats.Get(FloatStatType.Damage)));
         }
 
         private IEnumerator LaunchSpikes()
         {
-            for (int i = Constants.Zero; i < _projectilesCount; i++)
+            for (int i = Constants.Zero; i < CurrentStats.Get(IntStatType.ProjectilesCount); i++)
             {
-                int count = Physics.OverlapSphereNonAlloc(_heroCenter.position, _attackRadius, _colliders, _damageLayer);
+                int count = Physics.OverlapSphereNonAlloc(_heroCenter.position, CurrentStats.Get(FloatStatType.Range), _colliders, _damageLayer);
                 Vector3 direction;
 
                 if (count == Constants.Zero)

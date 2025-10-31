@@ -13,8 +13,6 @@ namespace Assets.Code.Ui.Windows
     public class ShopWindow : BaseWindow
     {
         [SerializeField] private TMP_Text _coinsQuantity;
-
-
         [SerializeField] private Transform _upgradeScrollView;
         [SerializeField] private Transform _startAbilityScrollView;
         [SerializeField] private Transform _upgradeGroup;
@@ -148,7 +146,7 @@ namespace Assets.Code.Ui.Windows
 
         private void SetStatus(StartAbilityOption option)
         {
-            bool isLocked = _playerData.DamageDealt[option.AbilityType] < _playerData.UnlockDamage[option.AbilityType];
+            bool isLocked = _playerData.BattleMetrics.DamageDealt[option.AbilityType] < _playerData.UnlockDamage[option.AbilityType];
 
             if (_playerData.StartAbility == option.AbilityType)
             {
@@ -233,7 +231,7 @@ namespace Assets.Code.Ui.Windows
 
         private void UpdateStartOption(StartAbilityOption option)
         {
-            int dealtDamage = _playerData.DamageDealt[option.AbilityType];
+            int dealtDamage = _playerData.BattleMetrics.DamageDealt[option.AbilityType];
             int unlockDamage = _playerData.UnlockDamage[option.AbilityType];
 
             if (dealtDamage >= unlockDamage)

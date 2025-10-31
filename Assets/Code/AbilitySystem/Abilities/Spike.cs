@@ -1,12 +1,13 @@
 ﻿using Assets.Code.CharactersLogic;
 using Assets.Code.Tools;
 using DG.Tweening;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace Assets.Code.AbilitySystem.Abilities
 {
-    public class Spike : MonoBehaviour
+    public class Spike : MonoBehaviour, IProjectile
     {
         [SerializeField][Min(0.1f)] private float _appendInterval = 0.3f;
         [SerializeField][Min(0.5f)] private float _revealDuration = 2f;
@@ -19,8 +20,7 @@ namespace Assets.Code.AbilitySystem.Abilities
         private float _damage;
         private Sequence _animationSequence;
 
-        private Dictionary<AbilityType, int> _damageDealt;
-        private Dictionary<AbilityType, int> _killCount;
+        public event Action<HitResult> Hit;
 
         private void Awake()
         {
@@ -31,12 +31,7 @@ namespace Assets.Code.AbilitySystem.Abilities
         {
             if (_damageLayer.Contains(other.gameObject.layer) && other.TryGetComponent(out Health health))
             {
-                _damageDealt[AbilityType.StoneSpikes] += (int)_damage;
-
-                if (health.TakeDamage(_damage))
-                {
-                    _killCount[AbilityType.StoneSpikes]++;
-                }
+                Hit?.Invoke(health.TakeDamage(_damage));
             }
         }
 
@@ -46,13 +41,12 @@ namespace Assets.Code.AbilitySystem.Abilities
             _animationSequence = null;
         }
 
-        public void Initialize(LayerMask damageLayer, float damage, Dictionary<AbilityType, int> damageDealt, Dictionary<AbilityType, int> killCount)
+        public Spike Initialize(LayerMask damageLayer, float damage)
         {
             _damageLayer = damageLayer.ThrowIfNull();
             SetDamage(damage);
 
-            _damageDealt = damageDealt.ThrowIfNull();
-            _killCount = killCount.ThrowIfNull();
+            return this;
         }
 
         public void SetDamage(float damage)

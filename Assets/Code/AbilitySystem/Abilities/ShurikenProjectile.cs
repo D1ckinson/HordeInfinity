@@ -3,13 +3,12 @@ using Assets.Code.Tools;
 using Assets.Scripts;
 using Assets.Scripts.Tools;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
 namespace Assets.Code.AbilitySystem.Abilities
 {
-    public class ShurikenProjectile : MonoBehaviour
+    public class ShurikenProjectile : MonoBehaviour, IProjectile
     {
         [SerializeField][Min(5f)] private float _speed = 40f;
         [SerializeField][Min(1f)] private float _lifeTime = 3f;
@@ -27,8 +26,7 @@ namespace Assets.Code.AbilitySystem.Abilities
         private Collider _lastTarget;
         private Pool<AudioSource> _hitSound;
 
-        private Dictionary<AbilityType, int> _damageDealt;
-        private Dictionary<AbilityType, int> _killCount;
+        public event Action<HitResult> Hit;
 
         private void OnTriggerEnter(Collider other)
         {
@@ -60,17 +58,8 @@ namespace Assets.Code.AbilitySystem.Abilities
         {
             if (_damageLayer.Contains(collider.gameObject.layer) && collider.TryGetComponent(out Health health))
             {
-                _damageDealt[AbilityType.Shuriken] += (int)_damage;
-
-                if (health.TakeDamage(_damage))
-                {
-                    _killCount[AbilityType.Shuriken]++;
-                }
-
-                AudioSource sound = _hitSound.Get();
-                sound.transform.position = transform.position;
-                sound.PlayRandomPitch();
-
+                Hit?.Invoke(health.TakeDamage(_damage));
+                _hitSound.Get(transform).PlayRandomPitch();
                 _lastTarget = _target;
 
                 return true;
@@ -79,17 +68,16 @@ namespace Assets.Code.AbilitySystem.Abilities
             return false;
         }
 
-        public void Initialize(LayerMask damageLayer, float damage, float searchRadius, int maxBounces, Pool<AudioSource> hitSound,
-            ITimeService timeService, Dictionary<AbilityType, int> damageDealt, Dictionary<AbilityType, int> killCount)
+        public ShurikenProjectile Initialize(LayerMask damageLayer, float damage, float searchRadius,
+            int maxBounces, Pool<AudioSource> hitSound, ITimeService timeService)
         {
             _damageLayer = damageLayer.ThrowIfNull();
             _soundPause.Initialize(timeService);
             _hitSound = hitSound.ThrowIfNull();
 
-            _damageDealt = damageDealt.ThrowIfNull();
-            _killCount = killCount.ThrowIfNull();
-
             SetStats(damage, searchRadius, maxBounces);
+
+            return this;
         }
 
         public void SetStats(float damage, float searchRadius, int maxBounces)

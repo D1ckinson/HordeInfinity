@@ -11,7 +11,7 @@ namespace Assets.Code.CharactersLogic.EnemyLogic
         [SerializeField][Min(1f)] private float _healthForMinute = 100f;
 
         private Health _health;
-        private NewMover _mover;
+        private Mover _mover;
 
         private void OnEnable()
         {
@@ -29,7 +29,7 @@ namespace Assets.Code.CharactersLogic.EnemyLogic
             _mover?.ResetSpeed();
         }
 
-        public void Initialize(NewMover mover, Health health)
+        public void Initialize(Mover mover, Health health)
         {
             _mover = mover.ThrowIfNull();
             _health = health.ThrowIfNull();
@@ -43,7 +43,7 @@ namespace Assets.Code.CharactersLogic.EnemyLogic
 
         private void BoostHealth()
         {
-            _health.AddMaxHealth(_healthForMinute);
+            _health.AddMaxValue(_healthForMinute);
         }
 
         private void BoostSpeed()

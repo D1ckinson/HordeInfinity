@@ -1,5 +1,5 @@
 {
-    "PlayerDataJson": "{\"Wallet\":{\"CoinsQuantity\":0.0},\"StartAbility\":0,\"AbilityUnlockLevel\":{\"SwordStrike\":10,\"GhostSwords\":6,\"HolyGround\":8,\"MidasHand\":1,\"Bombard\":6,\"BlackHole\":5,\"StoneSpikes\":5,\"IceStaff\":5,\"Shuriken\":6,\"Fireball\":6,\"WindFlow\":10},\"DamageDealt\":{\"SwordStrike\":160220,\"GhostSwords\":48670,\"HolyGround\":67735,\"MidasHand\":0,\"Bombard\":9905,\"BlackHole\":4001,\"StoneSpikes\":1436,\"IceStaff\":18120,\"Shuriken\":47916,\"Fireball\":7450,\"WindFlow\":0},\"UnlockDamage\":{\"SwordStrike\":0,\"GhostSwords\":100000,\"HolyGround\":1000000,\"Bombard\":1000000,\"BlackHole\":1000000,\"StoneSpikes\":100000,\"IceStaff\":1000000,\"Shuriken\":1000000,\"Fireball\":1000000},\"KillCount\":{\"SwordStrike\":609,\"GhostSwords\":154,\"HolyGround\":331,\"MidasHand\":0,\"Bombard\":52,\"BlackHole\":26,\"StoneSpikes\":4,\"IceStaff\":82,\"Shuriken\":135,\"Fireball\":26,\"WindFlow\":0},\"ScoreRecord\":431.7218,\"IsAdOn\":true}",
+    "PlayerDataJson": "{\"Wallet\":{\"CoinsQuantity\":20.0},\"BattleMetrics\":{\"DamageDealt\":{\"SwordStrike\":2820,\"GhostSwords\":2560,\"HolyGround\":3265,\"MidasHand\":0,\"Bombard\":325,\"BlackHole\":445,\"StoneSpikes\":188,\"IceStaff\":2800,\"Shuriken\":1420,\"Fireball\":1100,\"WindFlow\":0},\"KillCount\":{\"SwordStrike\":18,\"GhostSwords\":12,\"HolyGround\":17,\"MidasHand\":0,\"Bombard\":3,\"BlackHole\":9,\"StoneSpikes\":0,\"IceStaff\":15,\"Shuriken\":4,\"Fireball\":5,\"WindFlow\":0}},\"StartAbility\":0,\"AbilityUnlockLevel\":{\"SwordStrike\":10,\"GhostSwords\":6,\"HolyGround\":8,\"MidasHand\":1,\"Bombard\":6,\"BlackHole\":5,\"StoneSpikes\":5,\"IceStaff\":5,\"Shuriken\":6,\"Fireball\":6,\"WindFlow\":10},\"UnlockDamage\":{\"SwordStrike\":0,\"GhostSwords\":100000,\"HolyGround\":1000000,\"Bombard\":1000000,\"BlackHole\":1000000,\"StoneSpikes\":100000,\"IceStaff\":1000000,\"Shuriken\":1000000,\"Fireball\":1000000},\"ScoreRecord\":431.7218,\"IsAdOn\":true}",
     "intExample": 5,
     "strExample": "Hello!",
     "boolExample": [
@@ -8,5 +8,5 @@
         false,
         false
     ],
-    "idSave": 303
+    "idSave": 318
 }

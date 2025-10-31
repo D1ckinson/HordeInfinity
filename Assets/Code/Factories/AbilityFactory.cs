@@ -20,12 +20,11 @@ namespace Assets.Code
         private readonly LootFactory _lootFactory;
         private readonly Animator _animator;
         private readonly ITimeService _timeService;
-        private readonly Dictionary<AbilityType, int> _damageDealt;
-        private readonly Dictionary<AbilityType, int> _killCount;
+        private readonly BattleMetrics _battleMetrics;
 
         public AbilityFactory(Dictionary<AbilityType, AbilityConfig> configs, Transform hero, Transform heroCenter,
-            Dictionary<AbilityType, int> abilityUnlockLevel, Dictionary<AbilityType, int> damageDealt,
-            Dictionary<AbilityType, int> killCount, LootFactory lootFactory, Animator animator, ITimeService timeService)
+            Dictionary<AbilityType, int> abilityUnlockLevel, BattleMetrics battleMetrics, LootFactory lootFactory,
+            Animator animator, ITimeService timeService)
         {
             _configs = configs.ThrowIfNullOrEmpty();
             _hero = hero.ThrowIfNull();
@@ -35,8 +34,7 @@ namespace Assets.Code
             _lootFactory = lootFactory.ThrowIfNull();
             _animator = animator.ThrowIfNull();
             _timeService = timeService.ThrowIfNull();
-            _damageDealt = damageDealt.ThrowIfNullOrEmpty();
-            _killCount = killCount.ThrowIfNullOrEmpty();
+            _battleMetrics = battleMetrics.ThrowIfNull();
 
             _createFunctions = new()
             {
@@ -63,77 +61,77 @@ namespace Assets.Code
         {
             AbilityConfig config = _configs[AbilityType.SwordStrike];
 
-            return new SwordStrike(config, _abilityUnlockLevel, _heroCenter, _animator, _damageDealt, _killCount);
+            return new SwordStrike(config, _abilityUnlockLevel, _heroCenter, _animator, _battleMetrics);
         }
 
         private Ability CreateGhostSwords()
         {
             AbilityConfig config = _configs[AbilityType.GhostSwords];
 
-            return new GhostSwords(config, _abilityUnlockLevel, _heroCenter, _damageDealt, _killCount);
+            return new GhostSwords(config, _abilityUnlockLevel, _heroCenter, _battleMetrics);
         }
 
         private Ability CreateHolyGround()
         {
             AbilityConfig config = _configs[AbilityType.HolyGround];
 
-            return new HolyGround(config, _abilityUnlockLevel, _hero, _timeService, _damageDealt, _killCount);
+            return new HolyGround(config, _abilityUnlockLevel, _hero, _timeService, _battleMetrics);
         }
 
         private Ability CreateMidasHand()
         {
             AbilityConfig config = _configs[AbilityType.MidasHand];
 
-            return new MidasHand(config, _abilityUnlockLevel, _heroCenter, _lootFactory, _killCount);
+            return new MidasHand(config, _abilityUnlockLevel, _heroCenter, _lootFactory, _battleMetrics);
         }
 
         private Ability CreateBombard()
         {
             AbilityConfig config = _configs[AbilityType.Bombard];
 
-            return new Bombard(config, _abilityUnlockLevel, _heroCenter, _damageDealt, _killCount);
+            return new Bombard(config, _abilityUnlockLevel, _heroCenter, _battleMetrics);
         }
 
         private Ability CreateBlackHole()
         {
             AbilityConfig config = _configs[AbilityType.BlackHole];
 
-            return new BlackHole(config, _abilityUnlockLevel, _heroCenter, _timeService, _damageDealt, _killCount);
+            return new BlackHole(config, _abilityUnlockLevel, _heroCenter, _timeService, _battleMetrics);
         }
 
         private Ability CreateStoneSpikes()
         {
             AbilityConfig config = _configs[AbilityType.StoneSpikes];
 
-            return new StoneSpikes(config, _abilityUnlockLevel, _hero, _damageDealt, _killCount);
+            return new StoneSpikes(config, _abilityUnlockLevel, _hero, _battleMetrics);
         }
 
         private Ability CreateIceStaff()
         {
             AbilityConfig config = _configs[AbilityType.IceStaff];
 
-            return new IceStaff(config, _abilityUnlockLevel, _heroCenter, _damageDealt, _killCount);
+            return new IceStaff(config, _abilityUnlockLevel, _heroCenter, _battleMetrics);
         }
 
         private Ability CreateShuriken()
         {
             AbilityConfig config = _configs[AbilityType.Shuriken];
 
-            return new Shuriken(config, _abilityUnlockLevel, _heroCenter, _timeService, _damageDealt, _killCount);
+            return new Shuriken(config, _abilityUnlockLevel, _heroCenter, _timeService, _battleMetrics);
         }
 
         private Ability CreateFireball()
         {
             AbilityConfig config = _configs[AbilityType.Fireball];
 
-            return new Fireball(config, _abilityUnlockLevel, _heroCenter, _timeService, _damageDealt, _killCount);
+            return new Fireball(config, _abilityUnlockLevel, _heroCenter, _timeService, _battleMetrics);
         }
 
         private Ability CreateWindFlow()
         {
             AbilityConfig config = _configs[AbilityType.WindFlow];
 
-            return new WindFlow(config, _abilityUnlockLevel, _hero, _damageDealt, _killCount);
+            return new WindFlow(config, _abilityUnlockLevel, _hero, _battleMetrics);
         }
     }
 }

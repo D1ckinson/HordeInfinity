@@ -1,5 +1,6 @@
 ﻿using Assets.Code.CharactersLogic;
 using Assets.Code.Tools;
+using Assets.Scripts;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -14,30 +15,17 @@ namespace Assets.Code.AbilitySystem.Abilities
         private readonly Animator _animator;
         private readonly AudioSource _audioSource;
 
-        private readonly Dictionary<AbilityType, int> _damageDealt;
-        private readonly Dictionary<AbilityType, int> _killCount;
-
-        private float _damage;
-        private float _radius;
-
         public SwordStrike(AbilityConfig config, Dictionary<AbilityType, int> abilityUnlockLevel, Transform heroCenter,
-            Animator animator, Dictionary<AbilityType, int> damageDealt, Dictionary<AbilityType, int> killCount, int level = 1) : base(config, abilityUnlockLevel, level)
+            Animator animator, BattleMetrics battleMetrics, int level = 1) : base(config, abilityUnlockLevel, battleMetrics, level)
         {
             _heroCenter = heroCenter.ThrowIfNull();
-            _swingEffect = config.Effect.Instantiate(_heroCenter);
+            _swingEffect = config.ThrowIfNull().Effect.Instantiate(_heroCenter);
             _damageLayer = config.DamageLayer;
 
-            AbilityStats stats = config.ThrowIfNull().GetStats(level.ThrowIfZeroOrLess());
-
-            _damage = stats.Damage;
-            _radius = stats.Range;
-            _swingEffect.SetShapeRadius(_radius);
+            _swingEffect.SetShapeRadius(CurrentStats.Get(FloatStatType.Range));
 
             _animator = animator.ThrowIfNull();
             _audioSource = config.HitSound.Instantiate();
-
-            _damageDealt = damageDealt.ThrowIfNullOrEmpty();
-            _killCount = killCount.ThrowIfNullOrEmpty();
         }
 
         public override void Dispose()
@@ -48,7 +36,7 @@ namespace Assets.Code.AbilitySystem.Abilities
 
         protected sealed override void Apply()
         {
-            int count = Physics.OverlapSphereNonAlloc(_heroCenter.position, _radius, _colliders, _damageLayer);
+            int count = Physics.OverlapSphereNonAlloc(_heroCenter.position, CurrentStats.Get(FloatStatType.Range), _colliders, _damageLayer);
 
             for (int i = Constants.Zero; i < count; i++)
             {
@@ -56,12 +44,7 @@ namespace Assets.Code.AbilitySystem.Abilities
 
                 if (collider.TryGetComponent(out Health health))
                 {
-                    _damageDealt[AbilityType.SwordStrike] += (int)_damage;
-
-                    if (health.TakeDamage(_damage))
-                    {
-                        _killCount[AbilityType.SwordStrike]++;
-                    }
+                    RecordHitResult(health.TakeDamage(CurrentStats.Get(FloatStatType.Damage)));
                 }
             }
 
@@ -72,11 +55,9 @@ namespace Assets.Code.AbilitySystem.Abilities
             _audioSource.PlayRandomPitch();
         }
 
-        protected override void UpdateStats(AbilityStats stats)
+        protected override void OnStatsUpdate()
         {
-            _damage = stats.Damage;
-            _radius = stats.Range;
-            _swingEffect.SetShapeRadius(_radius);
+            _swingEffect.SetShapeRadius(CurrentStats.Get(FloatStatType.Range));
         }
     }
 }

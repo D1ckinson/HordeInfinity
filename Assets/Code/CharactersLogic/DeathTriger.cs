@@ -11,8 +11,8 @@ namespace Assets.Code.CharactersLogic
         private Health _health;
         private LootFactory _lootFactory;
         private LootDropInfo[] _loots;
-        private NewMover _mover;
-        private NewRotator _rotator;
+        private Mover _mover;
+        private Rotator _rotator;
 
         private void OnEnable()
         {
@@ -30,7 +30,7 @@ namespace Assets.Code.CharactersLogic
             }
         }
 
-        public void Initialize(Health health, NewMover mover, NewRotator rotator, LootFactory lootFactory, LootDropInfo[] loots)
+        public void Initialize(Health health, Mover mover, Rotator rotator, LootFactory lootFactory, LootDropInfo[] loots)
         {
             _health = health.ThrowIfNull();
             _lootFactory = lootFactory.ThrowIfNull();

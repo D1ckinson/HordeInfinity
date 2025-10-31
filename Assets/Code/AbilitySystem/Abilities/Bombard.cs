@@ -1,4 +1,5 @@
 ﻿using Assets.Code.Tools;
+using Assets.Scripts;
 using Assets.Scripts.Tools;
 using System.Collections;
 using System.Collections.Generic;
@@ -16,21 +17,10 @@ namespace Assets.Code.AbilitySystem.Abilities
         private readonly Transform _launchPoint;
         private readonly AudioSource _throwSound;
 
-        private float _damage;
-        private float _throwDistance = 10f;
-        private float _explosionRadius;
-        private float _projectilesCount;
-
         public Bombard(AbilityConfig config, Dictionary<AbilityType, int> abilityUnlockLevel, Transform launchPoint,
-            Dictionary<AbilityType, int> damageDealt, Dictionary<AbilityType, int> killCount, int level = 1) : base(config, abilityUnlockLevel, level)
+            BattleMetrics battleMetrics, int level = 1) : base(config, abilityUnlockLevel, battleMetrics, level)
         {
-            AbilityStats stats = config.ThrowIfNull().GetStats(level);
             _launchPoint = launchPoint.ThrowIfNull();
-
-            _damage = stats.Damage;
-            _projectilesCount = stats.ProjectilesCount;
-            _explosionRadius = stats.Range;
-            _throwDistance = stats.ThrowDistance;
 
             _visualEffectPool = new(() => config.Effect.Instantiate());
             _hitSoundPool = new(() => config.HitSound.Instantiate());
@@ -39,8 +29,12 @@ namespace Assets.Code.AbilitySystem.Abilities
 
             Bomb CreateBomb()
             {
-                Bomb bomb = config.ProjectilePrefab.GetComponentOrThrow<Bomb>().Instantiate();
-                bomb.Initialize(_damage, _explosionRadius, config.DamageLayer, _visualEffectPool, _hitSoundPool, damageDealt, killCount);
+                Bomb bomb = config.ProjectilePrefab
+                    .GetComponentOrThrow<Bomb>()
+                    .Instantiate()
+                    .Initialize(CurrentStats.Get(FloatStatType.Damage), CurrentStats.Get(FloatStatType.Range), config.DamageLayer, _visualEffectPool, _hitSoundPool);
+
+                bomb.Hit += RecordHitResult;
 
                 return bomb;
             }
@@ -53,7 +47,7 @@ namespace Assets.Code.AbilitySystem.Abilities
 
         private IEnumerator LaunchBombs()
         {
-            for (int i = Constants.Zero; i < _projectilesCount; i++)
+            for (int i = Constants.Zero; i < CurrentStats.Get(IntStatType.ProjectilesCount); i++)
             {
                 Bomb bomb = _bombPool.Get();
                 bomb.Fly(_launchPoint.position, GenerateRandomPoint());
@@ -66,31 +60,26 @@ namespace Assets.Code.AbilitySystem.Abilities
         public override void Dispose()
         {
             CoroutineService.StopAllCoroutines(this);
-            _throwSound.DestroyGameObject();
 
+            _bombPool.ForEach(bomb => bomb.Hit -= RecordHitResult);
             _bombPool.DestroyAll();
+
+            _throwSound.DestroyGameObject();
             _hitSoundPool.DestroyAll();
             _visualEffectPool.DestroyAll();
         }
 
-        protected override void UpdateStats(AbilityStats stats)
-        {
-            stats.ThrowIfNull();
-
-            _damage = stats.Damage;
-            _projectilesCount = stats.ProjectilesCount;
-            _explosionRadius = stats.Range;
-            _throwDistance = stats.ThrowDistance;
-
-            _bombPool.ForEach(bomb => bomb.SetStats(_damage, _explosionRadius));
-        }
-
         private Vector3 GenerateRandomPoint()
         {
-            Vector3 distance = Utilities.GenerateRandomDirection() * Random.Range(Constants.One, _throwDistance);
+            Vector3 distance = Utilities.GenerateRandomDirection() * Random.Range(Constants.One, CurrentStats.Get(FloatStatType.ThrowDistance));
             Vector3 point = _launchPoint.position + distance;
 
             return point;
+        }
+
+        protected override void OnStatsUpdate()
+        {
+            _bombPool.ForEach(bomb => bomb.SetStats(CurrentStats.Get(FloatStatType.Damage), CurrentStats.Get(FloatStatType.Range)));
         }
     }
 }

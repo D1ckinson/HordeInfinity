@@ -89,6 +89,14 @@ namespace Assets.Code.Tools
             }
         }
 
+        public static void ForEachKeys<TKey, TValue>(this Dictionary<TKey, TValue> pairs, Action<TKey> action)
+        {
+            foreach (TKey item in pairs.Keys)
+            {
+                action?.Invoke(item);
+            }
+        }
+
         public static string ToWrapText(this IEnumerable<string> strings)
         {
             return string.Join(Environment.NewLine, strings);

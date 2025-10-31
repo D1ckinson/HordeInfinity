@@ -1,7 +1,9 @@
 ﻿using Assets.Code.Data;
 using Assets.Code.Tools;
+using AYellowpaper.SerializedCollections;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace Assets.Code
@@ -9,42 +11,102 @@ namespace Assets.Code
     [Serializable]
     public class AbilityStats
     {
-        [field: SerializeField] public float Cooldown { get; private set; }
-        [field: SerializeField] public float Damage { get; private set; }
-        [field: SerializeField] public float Range { get; private set; }
-        [field: SerializeField] public int ProjectilesCount { get; private set; }
-        [field: SerializeField] public bool IsPiercing { get; private set; }
-        [field: SerializeField] public int HealthPercent { get; private set; }
-        [field: SerializeField] public float PullForce { get; private set; }
-        [field: SerializeField] public int BouncesQuantity { get; private set; }
-        [field: SerializeField] public int ThrowDistance { get; private set; }
+        private const char Minus = '-';
+        private const char Plus = '+';
+
         [field: SerializeField] public int Cost { get; private set; }
 
-        public static AbilityStats operator -(AbilityStats a, AbilityStats b)
+        [SerializeField] private SerializedDictionary<FloatStatType, float> _floatStats;
+        [SerializeField] private SerializedDictionary<BoolStatType, bool> _boolStats;
+        [SerializeField] private SerializedDictionary<IntStatType, int> _intStats;
+
+        public AbilityStats() { }
+
+        public AbilityStats(AbilityStats stats)
         {
-            return new AbilityStats
+            stats.ThrowIfNull();
+
+            _floatStats = new(stats._floatStats);
+            _boolStats = new(stats._boolStats);
+            _intStats = new(stats._intStats);
+
+            Cost = stats.Cost;
+        }
+
+        public float Get(FloatStatType type)
+        {
+            return _floatStats[type];
+        }
+
+        public bool Get(BoolStatType type)
+        {
+            return _boolStats[type];
+        }
+
+        public int Get(IntStatType type)
+        {
+            return _intStats[type];
+        }
+
+        public List<string> GetStatsDifference(AbilityStats stats)
+        {
+            List<string> description = new();
+
+            IEnumerable<FloatStatType> floatStatTypes = Constants.GetEnums<FloatStatType>();
+
+            for (int i = Constants.Zero; i < floatStatTypes.Count(); i++)
             {
-                Cooldown = a.Cooldown - b.Cooldown,
-                Damage = a.Damage - b.Damage,
-                Range = a.Range - b.Range,
-                ProjectilesCount = a.ProjectilesCount - b.ProjectilesCount,
-                IsPiercing = b.IsPiercing,
-                HealthPercent = a.HealthPercent-b.HealthPercent
-            };
+                FloatStatType statType = floatStatTypes.ElementAt(i);
+
+                if (_floatStats.TryGetValue(statType, out float currentValue) && stats._floatStats.TryGetValue(statType, out float nextValue))
+                {
+                    float resultValue = nextValue - currentValue;
+                    AddIfNotZero(description, UIText.FloatStatName[statType], resultValue);
+                }
+            }
+
+            IEnumerable<IntStatType> intStatTypes = Constants.GetEnums<IntStatType>();
+
+            for (int i = Constants.Zero; i < intStatTypes.Count(); i++)
+            {
+                IntStatType statType = intStatTypes.ElementAt(i);
+
+                if (_intStats.TryGetValue(statType, out int currentValue) && stats._intStats.TryGetValue(statType, out int nextValue))
+                {
+                    int resultValue = nextValue - currentValue;
+                    AddIfNotZero(description, UIText.IntStatName[statType], resultValue);
+                }
+            }
+
+            IEnumerable<BoolStatType> boolStatTypes = Constants.GetEnums<BoolStatType>();
+
+            for (int i = Constants.Zero; i < boolStatTypes.Count(); i++)
+            {
+                BoolStatType statType = boolStatTypes.ElementAt(i);
+
+                if (_boolStats.TryGetValue(statType, out bool currentValue) && stats._boolStats.TryGetValue(statType, out bool nextValue))
+                {
+                    if (currentValue == nextValue)
+                    {
+                        continue;
+                    }
+
+                    char sign = nextValue ? Plus : Minus;
+
+                    description.Add($"{sign} {UIText.BoolStatName[statType]}");
+                }
+            }
+
+            return description;
         }
 
         public List<string> GetStatsDescription()
         {
             List<string> description = new();
 
-            AddIfNotZero(description, UIText.Cooldown, Cooldown);
-            AddIfNotZero(description, UIText.Damage, Damage);
-            AddIfNotZero(description, UIText.Range, Range);
-            AddIfNotZero(description, UIText.ProjectilesCount, ProjectilesCount);
-            AddIfNotZero(description, UIText.HealthPercent, HealthPercent);
-            AddIfNotZero(description, UIText.PullForce, PullForce);
-            AddIfNotZero(description, UIText.BouncesQuantity, BouncesQuantity);
-            AddIfNotZero(description, UIText.ThrowDistance, ThrowDistance);
+            description.AddRange(_floatStats.Select(pair => $"{UIText.FloatStatName[pair.Key]} {pair.Value}"));
+            description.AddRange(_intStats.Select(pair => $"{UIText.IntStatName[pair.Key]} {pair.Value}"));
+            description.AddRange(_boolStats.Where(pair => pair.Value).Select(pair => UIText.BoolStatName[pair.Key]));
 
             return description;
         }
@@ -61,6 +123,15 @@ namespace Assets.Code
                 : value.ToString("+0.0;-0.0");
 
             list.Add($"{statName} {formattedValue}");
+        }
+
+        public void Multiply(FloatStatType type, float multiplier)
+        {
+            if (_floatStats.TryGetValue(type, out float stat))
+            {
+                stat *= multiplier;
+                _floatStats[type] = stat;
+            }
         }
     }
 }

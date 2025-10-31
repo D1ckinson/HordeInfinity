@@ -2,13 +2,14 @@
 using Assets.Code.CharactersLogic.EnemyLogic;
 using Assets.Code.Tools;
 using Assets.Scripts.Tools;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
 namespace Assets.Code.AbilitySystem.Abilities
 {
-    public class BlackHoleProjectile : MonoBehaviour
+    public class BlackHoleProjectile : MonoBehaviour, IProjectile
     {
         [SerializeField][Min(0.1f)] private float _baseDamage = 1f;
         [SerializeField][Min(0.1f)] private float _radiusForEnemy = 0.2f;
@@ -25,19 +26,21 @@ namespace Assets.Code.AbilitySystem.Abilities
         private float _pullForce;
         private float _radius;
 
-        private Dictionary<AbilityType, int> _damageDealt;
-        private Dictionary<AbilityType, int> _killCount;
+        public event Action<HitResult> Hit;
 
         private void OnEnable()
         {
             SetShape();
-            TimerService.StartTimer(_lifeTime, ()=>this.SetActive(false));
+            TimerService.StartTimer(_lifeTime, Disable);
         }
 
         private void OnDisable()
         {
-            _enemies.Clear();
             SetShape();
+            TimerService.StopTimer(_lifeTime, Disable);
+
+            _enemies.ForEachKeys(health => health.Died -= Remove);
+            _enemies.Clear();
         }
 
         private void OnDestroy()
@@ -69,17 +72,15 @@ namespace Assets.Code.AbilitySystem.Abilities
 
         private void FixedUpdate()
         {
-            for (int i = _enemies.LastIndex(); i >= Constants.Zero; i--)
+            foreach (EnemyComponents enemy in _enemies.Values.ToArray())
             {
-                EnemyComponents enemy = _enemies.Values.ElementAt(i);
+                if (enemy.IsActive() == false)
+                {
+                    continue;
+                }
 
                 float damage = _baseDamage + _damage * _enemies.Count;
-                _damageDealt[AbilityType.BlackHole] += (int)damage;
-
-                if (enemy.Health.TakeDamage(damage))
-                {
-                    _killCount[AbilityType.BlackHole]++;
-                }
+                Hit?.Invoke(enemy.Health.TakeDamage(damage));
 
                 Vector3 directionToCenter = (transform.position - enemy.transform.position).normalized;
                 float pullForce = _pullForce * _enemies.Count;
@@ -89,13 +90,11 @@ namespace Assets.Code.AbilitySystem.Abilities
         }
 
         public BlackHoleProjectile Initialize(LayerMask damageLayer, float damage, float radius, float pullForce,
-            Pool<ParticleSystem> effectPool, AudioSource sound, Dictionary<AbilityType, int> damageDealt, Dictionary<AbilityType, int> killCount)
+            Pool<ParticleSystem> effectPool, AudioSource sound)
         {
             _damageLayer = damageLayer.ThrowIfNull();
             _effectPool = effectPool.ThrowIfNull();
             _sound = sound.ThrowIfNull();
-            _damageDealt = damageDealt.ThrowIfNull();
-            _killCount = killCount.ThrowIfNull();
 
             SetStats(damage, radius, pullForce);
 
@@ -136,6 +135,11 @@ namespace Assets.Code.AbilitySystem.Abilities
         {
             health.Died -= Remove;
             _enemies.Remove(health);
+        }
+
+        private void Disable()
+        {
+            this.SetActive(false);
         }
     }
 }

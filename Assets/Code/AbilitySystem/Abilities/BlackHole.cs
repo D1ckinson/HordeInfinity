@@ -9,15 +9,13 @@ namespace Assets.Code.AbilitySystem.Abilities
     public class BlackHole : Ability
     {
         private readonly BlackHoleProjectile _projectile;
-        private readonly Transform _blackHolePoint;
+        private readonly Transform _heroCenter;
         private readonly Pool<ParticleSystem> _effectPool;
 
-        public BlackHole(AbilityConfig config, Dictionary<AbilityType, int> abilityUnlockLevel, Transform blackHolePoint,
-            ITimeService timeService, Dictionary<AbilityType, int> damageDealt, Dictionary<AbilityType, int> killCount, int level = 1) : base(config, abilityUnlockLevel, level)
+        public BlackHole(AbilityConfig config, Dictionary<AbilityType, int> abilityUnlockLevel, Transform heroCenter,
+            ITimeService timeService, BattleMetrics battleMetrics, int level = 1) : base(config, abilityUnlockLevel, battleMetrics, level)
         {
-            AbilityStats stats = config.ThrowIfNull().GetStats(level);
-            _blackHolePoint = blackHolePoint.ThrowIfNull();
-
+            _heroCenter = heroCenter.ThrowIfNull();
             _effectPool = new(() => config.Effect.Instantiate(), Constants.One);
 
             AudioSource sound = config.ProjectileSound.Instantiate();
@@ -26,24 +24,28 @@ namespace Assets.Code.AbilitySystem.Abilities
             _projectile = config.ProjectilePrefab
                 .GetComponentOrThrow<BlackHoleProjectile>()
                 .Instantiate(false)
-                .Initialize(config.DamageLayer, stats.Damage, stats.Range, stats.PullForce, _effectPool, sound, damageDealt, killCount);
+                .Initialize(config.DamageLayer, CurrentStats.Get(FloatStatType.Damage), CurrentStats.Get(FloatStatType.Range),
+                CurrentStats.Get(FloatStatType.PullForce), _effectPool, sound);
+
+            _projectile.Hit += RecordHitResult;
         }
 
         public override void Dispose()
         {
+            _projectile.Hit -= RecordHitResult;
             _projectile.DestroyGameObject();
             _effectPool.DestroyAll();
         }
 
         protected override void Apply()
         {
-            _projectile.Activate(_blackHolePoint.position);
+            _projectile.Activate(_heroCenter.position);
         }
 
-        protected override void UpdateStats(AbilityStats stats)
+        protected override void OnStatsUpdate()
         {
-            stats.ThrowIfNull();
-            _projectile.SetStats(stats.Damage, stats.Range, stats.PullForce);
+            _projectile.SetStats(CurrentStats.Get(FloatStatType.Damage), CurrentStats.Get(FloatStatType.Range),
+                CurrentStats.Get(FloatStatType.PullForce));
         }
     }
 }

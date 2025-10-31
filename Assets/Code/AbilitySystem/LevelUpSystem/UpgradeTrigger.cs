@@ -4,9 +4,9 @@ using Assets.Code.Tools;
 using System.Collections.Generic;
 using System.Linq;
 using Random = UnityEngine.Random;
-using Assets.Code.Data;
-using Assets.Scripts.Factories;
 using UnityEngine;
+using Assets.Scripts.Factories;
+using Assets.Code.Data;
 
 namespace Assets.Code.AbilitySystem
 {
@@ -82,7 +82,7 @@ namespace Assets.Code.AbilitySystem
                 .Except(_abilityUnlockLevel.Where(pair => pair.Value == Constants.Zero).Select(pair => pair.Key))
                 .ToList();
 
-            List<UpgradeOption> upgradeOptions = new();
+            List<AbilityUpgradeOption> upgradeOptions = new();
 
             for (int i = Constants.Zero; i < SuggestedUpgradesCount; i++)
             {
@@ -103,7 +103,9 @@ namespace Assets.Code.AbilitySystem
 
                 if (abilityLevel > Constants.Zero)
                 {
-                    statsDescription = (nextStats - abilityConfig.GetStats(abilityLevel)).GetStatsDescription();
+                    statsDescription = abilityConfig
+                        .GetStats(abilityLevel)
+                        .GetStatsDifference(nextStats);
                 }
                 else
                 {

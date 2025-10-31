@@ -3,12 +3,11 @@ using Assets.Code.Tools;
 using Assets.Scripts;
 using Assets.Scripts.Tools;
 using System;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Assets.Code.AbilitySystem.Abilities
 {
-    public class FireballProjectile : MonoBehaviour
+    public class FireballProjectile : MonoBehaviour, IProjectile
     {
         [SerializeField][Min(1f)] private float _speed = 30f;
         [SerializeField][Min(1f)] private float _lifeTime = 3f;
@@ -23,8 +22,7 @@ namespace Assets.Code.AbilitySystem.Abilities
         private float _explosionRadius;
         private Vector3 _direction;
 
-        private Dictionary<AbilityType, int> _damageDealt;
-        private Dictionary<AbilityType, int> _killCount;
+        public event Action<HitResult> Hit;
 
         private void OnTriggerEnter(Collider other)
         {
@@ -40,19 +38,17 @@ namespace Assets.Code.AbilitySystem.Abilities
             TimerService.StopTimer(this, Explode);
         }
 
-        public void Initialize(LayerMask damageLayer, float damage, float explosionRadius,
-            Pool<ParticleSystem> explosionEffectPool, Pool<AudioSource> explosionSoundPool,
-            ITimeService timeService, Dictionary<AbilityType, int> damageDealt, Dictionary<AbilityType, int> killCount)
+        public FireballProjectile Initialize(LayerMask damageLayer, float damage, float explosionRadius,
+            Pool<ParticleSystem> explosionEffectPool, Pool<AudioSource> explosionSoundPool, ITimeService timeService)
         {
             _damageLayer = damageLayer.ThrowIfNull();
             _explosionEffectPool = explosionEffectPool.ThrowIfNull();
             _explosionSoundPool = explosionSoundPool.ThrowIfNull();
             _soundPause.Initialize(timeService);
 
-            _damageDealt = damageDealt.ThrowIfNull();
-            _killCount = killCount.ThrowIfNull();
-
             SetStats(damage, explosionRadius);
+
+            return this;
         }
 
         public void SetStats(float damage, float explosionRadius)
@@ -83,12 +79,7 @@ namespace Assets.Code.AbilitySystem.Abilities
             {
                 if (_colliders[i].TryGetComponent(out Health health))
                 {
-                    _damageDealt[AbilityType.Fireball] += (int)_damage;
-
-                    if (health.TakeDamage(_damage))
-                    {
-                        _killCount[AbilityType.Fireball]++;
-                    }
+                    Hit?.Invoke(health.TakeDamage(_damage));
                 }
             }
 

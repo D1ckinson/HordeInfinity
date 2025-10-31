@@ -66,8 +66,8 @@ namespace Assets.Scripts.State_Machine
             GameWindow gameWindow = _uiFactory.Create<GameWindow>();
             gameWindow.PauseButton.Subscribe(Pause);
 
-            _hero.AbilityContainer.Add(_abilityFactory.Create(_playerData.StartAbility));
-            //_hero.AbilityContainer.Add(_abilityFactory.Create(AbilityType.IceStaff));
+            //_hero.AbilityContainer.Add(_abilityFactory.Create(_playerData.StartAbility));
+            _hero.AbilityContainer.Add(_abilityFactory.Create(AbilityType.HolyGround));
             _hero.AbilityContainer.Run();
             _hero.Health.Died += ShowDeathWindow;
             _hero.LootCollector.Run();
@@ -109,6 +109,7 @@ namespace Assets.Scripts.State_Machine
             _hero.Health.ResetValue();
             _hero.Mover.Stop();
             _hero.Rotator.Stop();
+            _hero.BuffView.Clear();
             _hero.SetDefaultPosition();
             _upgradeTrigger.Stop();
 

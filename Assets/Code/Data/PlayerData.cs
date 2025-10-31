@@ -8,17 +8,17 @@ namespace Assets.Scripts
     public class PlayerData
     {
         public Wallet Wallet;
+        public BattleMetrics BattleMetrics;
         public AbilityType StartAbility;
         public Dictionary<AbilityType, int> AbilityUnlockLevel;
-        public Dictionary<AbilityType, int> DamageDealt;
         public Dictionary<AbilityType, int> UnlockDamage;
-        public Dictionary<AbilityType, int> KillCount;
         public float ScoreRecord;
         public bool IsAdOn = true;
 
         public PlayerData()
         {
             Wallet = new();
+            BattleMetrics = new();
             StartAbility = AbilityType.SwordStrike;
 
             AbilityUnlockLevel = new()
@@ -28,36 +28,6 @@ namespace Assets.Scripts
                 [AbilityType.HolyGround] = 2,
                 [AbilityType.MidasHand] = 0,
                 [AbilityType.Bombard] = 1,
-                [AbilityType.BlackHole] = 0,
-                [AbilityType.StoneSpikes] = 0,
-                [AbilityType.IceStaff] = 0,
-                [AbilityType.Shuriken] = 0,
-                [AbilityType.Fireball] = 0,
-                [AbilityType.WindFlow] = 0
-            };
-
-            DamageDealt = new()
-            {
-                [AbilityType.SwordStrike] = 0,
-                [AbilityType.GhostSwords] = 0,
-                [AbilityType.HolyGround] = 0,
-                [AbilityType.MidasHand] = 0,
-                [AbilityType.Bombard] = 0,
-                [AbilityType.BlackHole] = 0,
-                [AbilityType.StoneSpikes] = 0,
-                [AbilityType.IceStaff] = 0,
-                [AbilityType.Shuriken] = 0,
-                [AbilityType.Fireball] = 0,
-                [AbilityType.WindFlow] = 0
-            };
-
-            KillCount = new()
-            {
-                [AbilityType.SwordStrike] = 0,
-                [AbilityType.GhostSwords] = 0,
-                [AbilityType.HolyGround] = 0,
-                [AbilityType.MidasHand] = 0,
-                [AbilityType.Bombard] = 0,
                 [AbilityType.BlackHole] = 0,
                 [AbilityType.StoneSpikes] = 0,
                 [AbilityType.IceStaff] = 0,

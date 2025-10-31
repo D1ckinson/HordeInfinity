@@ -1,4 +1,5 @@
 ﻿using Assets.Code.Tools;
+using Assets.Scripts;
 using Assets.Scripts.Tools;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,33 +8,25 @@ namespace Assets.Code.AbilitySystem.Abilities
 {
     public class StoneSpikes : Ability
     {
-        private const float MinRadius = 1f;
-
         private readonly Pool<Spike> _pool;
         private readonly Transform _hero;
         private readonly AudioSource _sound;
 
-        private float _damage;
-        private float _maxRadius;
-        private int _projectilesCount;
-
         public StoneSpikes(AbilityConfig config, Dictionary<AbilityType, int> abilityUnlockLevel, Transform hero,
-            Dictionary<AbilityType, int> damageDealt, Dictionary<AbilityType, int> killCount, int level = 1) : base(config, abilityUnlockLevel, level)
+            BattleMetrics battleMetrics, int level = 1) : base(config, abilityUnlockLevel, battleMetrics, level)
         {
-            AbilityStats stats = config.ThrowIfNull().GetStats(level);
             _hero = hero.ThrowIfNull();
-
-            _damage = stats.Damage;
-            _projectilesCount = stats.ProjectilesCount;
-            _maxRadius = stats.Range;
-
-            _sound = config.AppearingSound.Instantiate(_hero);
+            _sound = config.ThrowIfNull().AppearingSound.Instantiate(_hero);
             _pool = new(CreateSpike);
 
             Spike CreateSpike()
             {
-                Spike spike = config.ProjectilePrefab.Instantiate().GetComponentOrThrow<Spike>();
-                spike.Initialize(config.DamageLayer, _damage, damageDealt, killCount);
+                Spike spike = config.ProjectilePrefab
+                    .Instantiate()
+                    .GetComponentOrThrow<Spike>()
+                    .Initialize(config.DamageLayer, CurrentStats.Get(FloatStatType.Damage));
+
+                spike.Hit += RecordHitResult;
 
                 return spike;
             }
@@ -41,14 +34,15 @@ namespace Assets.Code.AbilitySystem.Abilities
 
         public override void Dispose()
         {
+            _pool.ForEach(spike => spike.Hit -= RecordHitResult);
             _pool.DestroyAll();
         }
 
         protected override void Apply()
         {
-            for (int i = Constants.Zero; i < _projectilesCount; i++)
+            for (int i = Constants.Zero; i < CurrentStats.Get(IntStatType.ProjectilesCount); i++)
             {
-                Vector3 position = _hero.position + Utilities.GenerateRandomDirection() * Random.Range(MinRadius, _maxRadius);
+                Vector3 position = _hero.position + Utilities.GenerateRandomDirection() * Random.Range(Constants.One, CurrentStats.Get(FloatStatType.Range));
 
                 _pool.Get().Strike(position);
             }
@@ -56,12 +50,9 @@ namespace Assets.Code.AbilitySystem.Abilities
             _sound.PlayRandomPitch();
         }
 
-        protected override void UpdateStats(AbilityStats stats)
+        protected override void OnStatsUpdate()
         {
-            stats.ThrowIfNull();
-            _damage = stats.Damage;
-            _maxRadius = stats.Range;
-            _projectilesCount = stats.ProjectilesCount;
+            _pool.ForEach(spike => spike.SetDamage(CurrentStats.Get(FloatStatType.Damage)));
         }
     }
 }

@@ -1,11 +1,11 @@
 ﻿using Assets.Code.CharactersLogic;
 using Assets.Code.Tools;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 
 namespace Assets.Code.AbilitySystem.Abilities
 {
-    public class GhostSword : MonoBehaviour
+    public class GhostSword : MonoBehaviour, IProjectile
     {
         [SerializeField] private Collider _collider;
         [SerializeField] private float _speed;
@@ -16,8 +16,7 @@ namespace Assets.Code.AbilitySystem.Abilities
         private bool _isPiercing;
         private LayerMask _damageLayer;
 
-        private Dictionary<AbilityType, int> _damageDealt;
-        private Dictionary<AbilityType, int> _killCount;
+        public event Action<HitResult> Hit;
 
         private void Awake()
         {
@@ -36,13 +35,7 @@ namespace Assets.Code.AbilitySystem.Abilities
 
             if (_damageLayer.Contains(gameObject.layer) && gameObject.TryGetComponent(out Health health))
             {
-                _damageDealt[AbilityType.GhostSwords] += (int)_damage;
-
-                if (health.TakeDamage(_damage))
-                {
-                    _killCount[AbilityType.GhostSwords]++;
-                }
-
+                Hit?.Invoke(health.TakeDamage(_damage));
                 _hitSound.Play();
 
                 if (_isPiercing == false)
@@ -52,13 +45,12 @@ namespace Assets.Code.AbilitySystem.Abilities
             }
         }
 
-        public void Initialize(float damage, bool isPiercing, LayerMask damageLayer, Dictionary<AbilityType, int> damageDealt, Dictionary<AbilityType, int> killCount)
+        public GhostSword Initialize(float damage, bool isPiercing, LayerMask damageLayer)
         {
             SetStats(damage, isPiercing);
             _damageLayer = damageLayer.ThrowIfNull();
 
-            _damageDealt = damageDealt.ThrowIfNull();
-            _killCount = killCount.ThrowIfNull();
+            return this;
         }
 
         public void SetStats(float damage, bool isPiercing)
@@ -73,13 +65,13 @@ namespace Assets.Code.AbilitySystem.Abilities
             transform.SetParent(null);
 
             UpdateService.RegisterUpdate(Fly);
-            TimerService.StartTimer(_lifeTime, Stop);
+            TimerService.StartTimer(_lifeTime, Stop, this);
         }
 
         private void Stop()
         {
             UpdateService.UnregisterUpdate(Fly);
-            TimerService.StopTimer(_lifeTime, Stop);
+            TimerService.StopTimer(this, Stop);
 
             _collider.enabled = false;
             this.SetActive(false);

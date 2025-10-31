@@ -2,13 +2,12 @@
 using Assets.Code.Tools;
 using Assets.Scripts.Tools;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
 namespace Assets.Code.AbilitySystem.Abilities
 {
-    public class IceSpike : MonoBehaviour
+    public class IceSpike : MonoBehaviour, IProjectile
     {
         [SerializeField][Min(0.5f)] private float _lifeTime = 3f;
         [SerializeField][Min(1f)] private float _speed = 30f;
@@ -17,20 +16,13 @@ namespace Assets.Code.AbilitySystem.Abilities
         private LayerMask _damageLayer;
         private float _damage;
 
-        private Dictionary<AbilityType, int> _damageDealt;
-        private Dictionary<AbilityType, int> _killCount;
+        public event Action<HitResult> Hit;
 
         private void OnTriggerEnter(Collider other)
         {
             if (_damageLayer.Contains(other.gameObject.layer) && other.TryGetComponent(out Health health))
             {
-                _damageDealt[AbilityType.IceStaff] += (int)_damage;
-
-                if (health.TakeDamage(_damage))
-                {
-                    _killCount[AbilityType.IceStaff]++;
-                }
-
+                Hit?.Invoke(health.TakeDamage(_damage));
                 _hitSoundPool.Get(transform).PlayRandomPitch();
 
                 this.SetActive(false);
@@ -42,15 +34,14 @@ namespace Assets.Code.AbilitySystem.Abilities
             Stop();
         }
 
-        public void Initialize(LayerMask damageLayer, float damage, Pool<AudioSource> hitSoundPool, Dictionary<AbilityType, int> damageDealt, Dictionary<AbilityType, int> killCount)
+        public IceSpike Initialize(LayerMask damageLayer, float damage, Pool<AudioSource> hitSoundPool)
         {
             _damageLayer = damageLayer.ThrowIfNull();
             _hitSoundPool = hitSoundPool.ThrowIfNull();
 
-            _damageDealt = damageDealt.ThrowIfNull();
-            _killCount = killCount.ThrowIfNull();
-
             SetDamage(damage);
+
+            return this;
         }
 
         public void SetDamage(float damage)

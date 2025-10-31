@@ -24,103 +24,173 @@ MonoBehaviour:
   <HitSound>k__BackingField: {fileID: 3976638197623613723, guid: 1a8ecd28560bc224cb4ffb93dd5a6bfd, type: 3}
   <ProjectileSound>k__BackingField: {fileID: 0}
   _abilityStats:
-  - <Cooldown>k__BackingField: 11
-    <Damage>k__BackingField: 40
-    <Range>k__BackingField: 20
-    <ProjectilesCount>k__BackingField: 10
-    <IsPiercing>k__BackingField: 0
-    <HealthPercent>k__BackingField: 0
-    <PullForce>k__BackingField: 0
-    <BouncesQuantity>k__BackingField: 2
-    <ThrowDistance>k__BackingField: 0
-    <Cost>k__BackingField: 10
-  - <Cooldown>k__BackingField: 10
-    <Damage>k__BackingField: 44
-    <Range>k__BackingField: 20
-    <ProjectilesCount>k__BackingField: 11
-    <IsPiercing>k__BackingField: 0
-    <HealthPercent>k__BackingField: 0
-    <PullForce>k__BackingField: 0
-    <BouncesQuantity>k__BackingField: 3
-    <ThrowDistance>k__BackingField: 0
-    <Cost>k__BackingField: 20
-  - <Cooldown>k__BackingField: 9.6
-    <Damage>k__BackingField: 50
-    <Range>k__BackingField: 20
-    <ProjectilesCount>k__BackingField: 11
-    <IsPiercing>k__BackingField: 0
-    <HealthPercent>k__BackingField: 0
-    <PullForce>k__BackingField: 0
-    <BouncesQuantity>k__BackingField: 5
-    <ThrowDistance>k__BackingField: 0
-    <Cost>k__BackingField: 30
-  - <Cooldown>k__BackingField: 9.2
-    <Damage>k__BackingField: 56
-    <Range>k__BackingField: 20
-    <ProjectilesCount>k__BackingField: 12
-    <IsPiercing>k__BackingField: 0
-    <HealthPercent>k__BackingField: 0
-    <PullForce>k__BackingField: 0
-    <BouncesQuantity>k__BackingField: 5
-    <ThrowDistance>k__BackingField: 0
-    <Cost>k__BackingField: 40
-  - <Cooldown>k__BackingField: 8.8
-    <Damage>k__BackingField: 62
-    <Range>k__BackingField: 20
-    <ProjectilesCount>k__BackingField: 12
-    <IsPiercing>k__BackingField: 0
-    <HealthPercent>k__BackingField: 0
-    <PullForce>k__BackingField: 0
-    <BouncesQuantity>k__BackingField: 7
-    <ThrowDistance>k__BackingField: 0
-    <Cost>k__BackingField: 50
-  - <Cooldown>k__BackingField: 8.3
-    <Damage>k__BackingField: 66
-    <Range>k__BackingField: 20
-    <ProjectilesCount>k__BackingField: 13
-    <IsPiercing>k__BackingField: 0
-    <HealthPercent>k__BackingField: 0
-    <PullForce>k__BackingField: 0
-    <BouncesQuantity>k__BackingField: 7
-    <ThrowDistance>k__BackingField: 0
-    <Cost>k__BackingField: 250
-  - <Cooldown>k__BackingField: 8
-    <Damage>k__BackingField: 72
-    <Range>k__BackingField: 20
-    <ProjectilesCount>k__BackingField: 13
-    <IsPiercing>k__BackingField: 0
-    <HealthPercent>k__BackingField: 0
-    <PullForce>k__BackingField: 0
-    <BouncesQuantity>k__BackingField: 7
-    <ThrowDistance>k__BackingField: 0
-    <Cost>k__BackingField: 300
-  - <Cooldown>k__BackingField: 7
-    <Damage>k__BackingField: 80
-    <Range>k__BackingField: 20
-    <ProjectilesCount>k__BackingField: 13
-    <IsPiercing>k__BackingField: 0
-    <HealthPercent>k__BackingField: 0
-    <PullForce>k__BackingField: 0
-    <BouncesQuantity>k__BackingField: 8
-    <ThrowDistance>k__BackingField: 0
-    <Cost>k__BackingField: 400
-  - <Cooldown>k__BackingField: 6.5
-    <Damage>k__BackingField: 88
-    <Range>k__BackingField: 20
-    <ProjectilesCount>k__BackingField: 13
-    <IsPiercing>k__BackingField: 0
-    <HealthPercent>k__BackingField: 0
-    <PullForce>k__BackingField: 0
-    <BouncesQuantity>k__BackingField: 9
-    <ThrowDistance>k__BackingField: 0
-    <Cost>k__BackingField: 500
-  - <Cooldown>k__BackingField: 5
-    <Damage>k__BackingField: 100
-    <Range>k__BackingField: 20
-    <ProjectilesCount>k__BackingField: 15
-    <IsPiercing>k__BackingField: 0
-    <HealthPercent>k__BackingField: 0
-    <PullForce>k__BackingField: 0
-    <BouncesQuantity>k__BackingField: 12
-    <ThrowDistance>k__BackingField: 0
-    <Cost>k__BackingField: 750
+  - <Cost>k__BackingField: 10
+    _floatStats:
+      _serializedList:
+      - Key: 0
+        Value: 11
+      - Key: 1
+        Value: 40
+      - Key: 2
+        Value: 20
+    _boolStats:
+      _serializedList: []
+    _intStats:
+      _serializedList:
+      - Key: 0
+        Value: 10
+      - Key: 1
+        Value: 2
+  - <Cost>k__BackingField: 20
+    _floatStats:
+      _serializedList:
+      - Key: 0
+        Value: 10
+      - Key: 1
+        Value: 44
+      - Key: 2
+        Value: 20
+    _boolStats:
+      _serializedList: []
+    _intStats:
+      _serializedList:
+      - Key: 0
+        Value: 11
+      - Key: 1
+        Value: 3
+  - <Cost>k__BackingField: 30
+    _floatStats:
+      _serializedList:
+      - Key: 0
+        Value: 9.6
+      - Key: 1
+        Value: 50
+      - Key: 2
+        Value: 20
+    _boolStats:
+      _serializedList: []
+    _intStats:
+      _serializedList:
+      - Key: 0
+        Value: 11
+      - Key: 1
+        Value: 5
+  - <Cost>k__BackingField: 40
+    _floatStats:
+      _serializedList:
+      - Key: 0
+        Value: 9.2
+      - Key: 1
+        Value: 56
+      - Key: 2
+        Value: 20
+    _boolStats:
+      _serializedList: []
+    _intStats:
+      _serializedList:
+      - Key: 0
+        Value: 12
+      - Key: 1
+        Value: 5
+  - <Cost>k__BackingField: 50
+    _floatStats:
+      _serializedList:
+      - Key: 0
+        Value: 8.8
+      - Key: 1
+        Value: 62
+      - Key: 2
+        Value: 20
+    _boolStats:
+      _serializedList: []
+    _intStats:
+      _serializedList:
+      - Key: 0
+        Value: 12
+      - Key: 1
+        Value: 7
+  - <Cost>k__BackingField: 250
+    _floatStats:
+      _serializedList:
+      - Key: 0
+        Value: 8.3
+      - Key: 1
+        Value: 66
+      - Key: 2
+        Value: 20
+    _boolStats:
+      _serializedList: []
+    _intStats:
+      _serializedList:
+      - Key: 0
+        Value: 13
+      - Key: 1
+        Value: 7
+  - <Cost>k__BackingField: 300
+    _floatStats:
+      _serializedList:
+      - Key: 0
+        Value: 8
+      - Key: 1
+        Value: 72
+      - Key: 2
+        Value: 20
+    _boolStats:
+      _serializedList: []
+    _intStats:
+      _serializedList:
+      - Key: 0
+        Value: 13
+      - Key: 1
+        Value: 7
+  - <Cost>k__BackingField: 400
+    _floatStats:
+      _serializedList:
+      - Key: 0
+        Value: 7
+      - Key: 1
+        Value: 80
+      - Key: 2
+        Value: 20
+    _boolStats:
+      _serializedList: []
+    _intStats:
+      _serializedList:
+      - Key: 0
+        Value: 13
+      - Key: 1
+        Value: 8
+  - <Cost>k__BackingField: 500
+    _floatStats:
+      _serializedList:
+      - Key: 0
+        Value: 6.5
+      - Key: 1
+        Value: 88
+      - Key: 2
+        Value: 20
+    _boolStats:
+      _serializedList: []
+    _intStats:
+      _serializedList:
+      - Key: 0
+        Value: 13
+      - Key: 1
+        Value: 9
+  - <Cost>k__BackingField: 750
+    _floatStats:
+      _serializedList:
+      - Key: 0
+        Value: 5
+      - Key: 1
+        Value: 100
+      - Key: 2
+        Value: 20
+    _boolStats:
+      _serializedList: []
+    _intStats:
+      _serializedList:
+      - Key: 0
+        Value: 15
+      - Key: 1
+        Value: 12

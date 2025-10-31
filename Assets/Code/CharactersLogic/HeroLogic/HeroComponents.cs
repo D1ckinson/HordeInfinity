@@ -1,6 +1,7 @@
 ﻿using Assets.Code.AbilitySystem;
 using Assets.Code.CharactersLogic.Movement;
 using Assets.Code.Tools;
+using Assets.Code.Ui.Buff_View;
 using Assets.Scripts;
 using Assets.Scripts.Configs;
 using Assets.Scripts.Movement;
@@ -15,6 +16,7 @@ namespace Assets.Code.CharactersLogic.HeroLogic
     public class HeroComponents : MonoBehaviour
     {
         [field: SerializeField] public Transform Center { get; private set; }
+        [field: SerializeField] public BuffView BuffView { get; private set; }
 
         private Vector3 _defaultPosition;
 
@@ -23,8 +25,8 @@ namespace Assets.Code.CharactersLogic.HeroLogic
         public AbilityContainer AbilityContainer { get; } = new();
         public HeroLevel HeroLevel { get; private set; }
         public Animator Animator { get; private set; }
-        public NewMover Mover { get; private set; }
-        public NewRotator Rotator { get; private set; }
+        public Mover Mover { get; private set; }
+        public Rotator Rotator { get; private set; }
 
         private void Awake()
         {

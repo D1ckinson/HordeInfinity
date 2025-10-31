@@ -21,8 +21,8 @@ namespace Assets.Code.CharactersLogic.EnemyLogic
         public DeathTriger DeathTriger { get; private set; }
         public CharacterType CharacterType { get; private set; }
         public Rigidbody Rigidbody { get; private set; }
-        public NewMover Mover { get; private set; }
-        public NewRotator Rotator { get; private set; }
+        public Mover Mover { get; private set; }
+        public Rotator Rotator { get; private set; }
         public EnemyBooster Booster { get; private set; }
 
         private void Awake()

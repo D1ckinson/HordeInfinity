@@ -2,13 +2,14 @@
 using Assets.Code.Tools;
 using Assets.Scripts;
 using Assets.Scripts.Tools;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace Assets.Code.AbilitySystem.Abilities
 {
-    public class HolyRune : MonoBehaviour
+    public class HolyRune : MonoBehaviour, IProjectile
     {
         [SerializeField][Range(0.1f, 2f)] private float _scaleChangeDuration = 0.7f;
         [SerializeField] private Follower _follower;
@@ -20,12 +21,16 @@ namespace Assets.Code.AbilitySystem.Abilities
         private LayerMask _damageLayer;
         private float _damage;
 
-        private Dictionary<AbilityType, int> _damageDealt;
-        private Dictionary<AbilityType, int> _killCount;
+        public event Action<HitResult> Hit;
 
         private void Awake()
         {
             transform.localScale = Vector3.zero;
+        }
+
+        private void OnDisable()
+        {
+            _health.ForEach(health => health.Died -= Remove);
         }
 
         private void OnTriggerEnter(Collider other)
@@ -50,16 +55,14 @@ namespace Assets.Code.AbilitySystem.Abilities
             }
         }
 
-        public void Initialize(float damage, float radius, LayerMask damageLayer, Transform followTarget, ITimeService timeService,
-            Dictionary<AbilityType, int> damageDealt, Dictionary<AbilityType, int> killCount)
+        public HolyRune Initialize(float damage, float radius, LayerMask damageLayer, Transform followTarget, ITimeService timeService)
         {
             _damageLayer = damageLayer.ThrowIfNull();
             SetStats(damage, radius);
             _follower.Follow(followTarget);
             _soundPause.Initialize(timeService);
 
-            _damageDealt = damageDealt.ThrowIfNull();
-            _killCount = killCount.ThrowIfNull();
+            return this;
         }
 
         public void SetStats(float damage, float radius)
@@ -74,12 +77,7 @@ namespace Assets.Code.AbilitySystem.Abilities
         {
             for (int i = _health.LastIndex(); i >= Constants.Zero; i--)
             {
-                _damageDealt[AbilityType.HolyGround] += (int)_damage;
-
-                if (_health[i].TakeDamage(_damage))
-                {
-                    _killCount[AbilityType.HolyGround]++;
-                }
+                Hit?.Invoke(_health[i].TakeDamage(_damage));
             }
         }
 

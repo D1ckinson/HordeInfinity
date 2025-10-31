@@ -1,4 +1,5 @@
 ﻿using Assets.Code.Tools;
+using Assets.Scripts;
 using Assets.Scripts.Tools;
 using System.Collections;
 using System.Collections.Generic;
@@ -8,32 +9,29 @@ namespace Assets.Code.AbilitySystem.Abilities
 {
     public class GhostSwords : Ability
     {
-        private readonly WaitForSeconds _actionWait = new(0.05f);
+        private readonly WaitForSeconds _actionDelay = new(0.05f);
         private readonly Transform _heroCenter;
         private readonly Pool<GhostSword> _pool;
         private readonly List<GhostSword> _spawnedSwords = new();
         private readonly AudioSource _throwSound;
         private readonly AudioSource _appearingSound;
 
-        private float _damage;
-        private int _projectilesCount;
-
         public GhostSwords(AbilityConfig config, Dictionary<AbilityType, int> abilityUnlockLevel, Transform heroCenter,
-            Dictionary<AbilityType, int> damageDealt, Dictionary<AbilityType, int> killCount, int level = 1) : base(config, abilityUnlockLevel, level)
+            BattleMetrics battleMetrics, int level = 1) : base(config, abilityUnlockLevel, battleMetrics, level)
         {
             _heroCenter = heroCenter.ThrowIfNull();
-            AbilityStats stats = config.ThrowIfNull().GetStats(level);
-
-            _damage = stats.Damage;
-            _projectilesCount = stats.ProjectilesCount;
 
             _throwSound = config.ThrowSound.Instantiate(heroCenter.transform);
             _appearingSound = config.AppearingSound.Instantiate(heroCenter.transform);
 
             GhostSword CreateSword()
             {
-                GhostSword sword = config.ProjectilePrefab.GetComponentOrThrow<GhostSword>().Instantiate();
-                sword.Initialize(_damage, stats.IsPiercing, config.DamageLayer, damageDealt, killCount);
+                GhostSword sword = config.ProjectilePrefab
+                    .GetComponentOrThrow<GhostSword>()
+                    .Instantiate()
+                    .Initialize(CurrentStats.Get(FloatStatType.Damage), CurrentStats.Get(BoolStatType.IsPiercing), config.DamageLayer);
+
+                sword.Hit += RecordHitResult;
 
                 return sword;
             }
@@ -46,21 +44,13 @@ namespace Assets.Code.AbilitySystem.Abilities
             CoroutineService.StartCoroutine(SpawnSwords(), this);
         }
 
-        protected override void UpdateStats(AbilityStats stats)
-        {
-            stats.ThrowIfNull();
-            _damage = stats.Damage;
-            _projectilesCount = stats.ProjectilesCount;
-            _pool.ForEach(sword => sword.SetStats(_damage, stats.IsPiercing));
-        }
-
         private IEnumerator SpawnSwords()
         {
-            for (int i = Constants.Zero; i < _projectilesCount; i++)
+            for (int i = Constants.Zero; i < CurrentStats.Get(IntStatType.ProjectilesCount); i++)
             {
                 GhostSword sword = _pool.Get(false);
 
-                float angle = i * (Constants.FullCircleDegrees / _projectilesCount);
+                float angle = i * (Constants.FullCircleDegrees / CurrentStats.Get(IntStatType.ProjectilesCount));
 
                 Vector3 localPosition = CalculateSwordLocalPosition(angle);
                 sword.transform.SetParent(_heroCenter);
@@ -72,7 +62,7 @@ namespace Assets.Code.AbilitySystem.Abilities
                 _spawnedSwords.Add(sword);
                 _appearingSound.Play();
 
-                yield return _actionWait;
+                yield return _actionDelay;
             }
 
             CoroutineService.StartCoroutine(LaunchSwords(), this);
@@ -95,7 +85,7 @@ namespace Assets.Code.AbilitySystem.Abilities
                 _spawnedSwords[i].Launch();
                 _throwSound.Play();
 
-                yield return _actionWait;
+                yield return _actionDelay;
             }
 
             _spawnedSwords.Clear();
@@ -104,9 +94,17 @@ namespace Assets.Code.AbilitySystem.Abilities
         public override void Dispose()
         {
             CoroutineService.StopAllCoroutines(this);
+
+            _pool.ForEach(sword => sword.Hit -= RecordHitResult);
+            _pool.DestroyAll();
+
             _appearingSound.DestroyGameObject();
             _throwSound.DestroyGameObject();
-            _pool.DestroyAll();
+        }
+
+        protected override void OnStatsUpdate()
+        {
+            _pool.ForEach(sword => sword.SetStats(CurrentStats.Get(FloatStatType.Damage), CurrentStats.Get(BoolStatType.IsPiercing)));
         }
     }
 }

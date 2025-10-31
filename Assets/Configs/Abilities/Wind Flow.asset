@@ -34,6 +34,18 @@ MonoBehaviour:
     <BouncesQuantity>k__BackingField: 0
     <ThrowDistance>k__BackingField: 0
     <Cost>k__BackingField: 10
+    _floatStats:
+      _serializedList:
+      - Key: 0
+        Value: 10
+      - Key: 1
+        Value: 0
+    _boolStats:
+      _serializedList: []
+    _intStats:
+      _serializedList:
+      - Key: 0
+        Value: 3
   - <Cooldown>k__BackingField: 9.6
     <Damage>k__BackingField: 0
     <Range>k__BackingField: 0
@@ -44,6 +56,18 @@ MonoBehaviour:
     <BouncesQuantity>k__BackingField: 0
     <ThrowDistance>k__BackingField: 0
     <Cost>k__BackingField: 20
+    _floatStats:
+      _serializedList:
+      - Key: 0
+        Value: 9.6
+      - Key: 1
+        Value: 0
+    _boolStats:
+      _serializedList: []
+    _intStats:
+      _serializedList:
+      - Key: 0
+        Value: 3
   - <Cooldown>k__BackingField: 9.3
     <Damage>k__BackingField: 10
     <Range>k__BackingField: 0
@@ -54,6 +78,18 @@ MonoBehaviour:
     <BouncesQuantity>k__BackingField: 0
     <ThrowDistance>k__BackingField: 0
     <Cost>k__BackingField: 30
+    _floatStats:
+      _serializedList:
+      - Key: 0
+        Value: 9.3
+      - Key: 1
+        Value: 10
+    _boolStats:
+      _serializedList: []
+    _intStats:
+      _serializedList:
+      - Key: 0
+        Value: 3
   - <Cooldown>k__BackingField: 9
     <Damage>k__BackingField: 10
     <Range>k__BackingField: 0
@@ -64,6 +100,18 @@ MonoBehaviour:
     <BouncesQuantity>k__BackingField: 0
     <ThrowDistance>k__BackingField: 0
     <Cost>k__BackingField: 40
+    _floatStats:
+      _serializedList:
+      - Key: 0
+        Value: 9
+      - Key: 1
+        Value: 10
+    _boolStats:
+      _serializedList: []
+    _intStats:
+      _serializedList:
+      - Key: 0
+        Value: 4
   - <Cooldown>k__BackingField: 8.7
     <Damage>k__BackingField: 20
     <Range>k__BackingField: 0
@@ -74,6 +122,18 @@ MonoBehaviour:
     <BouncesQuantity>k__BackingField: 0
     <ThrowDistance>k__BackingField: 0
     <Cost>k__BackingField: 50
+    _floatStats:
+      _serializedList:
+      - Key: 0
+        Value: 8.7
+      - Key: 1
+        Value: 20
+    _boolStats:
+      _serializedList: []
+    _intStats:
+      _serializedList:
+      - Key: 0
+        Value: 4
   - <Cooldown>k__BackingField: 8.5
     <Damage>k__BackingField: 25
     <Range>k__BackingField: 0
@@ -84,6 +144,18 @@ MonoBehaviour:
     <BouncesQuantity>k__BackingField: 0
     <ThrowDistance>k__BackingField: 0
     <Cost>k__BackingField: 300
+    _floatStats:
+      _serializedList:
+      - Key: 0
+        Value: 8.5
+      - Key: 1
+        Value: 25
+    _boolStats:
+      _serializedList: []
+    _intStats:
+      _serializedList:
+      - Key: 0
+        Value: 4
   - <Cooldown>k__BackingField: 8
     <Damage>k__BackingField: 30
     <Range>k__BackingField: 0
@@ -94,6 +166,18 @@ MonoBehaviour:
     <BouncesQuantity>k__BackingField: 0
     <ThrowDistance>k__BackingField: 0
     <Cost>k__BackingField: 350
+    _floatStats:
+      _serializedList:
+      - Key: 0
+        Value: 8
+      - Key: 1
+        Value: 30
+    _boolStats:
+      _serializedList: []
+    _intStats:
+      _serializedList:
+      - Key: 0
+        Value: 5
   - <Cooldown>k__BackingField: 8
     <Damage>k__BackingField: 30
     <Range>k__BackingField: 0
@@ -104,6 +188,18 @@ MonoBehaviour:
     <BouncesQuantity>k__BackingField: 0
     <ThrowDistance>k__BackingField: 0
     <Cost>k__BackingField: 400
+    _floatStats:
+      _serializedList:
+      - Key: 0
+        Value: 8
+      - Key: 1
+        Value: 30
+    _boolStats:
+      _serializedList: []
+    _intStats:
+      _serializedList:
+      - Key: 0
+        Value: 5
   - <Cooldown>k__BackingField: 7
     <Damage>k__BackingField: 30
     <Range>k__BackingField: 0
@@ -114,6 +210,18 @@ MonoBehaviour:
     <BouncesQuantity>k__BackingField: 0
     <ThrowDistance>k__BackingField: 0
     <Cost>k__BackingField: 450
+    _floatStats:
+      _serializedList:
+      - Key: 0
+        Value: 7
+      - Key: 1
+        Value: 30
+    _boolStats:
+      _serializedList: []
+    _intStats:
+      _serializedList:
+      - Key: 0
+        Value: 5
   - <Cooldown>k__BackingField: 6
     <Damage>k__BackingField: 50
     <Range>k__BackingField: 0
@@ -124,3 +232,15 @@ MonoBehaviour:
     <BouncesQuantity>k__BackingField: 0
     <ThrowDistance>k__BackingField: 0
     <Cost>k__BackingField: 500
+    _floatStats:
+      _serializedList:
+      - Key: 0
+        Value: 6
+      - Key: 1
+        Value: 50
+    _boolStats:
+      _serializedList: []
+    _intStats:
+      _serializedList:
+      - Key: 0
+        Value: 6

@@ -1,18 +1,19 @@
 ﻿using Assets.Code.Tools;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace Assets.Code.AbilitySystem
 {
-    public readonly struct AbilityUpgradeOption
+    public readonly struct UpgradeOption
     {
-        public readonly AbilityType Type;
+        public readonly Enum Type;
         public readonly int NextLevel;
         public readonly List<string> Stats;
         public readonly Sprite Icon;
         public readonly string Name;
 
-        public AbilityUpgradeOption(AbilityType type, int nextLevel, List<string> statsDescription, Sprite icon, string name)
+        public UpgradeOption(Enum type, int nextLevel, List<string> statsDescription, Sprite icon, string name)
         {
             Type = type.ThrowIfNull();
             NextLevel = nextLevel.ThrowIfNegative();

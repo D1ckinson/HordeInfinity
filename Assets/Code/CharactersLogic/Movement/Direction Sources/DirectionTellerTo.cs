@@ -41,7 +41,7 @@ namespace Assets.Scripts.Movement
             DirectionChanged?.Invoke(_moveDirection);
         }
 
-        private void CalculateDirection()
+        private void CalculateDirection(float deltaTime)
         {
             if (_owner.IsActive() == false || _target.IsNull() || _target.IsActive() == false)
             {
@@ -50,7 +50,7 @@ namespace Assets.Scripts.Movement
                 return;
             }
 
-            _time -= Time.deltaTime;
+            _time -= deltaTime;
 
             if (_time > Constants.Zero)
             {

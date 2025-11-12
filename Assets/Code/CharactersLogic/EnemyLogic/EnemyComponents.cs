@@ -1,4 +1,5 @@
 ﻿using Assets.Code.CharactersLogic.Movement;
+using Assets.Code.Data;
 using Assets.Code.Tools;
 using Assets.Scripts;
 using Assets.Scripts.Configs;
@@ -38,10 +39,16 @@ namespace Assets.Code.CharactersLogic.EnemyLogic
         {
             config.ThrowIfNull();
 
-            Mover = new(directionSource, Rigidbody, GetComponent<Animator>(), config.MoveSpeed);
+            ValueContainer speed = new(config.MoveSpeed);
+            Mover = new(directionSource, Rigidbody, GetComponent<Animator>(), speed);
             Rotator = new(directionSource, Rigidbody, config.RotationSpeed);
 
-            Health.Initialize(config.MaxHealth, config.InvincibilityDuration, config.InvincibilityTriggerPercent);
+            Regenerator regenerator = new(Health, config.Regeneration);
+            ValueContainer resist = new(config.Resist);
+            float triggerValue = config.MaxHealth * Constants.PercentToMultiplier(config.InvincibilityTriggerPercent);
+            Invincibility invincibility = new(config.InvincibilityDuration, triggerValue);
+            Health.Initialize(config.MaxHealth, invincibility, regenerator, resist);
+
             CollisionDamage.Initialize(config.Damage, config.DamageLayer);
             DeathTriger.Initialize(Health, Mover, Rotator, lootFactory, config.Loot);
             Booster.Initialize(Mover, Health);

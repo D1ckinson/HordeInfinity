@@ -24,10 +24,10 @@ namespace Assets.Code.AbilitySystem.Abilities
         protected override void Apply()
         {
             _holyRune.DealDamage();
-            Debug.Log(CurrentStats.Get(FloatStatType.Damage));
+            Debug.Log($"Урон {CurrentStats.Get(FloatStatType.Damage)} КД {CurrentStats.Get(FloatStatType.Cooldown)}");
         }
 
-        public override void Dispose()
+        protected override void OnDispose()
         {
             _holyRune.Hit -= RecordHitResult;
             _holyRune.DestroyGameObject();

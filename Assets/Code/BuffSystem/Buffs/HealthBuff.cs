@@ -10,7 +10,13 @@ namespace Assets.Code.BuffSystem
         public override void Apply()
         {
             Health health = Hero.Health;
-            health.SetMaxValue(health.MaxValue + Value);
+            health.SetMaxValue(health.DefaultMaxValue + Value);
+        }
+
+        protected override void OnLevelUp()
+        {
+            Health health = Hero.Health;
+            health.SetMaxValue(health.DefaultMaxValue + Value);
         }
     }
 }

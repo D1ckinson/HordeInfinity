@@ -1,4 +1,5 @@
-﻿using Assets.Code.Tools;
+﻿using Assets.Code.Data;
+using Assets.Code.Tools;
 using Assets.Scripts.Movement;
 using UnityEngine;
 
@@ -8,30 +9,25 @@ namespace Assets.Code.CharactersLogic.Movement
     {
         private readonly ITellDirection _directionSource;
         private readonly Rigidbody _rigidbody;
-
-        private readonly float _defaultSpeed;
-        private readonly float _minSpeed;
-        private readonly float _maxSpeed;
         private readonly Animator _animator;
 
         private Vector3 _direction;
 
-        public Mover(ITellDirection directionSource, Rigidbody rigidbody, Animator animator, float defaultSpeed, float minSpeed = 0, float maxSpeed = float.MaxValue)
+        public Mover(
+            ITellDirection directionSource,
+            Rigidbody rigidbody,
+            Animator animator,
+            ValueContainer speed)
         {
             _directionSource = directionSource.ThrowIfNull();
             _rigidbody = rigidbody.ThrowIfNull();
             _animator = animator.ThrowIfNull();
-
-            _defaultSpeed = defaultSpeed.ThrowIfNegative();
-            _minSpeed = minSpeed.ThrowIfNegative();
-            _maxSpeed = maxSpeed.ThrowIfNegative();
-
-            Speed = _defaultSpeed;
+            Speed = speed.ThrowIfNull();
         }
 
         ~Mover()
         {
-            if (_directionSource.NotNull())
+            if (_directionSource.IsNotNull())
             {
                 _directionSource.DirectionChanged -= SetDirection;
             }
@@ -39,12 +35,13 @@ namespace Assets.Code.CharactersLogic.Movement
             UpdateService.UnregisterFixedUpdate(Move);
         }
 
-        public float Speed { get; private set; }
+        public ValueContainer Speed { get; }
 
         public void Run()
         {
             _directionSource.Enable();
             _directionSource.DirectionChanged += SetDirection;
+
             UpdateService.RegisterFixedUpdate(Move);
         }
 
@@ -52,32 +49,15 @@ namespace Assets.Code.CharactersLogic.Movement
         {
             _directionSource.Disable();
             _directionSource.DirectionChanged -= SetDirection;
+
             UpdateService.UnregisterFixedUpdate(Move);
         }
 
-        public void AddSpeed(float speed)
+        private void Move(float fixedDeltaTime)
         {
-            float resultSpeed = Speed += speed.ThrowIfNegative();
-
-            Speed = resultSpeed > _maxSpeed ? _maxSpeed : resultSpeed;
-        }
-
-        public void RemoveSpeed(float speed)
-        {
-            float resultSpeed = Speed -= speed.ThrowIfNegative();
-
-            Speed = resultSpeed > _minSpeed ? resultSpeed : _minSpeed;
-        }
-
-        public void ResetSpeed()
-        {
-            Speed = _defaultSpeed;
-        }
-
-        private void Move()
-        {
-            Vector3 position = _rigidbody.position + _direction * (Speed * Time.fixedDeltaTime);
+            Vector3 position = _rigidbody.position + _direction * (Speed.Value * fixedDeltaTime);
             _rigidbody.MovePosition(position);
+            Debug.Log($"Скорость {Speed.Value}");
         }
 
         private void SetDirection(Vector3 direction)

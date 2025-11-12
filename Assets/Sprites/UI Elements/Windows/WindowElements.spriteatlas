@@ -55,6 +55,7 @@ SpriteAtlas:
     - {fileID: 2800000, guid: d73b4bd8452e5e849b3df52a27ac973c, type: 3}
     - {fileID: 2800000, guid: 8886293690a0312409ce08660822b7d4, type: 3}
     - {fileID: 2800000, guid: 47917e959865dd045973bc9b4370b98d, type: 3}
+    - {fileID: 2800000, guid: 247d34adcda136841a075f60b6aa3bcf, type: 3}
     bindAsDefault: 1
     isAtlasV2: 0
     cachedData: {fileID: 0}
@@ -69,6 +70,7 @@ SpriteAtlas:
     - d73b4bd8452e5e849b3df52a27ac973c: 21300000
     - 62f141cac4daaf347928ec5030c4a7d6: 21300000
     - 7bdb4a6c0a920214b9224b3fcbecc757: 21300000
+    - 247d34adcda136841a075f60b6aa3bcf: 21300000
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
   - {fileID: 21300000, guid: f85aec5070791ea438b477275046a0fd, type: 3}
@@ -81,6 +83,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: d73b4bd8452e5e849b3df52a27ac973c, type: 3}
   - {fileID: 21300000, guid: 62f141cac4daaf347928ec5030c4a7d6, type: 3}
   - {fileID: 21300000, guid: 7bdb4a6c0a920214b9224b3fcbecc757, type: 3}
+  - {fileID: 21300000, guid: 247d34adcda136841a075f60b6aa3bcf, type: 3}
   m_PackedSpriteNamesToIndex:
   - panel-025
   - divider-fade-001
@@ -92,6 +95,7 @@ SpriteAtlas:
   - panel-border-015
   - panel-028
   - panel-007
+  - panel-transparent-center-025
   m_RenderDataMap: {}
   m_Tag: WindowElements
   m_IsVariant: 0

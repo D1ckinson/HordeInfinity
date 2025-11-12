@@ -53,7 +53,7 @@ namespace Assets.Code.Ui.Windows
         {
             foreach (ShopOption shopOption in _options.Values)
             {
-                if (shopOption.NotNull() && shopOption.UpgradeButton.NotNull())
+                if (shopOption.IsNotNull() && shopOption.UpgradeButton.IsNotNull())
                 {
                     shopOption.UpgradeButton.UnsubscribeAll();
                 }
@@ -61,13 +61,13 @@ namespace Assets.Code.Ui.Windows
 
             foreach (StartAbilityOption shopOption in _startOptions.Values)
             {
-                if (shopOption.NotNull() && shopOption.ChoseButton.NotNull())
+                if (shopOption.IsNotNull() && shopOption.ChoseButton.IsNotNull())
                 {
                     shopOption.ChoseButton.UnsubscribeAll();
                 }
             }
 
-            if (_playerData.NotNull() && _playerData.Wallet.NotNull())
+            if (_playerData.IsNotNull() && _playerData.Wallet.IsNotNull())
             {
                 _playerData.Wallet.ValueChanged -= UpdateAllOptions;
             }

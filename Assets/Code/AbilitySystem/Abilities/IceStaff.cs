@@ -41,7 +41,7 @@ namespace Assets.Code.AbilitySystem.Abilities
             }
         }
 
-        public override void Dispose()
+        protected override void OnDispose()
         {
             CoroutineService.StopAllCoroutines(this);
 
@@ -76,7 +76,7 @@ namespace Assets.Code.AbilitySystem.Abilities
                 else
                 {
                     Collider collider = _colliders
-                        .Where(collider => collider.NotNull())
+                        .Where(collider => collider.IsNotNull())
                         .OrderBy(collider => (collider.transform.position - _heroCenter.position).sqrMagnitude)
                         .First();
 

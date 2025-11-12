@@ -17,7 +17,8 @@ MonoBehaviour:
   <MaxHealth>k__BackingField: 100
   <Regeneration>k__BackingField: 0
   <InvincibilityDuration>k__BackingField: 0.1
-  <InvincibilityTriggerPercent>k__BackingField: 90
+  <InvincibilityTriggerPercent>k__BackingField: 10
+  <Resist>k__BackingField: 0
   <MoveSpeed>k__BackingField: 6.2
   <RotationSpeed>k__BackingField: 200
   <Damage>k__BackingField: 10

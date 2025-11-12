@@ -175,7 +175,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _speedForMinute: 2
-  _healthForMinute: 100
+  _healthForMinute: 1
 --- !u!1 &470339634672599374
 GameObject:
   m_ObjectHideFlags: 0

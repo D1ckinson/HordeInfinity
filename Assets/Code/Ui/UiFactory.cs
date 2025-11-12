@@ -61,6 +61,11 @@ namespace Assets.Code.Ui
             return (T)window;
         }
 
+        public bool IsActive<T>() where T : BaseWindow
+        {
+            return _windows.TryGetValue(typeof(T), out BaseWindow window) && window.IsActive();
+        }
+
         private BaseWindow CreateFadeWindow()
         {
             return _uIConfig.FadeWindow.Instantiate(_canvas.FadeContainer, false);

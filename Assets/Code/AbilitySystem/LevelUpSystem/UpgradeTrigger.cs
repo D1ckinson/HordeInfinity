@@ -1,12 +1,10 @@
-﻿using Assets.Scripts;
-using Assets.Scripts.Ui;
-using Assets.Code.Tools;
-using System.Collections.Generic;
-using System.Linq;
-using Random = UnityEngine.Random;
-using UnityEngine;
+﻿using Assets.Code.Tools;
+using Assets.Scripts;
 using Assets.Scripts.Factories;
-using Assets.Code.Data;
+using Assets.Scripts.Ui;
+using System;
+using System.Collections.Generic;
+using UnityEngine;
 
 namespace Assets.Code.AbilitySystem
 {
@@ -15,40 +13,40 @@ namespace Assets.Code.AbilitySystem
         private const int SuggestedUpgradesCount = 3;
         private const int CoinsCount = 5;
 
-        private readonly HeroLevel _heroExperience;
-        private readonly Dictionary<AbilityType, AbilityConfig> _abilityConfigs;
-        private readonly AbilityContainer _abilityContainer;
+        private readonly HeroLevel _heroLevel;
         private readonly LevelUpWindow _levelUpWindow;
-        private readonly AbilityFactory _abilityFactory;
         private readonly ITimeService _timeService;
-        private readonly Dictionary<AbilityType, int> _abilityUnlockLevel;
         private readonly LootFactory _lootFactory;
         private readonly Transform _hero;
+        private readonly Upgrader _upgrader;
+        private readonly PseudoRandomUpgradeSelector _upgradeSelector;
 
-        public UpgradeTrigger
-            (HeroLevel heroExperience, Dictionary<AbilityType, AbilityConfig> abilityConfigs,
-            AbilityContainer abilityContainer, LevelUpWindow levelUpWindow, AbilityFactory abilityFactory,
-            ITimeService timeService, Dictionary<AbilityType, int> abilityUnlockLevel, LootFactory lootFactory, Transform hero)
+        public UpgradeTrigger(
+            HeroLevel heroLevel,
+            LevelUpWindow levelUpWindow,
+            ITimeService timeService,
+            LootFactory lootFactory,
+            Transform hero,
+            Upgrader upgrader,
+            PseudoRandomUpgradeSelector upgradeSelector)
         {
-            _heroExperience = heroExperience.ThrowIfNull();
-            _abilityContainer = abilityContainer.ThrowIfNull();
-            _abilityConfigs = abilityConfigs.ThrowIfNullOrEmpty();
+            _heroLevel = heroLevel.ThrowIfNull();
             _levelUpWindow = levelUpWindow.ThrowIfNull();
-            _abilityFactory = abilityFactory.ThrowIfNull();
             _timeService = timeService.ThrowIfNull();
-            _abilityUnlockLevel = abilityUnlockLevel.ThrowIfNullOrEmpty();
             _lootFactory = lootFactory.ThrowIfNull();
             _hero = hero.ThrowIfNull();
+            _upgrader = upgrader.ThrowIfNull();
+            _upgradeSelector = upgradeSelector.ThrowIfNull();
         }
 
         ~UpgradeTrigger()
         {
-            if (_heroExperience.NotNull())
+            if (_heroLevel.IsNotNull())
             {
-                _heroExperience.LevelChanged -= GenerateUpgrades;
+                _heroLevel.LevelChanged -= GenerateUpgrades;
             }
 
-            if (_levelUpWindow.NotNull())
+            if (_levelUpWindow.IsNotNull())
             {
                 _levelUpWindow.UpgradeChosen -= UpgradeAbility;
             }
@@ -58,15 +56,16 @@ namespace Assets.Code.AbilitySystem
 
         public void Run()
         {
-            _heroExperience.LevelChanged += GenerateUpgrades;
+            _heroLevel.LevelChanged += GenerateUpgrades;
             _levelUpWindow.UpgradeChosen += UpgradeAbility;
         }
 
         public void Stop()
         {
             _levelUpWindow.Hide();
+            _upgradeSelector.Reset();
 
-            _heroExperience.LevelChanged -= GenerateUpgrades;
+            _heroLevel.LevelChanged -= GenerateUpgrades;
             _levelUpWindow.UpgradeChosen -= UpgradeAbility;
         }
 
@@ -77,48 +76,12 @@ namespace Assets.Code.AbilitySystem
                 return;
             }
 
-            List<AbilityType> possibleUpgrades = Constants.GetEnums<AbilityType>()
-                .Except(_abilityContainer.MaxedAbilities)
-                .Except(_abilityUnlockLevel.Where(pair => pair.Value == Constants.Zero).Select(pair => pair.Key))
-                .ToList();
-
-            List<AbilityUpgradeOption> upgradeOptions = new();
-
-            for (int i = Constants.Zero; i < SuggestedUpgradesCount; i++)
-            {
-                if (possibleUpgrades.Count == Constants.Zero)
-                {
-                    break;
-                }
-
-                int index = Random.Range(Constants.Zero, possibleUpgrades.LastIndex());
-                AbilityType abilityType = possibleUpgrades[index];
-                possibleUpgrades.RemoveAt(index);
-
-                int abilityLevel = _abilityContainer.GetAbilityLevel(abilityType);
-
-                AbilityConfig abilityConfig = _abilityConfigs[abilityType];
-                AbilityStats nextStats = abilityConfig.GetStats(abilityLevel + Constants.One);
-                List<string> statsDescription;
-
-                if (abilityLevel > Constants.Zero)
-                {
-                    statsDescription = abilityConfig
-                        .GetStats(abilityLevel)
-                        .GetStatsDifference(nextStats);
-                }
-                else
-                {
-                    statsDescription = nextStats.GetStatsDescription();
-                }
-
-                upgradeOptions.Add(new(abilityType, abilityLevel, statsDescription, abilityConfig.Icon, UIText.AbilityName[abilityType]));
-            }
+            List<UpgradeOption> upgradeOptions = _upgradeSelector.Generate(SuggestedUpgradesCount);
 
             if (upgradeOptions.Count == Constants.Zero)
             {
                 _lootFactory.Spawn(Loot.LootType.Coin, _hero.position, CoinsCount);
-                _heroExperience.DecreaseLevelUpsCount();
+                _heroLevel.DecreaseLevelUpsCount();
 
                 return;
             }
@@ -127,26 +90,14 @@ namespace Assets.Code.AbilitySystem
             _levelUpWindow.Show(upgradeOptions, level);
         }
 
-        private void UpgradeAbility(AbilityType abilityType)
+        private void UpgradeAbility(Enum abilityType)
         {
-            abilityType.ThrowIfNull();
+            _upgrader.Upgrade(abilityType);
+            _heroLevel.DecreaseLevelUpsCount();
 
-            switch (_abilityContainer.HasAbility(abilityType))
+            if (_heroLevel.LevelUpsCount > Constants.Zero)
             {
-                case true:
-                    _abilityContainer.Upgrade(abilityType);
-                    break;
-
-                case false:
-                    _abilityContainer.Add(_abilityFactory.Create(abilityType));
-                    break;
-            }
-
-            _heroExperience.DecreaseLevelUpsCount();
-
-            if (_heroExperience.LevelUpsCount > Constants.Zero)
-            {
-                GenerateUpgrades(_heroExperience.Level - _heroExperience.LevelUpsCount);
+                GenerateUpgrades(_heroLevel.Level - _heroLevel.LevelUpsCount);
             }
             else
             {

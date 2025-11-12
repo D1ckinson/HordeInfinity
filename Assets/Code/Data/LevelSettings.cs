@@ -1,4 +1,5 @@
 using Assets.Code;
+using Assets.Code.BuffSystem;
 using Assets.Code.Data.Setting_Structures;
 using Assets.Code.Shop;
 using Assets.Code.Spawners;
@@ -33,9 +34,8 @@ namespace Assets.Scripts.Configs
         [field: SerializeField] public GameAreaSettings GameAreaSettings { get; private set; }
 
         [field: Header("Abilities")]
-
         [field: SerializeField] private AbilityConfig[] _abilitiesConfigs;
-
+        [field: SerializeField] private BuffConfig[] _buffConfigs;
 
         [field: Header("Music")]
         [field: SerializeField] public AudioSource BackgroundMusic { get; private set; }
@@ -56,5 +56,6 @@ namespace Assets.Scripts.Configs
         public Dictionary<AbilityType, int[]> UpgradeCost => _abilitiesConfigs.ToDictionary(config => config.Type, config => config.UpgradesCost);
         public Dictionary<AbilityType, AbilityConfig> AbilityConfigs => _abilitiesConfigs.ToDictionary(config => config.Type);
         public Dictionary<CharacterType, CharacterConfig> EnemyConfigs => _enemiesConfigs.ToDictionary(config => config.Type);
+        public Dictionary<BuffType, BuffConfig> BuffConfigs => _buffConfigs.ToDictionary(config => config.Type);
     }
 }

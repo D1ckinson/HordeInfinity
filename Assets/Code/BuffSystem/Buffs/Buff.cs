@@ -14,7 +14,6 @@ namespace Assets.Code.BuffSystem
 
             Level = level.ThrowIfZeroOrLess().ThrowIfMoreThan(_config.MaxLevel);
             Value = _config.GetValue(Level);
-            Apply();
         }
 
         public BuffType Type => _config.Type;
@@ -27,9 +26,11 @@ namespace Assets.Code.BuffSystem
         {
             Level++;
             Value = _config.GetValue(Level);
-            Apply();
+            OnLevelUp();
         }
 
         public abstract void Apply();
+
+        protected abstract void OnLevelUp();
     }
 }

@@ -2,6 +2,10 @@
 {
     public enum BuffType
     {
-        Health
+        Health,
+        Regeneration,
+        Damage,
+        Cooldown,
+        Speed
     }
 }

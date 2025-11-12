@@ -103,7 +103,7 @@ namespace Assets.Scripts
             _collectArea.radius = _attractionRadius;
         }
 
-        private void TransferExperience()
+        private void TransferExperience(float deltaTime)
         {
             if (_heroLevel.IsNull())
             {
@@ -119,7 +119,7 @@ namespace Assets.Scripts
             }
         }
 
-        private void AttractLoot()
+        private void AttractLoot(float deltaTime)
         {
             for (int i = _loots.LastIndex(); i >= Constants.Zero; i--)
             {

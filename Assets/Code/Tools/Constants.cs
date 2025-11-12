@@ -14,9 +14,24 @@ namespace Assets.Code.Tools
         public const float SecondsInMinute = 60;
         public const string LeaderboardName = "TimeLeaderboard";
 
-        public static float PercentToMultiplier(float value)
+        public static float PercentToMultiplier(float value, float from = 100)
         {
-            return One - value / Hundred;
+            if (value < Zero || from < Zero)
+            {
+                throw new ArgumentOutOfRangeException();
+            }
+
+            return value / from;
+        }
+
+        public static float PercentToMultiplier(int value, float from = 100)
+        {
+            if (value < Zero || from < Zero)
+            {
+                throw new ArgumentOutOfRangeException();
+            }
+
+            return value / from;
         }
 
         public static IEnumerable<T> GetEnums<T>() where T : Enum

@@ -20,7 +20,7 @@ namespace Assets.Scripts.Tools
 
         private void LateUpdate()
         {
-            if (_target.NotNull())
+            if (_target.IsNotNull())
             {
                 _transform.position = _target.position + _offset;
             }
@@ -33,7 +33,7 @@ namespace Assets.Scripts.Tools
 
         public void SetOffset(Vector3 offset)
         {
-            if (_coroutine.NotNull())
+            if (_coroutine.IsNotNull())
             {
                 StopCoroutine(_coroutine);
                 _coroutine = null;

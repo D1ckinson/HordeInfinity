@@ -59,15 +59,15 @@ namespace Assets.Code.Spawners
             _enemyFactory.DisableAll();
         }
 
-        private void SpawnEnemy()
+        private void SpawnEnemy(float deltaTime)
         {
             if (_enemyFactory.IsSpawnLimitReached)
             {
                 return;
             }
 
-            _delay += Time.deltaTime;
-            _goldEnemySpawnDelay -= Time.deltaTime;
+            _delay += deltaTime;
+            _goldEnemySpawnDelay -= deltaTime;
 
             if (_delay < _enemyFactory.Delay - DelayDecreaseValue * _spawnTypeIndex)
             {

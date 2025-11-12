@@ -1,4 +1,5 @@
 ﻿using Assets.Code.CharactersLogic.HeroLogic;
+using Assets.Code.Data;
 using Assets.Code.Spawners;
 using Assets.Code.Tools;
 using Assets.Code.Ui.Buff_View;
@@ -14,8 +15,12 @@ namespace Assets.Code.SpellBooks
 
         protected override void Apply(HeroComponents hero)
         {
-            hero.Health.IncreaseResist(_additionalResist, _time);
+            IValueContainer resist = hero.Health.Resist;
+
+            resist.Increase(_additionalResist);
             hero.BuffView.AddBuff(_type, _time);
+
+            TimerService.StartTimer(_time, () => resist.Decrease(_additionalResist));
             this.SetActive(false);
         }
     }

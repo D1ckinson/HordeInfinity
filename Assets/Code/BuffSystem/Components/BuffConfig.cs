@@ -1,5 +1,4 @@
 ﻿using Assets.Code.Tools;
-using AYellowpaper.SerializedCollections;
 using UnityEngine;
 
 namespace Assets.Code.BuffSystem
@@ -7,16 +6,21 @@ namespace Assets.Code.BuffSystem
     [CreateAssetMenu(menuName = "Game/BuffConfig")]
     public class BuffConfig : ScriptableObject
     {
-        [SerializeField] private SerializedDictionary<int, int> _valueOnLevel;
+        [SerializeField] private int[] _value;
 
         public BuffType Type;
         public Sprite Icon;
 
-        public int MaxLevel => _valueOnLevel.Count;
+        [field: SerializeField] public bool IsMultiplier { get; private set; } = false;
+        [field: SerializeField] public bool IsPositive { get; private set; } = true;
+
+        public int MaxLevel => _value.Length;
 
         public int GetValue(int level)
         {
-            return _valueOnLevel[level - Constants.One];
+            level.ThrowIfZeroOrLess().ThrowIfMoreThan(MaxLevel);
+
+            return _value[level - Constants.One];
         }
     }
 }

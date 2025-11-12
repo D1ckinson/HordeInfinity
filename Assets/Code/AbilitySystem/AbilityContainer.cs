@@ -26,7 +26,12 @@ namespace Assets.Code.AbilitySystem
         public void Add(Ability ability)
         {
             ability.ThrowIfNull();
-            ability.AddEffect(_effects);
+
+            if (_effects.Count > Constants.Zero)
+            {
+                ability.AddEffect(_effects);
+            }
+
             ability.Run();
 
             _abilities.Add(ability.Type, ability);
@@ -71,7 +76,12 @@ namespace Assets.Code.AbilitySystem
             }
         }
 
-        public void RemoveEffect(IEffect effect)
+        public bool HasEffect(IEffect effect)
+        {
+            return _effects.Contains(effect);
+        }
+
+        private void RemoveEffect(IEffect effect)
         {
             _effects.Remove(effect);
             _abilities.ForEachValues(ability => ability.RemoveEffect(effect));

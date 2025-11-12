@@ -47,9 +47,9 @@ MonoBehaviour:
   - <Time>k__BackingField: 300
     <Type>k__BackingField: 7
   <BooksSpawnerSettings>k__BackingField:
-    MinDelay: 2
-    MaxDelay: 5
-    Range: 10
+    MinDelay: 60
+    MaxDelay: 180
+    Range: 30
   <Books>k__BackingField:
   - {fileID: 5815543813697898494, guid: c015c8627b453ec48bb7fdcba579eb09, type: 3}
   - {fileID: 2248584985164727363, guid: 4b16fd90fc439fe4db6789f9cea72aff, type: 3}
@@ -70,6 +70,12 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 782aa91345f933d49b8f4acfa1ebb47c, type: 2}
   - {fileID: 11400000, guid: 47df5121c2bf13846905754655efa7cb, type: 2}
   - {fileID: 11400000, guid: 2c5701c1aaa07d4458adeec714f56762, type: 2}
+  _buffConfigs:
+  - {fileID: 11400000, guid: fcefa000ce6e4b042bcf3be6882106c6, type: 2}
+  - {fileID: 11400000, guid: a6190240c8498ea4288947bb4fd1374f, type: 2}
+  - {fileID: 11400000, guid: bde7993be9aa6f843b905450a94d500d, type: 2}
+  - {fileID: 11400000, guid: 896b07fe5f815e5469522abe6215a5a8, type: 2}
+  - {fileID: 11400000, guid: c5a2c177ba21d0e499a0782b4e217ede, type: 2}
   <BackgroundMusic>k__BackingField: {fileID: 3938373483914223881, guid: 155aac6fcb4fcaf48a2d000bdbbc50d9, type: 3}
   <MenuMusic>k__BackingField: {fileID: 4333468301660195507, guid: 29ca130072e109246a0570d85be56e6f, type: 3}
   _fixedExperience: 100

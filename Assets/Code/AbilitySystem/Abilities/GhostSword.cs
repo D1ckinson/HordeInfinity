@@ -77,9 +77,9 @@ namespace Assets.Code.AbilitySystem.Abilities
             this.SetActive(false);
         }
 
-        private void Fly()
+        private void Fly(float deltaTime)
         {
-            transform.Translate(_speed * Time.deltaTime * Vector3.forward);
+            transform.Translate(_speed * deltaTime * Vector3.forward);
         }
     }
 }

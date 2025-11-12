@@ -7,8 +7,8 @@ namespace Assets.Code.Tools
 {
     public static class UpdateService
     {
-        private static readonly HashSet<Action> _registeredUpdateMethods = new();
-        private static readonly HashSet<Action> _registeredFixedUpdateMethods = new();
+        private static readonly HashSet<Action<float>> _registeredUpdateMethods = new();
+        private static readonly HashSet<Action<float>> _registeredFixedUpdateMethods = new();
 
         static UpdateService()
         {
@@ -17,10 +17,10 @@ namespace Assets.Code.Tools
             Object.DontDestroyOnLoad(updater.gameObject);
         }
 
-        private static event Action OnUpdate;
-        private static event Action OnFixedUpdate;
+        private static event Action<float> OnUpdate;
+        private static event Action<float> OnFixedUpdate;
 
-        public static void RegisterUpdate(Action updateMethod)
+        public static void RegisterUpdate(Action<float> updateMethod)
         {
             if (_registeredUpdateMethods.Add(updateMethod))
             {
@@ -28,7 +28,7 @@ namespace Assets.Code.Tools
             }
         }
 
-        public static void RegisterFixedUpdate(Action updateMethod)
+        public static void RegisterFixedUpdate(Action<float> updateMethod)
         {
             if (_registeredFixedUpdateMethods.Add(updateMethod))
             {
@@ -36,7 +36,7 @@ namespace Assets.Code.Tools
             }
         }
 
-        public static void UnregisterUpdate(Action updateMethod)
+        public static void UnregisterUpdate(Action<float> updateMethod)
         {
             if (_registeredUpdateMethods.Remove(updateMethod))
             {
@@ -44,7 +44,7 @@ namespace Assets.Code.Tools
             }
         }
 
-        public static void UnregisterFixedUpdate(Action updateMethod)
+        public static void UnregisterFixedUpdate(Action<float> updateMethod)
         {
             if (_registeredFixedUpdateMethods.Remove(updateMethod))
             {
@@ -56,12 +56,12 @@ namespace Assets.Code.Tools
         {
             private void Update()
             {
-                OnUpdate?.Invoke();
+                OnUpdate?.Invoke(Time.deltaTime);
             }
 
             private void FixedUpdate()
             {
-                OnFixedUpdate?.Invoke();
+                OnFixedUpdate?.Invoke(Time.fixedDeltaTime);
             }
         }
     }

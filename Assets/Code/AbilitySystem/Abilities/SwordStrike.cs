@@ -28,7 +28,7 @@ namespace Assets.Code.AbilitySystem.Abilities
             _audioSource = config.HitSound.Instantiate();
         }
 
-        public override void Dispose()
+        protected override void OnDispose()
         {
             _swingEffect.DestroyGameObject();
             _audioSource.DestroyGameObject();

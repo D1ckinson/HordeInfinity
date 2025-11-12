@@ -1,5 +1,7 @@
 ﻿using Assets.Code.AbilitySystem;
+using Assets.Code.BuffSystem;
 using Assets.Code.CharactersLogic.Movement;
+using Assets.Code.Data;
 using Assets.Code.Tools;
 using Assets.Code.Ui.Buff_View;
 using Assets.Scripts;
@@ -20,9 +22,10 @@ namespace Assets.Code.CharactersLogic.HeroLogic
 
         private Vector3 _defaultPosition;
 
+        public AbilityContainer AbilityContainer { get; } = new();
+        public BuffContainer BuffContainer { get; } = new();
         public Health Health { get; private set; }
         public LootCollector LootCollector { get; private set; }
-        public AbilityContainer AbilityContainer { get; } = new();
         public HeroLevel HeroLevel { get; private set; }
         public Animator Animator { get; private set; }
         public Mover Mover { get; private set; }
@@ -42,10 +45,16 @@ namespace Assets.Code.CharactersLogic.HeroLogic
             Rigidbody rigidbody = GetComponent<Rigidbody>();
             HeroLevel = heroLevel.ThrowIfNull();
 
-            Mover = new(directionSource, rigidbody, Animator, config.MoveSpeed);
+            ValueContainer speed = new(config.MoveSpeed);
+            Mover = new(directionSource, rigidbody, Animator, speed);
             Rotator = new(directionSource, rigidbody, config.RotationSpeed);
 
-            Health.Initialize(config.MaxHealth, config.InvincibilityDuration, config.InvincibilityTriggerPercent);
+            Regenerator regenerator = new(Health, config.Regeneration);
+            ValueContainer resist = new(config.Resist);
+            float triggerValue = config.MaxHealth * Constants.PercentToMultiplier(config.InvincibilityTriggerPercent);
+            Invincibility invincibility = new(config.InvincibilityDuration, triggerValue);
+            Health.Initialize(config.MaxHealth, invincibility, regenerator, resist);
+
             LootCollector.Initialize(config.AttractionRadius, config.PullSpeed, wallet, heroLevel);
 
             return this;

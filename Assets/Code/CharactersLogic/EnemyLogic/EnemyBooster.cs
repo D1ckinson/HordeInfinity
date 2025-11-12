@@ -26,7 +26,7 @@ namespace Assets.Code.CharactersLogic.EnemyLogic
         private void OnDisable()
         {
             TimerService.StopTimer(this, BoostSpeed);
-            _mover?.ResetSpeed();
+            _mover?.Speed.Reset();
         }
 
         public void Initialize(Mover mover, Health health)
@@ -38,17 +38,17 @@ namespace Assets.Code.CharactersLogic.EnemyLogic
         public void ResetHealthBoost()
         {
             TimerService.StopTimer(this, BoostHealth);
-            _health.ResetValue();
+            _health.ResetValues();
         }
 
         private void BoostHealth()
         {
-            _health.AddMaxValue(_healthForMinute);
+            _health.SetMaxValue(_health.MaxValue + _healthForMinute);
         }
 
         private void BoostSpeed()
         {
-            _mover.AddSpeed(_speedForMinute);
+            _mover.Speed.Increase(_speedForMinute);
         }
     }
 }

@@ -54,9 +54,9 @@ namespace Assets.Code.AbilitySystem.Abilities
             UpdateService.RegisterUpdate(Move);
         }
 
-        private void Move()
+        private void Move(float deltaTime)
         {
-            transform.position += _speed * Time.deltaTime * transform.forward;
+            transform.position += _speed * deltaTime * transform.forward;
         }
 
         private void Disable()

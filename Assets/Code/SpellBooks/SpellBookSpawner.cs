@@ -51,9 +51,9 @@ namespace Assets.Code.Spawners
             _books.ForEach(book => book.SetActive(false));
         }
 
-        public void SpawnBook()
+        public void SpawnBook(float deltaTime)
         {
-            _delay -= Time.deltaTime;
+            _delay -= deltaTime;
 
             if (_delay > Constants.Zero)
             {

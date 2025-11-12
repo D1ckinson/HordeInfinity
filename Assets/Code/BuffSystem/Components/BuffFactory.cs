@@ -19,6 +19,10 @@ namespace Assets.Code.BuffSystem
             _createFunc = new()
             {
                 [BuffType.Health] = CreateHealthBuff,
+                [BuffType.Regeneration] = CreateRegenerationBuff,
+                [BuffType.Damage] = CreateDamageBuff,
+                [BuffType.Cooldown] = CreateCooldownBuff,
+                [BuffType.Speed] = CreateSpeedBuff,
             };
         }
 
@@ -30,6 +34,26 @@ namespace Assets.Code.BuffSystem
         private Buff CreateHealthBuff()
         {
             return new HealthBuff(_configs[BuffType.Health], _hero);
+        }
+
+        private Buff CreateRegenerationBuff()
+        {
+            return new RegenerationBuff(_configs[BuffType.Regeneration], _hero);
+        }
+
+        private Buff CreateDamageBuff()
+        {
+            return new DamageBuff(_configs[BuffType.Damage], _hero);
+        }
+
+        private Buff CreateCooldownBuff()
+        {
+            return new CooldownBuff(_configs[BuffType.Cooldown], _hero);
+        }
+
+        private Buff CreateSpeedBuff()
+        {
+            return new SpeedBuff(_configs[BuffType.Speed], _hero);
         }
     }
 }

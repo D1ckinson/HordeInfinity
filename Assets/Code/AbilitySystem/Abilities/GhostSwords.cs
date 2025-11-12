@@ -91,7 +91,7 @@ namespace Assets.Code.AbilitySystem.Abilities
             _spawnedSwords.Clear();
         }
 
-        public override void Dispose()
+        protected override void OnDispose()
         {
             CoroutineService.StopAllCoroutines(this);
 

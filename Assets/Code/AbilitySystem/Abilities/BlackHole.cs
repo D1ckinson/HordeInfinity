@@ -30,7 +30,7 @@ namespace Assets.Code.AbilitySystem.Abilities
             _projectile.Hit += RecordHitResult;
         }
 
-        public override void Dispose()
+        protected override void OnDispose()
         {
             _projectile.Hit -= RecordHitResult;
             _projectile.DestroyGameObject();

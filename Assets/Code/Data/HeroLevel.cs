@@ -10,7 +10,6 @@ namespace Assets.Scripts
         private readonly Func<int, int> _experienceFormula;
 
         private float _buffer;
-        private float _lootPercent = 1;
         private float _transferValue = DefaultTransferValue;
 
         public int Level { get; private set; } = 1;
@@ -28,9 +27,9 @@ namespace Assets.Scripts
         public event Action<int> LevelChanged;
         public event Action ValueChanged;
 
-        public void Add(int value)
+        public void Add(float value)
         {
-            _buffer += value.ThrowIfNegative() * _lootPercent;
+            _buffer += value.ThrowIfNegative();
         }
 
         public void Reset()
@@ -44,11 +43,6 @@ namespace Assets.Scripts
             ValueChanged?.Invoke();
             LevelUpsCount = Constants.Zero;
             CalculateTransferValue();
-        }
-
-        public void SetLootPercent(int percent)
-        {
-            _lootPercent = Constants.One + Constants.PercentToMultiplier(percent);
         }
 
         public void Transfer()

@@ -26,7 +26,7 @@ namespace Assets.Code.AbilitySystem.Abilities
             _hitSound = config.HitSound.Instantiate(heroCenter);
         }
 
-        public override void Dispose()
+        protected override void OnDispose()
         {
             _hitSound.DestroyGameObject();
         }
@@ -49,7 +49,7 @@ namespace Assets.Code.AbilitySystem.Abilities
                 }
             }
 
-            if (closest.NotNull() && closest.TryGetComponent(out Health health))
+            if (closest.IsNotNull() && closest.TryGetComponent(out Health health))
             {
                 RecordHitResult(health.TakeDamage(CurrentStats.Get(FloatStatType.Damage)));
 

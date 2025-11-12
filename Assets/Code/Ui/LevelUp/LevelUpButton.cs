@@ -10,16 +10,27 @@ namespace Assets.Code.Ui.LevelUp
     {
         [SerializeField] private TMP_Text _name;
         [SerializeField] private Image _image;
-        [SerializeField] private TMP_Text _stats;
+        [SerializeField] private TMP_Text[] _stats;
 
         [field: SerializeField] public TMP_Text LevelText { get; private set; }
         [field: SerializeField] public TMP_Text LevelNumber { get; private set; }
 
         public void SetDescription(string name, Sprite image, List<string> stats)
         {
+            _stats.ForEach(text => text.SetActive(false));
+
             _name.text = name.ThrowIfNullOrEmpty();
             _image.sprite = image.ThrowIfNull();
-            _stats.text = stats.ThrowIfNullOrEmpty().ToWrapText();
+            stats.ThrowIfNullOrEmpty().Count.ThrowIfMoreThan(_stats.Length);
+            _stats.ForEach(text => text.text = string.Empty);
+
+            for (int i = Constants.Zero; i < stats.Count; i++)
+            {
+                TMP_Text text = _stats[i];
+
+                text.SetText(stats[i]);
+                text.SetActive(true);
+            }
         }
     }
 }

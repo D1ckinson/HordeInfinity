@@ -42,7 +42,7 @@ namespace Assets.Code.CharactersLogic.Movement.Direction_Sources
             DirectionChanged?.Invoke(_moveDirection);
         }
 
-        private void CalculateDirection()
+        private void CalculateDirection(float deltaTime)
         {
             if (_owner.IsActive() == false || _target.IsNull() || _target.IsActive() == false)
             {
@@ -51,7 +51,7 @@ namespace Assets.Code.CharactersLogic.Movement.Direction_Sources
                 return;
             }
 
-            _time -= Time.deltaTime;
+            _time -= deltaTime;
 
             if (_time > Constants.Zero)
             {

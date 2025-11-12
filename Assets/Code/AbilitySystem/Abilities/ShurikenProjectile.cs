@@ -30,7 +30,7 @@ namespace Assets.Code.AbilitySystem.Abilities
 
         private void OnTriggerEnter(Collider other)
         {
-            if (_target.NotNull() && other != _target)
+            if (_target.IsNotNull() && other != _target)
             {
                 return;
             }
@@ -107,7 +107,7 @@ namespace Assets.Code.AbilitySystem.Abilities
             this.SetActive(false);
         }
 
-        private void CalculateDirection()
+        private void CalculateDirection(float fixedDeltaTime)
         {
             if (_target.IsNull())
             {
@@ -124,9 +124,9 @@ namespace Assets.Code.AbilitySystem.Abilities
             _moveDirection = (_target.transform.position - transform.position).normalized;
         }
 
-        private void Move()
+        private void Move(float deltaTime)
         {
-            transform.position += _speed * Time.deltaTime * _moveDirection;
+            transform.position += _speed * deltaTime * _moveDirection;
         }
 
         private void SetTarget()

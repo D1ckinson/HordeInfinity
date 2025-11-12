@@ -20,7 +20,7 @@ namespace Assets.Code.Tools
             return argument == null;
         }
 
-        public static bool NotNull<T>(this T argument)
+        public static bool IsNotNull<T>(this T argument)
         {
             return argument != null;
         }
@@ -255,6 +255,34 @@ namespace Assets.Code.Tools
         public static bool Approximately(this float value, float second)
         {
             return Mathf.Approximately(value, second);
+        }
+
+        public static float Clamp(this float value, float min, float max)
+        {
+            if (value < min)
+            {
+                value = min;
+            }
+            else if (value > max)
+            {
+                value = max;
+            }
+
+            return value;
+        }
+
+        public static int Clamp(this int value, int min, int max)
+        {
+            if (value < min)
+            {
+                value = min;
+            }
+            else if (value > max)
+            {
+                value = max;
+            }
+
+            return value;
         }
     }
 }

@@ -66,9 +66,9 @@ namespace Assets.Code.AbilitySystem.Abilities
             TimerService.StartTimer(_lifeTime, Explode, this);
         }
 
-        private void Move()
+        private void Move(float deltaTime)
         {
-            transform.position += _speed * Time.deltaTime * _direction;
+            transform.position += _speed * deltaTime * _direction;
         }
 
         private void Explode()

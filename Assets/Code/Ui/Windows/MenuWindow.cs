@@ -39,7 +39,7 @@ namespace Assets.Code.Ui.Windows
             PlayButton.Unsubscribe(Disable);
             VolumeButton.Clicked -= ToggleSound;
 
-            if (_wallet.NotNull())
+            if (_wallet.IsNotNull())
             {
                 _wallet.ValueChanged -= UpdateCoinsQuantity;
             }

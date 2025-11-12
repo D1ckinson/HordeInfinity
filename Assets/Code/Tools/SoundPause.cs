@@ -12,7 +12,7 @@ namespace Assets.Code.Tools
 
         private void OnDestroy()
         {
-            if (_timeService.NotNull())
+            if (_timeService.IsNotNull())
             {
                 _timeService.TimeChanged -= ToggleSource;
             }

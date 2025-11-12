@@ -48,7 +48,7 @@ namespace Assets.Code.Tools
 
         public static void StopAllCoroutines(object owner)
         {
-            if (owner.NotNull() && _trackedCoroutines.TryGetValue(owner, out List<Coroutine> coroutines))
+            if (owner.IsNotNull() && _trackedCoroutines.TryGetValue(owner, out List<Coroutine> coroutines))
             {
                 coroutines.ForEach(coroutine => _runner.StopCoroutine(coroutine));
                 coroutines.Clear();

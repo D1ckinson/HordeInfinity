@@ -44,7 +44,7 @@ namespace Assets.Code.AbilitySystem.Abilities
             }
         }
 
-        public override void Dispose()
+        protected override void OnDispose()
         {
             _projectilePool.ForEach(projectile => projectile.Hit -= RecordHitResult);
             _projectilePool.DestroyAll();

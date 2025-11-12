@@ -16,7 +16,7 @@ namespace Assets.Code.CharactersLogic
 
         private void OnEnable()
         {
-            if (_health.NotNull())
+            if (_health.IsNotNull())
             {
                 _health.Died += OnDeath;
             }
@@ -24,7 +24,7 @@ namespace Assets.Code.CharactersLogic
 
         private void OnDisable()
         {
-            if (_health.NotNull())
+            if (_health.IsNotNull())
             {
                 _health.Died -= OnDeath;
             }

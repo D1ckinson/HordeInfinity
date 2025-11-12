@@ -57,7 +57,7 @@ namespace Assets.Code.AbilitySystem.Abilities
             }
         }
 
-        public override void Dispose()
+        protected override void OnDispose()
         {
             CoroutineService.StopAllCoroutines(this);
 

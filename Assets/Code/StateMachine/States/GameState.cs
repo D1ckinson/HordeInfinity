@@ -104,9 +104,11 @@ namespace Assets.Scripts.State_Machine
             gameWindow.PauseButton.Subscribe(Pause);
 
             _hero.Health.Died -= ShowDeathWindow;
+
             _hero.AbilityContainer.RemoveAll();
+            _hero.BuffContainer.Reset();
             _hero.LootCollector.TransferGold();
-            _hero.Health.ResetValue();
+            _hero.Health.ResetValues();
             _hero.Mover.Stop();
             _hero.Rotator.Stop();
             _hero.BuffView.Clear();
@@ -149,6 +151,11 @@ namespace Assets.Scripts.State_Machine
 
         private void Pause()
         {
+            if (_uiFactory.IsActive<DeathWindow>())
+            {
+                return;
+            }
+
             _timeService.Pause();
             _uiFactory.Create<PauseWindow>();
         }
@@ -188,7 +195,7 @@ namespace Assets.Scripts.State_Machine
             _hero.Mover.Run();
             _hero.Rotator.Run();
             _hero.AbilityContainer.Run();
-            _hero.Health.ResetValue();
+            _hero.Health.ResetValues();
 
             _enemySpawner.Continue();
             _bookSpawner.Continue();

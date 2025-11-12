@@ -21,7 +21,7 @@ namespace Assets.Code.CharactersLogic.Movement
 
         ~Rotator()
         {
-            if (_directionSource.NotNull())
+            if (_directionSource.IsNotNull())
             {
                 _directionSource.DirectionChanged -= SetDirection;
             }
@@ -55,7 +55,7 @@ namespace Assets.Code.CharactersLogic.Movement
             }
         }
 
-        private void Rotate()
+        private void Rotate(float fixedDeltaTime)
         {
             if (_direction.sqrMagnitude <= Mathf.Epsilon)
             {

@@ -31,13 +31,13 @@ namespace Assets.Code.AbilitySystem.Abilities
         private void OnEnable()
         {
             SetShape();
-            TimerService.StartTimer(_lifeTime, Disable);
+            TimerService.StartTimer(_lifeTime, Disable, this);
         }
 
         private void OnDisable()
         {
             SetShape();
-            TimerService.StopTimer(_lifeTime, Disable);
+            TimerService.StopTimer(this, Disable);
 
             _enemies.ForEachKeys(health => health.Died -= Remove);
             _enemies.Clear();

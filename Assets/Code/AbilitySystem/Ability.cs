@@ -52,7 +52,13 @@ namespace Assets.Code.AbilitySystem.Abilities
             TimerService.StartTimer(CurrentStats.Get(FloatStatType.Cooldown), Apply, this, true);
         }
 
-        public abstract void Dispose();
+        public void Dispose()
+        {
+            _effects.ForEach(effect => effect.ValueChanged -= ModifyStats);
+            OnDispose();
+        }
+
+        protected abstract void OnDispose();
 
         protected void RecordHitResult(HitResult result)
         {
@@ -65,18 +71,25 @@ namespace Assets.Code.AbilitySystem.Abilities
 
         public void AddEffect(IEffect effect)
         {
+            effect.ThrowIfNull().ValueChanged += ModifyStats;
+
             _effects.Add(effect);
             ModifyStats();
         }
 
         public void AddEffect(List<IEffect> effects)
         {
+            effects.ThrowIfNullOrEmpty()
+                .ForEach(effect => effect.ValueChanged += ModifyStats);
+
             _effects.AddRange(effects);
             ModifyStats();
         }
 
         public void RemoveEffect(IEffect effect)
         {
+            effect.ThrowIfNull().ValueChanged -= ModifyStats;
+
             _effects.Remove(effect);
             ModifyStats();
         }
@@ -91,112 +104,5 @@ namespace Assets.Code.AbilitySystem.Abilities
             CurrentStats = stats;
             OnStatsUpdate();
         }
-    }
-}
-
-namespace VisitorExample.Effects
-{
-    public class AddFlatEffect : IEffect
-    {
-        private readonly int _value;
-
-        public AddFlatEffect(int value, int priority)
-        {
-            _value = value;
-            Priority = priority;
-        }
-
-        public int Priority { get; }
-
-        public void Effect(StatsVisitor visitor)
-        {
-            visitor.AffectFlat(x => x + _value);
-        }
-    }
-
-    public class ComplexEffect : IEffect
-    {
-        private readonly float _addFlat;
-        private readonly float _divideMultiplier;
-
-        public ComplexEffect(float addFlat, float divideMultiplier, int priority)
-        {
-            _addFlat = addFlat;
-            _divideMultiplier = divideMultiplier;
-            Priority = priority;
-        }
-
-        public int Priority { get; }
-
-        public void Effect(StatsVisitor visitor)
-        {
-            visitor.AffectFlat(x => x + _addFlat);
-            visitor.AffectMultiplier(x => x / _divideMultiplier);
-        }
-    }
-
-    public interface IEffect
-    {
-        public int Priority { get; }
-
-        public void Effect(StatsVisitor visitor);
-    }
-
-    public class MultiplyFlatEffect : IEffect
-    {
-        private readonly float _value;
-
-        public MultiplyFlatEffect(float value, int priority)
-        {
-            _value = value;
-            Priority = priority;
-        }
-
-        public int Priority { get; }
-
-        public void Effect(StatsVisitor visitor)
-        {
-            visitor.AffectFlat(x => x * _value);
-        }
-    }
-
-    public class StatsCalculator
-    {
-        private List<IEffect> _effects = new List<IEffect>();
-
-        public void AddEffect(IEffect effect)
-        {
-            _effects.Add(effect);
-        }
-
-        public float Calculate(float @base)
-        {
-            StatsVisitor visitor = new StatsVisitor(@base);
-
-            foreach (IEffect effect in _effects.OrderBy(effect => effect.Priority))
-                effect.Effect(visitor);
-
-            return visitor.Result;
-        }
-    }
-
-    public class StatsVisitor
-    {
-        private float _base;
-        private float _multiplier;
-        private float _flat;
-
-        public StatsVisitor(float @base)
-        {
-            _base = @base;
-        }
-
-        public float Result => _base + _flat * _multiplier;
-
-        public void AffectMultiplier(Func<float, float> func) =>
-            _multiplier = func.Invoke(_multiplier);
-
-        public void AffectFlat(Func<float, float> func) =>
-            _flat = func.Invoke(_flat);
     }
 }

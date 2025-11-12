@@ -1,3 +1,4 @@
+using Assets.Code.Data;
 using Assets.Code.Tools;
 using System;
 using UnityEngine;
@@ -7,25 +8,17 @@ namespace Assets.Code.CharactersLogic
     [RequireComponent(typeof(Animator))]
     public class Health : MonoBehaviour
     {
-        [SerializeField][Min(0.1f)] private float _regenerationDelay = 1;
-
-        private readonly float _defaultResist = 0;
-
-        private float _regenerationCurrentDelay;
-        private float _invincibleTimer;
-        private float _invincibilityDuration;
-        private float _regeneration;
-        private float _invincibilityTriggerValue;
-        private float _resist = 0;
         private Animator _animator;
+        private Invincibility _invincibility;
 
         public event Action<Health> Died;
         public event Action<float> ValueChanged;
 
+        public Regenerator Regenerator { get; private set; }
+        public ValueContainer Resist { get; private set; }
         public float DefaultMaxValue { get; private set; }
         public float Value { get; private set; }
         public float MaxValue { get; private set; }
-        private bool IsInvincible => _invincibleTimer > Constants.Zero;
         private bool IsDead => Value <= Constants.Zero;
 
         private void Awake()
@@ -33,62 +26,52 @@ namespace Assets.Code.CharactersLogic
             _animator = GetComponent<Animator>();
         }
 
+        private void Update()
+        {
+            Debug.Log($"μΰκρ υο {MaxValue} Πεγεν {Regenerator.Value}");   
+        }
+
         private void OnEnable()
         {
             Value = MaxValue;
             ValueChanged?.Invoke(Value);
+            Regenerator?.Run();
         }
 
-        private void Update()
+        private void OnDisable()
         {
-            if (IsInvincible)
-            {
-                _invincibleTimer -= Time.deltaTime;
-            }
-
-            if (Value >= MaxValue || _regeneration == Constants.Zero)
-            {
-                return;
-            }
-
-            if (_regenerationCurrentDelay >= _regenerationDelay)
-            {
-                Heal();
-                _regenerationCurrentDelay = Constants.Zero;
-            }
-            else
-            {
-                _regenerationCurrentDelay += Time.deltaTime;
-            }
+            Regenerator.Stop();
         }
 
-        public void Initialize(float maxValue, float invincibilityDuration, float invincibilityTriggerPercent, float regeneration = 0)
+        public void Initialize(
+            float maxValue,
+            Invincibility invincibility,
+            Regenerator regenerator,
+            ValueContainer resist)
         {
             DefaultMaxValue = maxValue.ThrowIfZeroOrLess();
             MaxValue = DefaultMaxValue;
             Value = MaxValue;
 
-            _regeneration = regeneration.ThrowIfNegative();
-            _invincibilityTriggerValue = MaxValue * Constants.PercentToMultiplier(invincibilityTriggerPercent.ThrowIfNegative());
-            _invincibilityDuration = invincibilityDuration.ThrowIfNegative();
-
             ValueChanged?.Invoke(Value);
             _animator.SetBool(AnimationParameters.IsAlive, Value >= Constants.Zero);
-        }
 
-        public void SetMaxValue(float value)
-        {
-            MaxValue = value.ThrowIfZeroOrLess();
+            _invincibility = invincibility.ThrowIfNull();
+
+            Regenerator = regenerator.ThrowIfNull();
+            Regenerator.Run();
+
+            Resist = resist.ThrowIfNull();
         }
 
         public HitResult TakeDamage(float damage)
         {
-            if (IsInvincible || IsDead)
+            if (_invincibility.IsOn || IsDead)
             {
                 return new(Constants.Zero, false);
             }
 
-            float resultDamage = damage.ThrowIfNegative() - _resist;
+            float resultDamage = damage.ThrowIfNegative() - Resist.Value;
 
             if (resultDamage <= Constants.Zero)
             {
@@ -108,11 +91,7 @@ namespace Assets.Code.CharactersLogic
             {
                 Value = tempValue;
                 _animator.SetTrigger(AnimationParameters.GetHit);
-
-                if (damage >= _invincibilityTriggerValue)
-                {
-                    _invincibleTimer = _invincibilityDuration;
-                }
+                _invincibility.HandleDamage(resultDamage);
             }
 
             ValueChanged?.Invoke(Value);
@@ -121,48 +100,33 @@ namespace Assets.Code.CharactersLogic
             return new(resultDamage, false);
         }
 
-        public void SetRegeneration(int value)
+        public void Heal(float value)
         {
-            _regeneration = value.ThrowIfNegative();
-        }
-
-        public void IncreaseResist(float value, float time = -1)
-        {
-            if (time > Constants.Zero)
-            {
-                TimerService.StartTimer(time, () => DecreaseResist(value));
-            }
-
-            _resist += value.ThrowIfNegative();
-        }
-
-        public void DecreaseResist(float value)
-        {
-            float result = _resist - value.ThrowIfNegative();
-            _resist = result < _defaultResist ? _defaultResist : result;
-        }
-
-        private void Heal()
-        {
-            float tempValue = Value + _regeneration * Time.deltaTime;
-            Value = tempValue > MaxValue ? MaxValue : tempValue;
+            Value = (Value + value).Clamp(Constants.Zero, MaxValue);
 
             _animator.SetBool(AnimationParameters.IsAlive, Value >= Constants.Zero);
             ValueChanged?.Invoke(Value);
         }
 
-        public void ResetValue()
+        public void ResetValues()
         {
             MaxValue = DefaultMaxValue;
             Value = MaxValue;
+
             ValueChanged?.Invoke(Value);
             _animator.SetBool(AnimationParameters.IsAlive, Value >= Constants.Zero);
+
+            Regenerator.Reset();
+            Resist.Reset();
         }
 
-        public void AddMaxValue(float value)
+        public void SetMaxValue(float value)
         {
-            MaxValue += value.ThrowIfNegative();
-            Value += value;
+            value.ThrowIfNegative();
+
+            Value += value - MaxValue;
+            MaxValue = value;
+
             ValueChanged?.Invoke(Value);
         }
     }

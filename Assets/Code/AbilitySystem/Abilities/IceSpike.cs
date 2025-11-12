@@ -67,9 +67,9 @@ namespace Assets.Code.AbilitySystem.Abilities
             this.SetActive(false);
         }
 
-        private void MoveForward()
+        private void MoveForward(float deltaTime)
         {
-            transform.position += _speed * Time.deltaTime * transform.forward;
+            transform.position += _speed * deltaTime * transform.forward;
         }
     }
 }

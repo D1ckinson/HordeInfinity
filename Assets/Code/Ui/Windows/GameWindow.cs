@@ -23,12 +23,12 @@ namespace Assets.Code.Ui.Windows
 
         private void OnDestroy()
         {
-            if (_lootCollector.NotNull())
+            if (_lootCollector.IsNotNull())
             {
                 _lootCollector.GoldValueChanged -= OnGoldChanged;
             }
 
-            if (_heroLevel.NotNull())
+            if (_heroLevel.IsNotNull())
             {
                 _heroLevel.ValueChanged -= OnExperienceChanged;
                 _heroLevel.LevelChanged -= OnLevelChanged;

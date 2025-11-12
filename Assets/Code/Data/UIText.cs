@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Assets.Code.BuffSystem;
+using System.Collections.Generic;
 using YG;
 
 namespace Assets.Code.Data
@@ -10,6 +11,8 @@ namespace Assets.Code.Data
         private const string Turkish = "tr";
 
         private static Dictionary<AbilityType, string> _abilityName;
+        private static Dictionary<BuffType, string> _buffName;
+        private static Dictionary<BuffType, string> _buffStatDescription;
         private static Dictionary<FloatStatType, string> _floatStatName;
         private static Dictionary<IntStatType, string> _intStatName;
         private static Dictionary<BoolStatType, string> _boolStatName;
@@ -32,6 +35,8 @@ namespace Assets.Code.Data
         public static string ChoseAbility { get; private set; }
 
         public static IReadOnlyDictionary<AbilityType, string> AbilityName => _abilityName;
+        public static IReadOnlyDictionary<BuffType, string> BuffName => _buffName;
+        public static IReadOnlyDictionary<BuffType, string> BuffStatDescription => _buffStatDescription;
         public static IReadOnlyDictionary<FloatStatType, string> FloatStatName => _floatStatName;
         public static IReadOnlyDictionary<IntStatType, string> IntStatName => _intStatName;
         public static IReadOnlyDictionary<BoolStatType, string> BoolStatName => _boolStatName;
@@ -87,6 +92,24 @@ namespace Assets.Code.Data
                 [AbilityType.Shuriken] = "Сюрикен",
                 [AbilityType.Fireball] = "Огненный шар",
                 [AbilityType.WindFlow] = "Поток ветра"
+            };
+
+            _buffName = new()
+            {
+                [BuffType.Health] = "Усиление Здоровья",
+                [BuffType.Regeneration] = "Усиление Регенерации",
+                [BuffType.Damage] = "Усиление Урона",
+                [BuffType.Cooldown] = "Усиление Перезарядки",
+                [BuffType.Speed] = "Усиление Скорости",
+            };
+
+            _buffStatDescription = new()
+            {
+                [BuffType.Health] = "Здоровье",
+                [BuffType.Regeneration] = "Регенерация",
+                [BuffType.Damage] = "Урон способностей",
+                [BuffType.Cooldown] = "Перезарядка способностей",
+                [BuffType.Speed] = "Скорость движения",
             };
 
             _floatStatName = new()
@@ -145,6 +168,16 @@ namespace Assets.Code.Data
                 [AbilityType.WindFlow] = "Wind Flow"
             };
 
+            _buffName = new()
+            {
+
+            };
+
+            _buffStatDescription = new()
+            {
+
+            };
+
             _floatStatName = new()
             {
                 [FloatStatType.Cooldown] = "Cooldown",
@@ -185,6 +218,16 @@ namespace Assets.Code.Data
             Leaders = "Liderler";
             ChoseAbility = "Yeteneği seçin";
             Tip = "Başlangıç yeteneğini açmak için yeterli hasar verin";
+
+            _buffName = new()
+            {
+
+            };
+
+            _buffStatDescription = new()
+            {
+
+            };
 
             _abilityName = new()
             {

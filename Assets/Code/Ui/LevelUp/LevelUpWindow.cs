@@ -32,18 +32,18 @@ namespace Assets.Scripts.Ui
             _canvas.SetActive(false);
         }
 
-        public event Action<AbilityType> UpgradeChosen;
+        public event Action<Enum> UpgradeChosen;
 
         public bool IsOn => _canvas.IsActive();
 
-        public void Show(List<AbilityUpgradeOption> upgradeOptions, int level = 1)
+        public void Show(List<UpgradeOption> upgradeOptions, int level = 1)
         {
             upgradeOptions.ThrowIfNullOrEmpty();
 
             for (int i = Constants.Zero; i < upgradeOptions.Count; i++)
             {
                 LevelUpButton button = _buttons[i];
-                AbilityUpgradeOption upgradeOption = upgradeOptions[i];
+                UpgradeOption upgradeOption = upgradeOptions[i];
                 button.SetDescription(upgradeOption.Name, upgradeOption.Icon, upgradeOption.Stats);
 
                 button.LevelNumber.SetText(upgradeOption.NextLevel);
@@ -66,7 +66,7 @@ namespace Assets.Scripts.Ui
             _canvas.SetActive(false);
         }
 
-        private void Callback(AbilityType abilityType)
+        private void Callback(Enum abilityType)
         {
             Hide();
             UpgradeChosen?.Invoke(abilityType);

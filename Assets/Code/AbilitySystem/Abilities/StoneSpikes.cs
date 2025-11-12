@@ -32,7 +32,7 @@ namespace Assets.Code.AbilitySystem.Abilities
             }
         }
 
-        public override void Dispose()
+        protected override void OnDispose()
         {
             _pool.ForEach(spike => spike.Hit -= RecordHitResult);
             _pool.DestroyAll();

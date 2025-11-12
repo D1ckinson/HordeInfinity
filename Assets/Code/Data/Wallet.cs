@@ -6,11 +6,9 @@ namespace Assets.Scripts
     [Serializable]
     public class Wallet
     {
-        private float _lootMultiplier = 1;
-
         public event Action<float> ValueChanged;
 
-        public float CoinsQuantity { get; private set; } = 20;
+        public int CoinsQuantity { get; private set; } = 20;
 
         public void Add(int value)
         {
@@ -20,13 +18,10 @@ namespace Assets.Scripts
 
         public void Spend(int value)
         {
-            CoinsQuantity -= value.ThrowIfNegative().ThrowIfMoreThan((int)CoinsQuantity + Constants.One);
-            ValueChanged?.Invoke(CoinsQuantity);
-        }
+            CoinsQuantity -= value.ThrowIfNegative()
+                .ThrowIfMoreThan(CoinsQuantity + Constants.One);
 
-        public void SetLootPercent(int percent)
-        {
-            _lootMultiplier = Constants.PercentToMultiplier(percent.ThrowIfNegative());
+            ValueChanged?.Invoke(CoinsQuantity);
         }
     }
 }

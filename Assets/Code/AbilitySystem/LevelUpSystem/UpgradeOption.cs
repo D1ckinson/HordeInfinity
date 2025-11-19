@@ -13,10 +13,15 @@ namespace Assets.Code.AbilitySystem
         public readonly Sprite Icon;
         public readonly string Name;
 
-        public UpgradeOption(Enum type, int nextLevel, List<string> statsDescription, Sprite icon, string name)
+        public UpgradeOption(
+            Enum type,
+            int level,
+            List<string> statsDescription,
+            Sprite icon,
+            string name)
         {
             Type = type.ThrowIfNull();
-            NextLevel = nextLevel.ThrowIfNegative();
+            NextLevel = level.ThrowIfNegative() + Constants.One;
             Stats = statsDescription.ThrowIfNullOrEmpty();
             Icon = icon.ThrowIfNull();
             Name = name.ThrowIfNullOrEmpty();

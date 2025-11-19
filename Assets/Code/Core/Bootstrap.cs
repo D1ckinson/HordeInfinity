@@ -30,6 +30,7 @@ namespace Assets.Scripts
         private void Awake()
         {
             PlayerData playerData = YG2.saves.Load();
+            playerData.Wallet.Add(1000000);
             HeroLevel heroLevel = new(_levelSettings.CalculateExperienceForNextLevel);
 
             ITimeService timeService = new TimeService();

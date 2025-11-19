@@ -101,6 +101,10 @@ namespace Assets.Code.Data
                 [BuffType.Damage] = "Усиление Урона",
                 [BuffType.Cooldown] = "Усиление Перезарядки",
                 [BuffType.Speed] = "Усиление Скорости",
+                [BuffType.Extraction] = "Усиление Добычи",
+                [BuffType.Knowledge] = "Усиление Знания",
+                [BuffType.Collection] = "Усиление Сбора",
+                [BuffType.Armor] = "Усиление Брони"
             };
 
             _buffStatDescription = new()
@@ -110,6 +114,10 @@ namespace Assets.Code.Data
                 [BuffType.Damage] = "Урон способностей",
                 [BuffType.Cooldown] = "Перезарядка способностей",
                 [BuffType.Speed] = "Скорость движения",
+                [BuffType.Extraction] = "Получаемое золото",
+                [BuffType.Knowledge] = "Получаемый опыт",
+                [BuffType.Collection] = "Радиус сбора",
+                [BuffType.Armor] = "Сопротивление урону"
             };
 
             _floatStatName = new()

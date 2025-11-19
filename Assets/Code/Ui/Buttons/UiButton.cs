@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
-//https://i.rusvideos.art/rolik/bratec-nakazal-svodnuyu-sestru-oralno-i-zastavil-proglotit-lipkuyu-spermu.html
+
 namespace Assets.Code.Ui
 {
     public class UiButton : MonoBehaviour

@@ -1,3 +1,4 @@
+using Assets.Code.Data;
 using Assets.Code.Loot;
 using Assets.Code.Tools;
 using System;
@@ -16,12 +17,12 @@ namespace Assets.Scripts
 
         private float _time;
         private float _pullSpeed;
-        private float _defaultAttractionRadius;
-        private float _attractionRadius;
         private SphereCollider _collectArea;
         private Wallet _wallet;
         private HeroLevel _heroLevel;
 
+        public LootAffecter LootAffecter { get; } = new();
+        public IValueContainer AttractionRadius { get; private set; }
         public float CollectedGold { get; private set; }
 
         public event Action<int> GoldValueChanged;
@@ -30,6 +31,14 @@ namespace Assets.Scripts
         {
             _collectArea = GetComponent<SphereCollider>();
             _collectArea.isTrigger = true;
+        }
+
+        private void OnDestroy()
+        {
+            if (AttractionRadius.IsNotNull())
+            {
+                AttractionRadius.ValueChanged -= SetRadius;
+            }
         }
 
         private void OnTriggerEnter(Collider other)
@@ -42,15 +51,15 @@ namespace Assets.Scripts
             _loots.Add(loot);
         }
 
-        public void Initialize(float attractionRadius, float pullSpeed, Wallet wallet, HeroLevel heroLevel)
+        public void Initialize(IValueContainer attractionRadius, float pullSpeed, Wallet wallet, HeroLevel heroLevel)
         {
+            AttractionRadius = attractionRadius.ThrowIfNull();
             _pullSpeed = pullSpeed.ThrowIfZeroOrLess();
-            _defaultAttractionRadius = attractionRadius.ThrowIfNegative();
-            _attractionRadius = _defaultAttractionRadius;
             _wallet = wallet.ThrowIfNull();
             _heroLevel = heroLevel.ThrowIfNull();
 
-            _collectArea.radius = _attractionRadius;
+            _collectArea.radius = AttractionRadius.Value;
+            AttractionRadius.ValueChanged += SetRadius;
         }
 
         public void Run()
@@ -71,6 +80,8 @@ namespace Assets.Scripts
         {
             Stop();
             _loots.Clear();
+            LootAffecter.Reset();
+            AttractionRadius.Reset();
         }
 
         public void TransferGold()
@@ -82,25 +93,6 @@ namespace Assets.Scripts
                 CollectedGold = Constants.Zero;
                 GoldValueChanged?.Invoke((int)CollectedGold);
             }
-        }
-
-        public void AddAttractionRadius(float value, float time = -1)
-        {
-            if (time > Constants.Zero)
-            {
-                TimerService.StartTimer(time, () => RemoveAttractionRadius(value));
-            }
-
-            _attractionRadius += value.ThrowIfNegative();
-            _collectArea.radius = _attractionRadius;
-        }
-
-        public void RemoveAttractionRadius(float value)
-        {
-            float radius = _attractionRadius - value.ThrowIfNegative();
-            _attractionRadius = radius < _defaultAttractionRadius ? _defaultAttractionRadius : radius;
-
-            _collectArea.radius = _attractionRadius;
         }
 
         private void TransferExperience(float deltaTime)
@@ -141,21 +133,19 @@ namespace Assets.Scripts
 
         private void CollectValue(LootType type, int collectValue)
         {
+            collectValue.ThrowIfNegative();
+
             switch (type)
             {
                 case LootType.LowExperience:
-                    _heroLevel.Add(collectValue);
-                    break;
-
                 case LootType.MediumExperience:
-                    _heroLevel.Add(collectValue);
-                    break;
-
                 case LootType.HighExperience:
-                    _heroLevel.Add(collectValue);
+                    _heroLevel.Add(LootAffecter.Affect(collectValue, type));
                     break;
 
-                case LootType.Coin:
+                case LootType.LowCoin:
+                case LootType.MediumCoin:
+                case LootType.HighCoin:
                     CollectGold(collectValue);
                     break;
 
@@ -164,9 +154,14 @@ namespace Assets.Scripts
             }
         }
 
+        private void SetRadius(ValueContainer container)
+        {
+            _collectArea.radius = container.Value;
+        }
+
         private void CollectGold(int collectValue)
         {
-            CollectedGold += collectValue.ThrowIfNegative();
+            CollectedGold += LootAffecter.Affect(collectValue, LootType.LowCoin);
             GoldValueChanged?.Invoke((int)CollectedGold);
         }
     }

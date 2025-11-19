@@ -13,11 +13,12 @@ MonoBehaviour:
   m_Name: Enemy 1
   m_EditorClassIdentifier: 
   <Type>k__BackingField: 1
-  <Prefab>k__BackingField: {fileID: 3207581003718073074, guid: 6fd464576b317cf49a3775c9a444959f, type: 3}
+  <Prefab>k__BackingField: {fileID: 3207581003718073074, guid: dffcd7be5d7e95247af1710f44ff7400, type: 3}
   <MaxHealth>k__BackingField: 100
   <Regeneration>k__BackingField: 0
   <InvincibilityDuration>k__BackingField: 0.1
   <InvincibilityTriggerPercent>k__BackingField: 50
+  <Resist>k__BackingField: 0
   <MoveSpeed>k__BackingField: 4.2
   <RotationSpeed>k__BackingField: 200
   <Damage>k__BackingField: 10

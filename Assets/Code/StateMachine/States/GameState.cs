@@ -66,8 +66,7 @@ namespace Assets.Scripts.State_Machine
             GameWindow gameWindow = _uiFactory.Create<GameWindow>();
             gameWindow.PauseButton.Subscribe(Pause);
 
-            //_hero.AbilityContainer.Add(_abilityFactory.Create(_playerData.StartAbility));
-            _hero.AbilityContainer.Add(_abilityFactory.Create(AbilityType.HolyGround));
+            _hero.AbilityContainer.Add(_abilityFactory.Create(_playerData.StartAbility));
             _hero.AbilityContainer.Run();
             _hero.Health.Died += ShowDeathWindow;
             _hero.LootCollector.Run();

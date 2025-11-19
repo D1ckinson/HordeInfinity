@@ -45,7 +45,7 @@ MonoBehaviour:
       - Key: 1
         Value: 35
       - Key: 2
-        Value: 7
+        Value: 5.5
     _boolStats:
       _serializedList: []
     _intStats:
@@ -58,7 +58,7 @@ MonoBehaviour:
       - Key: 1
         Value: 45
       - Key: 2
-        Value: 9
+        Value: 6
     _boolStats:
       _serializedList: []
     _intStats:
@@ -71,7 +71,7 @@ MonoBehaviour:
       - Key: 1
         Value: 50
       - Key: 2
-        Value: 10
+        Value: 6.5
     _boolStats:
       _serializedList: []
     _intStats:
@@ -84,7 +84,7 @@ MonoBehaviour:
       - Key: 1
         Value: 60
       - Key: 2
-        Value: 14
+        Value: 7
     _boolStats:
       _serializedList: []
     _intStats:
@@ -97,7 +97,7 @@ MonoBehaviour:
       - Key: 1
         Value: 65
       - Key: 2
-        Value: 17
+        Value: 8
     _boolStats:
       _serializedList: []
     _intStats:
@@ -110,7 +110,7 @@ MonoBehaviour:
       - Key: 1
         Value: 70
       - Key: 2
-        Value: 19
+        Value: 9
     _boolStats:
       _serializedList: []
     _intStats:
@@ -123,7 +123,7 @@ MonoBehaviour:
       - Key: 1
         Value: 75
       - Key: 2
-        Value: 23
+        Value: 11
     _boolStats:
       _serializedList: []
     _intStats:
@@ -136,7 +136,7 @@ MonoBehaviour:
       - Key: 1
         Value: 80
       - Key: 2
-        Value: 27
+        Value: 13
     _boolStats:
       _serializedList: []
     _intStats:
@@ -145,11 +145,11 @@ MonoBehaviour:
     _floatStats:
       _serializedList:
       - Key: 0
-        Value: 0.2
+        Value: 0.25
       - Key: 1
         Value: 90
       - Key: 2
-        Value: 30
+        Value: 16
     _boolStats:
       _serializedList: []
     _intStats:

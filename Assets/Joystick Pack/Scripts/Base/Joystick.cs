@@ -9,7 +9,7 @@ public class Joystick : BaseWindow, IPointerDownHandler, IDragHandler, IPointerU
     public float Vertical { get { return (snapY) ? SnapFloat(input.y, AxisOptions.Vertical) : input.y; } }
     public Vector2 Direction { get { return new Vector2(Horizontal, Vertical); } }
 
-    public event Action<Vector2> DirectionChanged;////////////////////////////////////////
+    public event Action<Vector2> DirectionChanged;
 
     public float HandleRange
     {
@@ -88,7 +88,7 @@ public class Joystick : BaseWindow, IPointerDownHandler, IDragHandler, IPointerU
 
     protected virtual void HandleInput(float magnitude, Vector2 normalised, Vector2 radius, Camera cam)
     {
-        Vector2 previousInput = input;//////////////////////////////////////////////////////
+        Vector2 previousInput = input;
 
         if (magnitude > deadZone)
         {
@@ -102,10 +102,10 @@ public class Joystick : BaseWindow, IPointerDownHandler, IDragHandler, IPointerU
             input = Vector2.zero;
         }
 
-        if (input != previousInput)////////////////////////////////////////////////////
+        if (input != previousInput)
         {
-            DirectionChanged?.Invoke(Direction);////////////////////////////////////////////////////
-        }////////////////////////////////////////////////////
+            DirectionChanged?.Invoke(Direction);
+        }
     }
 
     private void FormatInput()
@@ -155,7 +155,7 @@ public class Joystick : BaseWindow, IPointerDownHandler, IDragHandler, IPointerU
         input = Vector2.zero;
         handle.anchoredPosition = Vector2.zero;
 
-        DirectionChanged?.Invoke(input);/////////////////////////////////
+        DirectionChanged?.Invoke(input);
     }
 
     protected Vector2 ScreenPointToAnchoredPosition(Vector2 screenPosition)

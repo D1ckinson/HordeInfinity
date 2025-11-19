@@ -5,6 +5,8 @@
         LowExperience,
         MediumExperience,
         HighExperience,
-        Coin
+        LowCoin,
+        MediumCoin,
+        HighCoin
     }
 }

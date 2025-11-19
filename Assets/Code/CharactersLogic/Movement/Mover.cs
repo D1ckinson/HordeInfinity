@@ -57,7 +57,6 @@ namespace Assets.Code.CharactersLogic.Movement
         {
             Vector3 position = _rigidbody.position + _direction * (Speed.Value * fixedDeltaTime);
             _rigidbody.MovePosition(position);
-            Debug.Log($"Скорость {Speed.Value}");
         }
 
         private void SetDirection(Vector3 direction)

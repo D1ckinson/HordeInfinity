@@ -32,19 +32,19 @@ MonoBehaviour:
     <Delay>k__BackingField: 0.55
     <SpawnLimit>k__BackingField: 55
   <SpawnTypeByTimes>k__BackingField:
-  - <Time>k__BackingField: 120
+  - <Time>k__BackingField: 5
     <Type>k__BackingField: 1
-  - <Time>k__BackingField: 240
+  - <Time>k__BackingField: 5
     <Type>k__BackingField: 2
-  - <Time>k__BackingField: 240
+  - <Time>k__BackingField: 5
     <Type>k__BackingField: 3
-  - <Time>k__BackingField: 360
+  - <Time>k__BackingField: 5
     <Type>k__BackingField: 4
-  - <Time>k__BackingField: 360
+  - <Time>k__BackingField: 5
     <Type>k__BackingField: 5
-  - <Time>k__BackingField: 300
+  - <Time>k__BackingField: 5
     <Type>k__BackingField: 6
-  - <Time>k__BackingField: 300
+  - <Time>k__BackingField: 5
     <Type>k__BackingField: 7
   <BooksSpawnerSettings>k__BackingField:
     MinDelay: 60
@@ -76,6 +76,10 @@ MonoBehaviour:
   - {fileID: 11400000, guid: bde7993be9aa6f843b905450a94d500d, type: 2}
   - {fileID: 11400000, guid: 896b07fe5f815e5469522abe6215a5a8, type: 2}
   - {fileID: 11400000, guid: c5a2c177ba21d0e499a0782b4e217ede, type: 2}
+  - {fileID: 11400000, guid: f65e2c2215fc8fb43804db4e5805b17c, type: 2}
+  - {fileID: 11400000, guid: cdccdb6c67fc10f4c82fc0072d965bb2, type: 2}
+  - {fileID: 11400000, guid: af981828f25519843b19e42a0f14ce76, type: 2}
+  - {fileID: 11400000, guid: 528eaae455a389741a3870951b24d8dd, type: 2}
   <BackgroundMusic>k__BackingField: {fileID: 3938373483914223881, guid: 155aac6fcb4fcaf48a2d000bdbbc50d9, type: 3}
   <MenuMusic>k__BackingField: {fileID: 4333468301660195507, guid: 29ca130072e109246a0570d85be56e6f, type: 3}
   _fixedExperience: 100

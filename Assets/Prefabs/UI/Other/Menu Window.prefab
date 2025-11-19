@@ -887,8 +887,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.9607844, g: 0.61960787, b: 0.043137256, a: 1}
-  m_RaycastTarget: 1
+  m_Color: {r: 0.9607844, g: 0.61960787, b: 0.043137256, a: 0.49803922}
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -1029,7 +1029,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.11764706, g: 0.16078432, b: 0.23137255, a: 1}
+  m_Color: {r: 0.11764706, g: 0.16078432, b: 0.23137255, a: 0.49803922}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1097,11 +1097,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _canvasGroup: {fileID: 0}
-  _personalBestText: {fileID: 0}
-  _minutesText: {fileID: 0}
   _playText: {fileID: 6143959615893260203}
-  _minutesQuantity: {fileID: 0}
-  _coinsQuantity: {fileID: 0}
   <VolumeButton>k__BackingField: {fileID: 9097236653173978713}
   <LeaderboardButton>k__BackingField: {fileID: 6356056770624427173}
   <RemoveAdButton>k__BackingField: {fileID: 5136244373758286639}

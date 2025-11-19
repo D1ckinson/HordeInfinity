@@ -1,5 +1,6 @@
 ﻿using Assets.Code.CharactersLogic.HeroLogic;
 using Assets.Code.Tools;
+using System;
 
 namespace Assets.Code.BuffSystem
 {

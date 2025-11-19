@@ -10,6 +10,8 @@ namespace Assets.Code.AbilitySystem.Abilities
 {
     public class MidasHand : Ability
     {
+        private const int MaxCoins = 100;
+
         private readonly LayerMask _damageLayer;
         private readonly Collider[] _colliders = new Collider[50];
         private readonly Transform _heroCenter;
@@ -54,14 +56,9 @@ namespace Assets.Code.AbilitySystem.Abilities
                 RecordHitResult(health.TakeDamage(CurrentStats.Get(FloatStatType.Damage)));
 
                 float floatPercent = CurrentStats.Get(FloatStatType.HealthPercent) / Constants.Hundred;
-                int coinsCount = (int)(health.MaxValue * floatPercent);
+                int coinsCount = (int)(health.MaxValue * floatPercent).Clamp(Constants.One, MaxCoins);
 
-                if (coinsCount <= Constants.Zero)
-                {
-                    coinsCount = Constants.One;
-                }
-
-                _lootFactory.Spawn(LootType.Coin, closest.transform.position, coinsCount);
+                _lootFactory.Spawn(LootType.LowCoin, closest.transform.position, coinsCount);
                 _hitSound.Play();
             }
         }

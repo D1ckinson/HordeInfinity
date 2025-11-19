@@ -30,7 +30,7 @@ namespace Assets.Code.AbilitySystem.Abilities
         public AbilityStats BaseStats { get; private set; }
         public AbilityType Type => _config.Type;
         public int Level { get; private set; }
-        public bool IsMaxed => Level == _abilityUnlockLevel[_config.Type];
+        public bool IsMaxed => Level >= _abilityUnlockLevel[_config.Type];
 
         public void Run()
         {

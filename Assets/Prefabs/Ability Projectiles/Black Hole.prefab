@@ -76,6 +76,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _baseDamage: 1
-  _radiusForEnemy: 0.2
+  _radiusForEnemy: 0.1
   _lifeTime: 5
+  _scaleFactor: 1.6
   _effectZone: {fileID: 1948051854104627401}

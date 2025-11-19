@@ -6,6 +6,10 @@
         Regeneration,
         Damage,
         Cooldown,
-        Speed
+        Speed,
+        Extraction,
+        Knowledge,
+        Collection,
+        Armor
     }
 }

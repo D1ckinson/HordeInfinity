@@ -18,12 +18,6 @@ namespace Assets.Code.Animation
 
             _tellDirection = tellDirection.ThrowIfNull();
             _swordStrike = swordStrike.ThrowIfNull();
-            //_swordStrike.Applied+=_a
-        }
-
-        private void AnimateAttack()
-        {
-
         }
     }
 }

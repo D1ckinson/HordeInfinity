@@ -60,7 +60,7 @@ namespace Assets.Code.AbilitySystem.Abilities
 
                 sword.SetActive(true);
                 _spawnedSwords.Add(sword);
-                _appearingSound.Play();
+                _appearingSound.PlayRandomPitch();
 
                 yield return _actionDelay;
             }
@@ -83,7 +83,6 @@ namespace Assets.Code.AbilitySystem.Abilities
             for (int i = Constants.Zero; i < _spawnedSwords.Count; i++)
             {
                 _spawnedSwords[i].Launch();
-                _throwSound.Play();
 
                 yield return _actionDelay;
             }

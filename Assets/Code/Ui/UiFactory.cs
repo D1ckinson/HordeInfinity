@@ -83,7 +83,7 @@ namespace Assets.Code.Ui
 
         private BaseWindow CreateMenuWindow()
         {
-            return _uIConfig.MenuWindow.Instantiate(_canvas.Container, false).Initialize(_playerData.Wallet);
+            return _uIConfig.MenuWindow.Instantiate(_canvas.Container, false);
         }
 
         private BaseWindow CreateShopWindow()

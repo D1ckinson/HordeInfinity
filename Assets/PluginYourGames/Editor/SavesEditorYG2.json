@@ -1,5 +1,5 @@
 {
-    "PlayerDataJson": "{\"Wallet\":{\"CoinsQuantity\":490},\"BattleMetrics\":{\"DamageDealt\":{\"SwordStrike\":0,\"GhostSwords\":0,\"HolyGround\":6221,\"MidasHand\":0,\"Bombard\":0,\"BlackHole\":0,\"StoneSpikes\":0,\"IceStaff\":0,\"Shuriken\":0,\"Fireball\":0,\"WindFlow\":0},\"KillCount\":{\"SwordStrike\":0,\"GhostSwords\":0,\"HolyGround\":47,\"MidasHand\":0,\"Bombard\":0,\"BlackHole\":0,\"StoneSpikes\":0,\"IceStaff\":0,\"Shuriken\":0,\"Fireball\":0,\"WindFlow\":0}},\"StartAbility\":0,\"AbilityUnlockLevel\":{\"SwordStrike\":5,\"GhostSwords\":5,\"HolyGround\":2,\"MidasHand\":0,\"Bombard\":1,\"BlackHole\":0,\"StoneSpikes\":0,\"IceStaff\":0,\"Shuriken\":0,\"Fireball\":0,\"WindFlow\":0},\"UnlockDamage\":{\"SwordStrike\":0,\"GhostSwords\":100000,\"HolyGround\":1000000,\"Bombard\":1000000,\"BlackHole\":1000000,\"StoneSpikes\":100000,\"IceStaff\":1000000,\"Shuriken\":1000000,\"Fireball\":1000000},\"ScoreRecord\":37.26615,\"IsAdOn\":true}",
+    "PlayerDataJson": "{\"Wallet\":{\"CoinsQuantity\":1000153},\"BattleMetrics\":{\"DamageDealt\":{\"SwordStrike\":1813733,\"GhostSwords\":1123786,\"HolyGround\":3261945,\"MidasHand\":211410,\"Bombard\":840293,\"BlackHole\":2525359,\"StoneSpikes\":26415,\"IceStaff\":955057,\"Shuriken\":1759580,\"Fireball\":607825,\"WindFlow\":439592},\"KillCount\":{\"SwordStrike\":851,\"GhostSwords\":406,\"HolyGround\":2510,\"MidasHand\":21,\"Bombard\":406,\"BlackHole\":1027,\"StoneSpikes\":5,\"IceStaff\":619,\"Shuriken\":833,\"Fireball\":245,\"WindFlow\":137}},\"StartAbility\":0,\"AbilityUnlockLevel\":{\"SwordStrike\":10,\"GhostSwords\":10,\"HolyGround\":10,\"MidasHand\":5,\"Bombard\":10,\"BlackHole\":10,\"StoneSpikes\":10,\"IceStaff\":10,\"Shuriken\":10,\"Fireball\":10,\"WindFlow\":10},\"UnlockDamage\":{\"SwordStrike\":0,\"GhostSwords\":100000,\"HolyGround\":1000000,\"Bombard\":1000000,\"BlackHole\":1000000,\"StoneSpikes\":100000,\"IceStaff\":1000000,\"Shuriken\":1000000,\"Fireball\":1000000},\"ScoreRecord\":1431.4187,\"IsAdOn\":true}",
     "intExample": 5,
     "strExample": "Hello!",
     "boolExample": [
@@ -8,5 +8,5 @@
         false,
         false
     ],
-    "idSave": 326
+    "idSave": 518
 }

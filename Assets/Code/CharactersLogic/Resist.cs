@@ -1,42 +1,42 @@
+using Assets.Code.Data;
 using Assets.Code.Tools;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Assets.Code.CharactersLogic
 {
     public class Resist
     {
-        private readonly float _defaultValue;
-        private readonly float _minValue;
-        private readonly float _maxValue;
+        private readonly float _baseValue;
+        private readonly List<IValueEffect> _effects = new();
 
-        public Resist(
-            float value,
-            float minValue = 0,
-            float maxValue = float.MaxValue)
+        public Resist(float baseValue)
         {
-            _defaultValue = value.ThrowIfNegative();
-            Value = _defaultValue;
-
-            _minValue = minValue.ThrowIfNegative();
-            _maxValue = maxValue.ThrowIfLessThan(_minValue);
+            _baseValue = baseValue;
         }
 
-        public float Value { get; private set; }
-
-        public void Increase(float value)
+        public float Affect(float value)
         {
-            Value = (Value + value.ThrowIfNegative())
-                .Clamp(_minValue, _maxValue);
+            value -= _baseValue;
+            _effects.ForEach(effect => value = effect.Apply(value));
+
+            return value;
         }
 
-        public void Decrease(float value)
+        public void AddEffect(IValueEffect effect)
         {
-            Value = (Value - value.ThrowIfNegative())
-                .Clamp(_minValue, _maxValue);
+            _effects.Add(effect.ThrowIfNull());
+            _effects.OrderBy(effect => effect.Priority);
+        }
+
+        public void RemoveEffect(IValueEffect effect)
+        {
+            _effects.Remove(effect.ThrowIfNull());
         }
 
         public void Reset()
         {
-            Value = _defaultValue;
+            _effects.Clear();
         }
     }
 }

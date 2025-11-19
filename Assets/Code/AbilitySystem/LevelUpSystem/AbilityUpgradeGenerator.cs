@@ -47,8 +47,8 @@ namespace Assets.Code.AbilitySystem
         public void RefreshAvailableAbilities()
         {
             _availableAbilities = Constants.GetEnums<AbilityType>()
-                .Except(_container.MaxedAbilities)
                 .Except(_abilityUnlockLevel.Where(pair => pair.Value == Constants.Zero).Select(pair => pair.Key))
+                .Except(_container.MaxedAbilities)
                 .ToList();
         }
 

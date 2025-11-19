@@ -16,11 +16,11 @@ namespace Assets.Code.Tools
 
                 if (source.isPlaying)
                 {
-                    break;
+                    return;
                 }
-
-                gameObject.SetActive(false);
             }
+
+            gameObject.SetActive(false);
         }
     }
 }

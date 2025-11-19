@@ -24,7 +24,6 @@ namespace Assets.Code.AbilitySystem.Abilities
         protected override void Apply()
         {
             _holyRune.DealDamage();
-            Debug.Log($"Урон {CurrentStats.Get(FloatStatType.Damage)} КД {CurrentStats.Get(FloatStatType.Cooldown)}");
         }
 
         protected override void OnDispose()

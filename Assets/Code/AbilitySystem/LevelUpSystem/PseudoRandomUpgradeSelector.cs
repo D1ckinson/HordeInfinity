@@ -10,8 +10,6 @@ namespace Assets.Code.AbilitySystem
         private const int MaxWeight = 100;
         private const int AbilityStep = 5;
         private const int BuffStep = -50;
-        //private const int AbilityStep = 50;
-        //private const int BuffStep = 50;
 
         private readonly AbilityUpgradeGenerator _abilityGenerator;
         private readonly BuffUpgradeGenerator _buffGenerator;

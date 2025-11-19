@@ -50,12 +50,13 @@ namespace Assets.Code.CharactersLogic.HeroLogic
             Rotator = new(directionSource, rigidbody, config.RotationSpeed);
 
             Regenerator regenerator = new(Health, config.Regeneration);
-            ValueContainer resist = new(config.Resist);
+            Resist resist = new(config.Resist);
             float triggerValue = config.MaxHealth * Constants.PercentToMultiplier(config.InvincibilityTriggerPercent);
             Invincibility invincibility = new(config.InvincibilityDuration, triggerValue);
             Health.Initialize(config.MaxHealth, invincibility, regenerator, resist);
 
-            LootCollector.Initialize(config.AttractionRadius, config.PullSpeed, wallet, heroLevel);
+            IValueContainer attractionRadius = new ValueContainer(config.AttractionRadius, Constants.One);
+            LootCollector.Initialize(attractionRadius, config.PullSpeed, wallet, heroLevel);
 
             return this;
         }

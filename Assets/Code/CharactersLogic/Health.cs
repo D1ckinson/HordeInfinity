@@ -1,4 +1,3 @@
-using Assets.Code.Data;
 using Assets.Code.Tools;
 using System;
 using UnityEngine;
@@ -15,7 +14,7 @@ namespace Assets.Code.CharactersLogic
         public event Action<float> ValueChanged;
 
         public Regenerator Regenerator { get; private set; }
-        public ValueContainer Resist { get; private set; }
+        public Resist Resist { get; private set; }
         public float DefaultMaxValue { get; private set; }
         public float Value { get; private set; }
         public float MaxValue { get; private set; }
@@ -24,11 +23,6 @@ namespace Assets.Code.CharactersLogic
         private void Awake()
         {
             _animator = GetComponent<Animator>();
-        }
-
-        private void Update()
-        {
-            Debug.Log($"μΰκρ υο {MaxValue} Πεγεν {Regenerator.Value}");   
         }
 
         private void OnEnable()
@@ -47,7 +41,7 @@ namespace Assets.Code.CharactersLogic
             float maxValue,
             Invincibility invincibility,
             Regenerator regenerator,
-            ValueContainer resist)
+            Resist resist)
         {
             DefaultMaxValue = maxValue.ThrowIfZeroOrLess();
             MaxValue = DefaultMaxValue;
@@ -71,7 +65,7 @@ namespace Assets.Code.CharactersLogic
                 return new(Constants.Zero, false);
             }
 
-            float resultDamage = damage.ThrowIfNegative() - Resist.Value;
+            float resultDamage = Resist.Affect(damage.ThrowIfNegative());
 
             if (resultDamage <= Constants.Zero)
             {

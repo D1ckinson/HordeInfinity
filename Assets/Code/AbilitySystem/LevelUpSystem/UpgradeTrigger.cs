@@ -11,7 +11,6 @@ namespace Assets.Code.AbilitySystem
     public class UpgradeTrigger
     {
         private const int SuggestedUpgradesCount = 3;
-        private const int CoinsCount = 5;
 
         private readonly HeroLevel _heroLevel;
         private readonly LevelUpWindow _levelUpWindow;
@@ -80,7 +79,7 @@ namespace Assets.Code.AbilitySystem
 
             if (upgradeOptions.Count == Constants.Zero)
             {
-                _lootFactory.Spawn(Loot.LootType.Coin, _hero.position, CoinsCount);
+                _lootFactory.Spawn(Loot.LootType.LowCoin, _hero.position, level);
                 _heroLevel.DecreaseLevelUpsCount();
 
                 return;

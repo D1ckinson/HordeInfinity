@@ -86,13 +86,15 @@ namespace Assets.Code.Spawners
 
             if (_spawnTypeByTime.Length == nextIndex)
             {
+                TimerService.StopTimer(this, SetSpawnType);
+
                 return;
             }
 
             int time = _spawnTypeByTime[nextIndex].Time;
             _spawnTypeIndex = nextIndex;
 
-            TimerService.StartTimer(time, SetSpawnType, this);
+            TimerService.StartTimer(time, SetSpawnType, this, true);
         }
 
         private void TrySpawnGoldEnemy()

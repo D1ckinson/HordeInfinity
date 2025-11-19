@@ -13,8 +13,8 @@ GameObject:
   - component: {fileID: 9182322388601234205}
   - component: {fileID: 8320936525152796449}
   - component: {fileID: 8818701689398325164}
-  - component: {fileID: 3765481540292913948}
   - component: {fileID: 6443013507858165288}
+  - component: {fileID: 144325263509398664}
   m_Layer: 0
   m_Name: Ice Spike
   m_TagString: Untagged
@@ -472,8 +472,22 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5596312598766382143}
   m_Mesh: {fileID: 0}
---- !u!64 &3765481540292913948
-MeshCollider:
+--- !u!114 &6443013507858165288
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5596312598766382143}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4c7360eb4d62a64db64c93690b70624, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _lifeTime: 2
+  _speed: 70
+--- !u!136 &144325263509398664
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -490,21 +504,8 @@ MeshCollider:
   m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 0}
---- !u!114 &6443013507858165288
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5596312598766382143}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e4c7360eb4d62a64db64c93690b70624, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _lifeTime: 2
-  _speed: 70
+  serializedVersion: 2
+  m_Radius: 0.566108
+  m_Height: 3.3199518
+  m_Direction: 2
+  m_Center: {x: 0.0027407408, y: 0.013528466, z: 0.001713872}

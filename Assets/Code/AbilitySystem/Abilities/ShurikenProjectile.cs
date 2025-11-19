@@ -68,8 +68,13 @@ namespace Assets.Code.AbilitySystem.Abilities
             return false;
         }
 
-        public ShurikenProjectile Initialize(LayerMask damageLayer, float damage, float searchRadius,
-            int maxBounces, Pool<AudioSource> hitSound, ITimeService timeService)
+        public ShurikenProjectile Initialize(
+            LayerMask damageLayer,
+            float damage,
+            float searchRadius,
+            int maxBounces,
+            Pool<AudioSource> hitSound,
+            ITimeService timeService)
         {
             _damageLayer = damageLayer.ThrowIfNull();
             _soundPause.Initialize(timeService);
@@ -80,7 +85,10 @@ namespace Assets.Code.AbilitySystem.Abilities
             return this;
         }
 
-        public void SetStats(float damage, float searchRadius, int maxBounces)
+        public void SetStats(
+            float damage, 
+            float searchRadius, 
+            int maxBounces)
         {
             _damage = damage.ThrowIfNegative();
             _searchRadius = searchRadius.ThrowIfNegative();

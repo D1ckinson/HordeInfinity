@@ -1,6 +1,7 @@
 ﻿using Assets.Code.Tools;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Assets.Code.Data
 {
@@ -78,12 +79,13 @@ namespace Assets.Code.Data
         private void UpdateValue()
         {
             _effects.RemoveAll(effect => effect.IsNull());
-            _effects.Sort();
+            _effects.OrderBy(effect => effect.Priority);
 
             Value = DefaultValue + _additionalValue;
 
             _effects.ForEach(effect => Value = effect.Apply(Value));
             Value.Clamp(_defaultMinValue, _defaultMaxValue + _additionalMaxValue);
+            ValueChanged?.Invoke(this);
         }
     }
 }

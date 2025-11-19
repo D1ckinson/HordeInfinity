@@ -44,7 +44,8 @@ namespace Assets.Code.CharactersLogic.EnemyLogic
             Rotator = new(directionSource, Rigidbody, config.RotationSpeed);
 
             Regenerator regenerator = new(Health, config.Regeneration);
-            ValueContainer resist = new(config.Resist);
+            Resist resist = new(config.Resist);
+
             float triggerValue = config.MaxHealth * Constants.PercentToMultiplier(config.InvincibilityTriggerPercent);
             Invincibility invincibility = new(config.InvincibilityDuration, triggerValue);
             Health.Initialize(config.MaxHealth, invincibility, regenerator, resist);

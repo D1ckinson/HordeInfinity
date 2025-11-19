@@ -1,5 +1,4 @@
-﻿using Assets.Code.AbilitySystem;
-using Assets.Code.AbilitySystem.Abilities;
+﻿using Assets.Code.AbilitySystem.Abilities;
 using Assets.Code.Tools;
 using Assets.Scripts;
 using Assets.Scripts.Factories;
@@ -14,7 +13,6 @@ namespace Assets.Code
         private readonly Dictionary<AbilityType, AbilityConfig> _configs;
         private readonly Dictionary<AbilityType, Func<Ability>> _createFunctions;
         private readonly Transform _hero;
-
         private readonly Transform _heroCenter;
         private readonly Dictionary<AbilityType, int> _abilityUnlockLevel;
         private readonly LootFactory _lootFactory;
@@ -22,13 +20,18 @@ namespace Assets.Code
         private readonly ITimeService _timeService;
         private readonly BattleMetrics _battleMetrics;
 
-        public AbilityFactory(Dictionary<AbilityType, AbilityConfig> configs, Transform hero, Transform heroCenter,
-            Dictionary<AbilityType, int> abilityUnlockLevel, BattleMetrics battleMetrics, LootFactory lootFactory,
-            Animator animator, ITimeService timeService)
+        public AbilityFactory(
+            Dictionary<AbilityType, AbilityConfig> configs,
+            Transform hero,
+            Transform heroCenter,
+            Dictionary<AbilityType, int> abilityUnlockLevel,
+            BattleMetrics battleMetrics,
+            LootFactory lootFactory,
+            Animator animator,
+            ITimeService timeService)
         {
             _configs = configs.ThrowIfNullOrEmpty();
             _hero = hero.ThrowIfNull();
-
             _heroCenter = heroCenter.ThrowIfNull();
             _abilityUnlockLevel = abilityUnlockLevel.ThrowIfNull();
             _lootFactory = lootFactory.ThrowIfNull();
@@ -59,79 +62,57 @@ namespace Assets.Code
 
         private SwordStrike CreateSwordStrike()
         {
-            AbilityConfig config = _configs[AbilityType.SwordStrike];
-
-            return new SwordStrike(config, _abilityUnlockLevel, _heroCenter, _animator, _battleMetrics);
+            return new SwordStrike(_configs[AbilityType.SwordStrike], _abilityUnlockLevel, _heroCenter, _animator, _battleMetrics);
         }
 
         private Ability CreateGhostSwords()
         {
-            AbilityConfig config = _configs[AbilityType.GhostSwords];
-
-            return new GhostSwords(config, _abilityUnlockLevel, _heroCenter, _battleMetrics);
+            return new GhostSwords(_configs[AbilityType.GhostSwords], _abilityUnlockLevel, _heroCenter, _battleMetrics);
         }
 
         private Ability CreateHolyGround()
         {
-            AbilityConfig config = _configs[AbilityType.HolyGround];
-
-            return new HolyGround(config, _abilityUnlockLevel, _hero, _timeService, _battleMetrics);
+            return new HolyGround(_configs[AbilityType.HolyGround], _abilityUnlockLevel, _hero, _timeService, _battleMetrics);
         }
 
         private Ability CreateMidasHand()
         {
-            AbilityConfig config = _configs[AbilityType.MidasHand];
-
-            return new MidasHand(config, _abilityUnlockLevel, _heroCenter, _lootFactory, _battleMetrics);
+            return new MidasHand(_configs[AbilityType.MidasHand], _abilityUnlockLevel, _heroCenter, _lootFactory, _battleMetrics);
         }
 
         private Ability CreateBombard()
         {
-            AbilityConfig config = _configs[AbilityType.Bombard];
-
-            return new Bombard(config, _abilityUnlockLevel, _heroCenter, _battleMetrics);
+            return new Bombard(_configs[AbilityType.Bombard], _abilityUnlockLevel, _heroCenter, _battleMetrics);
         }
 
         private Ability CreateBlackHole()
         {
-            AbilityConfig config = _configs[AbilityType.BlackHole];
-
-            return new BlackHole(config, _abilityUnlockLevel, _heroCenter, _timeService, _battleMetrics);
+            return new BlackHole(_configs[AbilityType.BlackHole], _abilityUnlockLevel, _heroCenter, _timeService, _battleMetrics);
         }
 
         private Ability CreateStoneSpikes()
         {
-            AbilityConfig config = _configs[AbilityType.StoneSpikes];
-
-            return new StoneSpikes(config, _abilityUnlockLevel, _hero, _battleMetrics);
+            return new StoneSpikes(_configs[AbilityType.StoneSpikes], _abilityUnlockLevel, _hero, _battleMetrics);
         }
 
         private Ability CreateIceStaff()
         {
-            AbilityConfig config = _configs[AbilityType.IceStaff];
-
-            return new IceStaff(config, _abilityUnlockLevel, _heroCenter, _battleMetrics);
+            return new IceStaff(_configs[AbilityType.IceStaff], _abilityUnlockLevel, _heroCenter, _battleMetrics);
         }
 
         private Ability CreateShuriken()
         {
-            AbilityConfig config = _configs[AbilityType.Shuriken];
-
-            return new Shuriken(config, _abilityUnlockLevel, _heroCenter, _timeService, _battleMetrics);
+            return new Shuriken(_configs[AbilityType.Shuriken], _abilityUnlockLevel, _heroCenter, _timeService, _battleMetrics);
         }
 
         private Ability CreateFireball()
         {
-            AbilityConfig config = _configs[AbilityType.Fireball];
-
-            return new Fireball(config, _abilityUnlockLevel, _heroCenter, _timeService, _battleMetrics);
+            return new Fireball(_configs[AbilityType.Fireball], _abilityUnlockLevel, _heroCenter, _timeService, _battleMetrics);
         }
 
         private Ability CreateWindFlow()
         {
-            AbilityConfig config = _configs[AbilityType.WindFlow];
-
-            return new WindFlow(config, _abilityUnlockLevel, _hero, _battleMetrics);
+            return new WindFlow(_configs[AbilityType.WindFlow], _abilityUnlockLevel, _hero, _battleMetrics);
         }
     }
 }

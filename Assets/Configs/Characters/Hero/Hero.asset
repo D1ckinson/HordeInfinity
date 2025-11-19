@@ -25,6 +25,6 @@ MonoBehaviour:
   <DamageLayer>k__BackingField:
     serializedVersion: 2
     m_Bits: 64
-  <AttractionRadius>k__BackingField: 10
+  <AttractionRadius>k__BackingField: 5
   <PullSpeed>k__BackingField: 25
   <Loot>k__BackingField: []

@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0f974ac0eb6b0e4688e2b78c62cceb7, type: 3}
   m_Name: Regeneration
   m_EditorClassIdentifier: 
-  _value: 030000000400000006000000090000000b000000
+  _value: 0200000003000000040000000500000007000000
   Type: 1
-  Icon: {fileID: 21300000, guid: 4940e80d0343a004fa64614a568ed2e7, type: 3}
+  Icon: {fileID: 21300000, guid: cd7905cfdcd97ca4cb126b23046a6bd0, type: 3}
   <IsMultiplier>k__BackingField: 0
   <IsPositive>k__BackingField: 1

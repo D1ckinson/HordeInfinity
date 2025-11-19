@@ -23,6 +23,10 @@ namespace Assets.Code.BuffSystem
                 [BuffType.Damage] = CreateDamageBuff,
                 [BuffType.Cooldown] = CreateCooldownBuff,
                 [BuffType.Speed] = CreateSpeedBuff,
+                [BuffType.Extraction] = CreateExtractionBuff,
+                [BuffType.Knowledge] = CreateKnowledgeBuff,
+                [BuffType.Collection] = CreateCollectionBuff,
+                [BuffType.Armor] = CreateArmorBuff
             };
         }
 
@@ -54,6 +58,26 @@ namespace Assets.Code.BuffSystem
         private Buff CreateSpeedBuff()
         {
             return new SpeedBuff(_configs[BuffType.Speed], _hero);
+        }
+
+        private Buff CreateExtractionBuff()
+        {
+            return new ExtractionBuff(_configs[BuffType.Extraction], _hero);
+        }
+
+        private Buff CreateKnowledgeBuff()
+        {
+            return new KnowledgeBuff(_configs[BuffType.Knowledge], _hero);
+        }
+
+        private Buff CreateCollectionBuff()
+        {
+            return new CollectionBuff(_configs[BuffType.Collection], _hero);
+        }
+
+        private Buff CreateArmorBuff()
+        {
+            return new ArmorBuff(_configs[BuffType.Armor], _hero);
         }
     }
 }

@@ -40,7 +40,11 @@ namespace Assets.Code.CharactersLogic.HeroLogic
             _defaultPosition = transform.position;
         }
 
-        public HeroComponents Initialize(ITellDirection directionSource, CharacterConfig config, HeroLevel heroLevel, Wallet wallet)
+        public HeroComponents Initialize(
+            ITellDirection directionSource,
+            CharacterConfig config,
+            HeroLevel heroLevel,
+            IWalletService wallet)
         {
             Rigidbody rigidbody = GetComponent<Rigidbody>();
             HeroLevel = heroLevel.ThrowIfNull();

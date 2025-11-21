@@ -35,6 +35,7 @@ namespace Assets.Code.Ui.Windows
         private Dictionary<AbilityType, int> _abilityMaxLevel;
         private Dictionary<AbilityType, int[]> _upgradeCost;
         private PlayerData _playerData;
+        private IWalletService _walletService;
 
         private void Awake()
         {
@@ -67,23 +68,27 @@ namespace Assets.Code.Ui.Windows
                 }
             }
 
-            if (_playerData.IsNotNull() && _playerData.Wallet.IsNotNull())
+            if (_walletService.IsNotNull())
             {
-                _playerData.Wallet.ValueChanged -= UpdateAllOptions;
+                _walletService.ValueChanged -= UpdateAllOptions;
             }
 
             ExitButton.Unsubscribe(Disable);
         }
 
-        public ShopWindow Initialize(Dictionary<AbilityType, int> abilityMaxLevel,
-            Dictionary<AbilityType, int[]> upgradeCost, PlayerData playerData)
+        public ShopWindow Initialize(
+            Dictionary<AbilityType, int> abilityMaxLevel,
+            Dictionary<AbilityType, int[]> upgradeCost,
+            PlayerData playerData,
+            IWalletService walletService)
         {
             _abilityMaxLevel = abilityMaxLevel.ThrowIfNullOrEmpty();
             _upgradeCost = upgradeCost.ThrowIfNullOrEmpty();
             _playerData = playerData.ThrowIfNull();
+            _walletService = walletService.ThrowIfNull();
 
-            _coinsQuantity.SetText((int)_playerData.Wallet.CoinsQuantity);
-            _playerData.Wallet.ValueChanged += UpdateAllOptions;
+            _coinsQuantity.SetText(_walletService.CoinsQuantity);
+            _walletService.ValueChanged += UpdateAllOptions;
 
             _tipText.SetText(UIText.Tip);
 
@@ -96,7 +101,7 @@ namespace Assets.Code.Ui.Windows
             AbilityType abilityType = option.AbilityType;
 
             option.LevelNumber.SetText(_playerData.AbilityUnlockLevel[abilityType]);
-            UpdateOption(option, _playerData.Wallet.CoinsQuantity);
+            UpdateOption(option, _walletService.CoinsQuantity);
 
             option.UpgradeButton.Subscribe(() => IncreaseUnlockLevel(abilityType));
             _options.Add(option.AbilityType, option);
@@ -170,7 +175,7 @@ namespace Assets.Code.Ui.Windows
             }
         }
 
-        private void UpdateOption(ShopOption option, float coinsQuantity)
+        private void UpdateOption(ShopOption option, int coinsQuantity)
         {
             AbilityType abilityType = option.AbilityType;
             int unlockLevel = _playerData.AbilityUnlockLevel[abilityType];
@@ -209,18 +214,17 @@ namespace Assets.Code.Ui.Windows
         private void IncreaseUnlockLevel(AbilityType abilityType)
         {
             int unlockLevel = _playerData.AbilityUnlockLevel[abilityType];
-            _playerData.Wallet.Spend(_upgradeCost[abilityType][unlockLevel]);
+            _walletService.Spend(_upgradeCost[abilityType][unlockLevel]);
             _playerData.AbilityUnlockLevel[abilityType] = ++unlockLevel;
             _options[abilityType].LevelNumber.SetText(unlockLevel);
 
-            UpdateAllOptions(_playerData.Wallet.CoinsQuantity);
-            YG2.SaveProgress();
+            UpdateAllOptions(_walletService.CoinsQuantity);
             YG2.saves.Save(_playerData);
         }
 
-        private void UpdateAllOptions(float coinsQuantity)
+        private void UpdateAllOptions(int coinsQuantity)
         {
-            _coinsQuantity.SetText((int)coinsQuantity);
+            _coinsQuantity.SetText(coinsQuantity);
             _options.ForEachValues(option => UpdateOption(option, coinsQuantity));
         }
 

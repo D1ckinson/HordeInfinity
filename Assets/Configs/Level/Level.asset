@@ -32,19 +32,19 @@ MonoBehaviour:
     <Delay>k__BackingField: 0.55
     <SpawnLimit>k__BackingField: 55
   <SpawnTypeByTimes>k__BackingField:
-  - <Time>k__BackingField: 5
+  - <Time>k__BackingField: 120
     <Type>k__BackingField: 1
-  - <Time>k__BackingField: 5
+  - <Time>k__BackingField: 240
     <Type>k__BackingField: 2
-  - <Time>k__BackingField: 5
+  - <Time>k__BackingField: 240
     <Type>k__BackingField: 3
-  - <Time>k__BackingField: 5
+  - <Time>k__BackingField: 360
     <Type>k__BackingField: 4
-  - <Time>k__BackingField: 5
+  - <Time>k__BackingField: 360
     <Type>k__BackingField: 5
-  - <Time>k__BackingField: 5
+  - <Time>k__BackingField: 300
     <Type>k__BackingField: 6
-  - <Time>k__BackingField: 5
+  - <Time>k__BackingField: 300
     <Type>k__BackingField: 7
   <BooksSpawnerSettings>k__BackingField:
     MinDelay: 60

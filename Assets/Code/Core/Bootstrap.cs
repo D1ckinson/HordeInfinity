@@ -27,20 +27,22 @@ namespace Assets.Scripts
 
         private StateMachine _stateMachine;
 
+        //изменить снаряды способностей
+
         private void Awake()
         {
             PlayerData playerData = YG2.saves.Load();
-            playerData.Wallet.Add(1000000);
             HeroLevel heroLevel = new(_levelSettings.CalculateExperienceForNextLevel);
 
             ITimeService timeService = new TimeService();
             IInputService inputService = new InputReader(_uIConfig.JoystickCanvas.Instantiate(), timeService);
+            IWalletService walletService = new WalletService(playerData.Wallet);
 
             GameAreaSettings gameAreaSettings = _levelSettings.GameAreaSettings;
             HeroComponents hero = _levelSettings.HeroConfig.Prefab
                 .Instantiate(gameAreaSettings.Center, Quaternion.identity)
                 .GetComponentOrThrow<HeroComponents>()
-                .Initialize(inputService, _levelSettings.HeroConfig, heroLevel, playerData.Wallet);
+                .Initialize(inputService, _levelSettings.HeroConfig, heroLevel, walletService);
 
             Camera.main.GetComponentOrThrow<Follower>().Follow(hero.transform);
 
@@ -66,7 +68,7 @@ namespace Assets.Scripts
                 timeService, lootFactory, hero.transform, upgrader, upgradeSelector);
 
             UiFactory uiFactory = new(_uIConfig, _levelSettings.UpgradeCost, _levelSettings.AbilityConfigs, heroLevel, playerData,
-                hero.LootCollector);
+                hero.LootCollector, walletService);
 
             uiFactory.Create<FPSWindow>();
 

@@ -29,8 +29,8 @@ MonoBehaviour:
   <PullSpeed>k__BackingField: 5
   <Loot>k__BackingField:
   - <Type>k__BackingField: 3
-    <Count>k__BackingField: 11
-    <DropChance>k__BackingField: 6
+    <Count>k__BackingField: 7
+    <DropChance>k__BackingField: 5.5
   - <Type>k__BackingField: 1
     <Count>k__BackingField: 2
     <DropChance>k__BackingField: 100

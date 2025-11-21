@@ -86,8 +86,8 @@ namespace Assets.Code.AbilitySystem.Abilities
         }
 
         public void SetStats(
-            float damage, 
-            float searchRadius, 
+            float damage,
+            float searchRadius,
             int maxBounces)
         {
             _damage = damage.ThrowIfNegative();

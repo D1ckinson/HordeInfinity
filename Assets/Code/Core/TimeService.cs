@@ -12,6 +12,8 @@ namespace Assets.Scripts
 
         private readonly float _originalFixedDeltaTime;
 
+        public float TimeScale => Time.timeScale;
+
         public TimeService()
         {
             _originalFixedDeltaTime = Time.fixedDeltaTime;

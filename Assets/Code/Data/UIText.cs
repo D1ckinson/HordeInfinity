@@ -178,13 +178,30 @@ namespace Assets.Code.Data
 
             _buffName = new()
             {
-
+                [BuffType.Health] = "Health Boost",
+                [BuffType.Regeneration] = "Regeneration Boost",
+                [BuffType.Damage] = "Damage Boost",
+                [BuffType.Cooldown] = "Cooldown Boost",
+                [BuffType.Speed] = "Speed Boost",
+                [BuffType.Extraction] = "Extraction Boost",
+                [BuffType.Knowledge] = "Knowledge Boost",
+                [BuffType.Collection] = "Collection Boost",
+                [BuffType.Armor] = "Armor Boost"
             };
 
             _buffStatDescription = new()
             {
-
+                [BuffType.Health] = "Health",
+                [BuffType.Regeneration] = "Regeneration",
+                [BuffType.Damage] = "Ability damage",
+                [BuffType.Cooldown] = "Ability cooldown",
+                [BuffType.Speed] = "Movement speed",
+                [BuffType.Extraction] = "Gold received",
+                [BuffType.Knowledge] = "Experience received",
+                [BuffType.Collection] = "Collection radius",
+                [BuffType.Armor] = "Damage resistance"
             };
+
 
             _floatStatName = new()
             {
@@ -229,13 +246,30 @@ namespace Assets.Code.Data
 
             _buffName = new()
             {
-
+                [BuffType.Health] = "Sağlık Güçlendirme",
+                [BuffType.Regeneration] = "Yenilenme Güçlendirme",
+                [BuffType.Damage] = "Hasar Güçlendirme",
+                [BuffType.Cooldown] = "Bekleme Süresi Güçlendirme",
+                [BuffType.Speed] = "Hız Güçlendirme",
+                [BuffType.Extraction] = "Çıkarma Güçlendirme",
+                [BuffType.Knowledge] = "Bilgi Güçlendirme",
+                [BuffType.Collection] = "Toplama Güçlendirme",
+                [BuffType.Armor] = "Zırh Güçlendirme"
             };
 
             _buffStatDescription = new()
             {
-
+                [BuffType.Health] = "Sağlık",
+                [BuffType.Regeneration] = "Yenilenme",
+                [BuffType.Damage] = "Yetenek hasarı",
+                [BuffType.Cooldown] = "Yetenek bekleme süresi",
+                [BuffType.Speed] = "Hareket hızı",
+                [BuffType.Extraction] = "Alınan altın",
+                [BuffType.Knowledge] = "Alınan deneyim",
+                [BuffType.Collection] = "Toplama yarıçapı",
+                [BuffType.Armor] = "Hasar direnci"
             };
+
 
             _abilityName = new()
             {

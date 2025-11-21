@@ -18,7 +18,7 @@ namespace Assets.Scripts
         private float _time;
         private float _pullSpeed;
         private SphereCollider _collectArea;
-        private Wallet _wallet;
+        private IWalletService _wallet;
         private HeroLevel _heroLevel;
 
         public LootAffecter LootAffecter { get; } = new();
@@ -51,7 +51,11 @@ namespace Assets.Scripts
             _loots.Add(loot);
         }
 
-        public void Initialize(IValueContainer attractionRadius, float pullSpeed, Wallet wallet, HeroLevel heroLevel)
+        public void Initialize(
+            IValueContainer attractionRadius, 
+            float pullSpeed, 
+            IWalletService wallet, 
+            HeroLevel heroLevel)
         {
             AttractionRadius = attractionRadius.ThrowIfNull();
             _pullSpeed = pullSpeed.ThrowIfZeroOrLess();

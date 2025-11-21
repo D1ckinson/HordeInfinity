@@ -20,9 +20,16 @@ namespace Assets.Code.Ui
         private readonly HeroLevel _heroLevel;
         private readonly PlayerData _playerData;
         private readonly LootCollector _lootCollector;
+        private readonly IWalletService _walletService;
 
-        public UiFactory(UIConfig uIConfig, Dictionary<AbilityType, int[]> upgradeCost,
-            Dictionary<AbilityType, AbilityConfig> abilityConfigs, HeroLevel heroLevel, PlayerData playerData, LootCollector lootCollector)
+        public UiFactory(
+            UIConfig uIConfig,
+            Dictionary<AbilityType, int[]> upgradeCost,
+            Dictionary<AbilityType, AbilityConfig> abilityConfigs,
+            HeroLevel heroLevel,
+            PlayerData playerData,
+            LootCollector lootCollector,
+            IWalletService walletService)
         {
             _uIConfig = uIConfig.ThrowIfNull();
             _upgradeCost = upgradeCost.ThrowIfNullOrEmpty();
@@ -32,6 +39,7 @@ namespace Assets.Code.Ui
             _heroLevel = heroLevel.ThrowIfNull();
             _playerData = playerData.ThrowIfNull();
             _lootCollector = lootCollector.ThrowIfNull();
+            _walletService = walletService.ThrowIfNull();
 
             _createMethods = new()
             {
@@ -90,7 +98,7 @@ namespace Assets.Code.Ui
         {
             ShopWindow shopWindow = _uIConfig.ShopWindow
                 .Instantiate(_canvas.Container, false)
-                .Initialize(_abilityMaxLevel, _upgradeCost, _playerData);
+                .Initialize(_abilityMaxLevel, _upgradeCost, _playerData, _walletService);
 
             foreach (AbilityType abilityType in Constants.GetEnums<AbilityType>())
             {

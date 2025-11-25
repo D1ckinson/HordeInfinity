@@ -9908,6 +9908,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4670577237619668693, guid: 4a1ee019567cc69409af2715bf3da8da, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5347611729566161013, guid: 4a1ee019567cc69409af2715bf3da8da, type: 3}
       propertyPath: m_Layer
       value: 0

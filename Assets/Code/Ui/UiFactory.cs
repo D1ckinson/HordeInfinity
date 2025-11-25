@@ -75,6 +75,11 @@ namespace Assets.Code.Ui
             return _windows.TryGetValue(typeof(T), out BaseWindow window) && window.IsActive();
         }
 
+        public void DisableCanvas()
+        {
+            _canvas.SetActive(false);
+        }
+
         private BaseWindow CreateFadeWindow()
         {
             return _uIConfig.FadeWindow.Instantiate(_canvas.FadeContainer, false);

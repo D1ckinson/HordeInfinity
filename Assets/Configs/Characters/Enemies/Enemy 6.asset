@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Type>k__BackingField: 6
   <Prefab>k__BackingField: {fileID: 3207581003718073074, guid: ccf7b87984124cb47934d01eaed97edb, type: 3}
-  <MaxHealth>k__BackingField: 900
+  <MaxHealth>k__BackingField: 1000
   <Regeneration>k__BackingField: 0
   <InvincibilityDuration>k__BackingField: 0.1
   <InvincibilityTriggerPercent>k__BackingField: 50

@@ -11,7 +11,7 @@ namespace Assets.Code.Spawners
     {
         private const float GoldEnemyMinSpawnDelay = 120;
         private const float GoldEnemyMaxSpawnDelay = 300;
-        private const float DelayDecreaseValue = 0.05f;
+        private const float DelayDecreaseValue = /*0.05f*/0f;
 
         private readonly EnemyFactory _enemyFactory;
         private readonly SpawnTypeByTime[] _spawnTypeByTime;

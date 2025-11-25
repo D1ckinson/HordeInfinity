@@ -29,27 +29,27 @@ MonoBehaviour:
   - {fileID: 6061571990834595463, guid: 8a6a64931f889084898f7f1cf244f517, type: 3}
   <EnemySpawnerSettings>k__BackingField:
     <Radius>k__BackingField: 35
-    <Delay>k__BackingField: 0.55
-    <SpawnLimit>k__BackingField: 55
+    <Delay>k__BackingField: 0.15
+    <SpawnLimit>k__BackingField: 1000
   <SpawnTypeByTimes>k__BackingField:
-  - <Time>k__BackingField: 120
+  - <Time>k__BackingField: 10
     <Type>k__BackingField: 1
-  - <Time>k__BackingField: 240
+  - <Time>k__BackingField: 10
     <Type>k__BackingField: 2
-  - <Time>k__BackingField: 240
+  - <Time>k__BackingField: 10
     <Type>k__BackingField: 3
-  - <Time>k__BackingField: 360
+  - <Time>k__BackingField: 10
     <Type>k__BackingField: 4
-  - <Time>k__BackingField: 360
+  - <Time>k__BackingField: 10
     <Type>k__BackingField: 5
-  - <Time>k__BackingField: 300
+  - <Time>k__BackingField: 10
     <Type>k__BackingField: 6
-  - <Time>k__BackingField: 300
+  - <Time>k__BackingField: 10
     <Type>k__BackingField: 7
   <BooksSpawnerSettings>k__BackingField:
-    MinDelay: 60
-    MaxDelay: 180
-    Range: 30
+    MinDelay: 2
+    MaxDelay: 10
+    Range: 15
   <Books>k__BackingField:
   - {fileID: 5815543813697898494, guid: c015c8627b453ec48bb7fdcba579eb09, type: 3}
   - {fileID: 2248584985164727363, guid: 4b16fd90fc439fe4db6789f9cea72aff, type: 3}
@@ -82,6 +82,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 528eaae455a389741a3870951b24d8dd, type: 2}
   <BackgroundMusic>k__BackingField: {fileID: 3938373483914223881, guid: 155aac6fcb4fcaf48a2d000bdbbc50d9, type: 3}
   <MenuMusic>k__BackingField: {fileID: 4333468301660195507, guid: 29ca130072e109246a0570d85be56e6f, type: 3}
-  _fixedExperience: 100
+  _fixedExperience: 1000000
   _experienceCoefficient: 50
   _degree: 1.3

@@ -31104,7 +31104,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 781250664}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5942ac023e301204a983e3e6ed2f6980, type: 3}
   m_Name: 
@@ -37921,6 +37921,7 @@ GameObject:
   - component: {fileID: 963194226}
   - component: {fileID: 963194229}
   - component: {fileID: 963194230}
+  - component: {fileID: 963194231}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -38009,7 +38010,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dcadfef9a2a06e048b2e973cdbb59a24, type: 3}
   m_Name: 
@@ -38030,6 +38031,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _portraitOffset: {x: 0, y: 30, z: -16}
   _landscapeOffset: {x: 0, y: 16, z: -9}
+--- !u!114 &963194231
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 963194225}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c7186277f3b5304baa726905394fe84, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _mode: 0
+  _target: {fileID: 0}
+  _rotateSpeed: 30
+  _rotateRadius: 12
+  _rotateHeight: 20
+  _moveInSpeed: 1
+  _targetDistance: 30
+  _followViewOffset: {x: 0, y: 2, z: -5}
+  _smoothTime: 0.3
 --- !u!1001 &963788648
 PrefabInstance:
   m_ObjectHideFlags: 0

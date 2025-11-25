@@ -62,17 +62,17 @@ namespace Assets.Code
 
         private SwordStrike CreateSwordStrike()
         {
-            return new SwordStrike(_configs[AbilityType.SwordStrike], _abilityUnlockLevel, _heroCenter, _animator, _battleMetrics);
+            return new SwordStrike(_configs[AbilityType.SwordStrike], _abilityUnlockLevel, _heroCenter, _animator, _battleMetrics, 7);
         }
 
         private Ability CreateGhostSwords()
         {
-            return new GhostSwords(_configs[AbilityType.GhostSwords], _abilityUnlockLevel, _heroCenter, _battleMetrics);
+            return new GhostSwords(_configs[AbilityType.GhostSwords], _abilityUnlockLevel, _heroCenter, _battleMetrics, 7);
         }
 
         private Ability CreateHolyGround()
         {
-            return new HolyGround(_configs[AbilityType.HolyGround], _abilityUnlockLevel, _hero, _timeService, _battleMetrics);
+            return new HolyGround(_configs[AbilityType.HolyGround], _abilityUnlockLevel, _hero, _timeService, _battleMetrics, 7);
         }
 
         private Ability CreateMidasHand()
@@ -82,37 +82,37 @@ namespace Assets.Code
 
         private Ability CreateBombard()
         {
-            return new Bombard(_configs[AbilityType.Bombard], _abilityUnlockLevel, _heroCenter, _battleMetrics);
+            return new Bombard(_configs[AbilityType.Bombard], _abilityUnlockLevel, _heroCenter, _battleMetrics, 7);
         }
 
         private Ability CreateBlackHole()
         {
-            return new BlackHole(_configs[AbilityType.BlackHole], _abilityUnlockLevel, _heroCenter, _timeService, _battleMetrics);
+            return new BlackHole(_configs[AbilityType.BlackHole], _abilityUnlockLevel, _heroCenter, _timeService, _battleMetrics, 7);
         }
 
         private Ability CreateStoneSpikes()
         {
-            return new StoneSpikes(_configs[AbilityType.StoneSpikes], _abilityUnlockLevel, _hero, _battleMetrics);
+            return new StoneSpikes(_configs[AbilityType.StoneSpikes], _abilityUnlockLevel, _hero, _battleMetrics, 7);
         }
 
         private Ability CreateIceStaff()
         {
-            return new IceStaff(_configs[AbilityType.IceStaff], _abilityUnlockLevel, _heroCenter, _battleMetrics);
+            return new IceStaff(_configs[AbilityType.IceStaff], _abilityUnlockLevel, _heroCenter, _battleMetrics, 7);
         }
 
         private Ability CreateShuriken()
         {
-            return new Shuriken(_configs[AbilityType.Shuriken], _abilityUnlockLevel, _heroCenter, _timeService, _battleMetrics);
+            return new Shuriken(_configs[AbilityType.Shuriken], _abilityUnlockLevel, _heroCenter, _timeService, _battleMetrics, 7);
         }
 
         private Ability CreateFireball()
         {
-            return new Fireball(_configs[AbilityType.Fireball], _abilityUnlockLevel, _heroCenter, _timeService, _battleMetrics);
+            return new Fireball(_configs[AbilityType.Fireball], _abilityUnlockLevel, _heroCenter, _timeService, _battleMetrics, 7);
         }
 
         private Ability CreateWindFlow()
         {
-            return new WindFlow(_configs[AbilityType.WindFlow], _abilityUnlockLevel, _hero, _battleMetrics);
+            return new WindFlow(_configs[AbilityType.WindFlow], _abilityUnlockLevel, _hero, _battleMetrics, 7);
         }
     }
 }

@@ -130,6 +130,12 @@ namespace Assets.Code.AbilitySystem.Abilities
                 return;
             }
 
+            if (_target == _lastTarget)
+            {
+                _target = null;
+                _moveDirection = Utilities.GenerateRandomDirection();
+            }
+
             Vector3 direction = (_target.transform.position - transform.position).normalized;
             direction.y = Constants.Zero;
 

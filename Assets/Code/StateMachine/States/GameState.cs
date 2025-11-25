@@ -74,7 +74,17 @@ namespace Assets.Scripts.State_Machine
             GameWindow gameWindow = _uiFactory.Create<GameWindow>();
             gameWindow.PauseButton.Subscribe(Pause);
 
-            _hero.AbilityContainer.Add(_abilityFactory.Create(_playerData.StartAbility));
+            //_hero.AbilityContainer.Add(_abilityFactory.Create(_playerData.StartAbility));
+            _hero.AbilityContainer.Add(_abilityFactory.Create(AbilityType.BlackHole));
+            _hero.AbilityContainer.Add(_abilityFactory.Create(AbilityType.WindFlow));
+            _hero.AbilityContainer.Add(_abilityFactory.Create(AbilityType.SwordStrike));
+            _hero.AbilityContainer.Add(_abilityFactory.Create(AbilityType.Shuriken));
+            _hero.AbilityContainer.Add(_abilityFactory.Create(AbilityType.Bombard));
+            _hero.AbilityContainer.Add(_abilityFactory.Create(AbilityType.Fireball));
+            _hero.AbilityContainer.Add(_abilityFactory.Create(AbilityType.GhostSwords));
+            _hero.AbilityContainer.Add(_abilityFactory.Create(AbilityType.IceStaff));
+            _hero.AbilityContainer.Add(_abilityFactory.Create(AbilityType.StoneSpikes));
+            _hero.AbilityContainer.Add(_abilityFactory.Create(AbilityType.HolyGround));
             _hero.AbilityContainer.Run();
             _hero.Health.Died += ShowDeathWindow;
             _hero.LootCollector.Run();
@@ -87,7 +97,8 @@ namespace Assets.Scripts.State_Machine
             _inputService.BackPressed += Pause;
 
             CoroutineService.StopAllCoroutines(this);
-            CoroutineService.StartCoroutine(TurnOnMusic(), this);
+            //CoroutineService.StartCoroutine(TurnOnMusic(), this);
+            _uiFactory.DisableCanvas();
             TimerService.StartTimer(this);
         }
 

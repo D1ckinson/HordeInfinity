@@ -19,8 +19,14 @@ namespace Assets.Scripts.Factories
         private readonly Dictionary<CharacterType, Pool<EnemyComponents>> _pools;
         private readonly CharacterConfig _goldEnemy;
 
-        public EnemyFactory(Dictionary<CharacterType, CharacterConfig> enemiesConfigs, LootFactory lootFactory,
-            Transform hero, EnemySpawnerSettings spawnerSettings, GameAreaSettings gameAreaSettings, CharacterConfig goldEnemy)
+        public EnemyFactory(
+            Dictionary<CharacterType,
+            CharacterConfig> enemiesConfigs,
+            LootFactory lootFactory,
+            Transform hero,
+            EnemySpawnerSettings spawnerSettings,
+            GameAreaSettings gameAreaSettings,
+            CharacterConfig goldEnemy)
         {
             _lootFactory = lootFactory.ThrowIfNull();
             _hero = hero.ThrowIfNull();

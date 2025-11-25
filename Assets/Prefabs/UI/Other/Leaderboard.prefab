@@ -508,6 +508,7 @@ GameObject:
   - component: {fileID: 2461835346802699086}
   - component: {fileID: 2961173712847395518}
   - component: {fileID: 5788113113905622036}
+  - component: {fileID: 2710795878971384282}
   m_Layer: 5
   m_Name: Leaderboard
   m_TagString: Untagged
@@ -578,7 +579,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31d7487aa042e9c4a8cd9ee8496d75b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _canvasGroup: {fileID: 0}
+  _fadeTime: 0.3
+  _canvasGroup: {fileID: 2710795878971384282}
   _leadersText: {fileID: 5916519122842313820}
   <ExitButton>k__BackingField: {fileID: 2711462051942151808}
   <Leaderboard>k__BackingField: {fileID: 3070592127976606064}
@@ -620,6 +622,18 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!225 &2710795878971384282
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6307751730415684357}
+  m_Enabled: 1
+  m_Alpha: 0
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &6619980698418825368
 GameObject:
   m_ObjectHideFlags: 0

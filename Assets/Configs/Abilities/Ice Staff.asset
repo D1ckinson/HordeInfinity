@@ -39,7 +39,7 @@ MonoBehaviour:
       _serializedList:
       - Key: 0
         Value: 5
-  - <Cost>k__BackingField: 20
+  - <Cost>k__BackingField: 40
     _floatStats:
       _serializedList:
       - Key: 0
@@ -54,7 +54,7 @@ MonoBehaviour:
       _serializedList:
       - Key: 0
         Value: 6
-  - <Cost>k__BackingField: 30
+  - <Cost>k__BackingField: 60
     _floatStats:
       _serializedList:
       - Key: 0
@@ -69,7 +69,7 @@ MonoBehaviour:
       _serializedList:
       - Key: 0
         Value: 7
-  - <Cost>k__BackingField: 40
+  - <Cost>k__BackingField: 90
     _floatStats:
       _serializedList:
       - Key: 0
@@ -84,7 +84,7 @@ MonoBehaviour:
       _serializedList:
       - Key: 0
         Value: 7
-  - <Cost>k__BackingField: 50
+  - <Cost>k__BackingField: 120
     _floatStats:
       _serializedList:
       - Key: 0
@@ -99,7 +99,7 @@ MonoBehaviour:
       _serializedList:
       - Key: 0
         Value: 8
-  - <Cost>k__BackingField: 100
+  - <Cost>k__BackingField: 200
     _floatStats:
       _serializedList:
       - Key: 0

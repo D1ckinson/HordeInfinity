@@ -27,8 +27,6 @@ namespace Assets.Scripts
 
         private StateMachine _stateMachine;
 
-        //изменить снаряды способностей
-
         private void Awake()
         {
             PlayerData playerData = YG2.saves.Load();
@@ -70,7 +68,7 @@ namespace Assets.Scripts
             UiFactory uiFactory = new(_uIConfig, _levelSettings.UpgradeCost, _levelSettings.AbilityConfigs, heroLevel, playerData,
                 hero.LootCollector, walletService);
 
-            uiFactory.Create<FPSWindow>();
+            AdRewarder adRewarder = new(hero, uiFactory);
 
             SpellBookSpawner bookSpawner = new(hero.transform, _levelSettings.Books, gameAreaSettings, _levelSettings.BooksSpawnerSettings);
             EnemySpawner enemySpawner = new(enemyFactory, _levelSettings.SpawnTypeByTimes);

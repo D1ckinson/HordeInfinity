@@ -79,7 +79,7 @@ namespace Assets.Code.AbilitySystem.Abilities
                     continue;
                 }
 
-                float damage = _baseDamage + _damage * _enemies.Count;
+                float damage = (_baseDamage + _damage * _enemies.Count) * Time.fixedDeltaTime;
                 Hit?.Invoke(enemy.Health.TakeDamage(damage));
 
                 Vector3 directionToCenter = (transform.position - enemy.transform.position).normalized;
@@ -89,8 +89,13 @@ namespace Assets.Code.AbilitySystem.Abilities
             }
         }
 
-        public BlackHoleProjectile Initialize(LayerMask damageLayer, float damage, float radius, float pullForce,
-            Pool<ParticleSystem> effectPool, AudioSource sound)
+        public BlackHoleProjectile Initialize(
+            LayerMask damageLayer,
+            float damage,
+            float radius,
+            float pullForce,
+            Pool<ParticleSystem> effectPool,
+            AudioSource sound)
         {
             _damageLayer = damageLayer.ThrowIfNull();
             _effectPool = effectPool.ThrowIfNull();

@@ -172,8 +172,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dad9ade4597296d469b660f03dab4628, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speedForMinute: 2
-  _healthForMinute: 1
+  _speedBoost: 0.2
+  _healthBoost: 1
+  _healthBoostTime: 10
+  _speedBoostTime: 10
 --- !u!1 &1550080151144963848
 GameObject:
   m_ObjectHideFlags: 0

@@ -30,9 +30,17 @@ namespace Assets.Scripts.State_Machine
         private readonly float _musicVolume;
         private readonly SpellBookSpawner _bookSpawner;
 
-        public GameState(StateMachine stateMachine, HeroComponents heroComponents, EnemySpawner enemySpawner,
-            AbilityFactory abilityFactory, UiFactory uiFactory, PlayerData playerData, IInputService inputService,
-            ITimeService timeService, UpgradeTrigger upgradeTrigger, AudioSource backgroundMusic,
+        public GameState(
+            StateMachine stateMachine,
+            HeroComponents heroComponents,
+            EnemySpawner enemySpawner,
+            AbilityFactory abilityFactory,
+            UiFactory uiFactory,
+            PlayerData playerData,
+            IInputService inputService,
+            ITimeService timeService,
+            UpgradeTrigger upgradeTrigger,
+            AudioSource backgroundMusic,
             SpellBookSpawner bookSpawner) : base(stateMachine)
         {
             _hero = heroComponents.ThrowIfNull();

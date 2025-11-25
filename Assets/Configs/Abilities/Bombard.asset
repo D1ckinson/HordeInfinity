@@ -24,16 +24,7 @@ MonoBehaviour:
   <HitSound>k__BackingField: {fileID: 7358856440525958003, guid: 3154c9b2d32802344be1a59795bb8c62, type: 3}
   <ProjectileSound>k__BackingField: {fileID: 0}
   _abilityStats:
-  - <Cooldown>k__BackingField: 6
-    <Damage>k__BackingField: 40
-    <Range>k__BackingField: 2
-    <ProjectilesCount>k__BackingField: 2
-    <IsPiercing>k__BackingField: 0
-    <HealthPercent>k__BackingField: 0
-    <PullForce>k__BackingField: 0
-    <BouncesQuantity>k__BackingField: 0
-    <ThrowDistance>k__BackingField: 3
-    <Cost>k__BackingField: 10
+  - <Cost>k__BackingField: 10
     _floatStats:
       _serializedList:
       - Key: 0
@@ -50,16 +41,7 @@ MonoBehaviour:
       _serializedList:
       - Key: 0
         Value: 2
-  - <Cooldown>k__BackingField: 5.7
-    <Damage>k__BackingField: 50
-    <Range>k__BackingField: 2.2
-    <ProjectilesCount>k__BackingField: 3
-    <IsPiercing>k__BackingField: 0
-    <HealthPercent>k__BackingField: 0
-    <PullForce>k__BackingField: 0
-    <BouncesQuantity>k__BackingField: 0
-    <ThrowDistance>k__BackingField: 4
-    <Cost>k__BackingField: 20
+  - <Cost>k__BackingField: 30
     _floatStats:
       _serializedList:
       - Key: 0
@@ -76,16 +58,7 @@ MonoBehaviour:
       _serializedList:
       - Key: 0
         Value: 3
-  - <Cooldown>k__BackingField: 5.3
-    <Damage>k__BackingField: 65
-    <Range>k__BackingField: 2.4
-    <ProjectilesCount>k__BackingField: 4
-    <IsPiercing>k__BackingField: 0
-    <HealthPercent>k__BackingField: 0
-    <PullForce>k__BackingField: 0
-    <BouncesQuantity>k__BackingField: 0
-    <ThrowDistance>k__BackingField: 5
-    <Cost>k__BackingField: 30
+  - <Cost>k__BackingField: 45
     _floatStats:
       _serializedList:
       - Key: 0
@@ -102,16 +75,7 @@ MonoBehaviour:
       _serializedList:
       - Key: 0
         Value: 4
-  - <Cooldown>k__BackingField: 5
-    <Damage>k__BackingField: 80
-    <Range>k__BackingField: 2.5
-    <ProjectilesCount>k__BackingField: 4
-    <IsPiercing>k__BackingField: 0
-    <HealthPercent>k__BackingField: 0
-    <PullForce>k__BackingField: 0
-    <BouncesQuantity>k__BackingField: 0
-    <ThrowDistance>k__BackingField: 6
-    <Cost>k__BackingField: 40
+  - <Cost>k__BackingField: 60
     _floatStats:
       _serializedList:
       - Key: 0
@@ -128,16 +92,7 @@ MonoBehaviour:
       _serializedList:
       - Key: 0
         Value: 4
-  - <Cooldown>k__BackingField: 4.8
-    <Damage>k__BackingField: 100
-    <Range>k__BackingField: 2.7
-    <ProjectilesCount>k__BackingField: 5
-    <IsPiercing>k__BackingField: 0
-    <HealthPercent>k__BackingField: 0
-    <PullForce>k__BackingField: 0
-    <BouncesQuantity>k__BackingField: 0
-    <ThrowDistance>k__BackingField: 6
-    <Cost>k__BackingField: 50
+  - <Cost>k__BackingField: 80
     _floatStats:
       _serializedList:
       - Key: 0
@@ -154,16 +109,7 @@ MonoBehaviour:
       _serializedList:
       - Key: 0
         Value: 5
-  - <Cooldown>k__BackingField: 4.8
-    <Damage>k__BackingField: 120
-    <Range>k__BackingField: 2.8
-    <ProjectilesCount>k__BackingField: 5
-    <IsPiercing>k__BackingField: 0
-    <HealthPercent>k__BackingField: 0
-    <PullForce>k__BackingField: 0
-    <BouncesQuantity>k__BackingField: 0
-    <ThrowDistance>k__BackingField: 8
-    <Cost>k__BackingField: 200
+  - <Cost>k__BackingField: 200
     _floatStats:
       _serializedList:
       - Key: 0
@@ -180,16 +126,7 @@ MonoBehaviour:
       _serializedList:
       - Key: 0
         Value: 5
-  - <Cooldown>k__BackingField: 4.5
-    <Damage>k__BackingField: 140
-    <Range>k__BackingField: 2.9
-    <ProjectilesCount>k__BackingField: 6
-    <IsPiercing>k__BackingField: 0
-    <HealthPercent>k__BackingField: 0
-    <PullForce>k__BackingField: 0
-    <BouncesQuantity>k__BackingField: 0
-    <ThrowDistance>k__BackingField: 8
-    <Cost>k__BackingField: 210
+  - <Cost>k__BackingField: 250
     _floatStats:
       _serializedList:
       - Key: 0
@@ -206,16 +143,7 @@ MonoBehaviour:
       _serializedList:
       - Key: 0
         Value: 6
-  - <Cooldown>k__BackingField: 4.2
-    <Damage>k__BackingField: 160
-    <Range>k__BackingField: 3
-    <ProjectilesCount>k__BackingField: 6
-    <IsPiercing>k__BackingField: 0
-    <HealthPercent>k__BackingField: 0
-    <PullForce>k__BackingField: 0
-    <BouncesQuantity>k__BackingField: 0
-    <ThrowDistance>k__BackingField: 8
-    <Cost>k__BackingField: 220
+  - <Cost>k__BackingField: 270
     _floatStats:
       _serializedList:
       - Key: 0
@@ -232,16 +160,7 @@ MonoBehaviour:
       _serializedList:
       - Key: 0
         Value: 6
-  - <Cooldown>k__BackingField: 4
-    <Damage>k__BackingField: 180
-    <Range>k__BackingField: 3.2
-    <ProjectilesCount>k__BackingField: 7
-    <IsPiercing>k__BackingField: 0
-    <HealthPercent>k__BackingField: 0
-    <PullForce>k__BackingField: 0
-    <BouncesQuantity>k__BackingField: 0
-    <ThrowDistance>k__BackingField: 8
-    <Cost>k__BackingField: 240
+  - <Cost>k__BackingField: 300
     _floatStats:
       _serializedList:
       - Key: 0
@@ -258,16 +177,7 @@ MonoBehaviour:
       _serializedList:
       - Key: 0
         Value: 7
-  - <Cooldown>k__BackingField: 3.5
-    <Damage>k__BackingField: 200
-    <Range>k__BackingField: 3.5
-    <ProjectilesCount>k__BackingField: 8
-    <IsPiercing>k__BackingField: 0
-    <HealthPercent>k__BackingField: 0
-    <PullForce>k__BackingField: 0
-    <BouncesQuantity>k__BackingField: 0
-    <ThrowDistance>k__BackingField: 10
-    <Cost>k__BackingField: 300
+  - <Cost>k__BackingField: 500
     _floatStats:
       _serializedList:
       - Key: 0

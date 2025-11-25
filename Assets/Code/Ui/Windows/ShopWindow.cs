@@ -45,11 +45,6 @@ namespace Assets.Code.Ui.Windows
             _enableStartAbilityButton.Subscribe(EnableStartAbilityList);
         }
 
-        private void OnEnable()
-        {
-            UpdateAllStartOptions();
-        }
-
         private void OnDestroy()
         {
             foreach (ShopOption shopOption in _options.Values)
@@ -117,6 +112,11 @@ namespace Assets.Code.Ui.Windows
             option.ChoseButton.Subscribe(() => SetStartAbility(option));
 
             _startOptions.Add(option.AbilityType, option);
+        }
+
+        protected override void OnEnableMethod()
+        {
+            UpdateAllStartOptions();
         }
 
         private void SetStartAbility(StartAbilityOption option)

@@ -24,62 +24,17 @@ MonoBehaviour:
   <HitSound>k__BackingField: {fileID: 0}
   <ProjectileSound>k__BackingField: {fileID: 2919410345092937126, guid: 97a33617573c03e4d9fbda4f3fc22b95, type: 3}
   _abilityStats:
-  - <Cost>k__BackingField: 10
+  - <Cost>k__BackingField: 30
     _floatStats:
       _serializedList:
       - Key: 0
         Value: 15
       - Key: 1
-        Value: 0.3
-      - Key: 2
-        Value: 1
-      - Key: 4
-        Value: 1
-    _boolStats:
-      _serializedList: []
-    _intStats:
-      _serializedList: []
-  - <Cost>k__BackingField: 20
-    _floatStats:
-      _serializedList:
-      - Key: 0
-        Value: 14.5
-      - Key: 1
-        Value: 0.3
-      - Key: 2
-        Value: 1.4
-      - Key: 4
-        Value: 2
-    _boolStats:
-      _serializedList: []
-    _intStats:
-      _serializedList: []
-  - <Cost>k__BackingField: 30
-    _floatStats:
-      _serializedList:
-      - Key: 0
-        Value: 14
-      - Key: 1
-        Value: 0.5
-      - Key: 2
-        Value: 1.4
-      - Key: 4
-        Value: 2
-    _boolStats:
-      _serializedList: []
-    _intStats:
-      _serializedList: []
-  - <Cost>k__BackingField: 40
-    _floatStats:
-      _serializedList:
-      - Key: 0
-        Value: 13.5
-      - Key: 1
-        Value: 0.6
-      - Key: 2
-        Value: 1.9
-      - Key: 4
         Value: 3
+      - Key: 2
+        Value: 1
+      - Key: 4
+        Value: 0.4
     _boolStats:
       _serializedList: []
     _intStats:
@@ -88,28 +43,58 @@ MonoBehaviour:
     _floatStats:
       _serializedList:
       - Key: 0
-        Value: 13
+        Value: 14.5
       - Key: 1
-        Value: 0.6
+        Value: 4
       - Key: 2
-        Value: 2.4
+        Value: 1.4
       - Key: 4
-        Value: 3
+        Value: 0.8
     _boolStats:
       _serializedList: []
     _intStats:
       _serializedList: []
-  - <Cost>k__BackingField: 300
+  - <Cost>k__BackingField: 70
     _floatStats:
       _serializedList:
       - Key: 0
-        Value: 12.5
+        Value: 14
       - Key: 1
-        Value: 0.8
+        Value: 5
+      - Key: 2
+        Value: 1.4
+      - Key: 4
+        Value: 1.2
+    _boolStats:
+      _serializedList: []
+    _intStats:
+      _serializedList: []
+  - <Cost>k__BackingField: 110
+    _floatStats:
+      _serializedList:
+      - Key: 0
+        Value: 13.5
+      - Key: 1
+        Value: 6
+      - Key: 2
+        Value: 1.9
+      - Key: 4
+        Value: 1.5
+    _boolStats:
+      _serializedList: []
+    _intStats:
+      _serializedList: []
+  - <Cost>k__BackingField: 150
+    _floatStats:
+      _serializedList:
+      - Key: 0
+        Value: 13
+      - Key: 1
+        Value: 7
       - Key: 2
         Value: 2.4
       - Key: 4
-        Value: 4
+        Value: 1.9
     _boolStats:
       _serializedList: []
     _intStats:
@@ -118,13 +103,13 @@ MonoBehaviour:
     _floatStats:
       _serializedList:
       - Key: 0
-        Value: 12
+        Value: 12.5
       - Key: 1
-        Value: 1
+        Value: 8
       - Key: 2
-        Value: 3
+        Value: 2.4
       - Key: 4
-        Value: 4
+        Value: 2.3
     _boolStats:
       _serializedList: []
     _intStats:
@@ -133,13 +118,13 @@ MonoBehaviour:
     _floatStats:
       _serializedList:
       - Key: 0
-        Value: 11.5
+        Value: 12
       - Key: 1
-        Value: 1.1
+        Value: 10
       - Key: 2
-        Value: 3.5
+        Value: 3
       - Key: 4
-        Value: 4.2
+        Value: 2.7
     _boolStats:
       _serializedList: []
     _intStats:
@@ -148,13 +133,13 @@ MonoBehaviour:
     _floatStats:
       _serializedList:
       - Key: 0
-        Value: 11
+        Value: 11.5
       - Key: 1
-        Value: 1.1
+        Value: 11
       - Key: 2
-        Value: 3.8
+        Value: 3.5
       - Key: 4
-        Value: 18
+        Value: 3
     _boolStats:
       _serializedList: []
     _intStats:
@@ -163,9 +148,24 @@ MonoBehaviour:
     _floatStats:
       _serializedList:
       - Key: 0
+        Value: 11
+      - Key: 1
+        Value: 15
+      - Key: 2
+        Value: 3.8
+      - Key: 4
+        Value: 4
+    _boolStats:
+      _serializedList: []
+    _intStats:
+      _serializedList: []
+  - <Cost>k__BackingField: 800
+    _floatStats:
+      _serializedList:
+      - Key: 0
         Value: 10
       - Key: 1
-        Value: 2
+        Value: 20
       - Key: 2
         Value: 4
       - Key: 4

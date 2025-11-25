@@ -26,5 +26,5 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   <AttractionRadius>k__BackingField: 5
-  <PullSpeed>k__BackingField: 25
+  <PullSpeed>k__BackingField: 30
   <Loot>k__BackingField: []

@@ -55,6 +55,8 @@ MonoBehaviour:
     _multiplier: 2
     _statType: 1
     <Priority>k__BackingField: 2
+  _type: 0
+  _time: 15
 --- !u!136 &6574883320542064198
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -184,6 +186,30 @@ PrefabInstance:
     - target: {fileID: 3918966555122854670, guid: 4dbdd93f826538a4590005bc9aff02c4, type: 3}
       propertyPath: InitialModule.startColor.maxColor.r
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3918966555122854670, guid: 4dbdd93f826538a4590005bc9aff02c4, type: 3}
+      propertyPath: TrailModule.colorOverTrail.maxColor.b
+      value: 0.47058824
+      objectReference: {fileID: 0}
+    - target: {fileID: 3918966555122854670, guid: 4dbdd93f826538a4590005bc9aff02c4, type: 3}
+      propertyPath: TrailModule.colorOverTrail.maxColor.g
+      value: 0.7764706
+      objectReference: {fileID: 0}
+    - target: {fileID: 3918966555122854670, guid: 4dbdd93f826538a4590005bc9aff02c4, type: 3}
+      propertyPath: TrailModule.colorOverLifetime.maxGradient.key0.b
+      value: 0.47058824
+      objectReference: {fileID: 0}
+    - target: {fileID: 3918966555122854670, guid: 4dbdd93f826538a4590005bc9aff02c4, type: 3}
+      propertyPath: TrailModule.colorOverLifetime.maxGradient.key0.g
+      value: 0.7764706
+      objectReference: {fileID: 0}
+    - target: {fileID: 3918966555122854670, guid: 4dbdd93f826538a4590005bc9aff02c4, type: 3}
+      propertyPath: TrailModule.colorOverLifetime.maxGradient.key1.b
+      value: 0.47058824
+      objectReference: {fileID: 0}
+    - target: {fileID: 3918966555122854670, guid: 4dbdd93f826538a4590005bc9aff02c4, type: 3}
+      propertyPath: TrailModule.colorOverLifetime.maxGradient.key1.g
+      value: 0.7764706
       objectReference: {fileID: 0}
     - target: {fileID: 5261310835276465057, guid: 4dbdd93f826538a4590005bc9aff02c4, type: 3}
       propertyPath: m_LocalPosition.x

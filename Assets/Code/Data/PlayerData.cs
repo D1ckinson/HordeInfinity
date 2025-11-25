@@ -39,14 +39,14 @@ namespace Assets.Scripts
             UnlockDamage = new()
             {
                 [AbilityType.SwordStrike] = 0,
-                [AbilityType.GhostSwords] = 100000,
-                [AbilityType.HolyGround] = 1000000,
-                [AbilityType.Bombard] = 1000000,
-                [AbilityType.BlackHole] = 1000000,
-                [AbilityType.StoneSpikes] = 100000,
-                [AbilityType.IceStaff] = 1000000,
-                [AbilityType.Shuriken] = 1000000,
-                [AbilityType.Fireball] = 1000000,
+                [AbilityType.GhostSwords] = 900000,
+                [AbilityType.HolyGround] = 5000000,
+                [AbilityType.Bombard] = 1300000,
+                [AbilityType.BlackHole] = 1500000,
+                [AbilityType.StoneSpikes] = 1200000,
+                [AbilityType.IceStaff] = 1200000,
+                [AbilityType.Shuriken] = 1200000,
+                [AbilityType.Fireball] = 1200000,
             };
         }
     }

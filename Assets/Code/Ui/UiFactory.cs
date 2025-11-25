@@ -50,7 +50,8 @@ namespace Assets.Code.Ui
                 [typeof(LeaderboardWindow)] = CreateLeaderboardWindow,
                 [typeof(PauseWindow)] = CreatePauseWindow,
                 [typeof(GameWindow)] = CreateGameWindow,
-                [typeof(ShopWindow)] = CreateShopWindow
+                [typeof(ShopWindow)] = CreateShopWindow,
+                [typeof(AdBonusButton)] = CreateAdBonusButton
             };
         }
 
@@ -137,6 +138,11 @@ namespace Assets.Code.Ui
         private BaseWindow CreateGameWindow()
         {
             return _uIConfig.GameWindow.Instantiate(_canvas.Container, false).Initialize(_lootCollector, _heroLevel);
+        }
+
+        private BaseWindow CreateAdBonusButton()
+        {
+            return _uIConfig.AdBonusButton.Instantiate(_canvas.Container, false);
         }
     }
 }

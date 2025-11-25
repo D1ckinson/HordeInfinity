@@ -102,7 +102,7 @@ MonoBehaviour:
       _serializedList: []
     _intStats:
       _serializedList: []
-  - <Cost>k__BackingField: 200
+  - <Cost>k__BackingField: 250
     _floatStats:
       _serializedList:
       - Key: 0
@@ -115,7 +115,7 @@ MonoBehaviour:
       _serializedList: []
     _intStats:
       _serializedList: []
-  - <Cost>k__BackingField: 250
+  - <Cost>k__BackingField: 350
     _floatStats:
       _serializedList:
       - Key: 0
@@ -128,7 +128,7 @@ MonoBehaviour:
       _serializedList: []
     _intStats:
       _serializedList: []
-  - <Cost>k__BackingField: 300
+  - <Cost>k__BackingField: 500
     _floatStats:
       _serializedList:
       - Key: 0
@@ -141,7 +141,7 @@ MonoBehaviour:
       _serializedList: []
     _intStats:
       _serializedList: []
-  - <Cost>k__BackingField: 350
+  - <Cost>k__BackingField: 600
     _floatStats:
       _serializedList:
       - Key: 0

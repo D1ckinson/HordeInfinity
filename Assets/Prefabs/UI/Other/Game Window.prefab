@@ -573,6 +573,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7760094070955349446}
   - component: {fileID: 923566494473273800}
+  - component: {fileID: 7117333182489603548}
   m_Layer: 5
   m_Name: Game Window
   m_TagString: Untagged
@@ -614,12 +615,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d95a562a2b4048e4182b32a926e58929, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _fadeTime: 0.3
+  _canvasGroup: {fileID: 7117333182489603548}
   _fillingDuration: 0.3
   _coinsCount: {fileID: 841294419546753414}
   _levelText: {fileID: 5686780923666688434}
   _levelValue: {fileID: 2973520478891415082}
   _barFilling: {fileID: 4230660377497695701}
   <PauseButton>k__BackingField: {fileID: 6158512376447861996}
+--- !u!225 &7117333182489603548
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4222986333457713284}
+  m_Enabled: 1
+  m_Alpha: 0
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &5326045458102277888
 GameObject:
   m_ObjectHideFlags: 0

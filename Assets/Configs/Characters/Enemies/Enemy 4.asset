@@ -30,7 +30,7 @@ MonoBehaviour:
   <Loot>k__BackingField:
   - <Type>k__BackingField: 3
     <Count>k__BackingField: 7
-    <DropChance>k__BackingField: 5.5
+    <DropChance>k__BackingField: 3.5
   - <Type>k__BackingField: 1
     <Count>k__BackingField: 2
     <DropChance>k__BackingField: 100

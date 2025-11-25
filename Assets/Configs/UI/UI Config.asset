@@ -26,3 +26,4 @@ MonoBehaviour:
   ShopWindow: {fileID: 1512223142725689881, guid: 06e43cfd04a754a4a90881dae721225a, type: 3}
   StartAbilityOption: {fileID: 7419768218871908090, guid: 085ab357a4c2d0b49b852598d3494088, type: 3}
   JoystickCanvas: {fileID: 3227278838595663803, guid: 1ee917e5887e27c48ab68a837a9525e8, type: 3}
+  AdBonusButton: {fileID: 2767089696842643003, guid: 9b66b143c7ab0354fa113a5d4c918133, type: 3}

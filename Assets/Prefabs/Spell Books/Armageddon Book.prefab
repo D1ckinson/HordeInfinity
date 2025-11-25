@@ -176,16 +176,40 @@ PrefabInstance:
       value: Spell Book Effect
       objectReference: {fileID: 0}
     - target: {fileID: 3918966555122854670, guid: 4dbdd93f826538a4590005bc9aff02c4, type: 3}
-      propertyPath: InitialModule.startColor.maxColor.b
+      propertyPath: TrailModule.colorOverTrail.maxColor.b
       value: 0.5137255
       objectReference: {fileID: 0}
     - target: {fileID: 3918966555122854670, guid: 4dbdd93f826538a4590005bc9aff02c4, type: 3}
-      propertyPath: InitialModule.startColor.maxColor.g
+      propertyPath: TrailModule.colorOverTrail.maxColor.g
       value: 0.68235296
       objectReference: {fileID: 0}
     - target: {fileID: 3918966555122854670, guid: 4dbdd93f826538a4590005bc9aff02c4, type: 3}
-      propertyPath: InitialModule.startColor.maxColor.r
-      value: 0.8588236
+      propertyPath: TrailModule.colorOverTrail.maxColor.r
+      value: 0.85882354
+      objectReference: {fileID: 0}
+    - target: {fileID: 3918966555122854670, guid: 4dbdd93f826538a4590005bc9aff02c4, type: 3}
+      propertyPath: TrailModule.colorOverLifetime.maxGradient.key0.b
+      value: 0.5137255
+      objectReference: {fileID: 0}
+    - target: {fileID: 3918966555122854670, guid: 4dbdd93f826538a4590005bc9aff02c4, type: 3}
+      propertyPath: TrailModule.colorOverLifetime.maxGradient.key0.g
+      value: 0.68235296
+      objectReference: {fileID: 0}
+    - target: {fileID: 3918966555122854670, guid: 4dbdd93f826538a4590005bc9aff02c4, type: 3}
+      propertyPath: TrailModule.colorOverLifetime.maxGradient.key0.r
+      value: 0.85882354
+      objectReference: {fileID: 0}
+    - target: {fileID: 3918966555122854670, guid: 4dbdd93f826538a4590005bc9aff02c4, type: 3}
+      propertyPath: TrailModule.colorOverLifetime.maxGradient.key1.b
+      value: 0.5137255
+      objectReference: {fileID: 0}
+    - target: {fileID: 3918966555122854670, guid: 4dbdd93f826538a4590005bc9aff02c4, type: 3}
+      propertyPath: TrailModule.colorOverLifetime.maxGradient.key1.g
+      value: 0.68235296
+      objectReference: {fileID: 0}
+    - target: {fileID: 3918966555122854670, guid: 4dbdd93f826538a4590005bc9aff02c4, type: 3}
+      propertyPath: TrailModule.colorOverLifetime.maxGradient.key1.r
+      value: 0.85882354
       objectReference: {fileID: 0}
     - target: {fileID: 5261310835276465057, guid: 4dbdd93f826538a4590005bc9aff02c4, type: 3}
       propertyPath: m_LocalPosition.x

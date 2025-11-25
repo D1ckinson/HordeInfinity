@@ -142,7 +142,6 @@ public class CircularColliderGenerator : MonoBehaviour
         Gizmos.color = _gizmoColor;
         Gizmos.matrix = transform.localToWorldMatrix;
 
-        // Рисуем окружность
         Vector3 prevPoint = Vector3.zero;
 
         for (int i = 0; i <= GizmoSegments; i++)

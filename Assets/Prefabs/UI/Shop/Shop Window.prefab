@@ -937,7 +937,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3a370f4280ab0a4f850b5dfc9dd6eb6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _canvasGroup: {fileID: 0}
+  _fadeTime: 0.3
+  _canvasGroup: {fileID: 3231473224667746275}
   _coinsQuantity: {fileID: 1540766461267289270}
   _upgradeScrollView: {fileID: 9180312777946884389}
   _startAbilityScrollView: {fileID: 4738842765557523319}
@@ -956,7 +957,7 @@ CanvasGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4038532706305547132}
   m_Enabled: 1
-  m_Alpha: 1
+  m_Alpha: 0
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0

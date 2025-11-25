@@ -7,20 +7,22 @@ namespace Assets.Code.CharactersLogic.EnemyLogic
 {
     public class EnemyBooster : MonoBehaviour
     {
-        [SerializeField][Range(0f, 100f)] private float _speedForMinute = 5f;
-        [SerializeField][Min(1f)] private float _healthForMinute = 100f;
+        [SerializeField][Range(0f, 100f)] private float _speedBoost = 5f;
+        [SerializeField][Min(0f)] private float _healthBoost = 1f;
+        [SerializeField][Min(1f)] private float _healthBoostTime = 10f;
+        [SerializeField][Min(1f)] private float _speedBoostTime = 10f;
 
         private Health _health;
         private Mover _mover;
 
         private void OnEnable()
         {
-            if (TimerService.IsTimerExists(this, BoostHealth) == false)
+            if (_healthBoost > Constants.Zero && TimerService.IsTimerExists(this, BoostHealth) == false)
             {
-                TimerService.StartTimer(Constants.SecondsInMinute, BoostHealth, this, true);
+                TimerService.StartTimer(_healthBoostTime, BoostHealth, this, true);
             }
 
-            TimerService.StartTimer(Constants.SecondsInMinute, BoostSpeed, this, true);
+            TimerService.StartTimer(_speedBoostTime, BoostSpeed, this, true);
         }
 
         private void OnDisable()
@@ -43,12 +45,12 @@ namespace Assets.Code.CharactersLogic.EnemyLogic
 
         private void BoostHealth()
         {
-            _health.SetMaxValue(_health.MaxValue + _healthForMinute);
+            _health.SetMaxValue(_health.MaxValue + _healthBoost);
         }
 
         private void BoostSpeed()
         {
-            _mover.Speed.Increase(_speedForMinute);
+            _mover.Speed.Increase(_speedBoost);
         }
     }
 }

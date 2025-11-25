@@ -61,6 +61,7 @@ namespace Assets.Code.AbilitySystem.Abilities
                 Hit?.Invoke(health.TakeDamage(_damage));
                 _hitSound.Get(transform).PlayRandomPitch();
                 _lastTarget = _target;
+                _target = null;
 
                 return true;
             }
@@ -129,7 +130,10 @@ namespace Assets.Code.AbilitySystem.Abilities
                 return;
             }
 
-            _moveDirection = (_target.transform.position - transform.position).normalized;
+            Vector3 direction = (_target.transform.position - transform.position).normalized;
+            direction.y = Constants.Zero;
+
+            _moveDirection = direction;
         }
 
         private void Move(float deltaTime)
@@ -139,8 +143,6 @@ namespace Assets.Code.AbilitySystem.Abilities
 
         private void SetTarget()
         {
-            _target = null;
-
             int count = Physics.OverlapSphereNonAlloc(transform.position, _searchRadius, _colliders, _damageLayer);
             float sqrDistance = float.MaxValue;
 

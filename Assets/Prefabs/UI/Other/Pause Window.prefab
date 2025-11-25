@@ -434,6 +434,7 @@ GameObject:
   - component: {fileID: 7475934347375701687}
   - component: {fileID: 117658829979240107}
   - component: {fileID: 354101141810175712}
+  - component: {fileID: 6028807259231646872}
   m_Layer: 5
   m_Name: Pause Window
   m_TagString: Untagged
@@ -513,8 +514,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0b2de2d3868be14da314f8c94a7154a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _fadeTime: 0.3
+  _canvasGroup: {fileID: 6028807259231646872}
   <ContinueButton>k__BackingField: {fileID: 4827651604727438895}
   <ExitButton>k__BackingField: {fileID: 1532749702952123451}
+--- !u!225 &6028807259231646872
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3180187210367935333}
+  m_Enabled: 1
+  m_Alpha: 0
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &5626539534656628415
 GameObject:
   m_ObjectHideFlags: 0

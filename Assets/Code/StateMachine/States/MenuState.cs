@@ -74,8 +74,6 @@ namespace Assets.Scripts.State_Machine
             CoroutineService.StartCoroutine(TurnOffMusic(), this);
         }
 
-        public override void Update() { }
-
         private IEnumerator TurnOnMusic()
         {
             float elapsed = Constants.Zero;

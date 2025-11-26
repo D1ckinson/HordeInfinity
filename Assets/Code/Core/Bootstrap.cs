@@ -7,7 +7,6 @@ using Assets.Code.InputActions;
 using Assets.Code.Spawners;
 using Assets.Code.Tools;
 using Assets.Code.Ui;
-using Assets.Code.Ui.Windows;
 using Assets.Scripts.Configs;
 using Assets.Scripts.Factories;
 using Assets.Scripts.Movement;
@@ -24,8 +23,6 @@ namespace Assets.Scripts
     {
         [SerializeField] private LevelSettings _levelSettings;
         [SerializeField] private UIConfig _uIConfig;
-
-        private StateMachine _stateMachine;
 
         private void Awake()
         {
@@ -73,18 +70,14 @@ namespace Assets.Scripts
             SpellBookSpawner bookSpawner = new(hero.transform, _levelSettings.Books, gameAreaSettings, _levelSettings.BooksSpawnerSettings);
             EnemySpawner enemySpawner = new(enemyFactory, _levelSettings.SpawnTypeByTimes);
 
-            _stateMachine = new();
-            _stateMachine
-                .AddState(new MenuState(_stateMachine, uiFactory, _levelSettings.MenuMusic.Instantiate(hero.transform)))
-                .AddState(new GameState(_stateMachine, hero, enemySpawner, abilityFactory, uiFactory,
+            StateMachine stateMachine = new();
+
+            stateMachine
+                .AddState(new MenuState(stateMachine, uiFactory, _levelSettings.MenuMusic.Instantiate(hero.transform)))
+                .AddState(new GameState(stateMachine, hero, enemySpawner, abilityFactory, uiFactory,
                 playerData, inputService, timeService, upgradeTrigger, _levelSettings.BackgroundMusic, bookSpawner));
 
-            _stateMachine.SetState<MenuState>();
-        }
-
-        private void Update()
-        {
-            _stateMachine.Update();
+            stateMachine.SetState<MenuState>();
         }
     }
 }

@@ -91,11 +91,6 @@ namespace Assets.Scripts.State_Machine
             TimerService.StartTimer(this);
         }
 
-        public override void Update()
-        {
-
-        }
-
         public override void Exit()
         {
             DeathWindow deathWindow = _uiFactory.Create<DeathWindow>(false);

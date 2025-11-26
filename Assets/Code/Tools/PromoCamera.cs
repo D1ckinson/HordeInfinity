@@ -4,26 +4,39 @@ namespace Assets.Code.Tools
 {
     public class PromoCamera : MonoBehaviour
     {
+        [Header("Main Settings")]
         [SerializeField] private PromoCameraMode _mode;
         [SerializeField] private Transform _target;
+        [SerializeField, Min(0f)] private float _smoothTime = 0.3f;
 
-        // Rotate mode parameters
-        [SerializeField] private float _rotateSpeed = 30f;
-        [SerializeField] private float _rotateRadius = 5f;
+        [Header("Rotate Mode")]
+        [SerializeField, Min(0f)] private float _rotateSpeed = 30f;
+        [SerializeField, Min(0.1f)] private float _rotateRadius = 5f;
         [SerializeField] private float _rotateHeight = 2f;
 
-        // MoveIn mode parameters
-        [SerializeField] private float _moveInSpeed = 1f;
-        [SerializeField] private float _targetDistance = 2f;
+        [Header("MoveIn Mode")]
+        [SerializeField, Min(0f)] private float _moveInSpeed = 1f;
+        [SerializeField, Min(0.1f)] private float _targetDistance = 2f;
+        [SerializeField] private Vector3 _startPosition = new(0, 5, -10);
+        [SerializeField] private Vector3 _startRotation = new(30, 0, 0);
 
-        // FollowView mode parameters
+        [Header("FollowView Mode")]
         [SerializeField] private Vector3 _followViewOffset = new(0, 2, -5);
 
-        // Общие параметры
-        [SerializeField] private float _smoothTime = 0.3f;
+        [Header("Follow Mode")]
+        [SerializeField] private Vector3 _followOffset = Vector3.zero;
+        [SerializeField] private Vector3 _followRotation = Vector3.zero;
 
         private Vector3 _currentVelocity;
         private float _currentRotationAngle;
+        private bool _isMovingToTarget = true;
+        private Vector3 _currentMoveInPosition;
+        private Quaternion _currentMoveInRotation;
+
+        private void Start()
+        {
+            InitializeMoveInMode();
+        }
 
         private void LateUpdate()
         {
@@ -65,44 +78,72 @@ namespace Assets.Code.Tools
             transform.LookAt(_target.position + _rotateHeight * 0.2f * Vector3.up);
         }
 
+        private void InitializeMoveInMode()
+        {
+            _currentMoveInPosition = _startPosition;
+            _currentMoveInRotation = Quaternion.Euler(_startRotation);
+            transform.position = _currentMoveInPosition;
+            transform.rotation = _currentMoveInRotation;
+        }
+
         private void UpdateMoveInMode()
         {
-            // Вычисляем позицию на заданном расстоянии от цели
-            Vector3 directionToTarget = (_target.position - transform.position).normalized;
-            Vector3 targetPosition = _target.position - directionToTarget * _targetDistance;
+            if (_isMovingToTarget)
+            {
+                // Двигаемся к цели
+                Vector3 directionToTarget = (_target.position - transform.position).normalized;
+                Vector3 targetPosition = _target.position - directionToTarget * _targetDistance;
 
-            // Плавное приближение
-            transform.position = Vector3.SmoothDamp(transform.position, targetPosition,
-                ref _currentVelocity, _smoothTime * 2f);
+                transform.position = Vector3.MoveTowards(transform.position, targetPosition,
+                    _moveInSpeed * Time.deltaTime);
 
-            // Всегда смотрим на цель
-            transform.LookAt(_target.position);
+                // Плавный поворот к цели
+                Quaternion targetRotation = Quaternion.LookRotation(_target.position - transform.position);
+                transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation,
+                    _rotateSpeed * Time.deltaTime);
+
+                // Проверяем достигли ли цели
+                if (Vector3.Distance(transform.position, targetPosition) < 0.1f)
+                {
+                    _isMovingToTarget = false;
+                }
+            }
+            else
+            {
+                // Возвращаемся к стартовой позиции
+                transform.position = Vector3.MoveTowards(transform.position, _startPosition,
+                    _moveInSpeed * Time.deltaTime);
+                transform.rotation = Quaternion.RotateTowards(transform.rotation,
+                    Quaternion.Euler(_startRotation), _rotateSpeed * Time.deltaTime);
+
+                // Проверяем достигли ли стартовой позиции
+                if (Vector3.Distance(transform.position, _startPosition) < 0.1f)
+                {
+                    _isMovingToTarget = true;
+                }
+            }
         }
 
         private void UpdateFollowViewMode()
         {
-            // Позиция с offset относительно цели
-            Vector3 targetPosition = _target.position + _followViewOffset;
+            // В этом режиме позиция камеры не меняется автоматически
+            // Только поворот в сторону цели
+            Vector3 directionToTarget = _target.position - transform.position;
+            Quaternion targetRotation = Quaternion.LookRotation(directionToTarget);
 
-            // Плавное перемещение
-            transform.position = Vector3.SmoothDamp(transform.position, targetPosition,
-                ref _currentVelocity, _smoothTime);
-
-            // Смотрим на цель
-            transform.LookAt(_target.position);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation,
+                _smoothTime * Time.deltaTime);
         }
 
         private void UpdateFollowMode()
         {
-            // В этом режиме просто следуем за целью как дочерний объект
-            // но с плавностью для избежания резких движений
-            Vector3 targetPosition = _target.position;
+            // Камера следует за целью как дочерний объект
+            Vector3 targetPosition = _target.position + _target.TransformDirection(_followOffset);
+            Quaternion targetRotation = _target.rotation * Quaternion.Euler(_followRotation);
 
             transform.position = Vector3.SmoothDamp(transform.position, targetPosition,
                 ref _currentVelocity, _smoothTime);
-
-            // Можно добавить плавное вращение если нужно
-            transform.rotation = Quaternion.Slerp(transform.rotation, _target.rotation,
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation,
                 _smoothTime * Time.deltaTime);
         }
 
@@ -110,13 +151,24 @@ namespace Assets.Code.Tools
         public void SetTarget(Transform newTarget)
         {
             _target = newTarget;
-            _currentVelocity = Vector3.zero; // Сбрасываем скорость для плавного перехода
+            _currentVelocity = Vector3.zero;
+
+            if (_mode == PromoCameraMode.MoveIn)
+            {
+                InitializeMoveInMode();
+            }
         }
 
         public void SetMode(PromoCameraMode newMode)
         {
             _mode = newMode;
-            _currentVelocity = Vector3.zero; // Сбрасываем скорость при смене режима
+            _currentVelocity = Vector3.zero;
+
+            if (_mode == PromoCameraMode.MoveIn)
+            {
+                InitializeMoveInMode();
+                _isMovingToTarget = true;
+            }
         }
 
         public void SetRotateParameters(float speed, float radius, float height)
@@ -126,10 +178,13 @@ namespace Assets.Code.Tools
             _rotateHeight = height;
         }
 
-        public void SetMoveInParameters(float speed, float distance)
+        public void SetMoveInParameters(float speed, float distance, Vector3 startPosition, Vector3 startRotation)
         {
             _moveInSpeed = speed;
             _targetDistance = distance;
+            _startPosition = startPosition;
+            _startRotation = startRotation;
+            InitializeMoveInMode();
         }
 
         public void SetFollowViewOffset(Vector3 offset)
@@ -137,20 +192,25 @@ namespace Assets.Code.Tools
             _followViewOffset = offset;
         }
 
+        public void SetFollowParameters(Vector3 offset, Vector3 rotation)
+        {
+            _followOffset = offset;
+            _followRotation = rotation;
+        }
+
         public void SetSmoothTime(float smoothTime)
         {
             _smoothTime = smoothTime;
         }
 
-        // Для отладки в редакторе
-        private void OnValidate()
+        // Для принудительного сброса MoveIn режима
+        public void ResetMoveInMode()
         {
-            // Гарантируем положительные значения для критических параметров
-            _rotateSpeed = Mathf.Max(0, _rotateSpeed);
-            _rotateRadius = Mathf.Max(0.1f, _rotateRadius);
-            _moveInSpeed = Mathf.Max(0, _moveInSpeed);
-            _targetDistance = Mathf.Max(0.1f, _targetDistance);
-            _smoothTime = Mathf.Max(0, _smoothTime);
+            if (_mode == PromoCameraMode.MoveIn)
+            {
+                InitializeMoveInMode();
+                _isMovingToTarget = true;
+            }
         }
     }
 }

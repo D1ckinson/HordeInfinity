@@ -90,7 +90,7 @@ namespace Assets.Scripts.State_Machine
             _hero.LootCollector.Run();
             _hero.Mover.Run();
             _hero.Rotator.Run();
-            _enemySpawner.Run();
+            //_enemySpawner.Run();
             _bookSpawner.Run();
             _upgradeTrigger.Run();
 

@@ -38045,13 +38045,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _mode: 0
   _target: {fileID: 0}
+  _smoothTime: 1
   _rotateSpeed: 30
   _rotateRadius: 12
   _rotateHeight: 20
-  _moveInSpeed: 1
-  _targetDistance: 30
+  _moveInSpeed: 20
+  _targetDistance: 5.1
+  _startPosition: {x: 4.02, y: 40, z: -10}
+  _startRotation: {x: 0, y: 0, z: 0}
   _followViewOffset: {x: 0, y: 2, z: -5}
-  _smoothTime: 0.3
+  _followOffset: {x: 0, y: 14, z: -13}
+  _followRotation: {x: 50, y: 0, z: 0}
 --- !u!1001 &963788648
 PrefabInstance:
   m_ObjectHideFlags: 0

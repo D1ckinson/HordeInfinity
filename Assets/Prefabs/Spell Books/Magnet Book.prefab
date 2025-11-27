@@ -44,13 +44,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 3238911797950549377}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 90b88a81063e6e94284fceb35440fd70, type: 3}
+  m_Script: {fileID: 11500000, guid: 45e3f4c55b98c6f4ead89395ca6a43c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _floatHeight: 0.5
   _floatSpeed: 1
   _rotationSpeed: 90
-  <SpawnWeight>k__BackingField: 100
+  <SpawnWeight>k__BackingField: 3
   _additionalRadius: 150
 --- !u!136 &6463071824028200055
 CapsuleCollider:

@@ -49,7 +49,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95fe5d030ad19aa41bee34292b504d8f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speed: 40
+  _speed: 30
   _lifeTime: 3
   _soundPause: {fileID: 1209247628623175150}
 --- !u!135 &3669384896111564195
@@ -181,7 +181,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c2cd43e967858546bcad3a69ac414fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _audioSources: []
+  _audioSources:
+  - {fileID: -5052936877855120430}
 --- !u!198 &9164871448009614899
 ParticleSystem:
   m_ObjectHideFlags: 0

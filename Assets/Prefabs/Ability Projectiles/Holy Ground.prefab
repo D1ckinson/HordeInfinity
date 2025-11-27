@@ -87,7 +87,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95844faa487df9640b06e6dedfa524b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _offset: {x: 0, y: 0, z: 0}
+  _offset: {x: 0, y: 0.01, z: 0}
   _offsetChangeDuration: 0.5
 --- !u!198 &-6336085243600157239
 ParticleSystem:
@@ -5070,4 +5070,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c2cd43e967858546bcad3a69ac414fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _audioSources: []
+  _audioSources:
+  - {fileID: -1401172506285740500}

@@ -71,11 +71,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 2932139031280186180}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1bd8e51a1a49aa94db9f0df7ba74ae48, type: 3}
+  m_Script: {fileID: 11500000, guid: 566058a6ecd586e479b799eb05e5a1c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _value: 1
-  <Type>k__BackingField: 3
+  <Type>k__BackingField: 4
 --- !u!136 &5514027965119297905
 CapsuleCollider:
   m_ObjectHideFlags: 0

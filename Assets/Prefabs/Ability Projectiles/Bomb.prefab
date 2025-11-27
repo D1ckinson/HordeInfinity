@@ -46,8 +46,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _arcHeight: 5
-  _airTime: 1
-  _rotationSpeed: 5
+  _airTime: 0.8
+  _rotationSpeed: 720
 --- !u!1 &4497992820534130071
 GameObject:
   m_ObjectHideFlags: 0

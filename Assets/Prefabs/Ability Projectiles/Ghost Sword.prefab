@@ -131,9 +131,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _collider: {fileID: 9222337730780548239}
-  _hitSound: {fileID: 0}
-  _speed: 5
-  _lifeTime: 3
+  _hitSound: {fileID: -5798849033651236219}
+  _speed: 20
+  _lifeTime: 2
 --- !u!65 &9222337730780548239
 BoxCollider:
   m_ObjectHideFlags: 0

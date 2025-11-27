@@ -12,11 +12,11 @@ GameObject:
   - component: {fileID: 5904053969539435565}
   - component: {fileID: 3167560950706531781}
   - component: {fileID: 3678721594773319974}
-  - component: {fileID: 5528172620092348293}
   - component: {fileID: 2175265491864831217}
   - component: {fileID: 1904415952192269760}
   - component: {fileID: 8173078710308518488}
-  - component: {fileID: -2686254322593208343}
+  - component: {fileID: 2714567282262177081}
+  - component: {fileID: 3216941387947368854}
   m_Layer: 6
   m_Name: Enemy 1
   m_TagString: Untagged
@@ -112,18 +112,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 80
   m_CollisionDetection: 0
---- !u!114 &5528172620092348293
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 409786301891173979}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b28fc5e850ac43448b730a1a240937f5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &2175265491864831217
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -145,9 +133,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 409786301891173979}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0cc0a6e9a4dc41148a648491faa76fbe, type: 3}
+  m_Script: {fileID: 11500000, guid: dad9ade4597296d469b660f03dab4628, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _speedBoost: 0.1
+  _healthBoost: 1
+  _healthBoostTime: 10
+  _speedBoostTime: 10
 --- !u!114 &8173078710308518488
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -160,7 +152,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb4cbe474ad978d4aa324d9c29c4e8c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &-2686254322593208343
+--- !u!114 &2714567282262177081
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -169,13 +161,21 @@ MonoBehaviour:
   m_GameObject: {fileID: 409786301891173979}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dad9ade4597296d469b660f03dab4628, type: 3}
+  m_Script: {fileID: 11500000, guid: f9963dada1a41d143b57989313d2118e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speedBoost: 0.1
-  _healthBoost: 0
-  _healthBoostTime: 10
-  _speedBoostTime: 10
+--- !u!114 &3216941387947368854
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 409786301891173979}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cdd8bc43c27b6f947be5fdb334496785, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &418898055958566562
 GameObject:
   m_ObjectHideFlags: 0
@@ -9970,10 +9970,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 3207581003718073074}
     m_Modifications:
-    - target: {fileID: 714236851006827535, guid: 4a1ee019567cc69409af2715bf3da8da, type: 3}
-      propertyPath: _health
-      value: 
-      objectReference: {fileID: 5528172620092348293}
     - target: {fileID: 714236851006827535, guid: 4a1ee019567cc69409af2715bf3da8da, type: 3}
       propertyPath: _isFullHealthHide
       value: 1

@@ -127,13 +127,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 5578437506596596437}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 40390b534f5b3b14da60864b028ec76a, type: 3}
+  m_Script: {fileID: 11500000, guid: 259bcc97a94bb054c90785740f3e834c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _floatHeight: 0.5
   _floatSpeed: 1
   _rotationSpeed: 90
-  <SpawnWeight>k__BackingField: 100
+  <SpawnWeight>k__BackingField: 11
   _additionalResist: 100
   _time: 15
   _type: 1

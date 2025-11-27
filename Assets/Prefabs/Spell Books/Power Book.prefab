@@ -44,13 +44,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 748485979349135415}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8077f6565f7423c4297f4ded70401d76, type: 3}
+  m_Script: {fileID: 11500000, guid: f1a0988c50adb6849a0155b73d0bbbc3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _floatHeight: 0.5
   _floatSpeed: 1
   _rotationSpeed: 90
-  <SpawnWeight>k__BackingField: 1
+  <SpawnWeight>k__BackingField: 100
   _effect:
     _multiplier: 2
     _statType: 1

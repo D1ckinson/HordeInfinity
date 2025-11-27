@@ -66,8 +66,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66fda0e93f554b24ba89df8d8a62300b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _baseDamage: 1
-  _radiusForEnemy: 0.2
+  _baseDamage: 10
+  _radiusForEnemy: 0.1
   _lifeTime: 5
   _scaleFactor: 1.6
   _effectZone: {fileID: 1948051854104627401}

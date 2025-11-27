@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6162469244641149464}
   - component: {fileID: 787221727874388298}
-  - component: {fileID: -3959919476835662806}
+  - component: {fileID: 5265285022240397153}
   m_Layer: 0
   m_Name: Fireball Explosion
   m_TagString: Untagged
@@ -129,7 +129,7 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &-3959919476835662806
+--- !u!114 &5265285022240397153
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -138,7 +138,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4665200561566688812}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: da6e3c92594929041b42a24d9845a1e1, type: 3}
+  m_Script: {fileID: 11500000, guid: 136b45676b2258a40b6ee4d4c9748468, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _sources:

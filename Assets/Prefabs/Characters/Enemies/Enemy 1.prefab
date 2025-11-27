@@ -9971,6 +9971,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 3207581003718073074}
     m_Modifications:
     - target: {fileID: 714236851006827535, guid: 4a1ee019567cc69409af2715bf3da8da, type: 3}
+      propertyPath: _health
+      value: 
+      objectReference: {fileID: 2714567282262177081}
+    - target: {fileID: 714236851006827535, guid: 4a1ee019567cc69409af2715bf3da8da, type: 3}
       propertyPath: _isFullHealthHide
       value: 1
       objectReference: {fileID: 0}

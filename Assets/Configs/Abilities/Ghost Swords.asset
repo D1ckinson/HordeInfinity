@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 101ae2e3c0766ec4d989024aa13dfe6c, type: 3}
+  m_Script: {fileID: 11500000, guid: 9991a76461c89994f8532b77f0319b6e, type: 3}
   m_Name: Ghost Swords
   m_EditorClassIdentifier: 
   <ProjectilePrefab>k__BackingField: {fileID: 3465033717930673454, guid: eb7b0f771bc985141864b652ba4599c5, type: 3}

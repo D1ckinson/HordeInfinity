@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 101ae2e3c0766ec4d989024aa13dfe6c, type: 3}
+  m_Script: {fileID: 11500000, guid: 9991a76461c89994f8532b77f0319b6e, type: 3}
   m_Name: Black Hole
   m_EditorClassIdentifier: 
   <ProjectilePrefab>k__BackingField: {fileID: 6263728007093738140, guid: 224e77aa40b3b854fa405415cfcb8b8d, type: 3}
@@ -24,7 +24,7 @@ MonoBehaviour:
   <HitSound>k__BackingField: {fileID: 0}
   <ProjectileSound>k__BackingField: {fileID: 2919410345092937126, guid: 97a33617573c03e4d9fbda4f3fc22b95, type: 3}
   _abilityStats:
-  - <Cost>k__BackingField: 30
+  - <Cost>k__BackingField: 10
     _floatStats:
       _serializedList:
       - Key: 0

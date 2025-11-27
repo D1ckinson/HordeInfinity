@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 41b4944789864414dab455e27a5f8097, type: 3}
+  m_Script: {fileID: 11500000, guid: 994975da4b7a7f849acc04ca7960f8ac, type: 3}
   m_Name: Level
   m_EditorClassIdentifier: 
   _enemiesConfigs:
@@ -24,9 +24,9 @@ MonoBehaviour:
   <GoldEnemy>k__BackingField: {fileID: 11400000, guid: 45ee0fb9f383e30478ef607f14c07b40, type: 2}
   <Loots>k__BackingField:
   - {fileID: 3311565449338505280, guid: 5db2f447d243c08459d9fa2297a94ed9, type: 3}
-  - {fileID: 8665370823113824047, guid: 8c7580ed5a56c9c4eb243ca3369efe52, type: 3}
-  - {fileID: 984098084897241430, guid: fc777ba7b0d31544ea1b3e7c772350b2, type: 3}
-  - {fileID: 6061571990834595463, guid: 8a6a64931f889084898f7f1cf244f517, type: 3}
+  - {fileID: 2387606355486635306, guid: 8c7580ed5a56c9c4eb243ca3369efe52, type: 3}
+  - {fileID: 3756782149726351183, guid: fc777ba7b0d31544ea1b3e7c772350b2, type: 3}
+  - {fileID: 6136966569149410051, guid: 8a6a64931f889084898f7f1cf244f517, type: 3}
   <EnemySpawnerSettings>k__BackingField:
     <Radius>k__BackingField: 35
     <Delay>k__BackingField: 0.55
@@ -59,27 +59,27 @@ MonoBehaviour:
     <Center>k__BackingField: {x: 100, y: 0, z: 100}
     <Radius>k__BackingField: 85
   _abilitiesConfigs:
-  - {fileID: 11400000, guid: 0bca3361efed7af45be0c8a784702a07, type: 2}
+  - {fileID: 11400000, guid: 1d8f819721517d24f9d9f8dfcf92e8e7, type: 2}
+  - {fileID: 11400000, guid: ae442e0af0b1c8f4ea6dc90659066ee8, type: 2}
+  - {fileID: 11400000, guid: 47df5121c2bf13846905754655efa7cb, type: 2}
   - {fileID: 11400000, guid: 491025efefcca204081a4555832f14fe, type: 2}
   - {fileID: 11400000, guid: 2e9cc2ed4b97ffc4ea15ea1e86a0747b, type: 2}
-  - {fileID: 11400000, guid: 6351cb34aca9afd43a1b76974035a3b4, type: 2}
-  - {fileID: 11400000, guid: ae442e0af0b1c8f4ea6dc90659066ee8, type: 2}
-  - {fileID: 11400000, guid: 1d8f819721517d24f9d9f8dfcf92e8e7, type: 2}
-  - {fileID: 11400000, guid: 99b88aaccedda65488f9c37cdef1c618, type: 2}
   - {fileID: 11400000, guid: d943f98ed17a0d24f873245e56eaae86, type: 2}
+  - {fileID: 11400000, guid: 6351cb34aca9afd43a1b76974035a3b4, type: 2}
   - {fileID: 11400000, guid: 782aa91345f933d49b8f4acfa1ebb47c, type: 2}
-  - {fileID: 11400000, guid: 47df5121c2bf13846905754655efa7cb, type: 2}
+  - {fileID: 11400000, guid: 99b88aaccedda65488f9c37cdef1c618, type: 2}
+  - {fileID: 11400000, guid: 0bca3361efed7af45be0c8a784702a07, type: 2}
   - {fileID: 11400000, guid: 2c5701c1aaa07d4458adeec714f56762, type: 2}
   _buffConfigs:
-  - {fileID: 11400000, guid: fcefa000ce6e4b042bcf3be6882106c6, type: 2}
-  - {fileID: 11400000, guid: a6190240c8498ea4288947bb4fd1374f, type: 2}
-  - {fileID: 11400000, guid: bde7993be9aa6f843b905450a94d500d, type: 2}
-  - {fileID: 11400000, guid: 896b07fe5f815e5469522abe6215a5a8, type: 2}
-  - {fileID: 11400000, guid: c5a2c177ba21d0e499a0782b4e217ede, type: 2}
-  - {fileID: 11400000, guid: f65e2c2215fc8fb43804db4e5805b17c, type: 2}
-  - {fileID: 11400000, guid: cdccdb6c67fc10f4c82fc0072d965bb2, type: 2}
-  - {fileID: 11400000, guid: af981828f25519843b19e42a0f14ce76, type: 2}
   - {fileID: 11400000, guid: 528eaae455a389741a3870951b24d8dd, type: 2}
+  - {fileID: 11400000, guid: af981828f25519843b19e42a0f14ce76, type: 2}
+  - {fileID: 11400000, guid: 896b07fe5f815e5469522abe6215a5a8, type: 2}
+  - {fileID: 11400000, guid: bde7993be9aa6f843b905450a94d500d, type: 2}
+  - {fileID: 11400000, guid: f65e2c2215fc8fb43804db4e5805b17c, type: 2}
+  - {fileID: 11400000, guid: fcefa000ce6e4b042bcf3be6882106c6, type: 2}
+  - {fileID: 11400000, guid: cdccdb6c67fc10f4c82fc0072d965bb2, type: 2}
+  - {fileID: 11400000, guid: a6190240c8498ea4288947bb4fd1374f, type: 2}
+  - {fileID: 11400000, guid: c5a2c177ba21d0e499a0782b4e217ede, type: 2}
   <BackgroundMusic>k__BackingField: {fileID: 3938373483914223881, guid: 155aac6fcb4fcaf48a2d000bdbbc50d9, type: 3}
   <MenuMusic>k__BackingField: {fileID: 4333468301660195507, guid: 29ca130072e109246a0570d85be56e6f, type: 3}
   _fixedExperience: 100

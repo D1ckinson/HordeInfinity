@@ -1,16 +1,17 @@
-﻿using Assets.Code.CharactersLogic;
-using Assets.Code.Tools;
+﻿using Assets.Code.CharactersLogic.GeneralLogic;
+using Assets.Code.Data.Base;
+using Assets.Code.Tools.Base;
 using System;
 using UnityEngine;
 
-namespace Assets.Code.AbilitySystem.Abilities
+namespace Assets.Code.AbilitySystem.Projectiles
 {
     public class GhostSword : MonoBehaviour, IProjectile
     {
         [SerializeField] private Collider _collider;
-        [SerializeField] private float _speed;
-        [SerializeField] private float _lifeTime;
         [SerializeField] private AudioSource _hitSound;
+        [SerializeField][Min(1f)] private float _speed = 5f;
+        [SerializeField][Min(1f)] private float _lifeTime = 3f;
 
         private float _damage;
         private bool _isPiercing;

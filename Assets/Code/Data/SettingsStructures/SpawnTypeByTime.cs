@@ -1,8 +1,8 @@
-using Assets.Scripts;
+using Assets.Code.Core;
 using System;
 using UnityEngine;
 
-namespace Assets.Code.Data.Setting_Structures
+namespace Assets.Code.Data.SettingsStructures
 {
     [Serializable]
     public struct SpawnTypeByTime

@@ -1,6 +1,6 @@
-﻿using Assets.Code.Data;
-using Assets.Code.Tools;
-using Assets.Scripts;
+﻿using Assets.Code.AbilitySystem.Base;
+using Assets.Code.Data.Base;
+using Assets.Code.Tools.Base;
 using System;
 using System.Collections.Generic;
 using TMPro;

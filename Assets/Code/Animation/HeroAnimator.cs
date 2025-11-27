@@ -1,7 +1,7 @@
 ﻿using Assets.Code.AbilitySystem.Abilities;
-using Assets.Code.CharactersLogic;
-using Assets.Code.Tools;
-using Assets.Scripts.Movement;
+using Assets.Code.CharactersLogic.GeneralLogic;
+using Assets.Code.CharactersLogic.Movement.Interfaces;
+using Assets.Code.Tools.Base;
 using UnityEngine;
 
 namespace Assets.Code.Animation

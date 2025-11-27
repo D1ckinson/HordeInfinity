@@ -1,12 +1,13 @@
-﻿using Assets.Code.Data;
-using Assets.Code.Tools;
+﻿using Assets.Code.AbilitySystem.Base;
+using Assets.Code.CharactersLogic.HeroLogic;
+using Assets.Code.Data.Base;
+using Assets.Code.Tools.Base;
 using Assets.Code.Ui.Windows;
-using Assets.Scripts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Assets.Code.Ui
+namespace Assets.Code.Ui.Base
 {
     public class UiFactory
     {

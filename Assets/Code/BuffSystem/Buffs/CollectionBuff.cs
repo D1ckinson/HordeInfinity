@@ -1,7 +1,9 @@
-﻿using Assets.Code.CharactersLogic.HeroLogic;
+﻿using Assets.Code.BuffSystem.Base;
+using Assets.Code.CharactersLogic.HeroLogic;
 using Assets.Code.Data;
+using Assets.Code.Data.Value;
 
-namespace Assets.Code.BuffSystem
+namespace Assets.Code.BuffSystem.Buffs
 {
     public class CollectionBuff : Buff
     {

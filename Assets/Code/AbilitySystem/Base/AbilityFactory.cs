@@ -1,12 +1,13 @@
 ﻿using Assets.Code.AbilitySystem.Abilities;
-using Assets.Code.Tools;
-using Assets.Scripts;
-using Assets.Scripts.Factories;
+using Assets.Code.Core;
+using Assets.Code.Data.Base;
+using Assets.Code.LootSystem.Legacy;
+using Assets.Code.Tools.Base;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Assets.Code
+namespace Assets.Code.AbilitySystem.Base
 {
     public class AbilityFactory
     {

@@ -1,7 +1,7 @@
-﻿using Assets.Code.CharactersLogic;
+﻿using Assets.Code.Data.Base;
 using System;
 
-namespace Assets.Code.AbilitySystem.Abilities
+namespace Assets.Code.AbilitySystem.Projectiles
 {
     public interface IProjectile
     {

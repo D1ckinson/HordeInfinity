@@ -1,4 +1,4 @@
-﻿namespace Assets.Code.BuffSystem
+﻿namespace Assets.Code.BuffSystem.Base
 {
     public enum BuffType
     {

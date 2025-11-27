@@ -1,8 +1,8 @@
-﻿using Assets.Code.CharactersLogic;
-using Assets.Code.Tools;
+﻿using Assets.Code.CharactersLogic.GeneralLogic;
+using Assets.Code.Tools.Base;
 using UnityEngine;
 
-namespace Assets.Scripts
+namespace Assets.Code.CharactersLogic.EnemyLogic
 {
     [RequireComponent(typeof(Collider))]
     public class CollisionDamage : MonoBehaviour

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Assets.Code.Tools
+namespace Assets.Code.Tools.Base
 {
     public static class Constants
     {

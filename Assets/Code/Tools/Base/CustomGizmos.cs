@@ -1,7 +1,6 @@
 ﻿#if UNITY_EDITOR
-namespace Assets.Scripts.Tools
+namespace Assets.Code.Tools.Base
 {
-    using Assets.Code.Tools;
     using UnityEngine;
 
     public sealed class CustomGizmos

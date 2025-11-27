@@ -1,11 +1,10 @@
 ﻿using Assets.Code.CharactersLogic.HeroLogic;
-using Assets.Code.Spawners;
-using Assets.Code.Tools;
-using Assets.Scripts;
+using Assets.Code.SpellBooks.Base;
+using Assets.Code.Tools.Base;
 using System.Collections;
 using UnityEngine;
 
-namespace Assets.Code.SpellBooks
+namespace Assets.Code.SpellBooks.Books
 {
     public class MagnetBook : SpellBook
     {

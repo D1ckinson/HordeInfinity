@@ -1,10 +1,9 @@
-﻿using Assets.Code.Tools;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-namespace Assets.Scripts.Tools
+namespace Assets.Code.Tools.Base
 {
     public class Pool<T> where T : Component
     {

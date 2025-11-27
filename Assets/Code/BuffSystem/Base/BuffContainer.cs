@@ -1,8 +1,8 @@
-﻿using Assets.Code.Tools;
+﻿using Assets.Code.Tools.Base;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Assets.Code.BuffSystem
+namespace Assets.Code.BuffSystem.Base
 {
     public class BuffContainer
     {

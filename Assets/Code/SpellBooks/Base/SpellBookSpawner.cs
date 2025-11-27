@@ -1,10 +1,10 @@
-﻿using Assets.Code.Tools;
-using Assets.Scripts.Configs;
+﻿using Assets.Code.Data.SettingsStructures;
+using Assets.Code.Tools.Base;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-namespace Assets.Code.Spawners
+namespace Assets.Code.SpellBooks.Base
 {
     public class SpellBookSpawner
     {

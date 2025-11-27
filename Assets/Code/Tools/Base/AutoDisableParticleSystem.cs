@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Assets.Code.Tools
+namespace Assets.Code.Tools.Base
 {
     public class AutoDisableParticleSystem : MonoBehaviour
     {

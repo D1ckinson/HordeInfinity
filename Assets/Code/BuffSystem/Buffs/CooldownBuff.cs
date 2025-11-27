@@ -1,8 +1,11 @@
-﻿using Assets.Code.CharactersLogic.HeroLogic;
+﻿using Assets.Code.AbilitySystem.StatTypes;
+using Assets.Code.BuffSystem.Base;
+using Assets.Code.CharactersLogic.HeroLogic;
 using Assets.Code.SpellBooks;
-using Assets.Code.Tools;
+using Assets.Code.SpellBooks.Base;
+using Assets.Code.Tools.Base;
 
-namespace Assets.Code.BuffSystem
+namespace Assets.Code.BuffSystem.Buffs
 {
     public class CooldownBuff : Buff
     {

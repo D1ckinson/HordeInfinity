@@ -1,4 +1,4 @@
-﻿using Assets.Scripts.Movement;
+﻿using Assets.Code.CharactersLogic.Movement.Interfaces;
 using System;
 
 namespace Assets.Code.InputActions

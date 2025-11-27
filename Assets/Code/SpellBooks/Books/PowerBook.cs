@@ -1,10 +1,10 @@
 ﻿using Assets.Code.CharactersLogic.HeroLogic;
-using Assets.Code.Spawners;
-using Assets.Code.Tools;
-using Assets.Code.Ui.Buff_View;
+using Assets.Code.SpellBooks.Base;
+using Assets.Code.Tools.Base;
+using Assets.Code.Ui.BuffView;
 using UnityEngine;
 
-namespace Assets.Code.SpellBooks
+namespace Assets.Code.SpellBooks.Books
 {
     public class PowerBook : SpellBook
     {

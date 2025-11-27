@@ -1,8 +1,8 @@
 ﻿using Assets.Code.CharactersLogic.HeroLogic;
-using Assets.Code.Tools;
+using Assets.Code.Tools.Base;
 using UnityEngine;
 
-namespace Assets.Code.Spawners
+namespace Assets.Code.SpellBooks.Base
 {
     public abstract class SpellBook : MonoBehaviour
     {

@@ -1,6 +1,7 @@
-﻿using System;
+﻿using Assets.Code.AbilitySystem.StatTypes;
+using System;
 
-namespace Assets.Code
+namespace Assets.Code.AbilitySystem.Stats
 {
     [Serializable]
     public struct BoolStat

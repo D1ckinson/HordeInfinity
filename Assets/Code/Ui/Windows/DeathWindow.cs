@@ -1,43 +1,45 @@
-﻿using Assets.Code.Data;
-using Assets.Code.Tools;
-using Assets.Code.Ui.Windows;
+﻿using Assets.Code.Data.Base;
+using Assets.Code.Tools.Base;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class DeathWindow : BaseWindow
+namespace Assets.Code.Ui.Windows
 {
-    [SerializeField] private TMP_Text _earnedText;
-    [SerializeField] private TMP_Text _yourTimeText;
-    [SerializeField] private TMP_Text _minutesText;
-    [SerializeField] private TMP_Text _continueText;
-    [SerializeField] private TMP_Text _menuText;
-
-    [field: SerializeField] public TMP_Text CoinsQuantity { get; private set; }
-    [field: SerializeField] public TMP_Text MinutesQuantity { get; private set; }
-    [field: SerializeField] public Button ContinueForAddButton { get; private set; }
-    [field: SerializeField] public Button BackToMenuButton { get; private set; }
-
-    private void Awake()
+    public class DeathWindow : BaseWindow
     {
-        ContinueForAddButton.Subscribe(Disable);
-        BackToMenuButton.Subscribe(Disable);
-    }
+        [SerializeField] private TMP_Text _earnedText;
+        [SerializeField] private TMP_Text _yourTimeText;
+        [SerializeField] private TMP_Text _minutesText;
+        [SerializeField] private TMP_Text _continueText;
+        [SerializeField] private TMP_Text _menuText;
 
-    private void OnDestroy()
-    {
-        ContinueForAddButton.Unsubscribe(Disable);
-        BackToMenuButton.Unsubscribe(Disable);
-    }
+        [field: SerializeField] public TMP_Text CoinsQuantity { get; private set; }
+        [field: SerializeField] public TMP_Text MinutesQuantity { get; private set; }
+        [field: SerializeField] public Button ContinueForAddButton { get; private set; }
+        [field: SerializeField] public Button BackToMenuButton { get; private set; }
 
-    public DeathWindow Initialize()
-    {
-        _earnedText.SetText(UIText.Earned);
-        _yourTimeText.SetText(UIText.YourTime);
-        _minutesText.SetText(UIText.Minutes);
-        _continueText.SetText(UIText.Continue);
-        _menuText.SetText(UIText.MenuText);
+        private void Awake()
+        {
+            ContinueForAddButton.Subscribe(Disable);
+            BackToMenuButton.Subscribe(Disable);
+        }
 
-        return this;
+        private void OnDestroy()
+        {
+            ContinueForAddButton.Unsubscribe(Disable);
+            BackToMenuButton.Unsubscribe(Disable);
+        }
+
+        public DeathWindow Initialize()
+        {
+            _earnedText.SetText(UIText.Earned);
+            _yourTimeText.SetText(UIText.YourTime);
+            _minutesText.SetText(UIText.Minutes);
+            _continueText.SetText(UIText.Continue);
+            _menuText.SetText(UIText.MenuText);
+
+            return this;
+        }
     }
 }

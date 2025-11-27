@@ -1,6 +1,8 @@
-﻿using Assets.Code.CharactersLogic;
-using Assets.Code.Tools;
-using Assets.Scripts;
+﻿using Assets.Code.AbilitySystem.Base;
+using Assets.Code.AbilitySystem.StatTypes;
+using Assets.Code.CharactersLogic.GeneralLogic;
+using Assets.Code.Data.Base;
+using Assets.Code.Tools.Base;
 using System.Collections.Generic;
 using UnityEngine;
 

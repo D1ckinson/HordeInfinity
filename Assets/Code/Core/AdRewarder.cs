@@ -1,11 +1,11 @@
-﻿using Assets.Code.CharactersLogic;
+﻿using Assets.Code.CharactersLogic.GeneralLogic;
 using Assets.Code.CharactersLogic.HeroLogic;
-using Assets.Code.Tools;
-using Assets.Code.Ui;
+using Assets.Code.Tools.Base;
+using Assets.Code.Ui.Base;
 using Assets.Code.Ui.Windows;
 using YG;
 
-namespace Assets.Scripts.State_Machine
+namespace Assets.Code.Core
 {
     public class AdRewarder
     {

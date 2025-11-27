@@ -1,8 +1,7 @@
 ﻿using Assets.Code.CharactersLogic.HeroLogic;
-using Assets.Code.Tools;
-using System;
+using Assets.Code.Tools.Base;
 
-namespace Assets.Code.BuffSystem
+namespace Assets.Code.BuffSystem.Base
 {
     public abstract class Buff
     {

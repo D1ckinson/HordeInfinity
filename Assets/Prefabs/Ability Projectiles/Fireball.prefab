@@ -46,7 +46,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3947774192206336087}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0ecb1ecb0141c6b4fb88a61b504146df, type: 3}
+  m_Script: {fileID: 11500000, guid: f2e00436133063344a10724bcf1149da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _speed: 30
@@ -4975,8 +4975,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3947774192206336087}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 98854d5f0c250ab4980915a1582271b7, type: 3}
+  m_Script: {fileID: 11500000, guid: 8c2cd43e967858546bcad3a69ac414fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _audioSources:
-  - {fileID: -6728671650569128260}
+  _audioSources: []

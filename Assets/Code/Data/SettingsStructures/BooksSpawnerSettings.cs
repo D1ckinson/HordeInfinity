@@ -1,6 +1,6 @@
 using System;
 
-namespace Assets.Scripts.Configs
+namespace Assets.Code.Data.SettingsStructures
 {
     [Serializable]
     public struct BooksSpawnerSettings

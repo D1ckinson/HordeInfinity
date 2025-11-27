@@ -1,8 +1,8 @@
-﻿using Assets.Scripts;
+﻿using Assets.Code.Core;
 using System;
 using UnityEngine;
 
-namespace Assets.Code.Tools
+namespace Assets.Code.Tools.Base
 {
     public class SoundPause : MonoBehaviour
     {

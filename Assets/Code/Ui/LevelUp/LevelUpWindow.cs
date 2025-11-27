@@ -1,14 +1,13 @@
 ﻿using Assets.Code;
-using Assets.Code.AbilitySystem;
-using Assets.Code.Data;
-using Assets.Code.Tools;
-using Assets.Code.Ui.LevelUp;
+using Assets.Code.Data.Base;
+using Assets.Code.LevelUpSystem;
+using Assets.Code.Tools.Base;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Assets.Scripts.Ui
+namespace Assets.Code.Ui.LevelUp
 {
     public class LevelUpWindow
     {

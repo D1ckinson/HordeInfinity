@@ -1,9 +1,9 @@
-using Assets.Code.Data;
-using Assets.Code.Loot;
+using Assets.Code.Data.Value;
+using Assets.Code.LootSystem.Legacy;
 using System;
 using System.Collections.Generic;
 
-namespace Assets.Scripts
+namespace Assets.Code.CharactersLogic.HeroLogic
 {
     public class LootAffecter
     {

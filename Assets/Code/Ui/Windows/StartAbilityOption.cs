@@ -1,4 +1,5 @@
-﻿using Assets.Code.Data;
+﻿using Assets.Code.AbilitySystem.Base;
+using Assets.Code.Data.Base;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;

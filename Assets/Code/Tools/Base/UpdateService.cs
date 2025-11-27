@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
-namespace Assets.Code.Tools
+namespace Assets.Code.Tools.Base
 {
     public static class UpdateService
     {

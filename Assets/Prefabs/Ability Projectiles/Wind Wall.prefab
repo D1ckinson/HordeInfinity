@@ -4864,12 +4864,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 4260948143742746564}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bd84ecb1a297a2e4180e518a8fbde1a6, type: 3}
+  m_Script: {fileID: 11500000, guid: b36bacf3d94b0e6458b0f63745fc324a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speed: 13
-  _lifeTime: 3.5
-  _pushForce: 12
+  _speed: 10
+  _lifeTime: 2
+  _pushForce: 5
   _sound: {fileID: 9154055684862114568}
 --- !u!82 &9154055684862114568
 AudioSource:

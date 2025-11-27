@@ -1,8 +1,10 @@
-﻿using Assets.Code.CharactersLogic.HeroLogic;
+﻿using Assets.Code.BuffSystem.Base;
+using Assets.Code.CharactersLogic.HeroLogic;
 using Assets.Code.Data;
-using Assets.Code.Tools;
+using Assets.Code.Data.Value;
+using Assets.Code.Tools.Base;
 
-namespace Assets.Code.BuffSystem
+namespace Assets.Code.BuffSystem.Buffs
 {
     public class SpeedBuff : Buff
     {

@@ -1,4 +1,4 @@
-﻿namespace Assets.Code
+﻿namespace Assets.Code.AbilitySystem.Base
 {
     public enum AbilityType
     {

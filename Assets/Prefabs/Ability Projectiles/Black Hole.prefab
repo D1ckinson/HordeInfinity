@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6263728007093738140}
   - component: {fileID: 1948051854104627401}
-  - component: {fileID: 8065101689729076112}
+  - component: {fileID: 3626999533591864605}
   m_Layer: 0
   m_Name: Black Hole
   m_TagString: Untagged
@@ -26,13 +26,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6473911267295921735}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!135 &1948051854104627401
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -54,7 +54,7 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &8065101689729076112
+--- !u!114 &3626999533591864605
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -63,11 +63,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 6473911267295921735}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4725c32ec5384834292d8eedddb19732, type: 3}
+  m_Script: {fileID: 11500000, guid: 66fda0e93f554b24ba89df8d8a62300b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _baseDamage: 10
-  _radiusForEnemy: 0.1
+  _baseDamage: 1
+  _radiusForEnemy: 0.2
   _lifeTime: 5
   _scaleFactor: 1.6
   _effectZone: {fileID: 1948051854104627401}

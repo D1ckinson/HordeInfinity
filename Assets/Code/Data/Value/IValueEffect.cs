@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Assets.Code.Data
+namespace Assets.Code.Data.Value
 {
     public interface IValueEffect
     {

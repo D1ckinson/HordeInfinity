@@ -1,5 +1,5 @@
-﻿using Assets.Code.CharactersLogic.Movement;
-using Assets.Code.Tools;
+﻿using Assets.Code.CharactersLogic.GeneralLogic;
+using Assets.Code.Tools.Base;
 using System;
 using UnityEngine;
 

@@ -1,7 +1,7 @@
-﻿using Assets.Code.Tools;
+﻿using Assets.Code.Tools.Base;
 using UnityEngine;
 
-namespace Assets.Code.BuffSystem
+namespace Assets.Code.BuffSystem.Base
 {
     [CreateAssetMenu(menuName = "Game/BuffConfig")]
     public class BuffConfig : ScriptableObject

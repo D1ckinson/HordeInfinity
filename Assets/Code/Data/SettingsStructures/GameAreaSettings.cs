@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace Assets.Scripts.Configs
+namespace Assets.Code.Data.SettingsStructures
 {
     [Serializable]
     public struct GameAreaSettings

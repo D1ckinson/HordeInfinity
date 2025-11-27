@@ -1,8 +1,10 @@
-﻿using Assets.Code.Tools;
+﻿using Assets.Code.AbilitySystem.Base;
+using Assets.Code.AbilitySystem.StatTypes;
+using Assets.Code.Tools.Base;
 using System;
 using UnityEngine;
 
-namespace Assets.Code.SpellBooks
+namespace Assets.Code.SpellBooks.Base
 {
     [Serializable]
     public class MultiplyEffect : IEffect

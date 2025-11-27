@@ -1,8 +1,7 @@
-﻿using Assets.Code.Tools;
-using System.Collections;
+﻿using System.Collections;
 using UnityEngine;
 
-namespace Assets.Scripts.Tools
+namespace Assets.Code.Tools.Base
 {
     public class Follower : MonoBehaviour
     {

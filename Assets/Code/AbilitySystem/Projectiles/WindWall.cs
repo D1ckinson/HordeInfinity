@@ -1,10 +1,10 @@
-﻿using Assets.Code.CharactersLogic;
-using Assets.Code.CharactersLogic.EnemyLogic;
-using Assets.Code.Tools;
+﻿using Assets.Code.CharactersLogic.EnemyLogic;
+using Assets.Code.Data.Base;
+using Assets.Code.Tools.Base;
 using System;
 using UnityEngine;
 
-namespace Assets.Code.AbilitySystem.Abilities
+namespace Assets.Code.AbilitySystem.Projectiles
 {
     public class WindWall : MonoBehaviour, IProjectile
     {

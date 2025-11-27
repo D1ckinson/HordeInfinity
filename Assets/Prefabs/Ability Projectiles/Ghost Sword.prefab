@@ -127,13 +127,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 2588671694549365250}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 806e9f16902923e4fb5b744a95a259d5, type: 3}
+  m_Script: {fileID: 11500000, guid: def1c68821735a840958944e74fd8373, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _collider: {fileID: 9222337730780548239}
-  _speed: 20
-  _lifeTime: 2
-  _hitSound: {fileID: -5798849033651236219}
+  _hitSound: {fileID: 0}
+  _speed: 5
+  _lifeTime: 3
 --- !u!65 &9222337730780548239
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -149,7 +149,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3

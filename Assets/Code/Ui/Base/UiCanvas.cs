@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Assets.Code.Ui
+namespace Assets.Code.Ui.Base
 {
     public class UiCanvas : MonoBehaviour
     {

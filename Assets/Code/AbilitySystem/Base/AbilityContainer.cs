@@ -1,10 +1,9 @@
-﻿using Assets.Code.AbilitySystem.Abilities;
-using Assets.Code.SpellBooks;
-using Assets.Code.Tools;
+﻿using Assets.Code.SpellBooks.Base;
+using Assets.Code.Tools.Base;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Assets.Code.AbilitySystem
+namespace Assets.Code.AbilitySystem.Base
 {
     public class AbilityContainer
     {

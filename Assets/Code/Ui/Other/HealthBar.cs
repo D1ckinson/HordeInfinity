@@ -1,9 +1,9 @@
-using Assets.Code.CharactersLogic;
-using Assets.Code.Tools;
+using Assets.Code.CharactersLogic.GeneralLogic;
+using Assets.Code.Tools.Base;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Assets.Scripts.Ui
+namespace Assets.Code.Ui.Other
 {
     internal class HealthBar : MonoBehaviour
     {

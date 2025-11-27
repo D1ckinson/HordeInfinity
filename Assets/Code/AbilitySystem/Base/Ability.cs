@@ -1,12 +1,12 @@
-﻿using Assets.Code.CharactersLogic;
-using Assets.Code.SpellBooks;
-using Assets.Code.Tools;
-using Assets.Scripts;
+﻿using Assets.Code.AbilitySystem.StatTypes;
+using Assets.Code.Data.Base;
+using Assets.Code.SpellBooks.Base;
+using Assets.Code.Tools.Base;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Assets.Code.AbilitySystem.Abilities
+namespace Assets.Code.AbilitySystem.Base
 {
     public abstract class Ability : IDisposable
     {

@@ -1,9 +1,9 @@
-﻿using Assets.Code.Tools;
+﻿using Assets.Code.Tools.Base;
 using System;
 using System.Collections;
 using UnityEngine;
 
-namespace Assets.Scripts
+namespace Assets.Code.Core
 {
     public class TimeService : ITimeService
     {

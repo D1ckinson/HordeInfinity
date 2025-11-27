@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Assets.Scripts.Movement
+namespace Assets.Code.CharactersLogic.Movement.Interfaces
 {
     public interface ITellDirection
     {

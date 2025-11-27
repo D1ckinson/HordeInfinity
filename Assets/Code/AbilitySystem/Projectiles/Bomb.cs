@@ -1,11 +1,11 @@
-﻿using Assets.Code.CharactersLogic;
-using Assets.Code.Tools;
-using Assets.Scripts.Tools;
+﻿using Assets.Code.CharactersLogic.GeneralLogic;
+using Assets.Code.Data.Base;
+using Assets.Code.Tools.Base;
 using DG.Tweening;
 using System;
 using UnityEngine;
 
-namespace Assets.Code.AbilitySystem.Abilities
+namespace Assets.Code.AbilitySystem.Projectiles
 {
     public class Bomb : MonoBehaviour, IProjectile
     {

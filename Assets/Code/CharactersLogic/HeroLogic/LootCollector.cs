@@ -1,11 +1,12 @@
-using Assets.Code.Data;
-using Assets.Code.Loot;
-using Assets.Code.Tools;
+using Assets.Code.Data.Base;
+using Assets.Code.Data.Value;
+using Assets.Code.LootSystem.Legacy;
+using Assets.Code.Tools.Base;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Assets.Scripts
+namespace Assets.Code.CharactersLogic.HeroLogic
 {
     [RequireComponent(typeof(SphereCollider))]
     public class LootCollector : MonoBehaviour
@@ -52,9 +53,9 @@ namespace Assets.Scripts
         }
 
         public void Initialize(
-            IValueContainer attractionRadius, 
-            float pullSpeed, 
-            IWalletService wallet, 
+            IValueContainer attractionRadius,
+            float pullSpeed,
+            IWalletService wallet,
             HeroLevel heroLevel)
         {
             AttractionRadius = attractionRadius.ThrowIfNull();

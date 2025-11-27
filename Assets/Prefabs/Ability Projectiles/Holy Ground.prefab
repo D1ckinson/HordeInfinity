@@ -68,7 +68,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5129522221272591626}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1c292659b20c2ec4ebc43cb31c405729, type: 3}
+  m_Script: {fileID: 11500000, guid: f0c5ea35a9285fe4081bc0c55715cc23, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _scaleChangeDuration: 0.7
@@ -84,10 +84,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 5129522221272591626}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dcadfef9a2a06e048b2e973cdbb59a24, type: 3}
+  m_Script: {fileID: 11500000, guid: 95844faa487df9640b06e6dedfa524b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _offset: {x: 0, y: 0.01, z: 0}
+  _offset: {x: 0, y: 0, z: 0}
+  _offsetChangeDuration: 0.5
 --- !u!198 &-6336085243600157239
 ParticleSystem:
   m_ObjectHideFlags: 0
@@ -5066,8 +5067,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5129522221272591626}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 98854d5f0c250ab4980915a1582271b7, type: 3}
+  m_Script: {fileID: 11500000, guid: 8c2cd43e967858546bcad3a69ac414fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _audioSources:
-  - {fileID: -1401172506285740500}
+  _audioSources: []

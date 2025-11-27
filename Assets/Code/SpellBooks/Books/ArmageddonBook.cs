@@ -1,9 +1,10 @@
-﻿using Assets.Code.CharactersLogic;
+﻿using Assets.Code.CharactersLogic.GeneralLogic;
 using Assets.Code.CharactersLogic.HeroLogic;
-using Assets.Code.Tools;
+using Assets.Code.SpellBooks.Base;
+using Assets.Code.Tools.Base;
 using UnityEngine;
 
-namespace Assets.Code.Spawners
+namespace Assets.Code.SpellBooks.Books
 {
     public class ArmageddonBook : SpellBook
     {

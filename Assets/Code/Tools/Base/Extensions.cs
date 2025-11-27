@@ -8,7 +8,7 @@ using UnityEngine.UI;
 using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
 
-namespace Assets.Code.Tools
+namespace Assets.Code.Tools.Base
 {
     public static class Extensions
     {
@@ -119,7 +119,7 @@ namespace Assets.Code.Tools
 
         public static bool Contains(this LayerMask mask, int layer)
         {
-            return (mask.value & (One << layer)) != Zero;
+            return (mask.value & One << layer) != Zero;
         }
 
         public static void SetActive(this Component component, bool isActive)

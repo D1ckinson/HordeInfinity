@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 3728163336112616483}
   - component: {fileID: 3909236790192406929}
   - component: {fileID: 6192040357134023895}
-  - component: {fileID: 6061571990834595463}
   - component: {fileID: 4018904804235111769}
+  - component: {fileID: 6136966569149410051}
   m_Layer: 0
   m_Name: High Experience Sphere
   m_TagString: Untagged
@@ -107,20 +107,6 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &6061571990834595463
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6076607307795846444}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1bd8e51a1a49aa94db9f0df7ba74ae48, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _value: 50
-  <Type>k__BackingField: 2
 --- !u!54 &4018904804235111769
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -148,3 +134,17 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &6136966569149410051
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6076607307795846444}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 566058a6ecd586e479b799eb05e5a1c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _value: 50
+  <Type>k__BackingField: 2

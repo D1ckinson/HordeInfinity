@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Assets.Code.Tools
+namespace Assets.Code.Tools.Base
 {
     public class ToggleButton : MonoBehaviour
     {

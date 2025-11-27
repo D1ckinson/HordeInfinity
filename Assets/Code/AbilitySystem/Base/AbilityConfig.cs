@@ -1,9 +1,9 @@
-﻿using Assets.Code.Tools;
+﻿using Assets.Code.Tools.Base;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-namespace Assets.Code
+namespace Assets.Code.AbilitySystem.Base
 {
     [CreateAssetMenu(menuName = "Game/AbilityConfig")]
     public class AbilityConfig : ScriptableObject

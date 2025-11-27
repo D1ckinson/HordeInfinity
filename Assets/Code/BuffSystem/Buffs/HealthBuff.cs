@@ -1,7 +1,8 @@
-﻿using Assets.Code.CharactersLogic;
+﻿using Assets.Code.BuffSystem.Base;
+using Assets.Code.CharactersLogic.GeneralLogic;
 using Assets.Code.CharactersLogic.HeroLogic;
 
-namespace Assets.Code.BuffSystem
+namespace Assets.Code.BuffSystem.Buffs
 {
     public class HealthBuff : Buff
     {

@@ -1,6 +1,6 @@
-﻿using Assets.Code.Data;
-using Assets.Code.Tools;
-using Assets.Scripts;
+﻿using Assets.Code.CharactersLogic.HeroLogic;
+using Assets.Code.Data.Base;
+using Assets.Code.Tools.Base;
 using DG.Tweening;
 using TMPro;
 using UnityEngine;

@@ -1,5 +1,5 @@
-﻿using Assets.Code.Data;
-using Assets.Code.Tools;
+﻿using Assets.Code.Data.Base;
+using Assets.Code.Tools.Base;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;

@@ -1,10 +1,10 @@
-﻿using Assets.Code.CharactersLogic.Movement;
-using Assets.Code.Data;
-using Assets.Code.Tools;
-using Assets.Scripts;
-using Assets.Scripts.Configs;
-using Assets.Scripts.Factories;
-using Assets.Scripts.Movement;
+﻿using Assets.Code.CharactersLogic.GeneralLogic;
+using Assets.Code.CharactersLogic.Movement.Interfaces;
+using Assets.Code.Core;
+using Assets.Code.Data.Base;
+using Assets.Code.Data.Value;
+using Assets.Code.LootSystem.Legacy;
+using Assets.Code.Tools.Base;
 using UnityEngine;
 
 namespace Assets.Code.CharactersLogic.EnemyLogic

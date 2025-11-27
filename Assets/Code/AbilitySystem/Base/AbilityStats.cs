@@ -1,12 +1,13 @@
-﻿using Assets.Code.Data;
-using Assets.Code.Tools;
+﻿using Assets.Code.AbilitySystem.StatTypes;
+using Assets.Code.Data.Base;
+using Assets.Code.Tools.Base;
 using AYellowpaper.SerializedCollections;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-namespace Assets.Code
+namespace Assets.Code.AbilitySystem.Base
 {
     [Serializable]
     public class AbilityStats

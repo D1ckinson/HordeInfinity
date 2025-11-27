@@ -1,7 +1,6 @@
-﻿using Assets.Scripts.Movement;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace Assets.Code.CharactersLogic.Movement.Direction_Sources.Interfaces
+namespace Assets.Code.CharactersLogic.Movement.Interfaces
 {
     public interface ITargetDirectionTeller : ITellDirection
     {

@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 3906862383897954021}
   - component: {fileID: 21661500095105181}
   - component: {fileID: 825254530970205946}
-  - component: {fileID: 8665370823113824047}
   - component: {fileID: 3660391936698547818}
+  - component: {fileID: 2387606355486635306}
   m_Layer: 0
   m_Name: Low Experience Sphere
   m_TagString: Untagged
@@ -107,20 +107,6 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &8665370823113824047
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1548317357090021287}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1bd8e51a1a49aa94db9f0df7ba74ae48, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _value: 10
-  <Type>k__BackingField: 0
 --- !u!54 &3660391936698547818
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -148,3 +134,17 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &2387606355486635306
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1548317357090021287}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 566058a6ecd586e479b799eb05e5a1c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _value: 10
+  <Type>k__BackingField: 0

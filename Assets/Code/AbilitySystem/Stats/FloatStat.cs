@@ -1,7 +1,8 @@
-﻿using System;
+﻿using Assets.Code.AbilitySystem.StatTypes;
+using System;
 using UnityEngine;
 
-namespace Assets.Code
+namespace Assets.Code.AbilitySystem.Stats
 {
     [Serializable]
     public struct FloatStat

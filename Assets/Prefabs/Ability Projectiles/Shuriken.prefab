@@ -46,10 +46,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 5542828983388568504}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9f1252dcb16004c4b8d59b8c34093984, type: 3}
+  m_Script: {fileID: 11500000, guid: 95fe5d030ad19aa41bee34292b504d8f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speed: 30
+  _speed: 40
   _lifeTime: 3
   _soundPause: {fileID: 1209247628623175150}
 --- !u!135 &3669384896111564195
@@ -178,11 +178,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 5542828983388568504}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 98854d5f0c250ab4980915a1582271b7, type: 3}
+  m_Script: {fileID: 11500000, guid: 8c2cd43e967858546bcad3a69ac414fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _audioSources:
-  - {fileID: -5052936877855120430}
+  _audioSources: []
 --- !u!198 &9164871448009614899
 ParticleSystem:
   m_ObjectHideFlags: 0

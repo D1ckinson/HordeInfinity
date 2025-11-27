@@ -1,23 +1,24 @@
-﻿using Assets.Code;
-using Assets.Code.AbilitySystem;
-using Assets.Code.BuffSystem;
+﻿using Assets.Code.AbilitySystem.Base;
+using Assets.Code.BuffSystem.Base;
 using Assets.Code.CharactersLogic.HeroLogic;
-using Assets.Code.Data;
+using Assets.Code.CharactersLogic.Movement.DirectionSources;
+using Assets.Code.Data.Base;
+using Assets.Code.Data.SettingsStructures;
+using Assets.Code.EnemySpawnLogic;
 using Assets.Code.InputActions;
-using Assets.Code.Spawners;
-using Assets.Code.Tools;
-using Assets.Code.Ui;
-using Assets.Scripts.Configs;
-using Assets.Scripts.Factories;
-using Assets.Scripts.Movement;
-using Assets.Scripts.State_Machine;
-using Assets.Scripts.Tools;
-using Assets.Scripts.Ui;
+using Assets.Code.LevelUpSystem;
+using Assets.Code.LootSystem.Legacy;
+using Assets.Code.SpellBooks.Base;
+using Assets.Code.StateMachineLogic.Base;
+using Assets.Code.StateMachineLogic.States;
+using Assets.Code.Tools.Base;
+using Assets.Code.Ui.Base;
+using Assets.Code.Ui.LevelUp;
 using System.Collections.Generic;
 using UnityEngine;
 using YG;
 
-namespace Assets.Scripts
+namespace Assets.Code.Core
 {
     public class Bootstrap : MonoBehaviour
     {

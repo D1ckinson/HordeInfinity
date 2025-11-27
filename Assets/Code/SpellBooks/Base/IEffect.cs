@@ -1,6 +1,7 @@
-﻿using System;
+﻿using Assets.Code.AbilitySystem.Base;
+using System;
 
-namespace Assets.Code.SpellBooks
+namespace Assets.Code.SpellBooks.Base
 {
     public interface IEffect
     {

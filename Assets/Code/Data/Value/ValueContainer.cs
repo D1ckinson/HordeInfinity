@@ -1,9 +1,9 @@
-﻿using Assets.Code.Tools;
+﻿using Assets.Code.Tools.Base;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Assets.Code.Data
+namespace Assets.Code.Data.Value
 {
     public class ValueContainer : IValueContainer
     {

@@ -1,9 +1,10 @@
-﻿using Assets.Code.CharactersLogic.HeroLogic;
-using Assets.Code.Tools;
+﻿using Assets.Code.BuffSystem.Buffs;
+using Assets.Code.CharactersLogic.HeroLogic;
+using Assets.Code.Tools.Base;
 using System;
 using System.Collections.Generic;
 
-namespace Assets.Code.BuffSystem
+namespace Assets.Code.BuffSystem.Base
 {
     public class BuffFactory
     {

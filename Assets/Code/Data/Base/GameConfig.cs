@@ -2,7 +2,7 @@ using Assets.Code.AbilitySystem.Base;
 using Assets.Code.BuffSystem.Base;
 using Assets.Code.Core;
 using Assets.Code.Data.SettingsStructures;
-using Assets.Code.LootSystem.Legacy;
+using Assets.Code.LootSystem;
 using Assets.Code.SpellBooks.Base;
 using Assets.Code.Tools.Base;
 using System;
@@ -12,16 +12,17 @@ using UnityEngine;
 
 namespace Assets.Code.Data.Base
 {
-    [CreateAssetMenu(menuName = "Game/LevelSettings")]
-    public partial class LevelSettings : ScriptableObject
+    [CreateAssetMenu(menuName = "Game/GameConfig")]
+    public partial class GameConfig : ScriptableObject
     {
         [field: Header("Characters Configs")]
         [field: SerializeField] private CharacterConfig[] _enemiesConfigs;
         [field: SerializeField] public CharacterConfig HeroConfig { get; private set; }
         [field: SerializeField] public CharacterConfig GoldEnemy { get; private set; }
 
-        [field: Header("All Loot")]
+        [field: Header("Loot Settings")]
         [field: SerializeField] public Loot[] Loots { get; private set; }
+        [field: SerializeField] public LootSpawnSettings LootSpawnSettings { get; private set; }
 
         [field: Header("Enemy Spawn Settings")]
         [field: SerializeField] public EnemySpawnerSettings EnemySpawnerSettings { get; private set; }

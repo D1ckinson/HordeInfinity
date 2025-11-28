@@ -4,20 +4,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-namespace Assets.Code.LootSystem.NewSystem
+namespace Assets.Code.LootSystem
 {
     public class LootSpawner
     {
-        private readonly Dictionary<NewLootType, LootPoolsContainer> _lootContainers = new();
+        private readonly Dictionary<LootType, LootPoolsContainer> _lootContainers = new();
         private readonly LootSpawnSettings _settings;
 
-        public LootSpawner(NewLoot[] loots, LootSpawnSettings settings)
+        public LootSpawner(Loot[] loots, LootSpawnSettings settings)
         {
             loots.ThrowIfNullOrEmpty();
 
-            foreach (NewLoot loot in loots)
+            foreach (Loot loot in loots)
             {
-                NewLootType type = loot.Type;
+                LootType type = loot.Type;
 
                 if (_lootContainers.ContainsKey(type) == false)
                 {
@@ -30,9 +30,9 @@ namespace Assets.Code.LootSystem.NewSystem
             _settings = settings;
         }
 
-        public void Spawn(NewLootType type, Vector3 position, int value = 1)
+        public void Spawn(LootType type, Vector3 position, int value = 1)
         {
-            List<NewLoot> loots = _lootContainers[type].Get(value.ThrowIfNegative());
+            List<Loot> loots = _lootContainers[type].Get(value.ThrowIfNegative());
 
             foreach (var loot in loots)
             {

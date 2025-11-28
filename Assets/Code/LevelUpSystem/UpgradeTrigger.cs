@@ -1,6 +1,6 @@
 ﻿using Assets.Code.Core;
 using Assets.Code.Data.Base;
-using Assets.Code.LootSystem.Legacy;
+using Assets.Code.LootSystem;
 using Assets.Code.Tools.Base;
 using Assets.Code.Ui.LevelUp;
 using System;
@@ -16,7 +16,7 @@ namespace Assets.Code.LevelUpSystem
         private readonly HeroLevel _heroLevel;
         private readonly LevelUpWindow _levelUpWindow;
         private readonly ITimeService _timeService;
-        private readonly LootFactory _lootFactory;
+        private readonly LootSpawner _lootSpawner;
         private readonly Transform _hero;
         private readonly Upgrader _upgrader;
         private readonly PseudoRandomUpgradeSelector _upgradeSelector;
@@ -25,7 +25,7 @@ namespace Assets.Code.LevelUpSystem
             HeroLevel heroLevel,
             LevelUpWindow levelUpWindow,
             ITimeService timeService,
-            LootFactory lootFactory,
+            LootSpawner lootSpawner,
             Transform hero,
             Upgrader upgrader,
             PseudoRandomUpgradeSelector upgradeSelector)
@@ -33,7 +33,7 @@ namespace Assets.Code.LevelUpSystem
             _heroLevel = heroLevel.ThrowIfNull();
             _levelUpWindow = levelUpWindow.ThrowIfNull();
             _timeService = timeService.ThrowIfNull();
-            _lootFactory = lootFactory.ThrowIfNull();
+            _lootSpawner = lootSpawner.ThrowIfNull();
             _hero = hero.ThrowIfNull();
             _upgrader = upgrader.ThrowIfNull();
             _upgradeSelector = upgradeSelector.ThrowIfNull();
@@ -80,7 +80,7 @@ namespace Assets.Code.LevelUpSystem
 
             if (upgradeOptions.Count == Constants.Zero)
             {
-                _lootFactory.Spawn(LootType.LowCoin, _hero.position, level);
+                _lootSpawner.Spawn(LootType.Coin, _hero.position, level);
                 _heroLevel.DecreaseLevelUpsCount();
 
                 return;

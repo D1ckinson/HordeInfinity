@@ -1,6 +1,6 @@
 using Assets.Code.Data.Base;
 using Assets.Code.Data.Value;
-using Assets.Code.LootSystem.Legacy;
+using Assets.Code.LootSystem;
 using Assets.Code.Tools.Base;
 using System;
 using System.Collections.Generic;
@@ -129,29 +129,26 @@ namespace Assets.Code.CharactersLogic.HeroLogic
 
                 if (distance.sqrMagnitude <= CollectDistance)
                 {
-                    int collectValue = loot.Collect();
-                    CollectValue(loot.Type, collectValue);
-                    _loots.Remove(loot);
+                    Collect(loot);
                 }
             }
         }
 
-        private void CollectValue(LootType type, int collectValue)
+        private void Collect(Loot loot)
         {
-            collectValue.ThrowIfNegative();
+            loot.SetActive(false);
+            _loots.Remove(loot);
 
-            switch (type)
+            float resultValue = LootAffecter.Affect(loot.Value, loot.Type);
+
+            switch (loot.Type)
             {
-                case LootType.LowExperience:
-                case LootType.MediumExperience:
-                case LootType.HighExperience:
-                    _heroLevel.Add(LootAffecter.Affect(collectValue, type));
+                case LootType.Coin:
+                    CollectGold(resultValue);
                     break;
 
-                case LootType.LowCoin:
-                case LootType.MediumCoin:
-                case LootType.HighCoin:
-                    CollectGold(collectValue);
+                case LootType.Experience:
+                    _heroLevel.Add(resultValue);
                     break;
 
                 default:
@@ -159,15 +156,15 @@ namespace Assets.Code.CharactersLogic.HeroLogic
             }
         }
 
+        private void CollectGold(float value)
+        {
+            CollectedGold += value;
+            GoldValueChanged?.Invoke((int)CollectedGold);
+        }
+
         private void SetRadius(ValueContainer container)
         {
             _collectArea.radius = container.Value;
-        }
-
-        private void CollectGold(int collectValue)
-        {
-            CollectedGold += LootAffecter.Affect(collectValue, LootType.LowCoin);
-            GoldValueChanged?.Invoke((int)CollectedGold);
         }
     }
 }

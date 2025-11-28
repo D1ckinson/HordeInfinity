@@ -1,8 +1,7 @@
 ﻿using Assets.Code.BuffSystem.Base;
 using Assets.Code.CharactersLogic.HeroLogic;
-using Assets.Code.Data;
 using Assets.Code.Data.Value;
-using Assets.Code.LootSystem.Legacy;
+using Assets.Code.LootSystem;
 using Assets.Code.Tools.Base;
 
 namespace Assets.Code.BuffSystem.Buffs
@@ -18,7 +17,7 @@ namespace Assets.Code.BuffSystem.Buffs
 
         public override void Apply()
         {
-            Hero.LootCollector.LootAffecter.Add(_effect, LootType.LowCoin);
+            Hero.LootCollector.LootAffecter.Add(_effect, LootType.Coin);
         }
 
         protected override void OnLevelUp()

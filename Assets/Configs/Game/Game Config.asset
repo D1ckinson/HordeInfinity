@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 994975da4b7a7f849acc04ca7960f8ac, type: 3}
-  m_Name: Level
+  m_Name: Game Config
   m_EditorClassIdentifier: 
   _enemiesConfigs:
   - {fileID: 11400000, guid: 607ebda76c4a6104a9c32d54cb275c9f, type: 2}
@@ -22,11 +22,11 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 39621402c91580f45ae29115b7cbc051, type: 2}
   <HeroConfig>k__BackingField: {fileID: 11400000, guid: eb372052ffe188444a7ed3f183ab727a, type: 2}
   <GoldEnemy>k__BackingField: {fileID: 11400000, guid: 45ee0fb9f383e30478ef607f14c07b40, type: 2}
-  <Loots>k__BackingField:
-  - {fileID: 3311565449338505280, guid: 5db2f447d243c08459d9fa2297a94ed9, type: 3}
-  - {fileID: 2387606355486635306, guid: 8c7580ed5a56c9c4eb243ca3369efe52, type: 3}
-  - {fileID: 3756782149726351183, guid: fc777ba7b0d31544ea1b3e7c772350b2, type: 3}
-  - {fileID: 6136966569149410051, guid: 8a6a64931f889084898f7f1cf244f517, type: 3}
+  <Loots>k__BackingField: []
+  <LootSpawnSettings>k__BackingField:
+    <MaxOffset>k__BackingField: 2
+    <LootAirTime>k__BackingField: 0.5
+    <JumpPower>k__BackingField: 1
   <EnemySpawnerSettings>k__BackingField:
     <Radius>k__BackingField: 35
     <Delay>k__BackingField: 0.55

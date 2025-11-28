@@ -2,7 +2,7 @@
 using Assets.Code.AbilitySystem.StatTypes;
 using Assets.Code.CharactersLogic.GeneralLogic;
 using Assets.Code.Data.Base;
-using Assets.Code.LootSystem.Legacy;
+using Assets.Code.LootSystem;
 using Assets.Code.Tools.Base;
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,15 +16,20 @@ namespace Assets.Code.AbilitySystem.Abilities
         private readonly LayerMask _damageLayer;
         private readonly Collider[] _colliders = new Collider[50];
         private readonly Transform _heroCenter;
-        private readonly LootFactory _lootFactory;
+        private readonly LootSpawner _lootSpawner;
         private readonly AudioSource _hitSound;
 
-        public MidasHand(AbilityConfig config, Dictionary<AbilityType, int> abilityUnlockLevel, Transform heroCenter,
-            LootFactory lootFactory, BattleMetrics battleMetrics, int level = 1) : base(config, abilityUnlockLevel, battleMetrics, level)
+        public MidasHand(
+            AbilityConfig config,
+            Dictionary<AbilityType, int> abilityUnlockLevel,
+            Transform heroCenter,
+            LootSpawner lootSpawner,
+            BattleMetrics battleMetrics,
+            int level = 1) : base(config, abilityUnlockLevel, battleMetrics, level)
         {
             _damageLayer = config.DamageLayer.ThrowIfNull();
             _heroCenter = heroCenter.ThrowIfNull();
-            _lootFactory = lootFactory.ThrowIfNull();
+            _lootSpawner = lootSpawner.ThrowIfNull();
 
             _hitSound = config.HitSound.Instantiate(heroCenter);
         }
@@ -59,7 +64,7 @@ namespace Assets.Code.AbilitySystem.Abilities
                 float floatPercent = CurrentStats.Get(FloatStatType.HealthPercent) / Constants.Hundred;
                 int coinsCount = (int)(health.MaxValue * floatPercent).Clamp(Constants.One, MaxCoins);
 
-                _lootFactory.Spawn(LootType.LowCoin, closest.transform.position, coinsCount);
+                _lootSpawner.Spawn(LootType.Coin, closest.transform.position, coinsCount);
                 _hitSound.Play();
             }
         }

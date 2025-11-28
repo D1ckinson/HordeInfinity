@@ -10,8 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7315334371229150110}
   - component: {fileID: 8298317792553289014}
-  - component: {fileID: 3311565449338505280}
-  - component: {fileID: 8272955743150988411}
+  - component: {fileID: 2222460358713310578}
   m_Layer: 0
   m_Name: Low Coin
   m_TagString: Untagged
@@ -62,7 +61,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &3311565449338505280
+--- !u!114 &2222460358713310578
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -71,34 +70,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1908251207596472029}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 566058a6ecd586e479b799eb05e5a1c1, type: 3}
+  m_Script: {fileID: 11500000, guid: 4ad4892b8ab4d4b4780697f2e181e6af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _value: 1
-  <Type>k__BackingField: 3
---- !u!136 &8272955743150988411
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1908251207596472029}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.25372586
-  m_Height: 0.5074517
-  m_Direction: 1
-  m_Center: {x: 0.000050097704, y: 0.25221273, z: -0.00000011920929}
+  <Value>k__BackingField: 1
+  <Type>k__BackingField: 0
 --- !u!1 &3292429384471918433
 GameObject:
   m_ObjectHideFlags: 0

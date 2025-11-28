@@ -3,7 +3,7 @@ using Assets.Code.CharactersLogic.Movement.DirectionSources;
 using Assets.Code.Core;
 using Assets.Code.Data.Base;
 using Assets.Code.Data.SettingsStructures;
-using Assets.Code.LootSystem.Legacy;
+using Assets.Code.LootSystem;
 using Assets.Code.Tools.Base;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +13,7 @@ namespace Assets.Code.EnemySpawnLogic
 {
     public class EnemyFactory
     {
-        private readonly LootFactory _lootFactory;
+        private readonly LootSpawner _lootSpawner;
         private readonly Transform _hero;
         private readonly EnemySpawnerSettings _spawnerSettings;
         private readonly GameAreaSettings _gameAreaSettings;
@@ -22,13 +22,13 @@ namespace Assets.Code.EnemySpawnLogic
 
         public EnemyFactory(
             Dictionary<CharacterType, CharacterConfig> enemiesConfigs,
-            LootFactory lootFactory,
+            LootSpawner lootSpawner,
             Transform hero, 
             EnemySpawnerSettings spawnerSettings, 
             GameAreaSettings gameAreaSettings, 
             CharacterConfig goldEnemy)
         {
-            _lootFactory = lootFactory.ThrowIfNull();
+            _lootSpawner = lootSpawner.ThrowIfNull();
             _hero = hero.ThrowIfNull();
             _goldEnemy = goldEnemy.ThrowIfNull();
 
@@ -63,7 +63,7 @@ namespace Assets.Code.EnemySpawnLogic
         {
             _pools.ForEachValues(pool => pool.DisableAll());
             _pools.ForEachValues(pool => pool.ForEach(enemy => enemy.Booster.ResetHealthBoost()));
-            _lootFactory.DisableAll();
+            _lootSpawner.DisableAll();
         }
 
         public void StopAll()
@@ -84,7 +84,7 @@ namespace Assets.Code.EnemySpawnLogic
             DirectionTellerTo directionSource = new(enemy.transform);
 
             directionSource.SetTarget(_hero);
-            enemy.Initialize(config, directionSource, _lootFactory);
+            enemy.Initialize(config, directionSource, _lootSpawner);
 
             return enemy;
         }
@@ -95,7 +95,7 @@ namespace Assets.Code.EnemySpawnLogic
             DirectionTellerFrom directionSource = new(enemy.transform);
 
             directionSource.SetTarget(_hero);
-            enemy.Initialize(_goldEnemy, directionSource, _lootFactory);
+            enemy.Initialize(_goldEnemy, directionSource, _lootSpawner);
 
             return enemy;
         }

@@ -1,7 +1,9 @@
 using Assets.Code.Data.Value;
-using Assets.Code.LootSystem.Legacy;
+using Assets.Code.LootSystem;
+using Assets.Code.Tools.Base;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Assets.Code.CharactersLogic.HeroLogic
 {
@@ -14,17 +16,12 @@ namespace Assets.Code.CharactersLogic.HeroLogic
         {
             switch (type)
             {
-                case LootType.LowExperience:
-                case LootType.MediumExperience:
-                case LootType.HighExperience:
-                    _experienceEffects.Add(effect);
-                    _experienceEffects.Sort();
+                case LootType.Coin:
+                    AddEffect(_goldEffects, effect);
                     break;
 
-                case LootType.LowCoin:
-                case LootType.MediumCoin:
-                case LootType.HighCoin:
-                    _goldEffects.Add(effect);
+                case LootType.Experience:
+                    AddEffect(_experienceEffects, effect);
                     break;
 
                 default:
@@ -38,27 +35,31 @@ namespace Assets.Code.CharactersLogic.HeroLogic
             _experienceEffects.Clear();
         }
 
-        public float Affect(float amount, LootType type)
+        public float Affect(int value, LootType type)
         {
+            float result = value.ThrowIfNegative();
+
             switch (type)
             {
-                case LootType.LowExperience:
-                case LootType.MediumExperience:
-                case LootType.HighExperience:
-                    _experienceEffects.ForEach(effect => amount = effect.Apply(amount));
+                case LootType.Coin:
+                    _goldEffects.ForEach(effect => result = effect.Apply(result));
                     break;
 
-                case LootType.LowCoin:
-                case LootType.MediumCoin:
-                case LootType.HighCoin:
-                    _goldEffects.ForEach(effect => amount = effect.Apply(amount));
+                case LootType.Experience:
+                    _experienceEffects.ForEach(effect => result = effect.Apply(result));
                     break;
 
                 default:
                     throw new NotImplementedException();
             }
 
-            return amount;
+            return result;
+        }
+
+        private void AddEffect(List<IValueEffect> effects, IValueEffect effect)
+        {
+            effects.Add(effect);
+            effects = effects.OrderBy(effect => effect.Priority).ToList();
         }
     }
 }

@@ -3,7 +3,7 @@ using Assets.Code.CharactersLogic.Movement.Interfaces;
 using Assets.Code.Core;
 using Assets.Code.Data.Base;
 using Assets.Code.Data.Value;
-using Assets.Code.LootSystem.Legacy;
+using Assets.Code.LootSystem;
 using Assets.Code.Tools.Base;
 using UnityEngine;
 
@@ -35,7 +35,7 @@ namespace Assets.Code.CharactersLogic.EnemyLogic
             Booster = GetComponent<EnemyBooster>();
         }
 
-        public void Initialize(CharacterConfig config, ITellDirection directionSource, LootFactory lootFactory)
+        public void Initialize(CharacterConfig config, ITellDirection directionSource, LootSpawner lootSpawner)
         {
             config.ThrowIfNull();
 
@@ -51,7 +51,7 @@ namespace Assets.Code.CharactersLogic.EnemyLogic
             Health.Initialize(config.MaxHealth, invincibility, regenerator, resist);
 
             CollisionDamage.Initialize(config.Damage, config.DamageLayer);
-            DeathTriger.Initialize(Health, Mover, Rotator, lootFactory, config.Loot);
+            DeathTriger.Initialize(Health, Mover, Rotator, lootSpawner, config.Loot);
             Booster.Initialize(Mover, Health);
             CharacterType = config.Type;
         }

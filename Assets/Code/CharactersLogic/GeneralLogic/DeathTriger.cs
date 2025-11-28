@@ -1,5 +1,5 @@
 ﻿using Assets.Code.Data.Base;
-using Assets.Code.LootSystem.Legacy;
+using Assets.Code.LootSystem;
 using Assets.Code.Tools.Base;
 using UnityEngine;
 
@@ -8,7 +8,7 @@ namespace Assets.Code.CharactersLogic.GeneralLogic
     public class DeathTriger : MonoBehaviour
     {
         private Health _health;
-        private LootFactory _lootFactory;
+        private LootSpawner _lootSpawner;
         private LootDropInfo[] _loots;
         private Mover _mover;
         private Rotator _rotator;
@@ -33,11 +33,11 @@ namespace Assets.Code.CharactersLogic.GeneralLogic
             Health health,
             Mover mover,
             Rotator rotator,
-            LootFactory lootFactory,
+            LootSpawner lootSpawner,
             LootDropInfo[] loots)
         {
             _health = health.ThrowIfNull();
-            _lootFactory = lootFactory.ThrowIfNull();
+            _lootSpawner = lootSpawner.ThrowIfNull();
             _loots = loots.ThrowIfNullOrEmpty();
             _mover = mover.ThrowIfNull();
             _rotator = rotator.ThrowIfNull();
@@ -54,7 +54,7 @@ namespace Assets.Code.CharactersLogic.GeneralLogic
                     continue;
                 }
 
-                _lootFactory.Spawn(lootConfig.Type, transform.position, lootConfig.Count);
+                _lootSpawner.Spawn(lootConfig.Type, transform.position, lootConfig.Value);
             }
 
             this.SetActive(false);

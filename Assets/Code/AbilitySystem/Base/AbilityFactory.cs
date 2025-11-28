@@ -1,7 +1,7 @@
 ﻿using Assets.Code.AbilitySystem.Abilities;
 using Assets.Code.Core;
 using Assets.Code.Data.Base;
-using Assets.Code.LootSystem.Legacy;
+using Assets.Code.LootSystem;
 using Assets.Code.Tools.Base;
 using System;
 using System.Collections.Generic;
@@ -16,7 +16,7 @@ namespace Assets.Code.AbilitySystem.Base
         private readonly Transform _hero;
         private readonly Transform _heroCenter;
         private readonly Dictionary<AbilityType, int> _abilityUnlockLevel;
-        private readonly LootFactory _lootFactory;
+        private readonly LootSpawner _lootSpawner;
         private readonly Animator _animator;
         private readonly ITimeService _timeService;
         private readonly BattleMetrics _battleMetrics;
@@ -27,7 +27,7 @@ namespace Assets.Code.AbilitySystem.Base
             Transform heroCenter,
             Dictionary<AbilityType, int> abilityUnlockLevel,
             BattleMetrics battleMetrics,
-            LootFactory lootFactory,
+            LootSpawner lootSpawner,
             Animator animator,
             ITimeService timeService)
         {
@@ -35,7 +35,7 @@ namespace Assets.Code.AbilitySystem.Base
             _hero = hero.ThrowIfNull();
             _heroCenter = heroCenter.ThrowIfNull();
             _abilityUnlockLevel = abilityUnlockLevel.ThrowIfNull();
-            _lootFactory = lootFactory.ThrowIfNull();
+            _lootSpawner = lootSpawner.ThrowIfNull();
             _animator = animator.ThrowIfNull();
             _timeService = timeService.ThrowIfNull();
             _battleMetrics = battleMetrics.ThrowIfNull();
@@ -78,7 +78,7 @@ namespace Assets.Code.AbilitySystem.Base
 
         private Ability CreateMidasHand()
         {
-            return new MidasHand(_configs[AbilityType.MidasHand], _abilityUnlockLevel, _heroCenter, _lootFactory, _battleMetrics);
+            return new MidasHand(_configs[AbilityType.MidasHand], _abilityUnlockLevel, _heroCenter, _lootSpawner, _battleMetrics);
         }
 
         private Ability CreateBombard()

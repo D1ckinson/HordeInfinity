@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Assets.Code.LootSystem.NewSystem
+namespace Assets.Code.LootSystem
 {
     [Serializable]
     public struct LootSpawnSettings

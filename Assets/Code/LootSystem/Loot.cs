@@ -3,6 +3,7 @@
 namespace Assets.Code.LootSystem
 {
     [RequireComponent(typeof(Rigidbody))]
+    [RequireComponent(typeof(SphereCollider))]
     public class Loot : MonoBehaviour
     {
         public Rigidbody Rigidbody { get; private set; }
@@ -13,6 +14,11 @@ namespace Assets.Code.LootSystem
         private void Awake()
         {
             Rigidbody = GetComponent<Rigidbody>();
+        }
+
+        private void OnDisable()
+        {
+            Rigidbody.velocity = Vector3.zero;
         }
     }
 }

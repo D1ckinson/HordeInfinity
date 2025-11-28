@@ -28,12 +28,9 @@ MonoBehaviour:
   <AttractionRadius>k__BackingField: 10
   <PullSpeed>k__BackingField: 5
   <Loot>k__BackingField:
-  - <Type>k__BackingField: 3
-    <Count>k__BackingField: 10
+  - <Type>k__BackingField: 0
+    <Value>k__BackingField: 10
     <DropChance>k__BackingField: 7
-  - <Type>k__BackingField: 2
-    <Count>k__BackingField: 2
-    <DropChance>k__BackingField: 100
   - <Type>k__BackingField: 1
-    <Count>k__BackingField: 1
+    <Value>k__BackingField: 120
     <DropChance>k__BackingField: 100

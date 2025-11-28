@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4192994361844106151}
   - component: {fileID: 5926441773827249797}
   - component: {fileID: 6495596829396910992}
+  - component: {fileID: 4226520231262199625}
   m_Layer: 0
   m_Name: Medium Experience Sphere
   m_TagString: Untagged
@@ -43,8 +44,8 @@ Rigidbody:
   m_GameObject: {fileID: 1998801282159756707}
   serializedVersion: 4
   m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0
+  m_Drag: 1
+  m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -75,6 +76,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Value>k__BackingField: 25
   <Type>k__BackingField: 1
+--- !u!135 &4226520231262199625
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1998801282159756707}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8009970598443317420
 GameObject:
   m_ObjectHideFlags: 0

@@ -136,8 +136,8 @@ namespace Assets.Code.CharactersLogic.HeroLogic
 
         private void Collect(Loot loot)
         {
-            loot.SetActive(false);
             _loots.Remove(loot);
+            loot.SetActive(false);
 
             float resultValue = LootAffecter.Affect(loot.Value, loot.Type);
 

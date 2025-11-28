@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 7315334371229150110}
   - component: {fileID: 8298317792553289014}
   - component: {fileID: 2222460358713310578}
+  - component: {fileID: 624198989514355329}
   m_Layer: 0
   m_Name: Low Coin
   m_TagString: Untagged
@@ -43,7 +44,7 @@ Rigidbody:
   m_GameObject: {fileID: 1908251207596472029}
   serializedVersion: 4
   m_Mass: 1
-  m_Drag: 0
+  m_Drag: 1
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
@@ -75,6 +76,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Value>k__BackingField: 1
   <Type>k__BackingField: 0
+--- !u!135 &624198989514355329
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1908251207596472029}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &3292429384471918433
 GameObject:
   m_ObjectHideFlags: 0

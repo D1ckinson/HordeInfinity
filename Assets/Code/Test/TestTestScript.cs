@@ -4,6 +4,9 @@ namespace Assets.Code.Test
 {
     public class TestTestScript : MonoBehaviour
     {
-        [SerializeField] private int _value;
+        private void OnTriggerEnter(Collider other)
+        {
+            Debug.Log(1);
+        }
     }
 }

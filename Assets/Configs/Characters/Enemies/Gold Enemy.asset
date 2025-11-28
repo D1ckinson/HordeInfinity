@@ -28,33 +28,18 @@ MonoBehaviour:
   <AttractionRadius>k__BackingField: 10
   <PullSpeed>k__BackingField: 5
   <Loot>k__BackingField:
-  - <Type>k__BackingField: 3
-    <Count>k__BackingField: 10
+  - <Type>k__BackingField: 0
+    <Value>k__BackingField: 20
     <DropChance>k__BackingField: 100
-  - <Type>k__BackingField: 3
-    <Count>k__BackingField: 10
-    <DropChance>k__BackingField: 10
-  - <Type>k__BackingField: 3
-    <Count>k__BackingField: 10
-    <DropChance>k__BackingField: 10
-  - <Type>k__BackingField: 3
-    <Count>k__BackingField: 10
-    <DropChance>k__BackingField: 10
-  - <Type>k__BackingField: 3
-    <Count>k__BackingField: 10
-    <DropChance>k__BackingField: 10
-  - <Type>k__BackingField: 3
-    <Count>k__BackingField: 10
-    <DropChance>k__BackingField: 10
-  - <Type>k__BackingField: 3
-    <Count>k__BackingField: 10
-    <DropChance>k__BackingField: 10
-  - <Type>k__BackingField: 3
-    <Count>k__BackingField: 10
-    <DropChance>k__BackingField: 10
-  - <Type>k__BackingField: 3
-    <Count>k__BackingField: 10
-    <DropChance>k__BackingField: 10
-  - <Type>k__BackingField: 3
-    <Count>k__BackingField: 10
-    <DropChance>k__BackingField: 10
+  - <Type>k__BackingField: 0
+    <Value>k__BackingField: 25
+    <DropChance>k__BackingField: 80
+  - <Type>k__BackingField: 0
+    <Value>k__BackingField: 30
+    <DropChance>k__BackingField: 60
+  - <Type>k__BackingField: 0
+    <Value>k__BackingField: 35
+    <DropChance>k__BackingField: 40
+  - <Type>k__BackingField: 0
+    <Value>k__BackingField: 40
+    <DropChance>k__BackingField: 20

@@ -4,7 +4,7 @@ using Random = UnityEngine.Random;
 
 namespace Assets.Code.LevelUpSystem
 {
-    public class PseudoRandomUpgradeSelector
+    public class PseudoRandomUpgradeGenerator : IUpgradeGenerator
     {
         private const int MinWeight = 0;
         private const int MaxWeight = 100;
@@ -16,7 +16,7 @@ namespace Assets.Code.LevelUpSystem
 
         private int _weight = 0;
 
-        public PseudoRandomUpgradeSelector(AbilityUpgradeGenerator abilityGenerator, BuffUpgradeGenerator buffGenerator)
+        public PseudoRandomUpgradeGenerator(AbilityUpgradeGenerator abilityGenerator, BuffUpgradeGenerator buffGenerator)
         {
             _abilityGenerator = abilityGenerator.ThrowIfNull();
             _buffGenerator = buffGenerator.ThrowIfNull();
@@ -37,10 +37,8 @@ namespace Assets.Code.LevelUpSystem
                 {
                     break;
                 }
-                else
-                {
-                    upgradeOptions.Add((UpgradeOption)option);
-                }
+
+                upgradeOptions.Add((UpgradeOption)option);
             }
 
             return upgradeOptions;

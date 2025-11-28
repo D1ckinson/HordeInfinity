@@ -19,7 +19,7 @@ namespace Assets.Code.LevelUpSystem
         private readonly LootSpawner _lootSpawner;
         private readonly Transform _hero;
         private readonly Upgrader _upgrader;
-        private readonly PseudoRandomUpgradeSelector _upgradeSelector;
+        private readonly IUpgradeGenerator _upgradeGenerator;
 
         public UpgradeTrigger(
             HeroLevel heroLevel,
@@ -28,7 +28,7 @@ namespace Assets.Code.LevelUpSystem
             LootSpawner lootSpawner,
             Transform hero,
             Upgrader upgrader,
-            PseudoRandomUpgradeSelector upgradeSelector)
+            IUpgradeGenerator upgradeGenerator)
         {
             _heroLevel = heroLevel.ThrowIfNull();
             _levelUpWindow = levelUpWindow.ThrowIfNull();
@@ -36,7 +36,7 @@ namespace Assets.Code.LevelUpSystem
             _lootSpawner = lootSpawner.ThrowIfNull();
             _hero = hero.ThrowIfNull();
             _upgrader = upgrader.ThrowIfNull();
-            _upgradeSelector = upgradeSelector.ThrowIfNull();
+            _upgradeGenerator = upgradeGenerator.ThrowIfNull();
         }
 
         ~UpgradeTrigger()
@@ -63,7 +63,7 @@ namespace Assets.Code.LevelUpSystem
         public void Stop()
         {
             _levelUpWindow.Hide();
-            _upgradeSelector.Reset();
+            _upgradeGenerator.Reset();
 
             _heroLevel.LevelChanged -= GenerateUpgrades;
             _levelUpWindow.UpgradeChosen -= UpgradeAbility;
@@ -76,7 +76,7 @@ namespace Assets.Code.LevelUpSystem
                 return;
             }
 
-            List<UpgradeOption> upgradeOptions = _upgradeSelector.Generate(SuggestedUpgradesCount);
+            List<UpgradeOption> upgradeOptions = _upgradeGenerator.Generate(SuggestedUpgradesCount);
 
             if (upgradeOptions.Count == Constants.Zero)
             {

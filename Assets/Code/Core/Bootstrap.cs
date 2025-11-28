@@ -58,10 +58,10 @@ namespace Assets.Code.Core
             BuffUpgradeGenerator buffGenerator = new(hero.BuffContainer, _gameConfig.BuffConfigs);
 
             Upgrader upgrader = new(hero.AbilityContainer, abilityFactory, hero.BuffContainer, buffFactory);
-            PseudoRandomUpgradeSelector upgradeSelector = new(abilityGenerator, buffGenerator);
+            IUpgradeGenerator upgradeGenerator = new PseudoRandomUpgradeGenerator(abilityGenerator, buffGenerator);
 
             UpgradeTrigger upgradeTrigger = new(heroLevel, levelUpWindow,
-                timeService, lootSpawner, hero.transform, upgrader, upgradeSelector);
+                timeService, lootSpawner, hero.transform, upgrader, upgradeGenerator);
 
             UiFactory uiFactory = new(_uIConfig, _gameConfig.UpgradeCost, _gameConfig.AbilityConfigs, heroLevel, playerData,
                 hero.LootCollector, walletService);

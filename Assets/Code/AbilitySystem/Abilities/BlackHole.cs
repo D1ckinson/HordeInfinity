@@ -15,8 +15,14 @@ namespace Assets.Code.AbilitySystem.Abilities
         private readonly Transform _heroCenter;
         private readonly Pool<ParticleSystem> _effectPool;
 
-        public BlackHole(AbilityConfig config, Dictionary<AbilityType, int> abilityUnlockLevel, Transform heroCenter,
-            ITimeService timeService, BattleMetrics battleMetrics, int level = 1) : base(config, abilityUnlockLevel, battleMetrics, level)
+        public BlackHole(
+            AbilityConfig config,
+            Dictionary<AbilityType, int> abilityUnlockLevel,
+            Transform heroCenter,
+            ITimeService timeService,
+            BattleMetrics battleMetrics,
+            int level = 1)
+            : base(config, abilityUnlockLevel, battleMetrics, level)
         {
             _heroCenter = heroCenter.ThrowIfNull();
             _effectPool = new(() => config.Effect.Instantiate(), Constants.One);

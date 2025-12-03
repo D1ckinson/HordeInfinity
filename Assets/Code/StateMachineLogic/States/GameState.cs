@@ -64,7 +64,6 @@ namespace Assets.Code.StateMachineLogic.States
             _adRewarder = adRewarder.ThrowIfNull();
 
             AdBonusButton adBonusButton = _uiFactory.Create<GameWindow>(false).AdBonusButton;
-
             _adEnabler = new(_hero, adBonusButton);
         }
 

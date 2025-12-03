@@ -25,6 +25,5 @@ namespace Assets.Code.Data.Base
         public ShopWindow ShopWindow;
         public StartAbilityOption StartAbilityOption;
         public Canvas JoystickCanvas;
-        public AdBonusButton AdBonusButton;
     }
 }

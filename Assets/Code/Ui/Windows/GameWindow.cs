@@ -20,6 +20,7 @@ namespace Assets.Code.Ui.Windows
         private HeroLevel _heroLevel;
 
         [field: SerializeField] public Button PauseButton { get; private set; }
+        [field: SerializeField] public AdBonusButton AdBonusButton { get; private set; }
 
         private void OnDestroy()
         {

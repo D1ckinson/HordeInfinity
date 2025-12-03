@@ -66,7 +66,7 @@ namespace Assets.Code.Core
             UiFactory uiFactory = new(_uIConfig, _gameConfig.UpgradeCost, _gameConfig.AbilityConfigs, heroLevel, playerData,
                 hero.LootCollector, walletService);
 
-            AdRewarder adRewarder = new(hero, uiFactory);
+            AdRewarder adRewarder = new(hero);
 
             SpellBookSpawner bookSpawner = new(hero.transform, _gameConfig.Books, gameAreaSettings, _gameConfig.BooksSpawnerSettings);
             EnemySpawner enemySpawner = new(enemyFactory, _gameConfig.SpawnTypeByTimes);
@@ -76,7 +76,7 @@ namespace Assets.Code.Core
             stateMachine
                 .AddState(new MenuState(stateMachine, uiFactory, _gameConfig.MenuMusic.Instantiate(hero.transform)))
                 .AddState(new GameState(stateMachine, hero, enemySpawner, abilityFactory, uiFactory,
-                playerData, inputService, timeService, upgradeTrigger, _gameConfig.BackgroundMusic, bookSpawner));
+                playerData, inputService, timeService, upgradeTrigger, _gameConfig.BackgroundMusic, bookSpawner,adRewarder));
 
             stateMachine.SetState<MenuState>();
         }

@@ -33,6 +33,8 @@ namespace Assets.Code.StateMachineLogic.States
         private readonly AudioSource _backgroundMusic;
         private readonly float _musicVolume;
         private readonly SpellBookSpawner _bookSpawner;
+        private readonly AdRewarder _adRewarder;
+        private readonly AdEnabler _adEnabler;
 
         public GameState(
             StateMachine stateMachine,
@@ -45,7 +47,8 @@ namespace Assets.Code.StateMachineLogic.States
             ITimeService timeService,
             UpgradeTrigger upgradeTrigger,
             AudioSource backgroundMusic,
-            SpellBookSpawner bookSpawner) : base(stateMachine)
+            SpellBookSpawner bookSpawner,
+            AdRewarder adRewarder) : base(stateMachine)
         {
             _hero = heroComponents.ThrowIfNull();
             _enemySpawner = enemySpawner.ThrowIfNull();
@@ -58,6 +61,11 @@ namespace Assets.Code.StateMachineLogic.States
             _bookSpawner = bookSpawner.ThrowIfNull();
             _backgroundMusic = backgroundMusic.ThrowIfNull().Instantiate(_hero.transform);
             _musicVolume = _backgroundMusic.volume;
+            _adRewarder = adRewarder.ThrowIfNull();
+
+            AdBonusButton adBonusButton = _uiFactory.Create<GameWindow>(false).AdBonusButton;
+
+            _adEnabler = new(_hero, adBonusButton);
         }
 
         ~GameState()
@@ -67,26 +75,8 @@ namespace Assets.Code.StateMachineLogic.States
 
         public override void Enter()
         {
-            PauseWindow pauseWindow = _uiFactory.Create<PauseWindow>(false);
-            pauseWindow.ExitButton.Subscribe(OnExit);
-            pauseWindow.ContinueButton.Subscribe(Continue);
-
-            DeathWindow deathWindow = _uiFactory.Create<DeathWindow>(false);
-            deathWindow.BackToMenuButton.Subscribe(OnExit);
-            deathWindow.ContinueForAddButton.Subscribe(ShowAdd);
-
-            GameWindow gameWindow = _uiFactory.Create<GameWindow>();
-            gameWindow.PauseButton.Subscribe(Pause);
-
-            _hero.AbilityContainer.Add(_abilityFactory.Create(_playerData.StartAbility));
-            _hero.AbilityContainer.Run();
-            _hero.Health.Died += ShowDeathWindow;
-            _hero.LootCollector.Run();
-            _hero.Mover.Run();
-            _hero.Rotator.Run();
-            _enemySpawner.Run();
-            _bookSpawner.Run();
-            _upgradeTrigger.Run();
+            EnableGameUI();
+            EnableGame();
 
             _inputService.BackPressed += Pause;
 
@@ -97,29 +87,8 @@ namespace Assets.Code.StateMachineLogic.States
 
         public override void Exit()
         {
-            DeathWindow deathWindow = _uiFactory.Create<DeathWindow>(false);
-            deathWindow.BackToMenuButton.Unsubscribe(OnExit);
-            deathWindow.ContinueForAddButton.Unsubscribe(ShowAdd);
-            deathWindow.ContinueForAddButton.interactable = true;
-
-            PauseWindow pauseWindow = _uiFactory.Create<PauseWindow>(false);
-            pauseWindow.ExitButton.Unsubscribe(OnExit);
-            pauseWindow.ContinueButton.Unsubscribe(_timeService.Continue);
-
-            GameWindow gameWindow = _uiFactory.Create<GameWindow>(false);
-            gameWindow.PauseButton.Subscribe(Pause);
-
-            _hero.Health.Died -= ShowDeathWindow;
-
-            _hero.AbilityContainer.RemoveAll();
-            _hero.BuffContainer.Reset();
-            _hero.LootCollector.TransferGold();
-            _hero.Health.ResetValues();
-            _hero.Mover.Stop();
-            _hero.Rotator.Stop();
-            _hero.BuffView.Clear();
-            _hero.SetDefaultPosition();
-            _upgradeTrigger.Stop();
+            DisableGameUI();
+            DisableGame();
 
             float time = TimerService.GetElapsedTime(this);
 
@@ -140,6 +109,66 @@ namespace Assets.Code.StateMachineLogic.States
             {
                 YG2.InterstitialAdvShow();
             }
+        }
+
+        private void EnableGame()
+        {
+            _hero.AbilityContainer.Add(_abilityFactory.Create(_playerData.StartAbility));
+            _hero.AbilityContainer.Run();
+            _hero.Health.Died += ShowDeathWindow;
+            _hero.LootCollector.Run();
+            _hero.Mover.Run();
+            _hero.Rotator.Run();
+            _enemySpawner.Run();
+            _bookSpawner.Run();
+            _upgradeTrigger.Run();
+
+            _adEnabler.ResetDelay();
+        }
+
+        private void EnableGameUI()
+        {
+            PauseWindow pauseWindow = _uiFactory.Create<PauseWindow>(false);
+            pauseWindow.ExitButton.Subscribe(OnExit);
+            pauseWindow.ContinueButton.Subscribe(Continue);
+
+            DeathWindow deathWindow = _uiFactory.Create<DeathWindow>(false);
+            deathWindow.BackToMenuButton.Subscribe(OnExit);
+            deathWindow.ContinueForAddButton.Subscribe(ShowAdd);
+
+            GameWindow gameWindow = _uiFactory.Create<GameWindow>();
+            gameWindow.PauseButton.Subscribe(Pause);
+            gameWindow.AdBonusButton.Button.Subscribe(_adRewarder.Heal);
+        }
+
+        private void DisableGame()
+        {
+            _hero.Health.Died -= ShowDeathWindow;
+            _hero.AbilityContainer.RemoveAll();
+            _hero.BuffContainer.Reset();
+            _hero.LootCollector.TransferGold();
+            _hero.Health.ResetValues();
+            _hero.Mover.Stop();
+            _hero.Rotator.Stop();
+            _hero.BuffView.Clear();
+            _hero.SetDefaultPosition();
+            _upgradeTrigger.Stop();
+        }
+
+        private void DisableGameUI()
+        {
+            DeathWindow deathWindow = _uiFactory.Create<DeathWindow>(false);
+            deathWindow.BackToMenuButton.Unsubscribe(OnExit);
+            deathWindow.ContinueForAddButton.Unsubscribe(ShowAdd);
+            deathWindow.ContinueForAddButton.interactable = true;
+
+            PauseWindow pauseWindow = _uiFactory.Create<PauseWindow>(false);
+            pauseWindow.ExitButton.Unsubscribe(OnExit);
+            pauseWindow.ContinueButton.Unsubscribe(_timeService.Continue);
+
+            GameWindow gameWindow = _uiFactory.Create<GameWindow>(false);
+            gameWindow.PauseButton.Subscribe(Pause);
+            gameWindow.AdBonusButton.Button.Unsubscribe(_adRewarder.Heal);
         }
 
         private void OnExit()

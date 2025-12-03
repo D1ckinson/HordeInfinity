@@ -20,7 +20,7 @@ MonoBehaviour:
   <InvincibilityTriggerPercent>k__BackingField: 50
   <Resist>k__BackingField: 0
   <MoveSpeed>k__BackingField: 7.2
-  <RotationSpeed>k__BackingField: 200
+  <RotationSpeed>k__BackingField: 300
   <Damage>k__BackingField: 35
   <DamageLayer>k__BackingField:
     serializedVersion: 2

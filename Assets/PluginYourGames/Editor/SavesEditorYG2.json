@@ -1,5 +1,5 @@
 {
-    "PlayerDataJson": "{\"Wallet\":{\"Value\":243},\"BattleMetrics\":{\"DamageDealt\":{\"SwordStrike\":1926887,\"GhostSwords\":1124986,\"HolyGround\":3308900,\"MidasHand\":211410,\"Bombard\":853509,\"BlackHole\":2530150,\"StoneSpikes\":33427,\"IceStaff\":956257,\"Shuriken\":1818326,\"Fireball\":610781,\"WindFlow\":439592},\"KillCount\":{\"SwordStrike\":1310,\"GhostSwords\":412,\"HolyGround\":2764,\"MidasHand\":21,\"Bombard\":506,\"BlackHole\":1149,\"StoneSpikes\":40,\"IceStaff\":625,\"Shuriken\":1001,\"Fireball\":260,\"WindFlow\":137}},\"StartAbility\":0,\"AbilityUnlockLevel\":{\"SwordStrike\":10,\"GhostSwords\":10,\"HolyGround\":10,\"MidasHand\":5,\"Bombard\":10,\"BlackHole\":10,\"StoneSpikes\":10,\"IceStaff\":10,\"Shuriken\":10,\"Fireball\":10,\"WindFlow\":10},\"UnlockDamage\":{\"SwordStrike\":0,\"GhostSwords\":100000,\"HolyGround\":1000000,\"Bombard\":1000000,\"BlackHole\":1000000,\"StoneSpikes\":100000,\"IceStaff\":1000000,\"Shuriken\":1000000,\"Fireball\":1000000},\"ScoreRecord\":1431.4187,\"IsAdOn\":true}",
+    "PlayerDataJson": "{\"Wallet\":{\"Value\":243},\"BattleMetrics\":{\"DamageDealt\":{\"SwordStrike\":1929687,\"GhostSwords\":1124986,\"HolyGround\":3308900,\"MidasHand\":211410,\"Bombard\":853509,\"BlackHole\":2530150,\"StoneSpikes\":33427,\"IceStaff\":956257,\"Shuriken\":1818326,\"Fireball\":610781,\"WindFlow\":439592},\"KillCount\":{\"SwordStrike\":1321,\"GhostSwords\":412,\"HolyGround\":2764,\"MidasHand\":21,\"Bombard\":506,\"BlackHole\":1149,\"StoneSpikes\":40,\"IceStaff\":625,\"Shuriken\":1001,\"Fireball\":260,\"WindFlow\":137}},\"StartAbility\":0,\"AbilityUnlockLevel\":{\"SwordStrike\":10,\"GhostSwords\":10,\"HolyGround\":10,\"MidasHand\":5,\"Bombard\":10,\"BlackHole\":10,\"StoneSpikes\":10,\"IceStaff\":10,\"Shuriken\":10,\"Fireball\":10,\"WindFlow\":10},\"UnlockDamage\":{\"SwordStrike\":0,\"GhostSwords\":100000,\"HolyGround\":1000000,\"Bombard\":1000000,\"BlackHole\":1000000,\"StoneSpikes\":100000,\"IceStaff\":1000000,\"Shuriken\":1000000,\"Fireball\":1000000},\"ScoreRecord\":1431.4187,\"IsAdOn\":true}",
     "intExample": 5,
     "strExample": "Hello!",
     "boolExample": [
@@ -8,5 +8,5 @@
         false,
         false
     ],
-    "idSave": 542
+    "idSave": 545
 }

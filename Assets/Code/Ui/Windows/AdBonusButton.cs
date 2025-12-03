@@ -19,6 +19,7 @@ namespace Assets.Code.Ui.Windows
         {
             Button.Subscribe(Disable);
             _progress.fillAmount = Constants.One;
+            _canvasGroup.alpha = Constants.One;
             TimerService.StartTimerWithUpdate(_lifeTime, Disable, FillProgress, this);
         }
 

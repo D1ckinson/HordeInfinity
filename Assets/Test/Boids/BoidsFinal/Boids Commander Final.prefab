@@ -44,14 +44,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d70b3d3cdc6cb64381bc5dc247cbbfe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _prefab: {fileID: 8049138624049077770, guid: 729e751045ff4aa4693d9934590c74b8, type: 3}
+  _prefab: {fileID: 4841361222320644712, guid: 729e751045ff4aa4693d9934590c74b8, type: 3}
   _boidCount: 10
   _spawnRadius: 5
-  _updateDelay: 0.1
+  _settings: {fileID: 11400000, guid: 0408640081b8b2042801270223f4b437, type: 2}
   _target: {fileID: 0}
-  _targetUpdateDelay: 3
-  _targetRadius: 10
-  <TargetWeight>k__BackingField: 0.5
-  <SeparationWeight>k__BackingField: 1.5
-  <AlignmentWeight>k__BackingField: 1
-  <CohesionWeight>k__BackingField: 1

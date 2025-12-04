@@ -12,13 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 494afc1358b116b448532896d3f1b85f, type: 3}
   m_Name: Boid Settings
   m_EditorClassIdentifier: 
-  Speed: 5
-  RotationSpeed: 3.5
-  MaxAcceleration: 1
-  PerceptionRadius: 3
-  DesiredSeparation: 2
-  UpdateBehaviorDelay: 0.17
-  SeparationWeight: 4.5
-  AlignmentWeight: 1.5
-  CohesionWeight: 0.6
-  TargetStopDistance: 0.5
+  Speed: 8
+  RotationSpeed: 50
+  MaxAcceleration: 2
+  PerceptionRadius: 2
+  DesiredSeparation: 1
+  UpdateBehaviorDelay: 0.1
+  SeparationWeight: 0.5
+  AlignmentWeight: 0.02
+  CohesionWeight: 0.01
+  TargetStopDistance: 0.1
+  TargetWeight: 5

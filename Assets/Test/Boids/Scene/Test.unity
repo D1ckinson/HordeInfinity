@@ -1390,11 +1390,11 @@ PrefabInstance:
       objectReference: {fileID: 11400000, guid: 0408640081b8b2042801270223f4b437, type: 2}
     - target: {fileID: 9135448243274285139, guid: ed4caf593067bcd48b623f9ca47676a2, type: 3}
       propertyPath: _boidCount
-      value: 30
+      value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 9135448243274285139, guid: ed4caf593067bcd48b623f9ca47676a2, type: 3}
       propertyPath: _spawnRadius
-      value: 15
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 9135448243274285139, guid: ed4caf593067bcd48b623f9ca47676a2, type: 3}
       propertyPath: _targetUpdateDelay

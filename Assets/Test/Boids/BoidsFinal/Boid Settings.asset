@@ -16,7 +16,7 @@ MonoBehaviour:
   RotationSpeed: 3.5
   MaxAcceleration: 1
   PerceptionRadius: 3
-  DesiredSeparation: 1.7
+  DesiredSeparation: 2
   UpdateBehaviorDelay: 0.17
   SeparationWeight: 4.5
   AlignmentWeight: 1.5

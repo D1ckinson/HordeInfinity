@@ -6,6 +6,5 @@ namespace Assets.Test.Boids.BoidsFinal
     {
         public float3 Position;
         public float3 Velocity;
-        public int Index;
     }
 }

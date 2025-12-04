@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: Boid Settings
   m_EditorClassIdentifier: 
   Speed: 5
-  RotationSpeed: 5
+  RotationSpeed: 3.5
   MaxAcceleration: 1
   PerceptionRadius: 3
-  DesiredSeparation: 1.8
+  DesiredSeparation: 1.7
   UpdateBehaviorDelay: 0.17
-  SeparationWeight: 5
+  SeparationWeight: 4.5
   AlignmentWeight: 1.5
   CohesionWeight: 0.6
   TargetStopDistance: 0.5

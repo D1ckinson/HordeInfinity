@@ -14,6 +14,7 @@ namespace Assets.Code.AbilitySystem.Base
         [field: SerializeField] public LayerMask DamageLayer { get; private set; }
         [field: SerializeField] public AbilityType Type { get; private set; }
         [field: SerializeField] public Sprite Icon { get; private set; }
+        [field: SerializeField][field: Min(0f)] public float SearchRadius { get; private set; }
 
         [field: Header("Sound")]
         [field: SerializeField] public AudioSource ThrowSound { get; private set; }

@@ -1,4 +1,5 @@
 ﻿using Assets.Code.AbilitySystem.Base;
+using Assets.Code.AbilitySystem.Interfaces;
 using Assets.Code.AbilitySystem.Projectiles;
 using Assets.Code.AbilitySystem.StatTypes;
 using Assets.Code.Core;
@@ -25,13 +26,14 @@ namespace Assets.Code.AbilitySystem.Abilities
 
             ShurikenProjectile CreateShurikenProjectile()
             {
+                ITargetSelector targetSelector = new BounceTargetSelector(config.SearchRadius, config.DamageLayer);
+
                 ShurikenProjectile projectile = config.ProjectilePrefab
                     .Instantiate(false)
                     .GetComponentOrThrow<ShurikenProjectile>()
-                    .Initialize(config.DamageLayer, CurrentStats.Get(FloatStatType.Damage), CurrentStats.Get(FloatStatType.Range),
-                    CurrentStats.Get(IntStatType.BouncesQuantity),
-                    _hitSoundPool, timeService);
+                    .Initialize(targetSelector, _hitSoundPool, timeService);
 
+                projectile.SetStats(CurrentStats.Get(FloatStatType.Damage), CurrentStats.Get(IntStatType.BouncesQuantity));
                 projectile.Hit += RecordHitResult;
 
                 return projectile;
@@ -56,8 +58,7 @@ namespace Assets.Code.AbilitySystem.Abilities
 
         protected override void OnStatsUpdate()
         {
-            _projectilePool.ForEach(projectile => projectile.SetStats(CurrentStats.Get(FloatStatType.Damage),
-                CurrentStats.Get(FloatStatType.Range), CurrentStats.Get(IntStatType.BouncesQuantity)));
+            _projectilePool.ForEach(projectile => projectile.SetStats(CurrentStats.Get(FloatStatType.Damage), CurrentStats.Get(IntStatType.BouncesQuantity)));
         }
     }
 }

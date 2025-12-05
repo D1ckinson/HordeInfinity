@@ -19,6 +19,7 @@ MonoBehaviour:
     m_Bits: 64
   <Type>k__BackingField: 8
   <Icon>k__BackingField: {fileID: 21300000, guid: 91a52f17a23eb6c4d9ba8d10fe62652f, type: 3}
+  <SearchRadius>k__BackingField: 20
   <ThrowSound>k__BackingField: {fileID: 0}
   <AppearingSound>k__BackingField: {fileID: 0}
   <HitSound>k__BackingField: {fileID: 3976638197623613723, guid: 1a8ecd28560bc224cb4ffb93dd5a6bfd, type: 3}
@@ -31,8 +32,6 @@ MonoBehaviour:
         Value: 11
       - Key: 1
         Value: 40
-      - Key: 2
-        Value: 20
     _boolStats:
       _serializedList: []
     _intStats:
@@ -48,8 +47,6 @@ MonoBehaviour:
         Value: 10
       - Key: 1
         Value: 44
-      - Key: 2
-        Value: 20
     _boolStats:
       _serializedList: []
     _intStats:
@@ -65,8 +62,6 @@ MonoBehaviour:
         Value: 9.6
       - Key: 1
         Value: 50
-      - Key: 2
-        Value: 20
     _boolStats:
       _serializedList: []
     _intStats:
@@ -82,8 +77,6 @@ MonoBehaviour:
         Value: 9.2
       - Key: 1
         Value: 56
-      - Key: 2
-        Value: 20
     _boolStats:
       _serializedList: []
     _intStats:
@@ -99,8 +92,6 @@ MonoBehaviour:
         Value: 8.8
       - Key: 1
         Value: 62
-      - Key: 2
-        Value: 20
     _boolStats:
       _serializedList: []
     _intStats:
@@ -116,8 +107,6 @@ MonoBehaviour:
         Value: 8.3
       - Key: 1
         Value: 66
-      - Key: 2
-        Value: 20
     _boolStats:
       _serializedList: []
     _intStats:
@@ -133,8 +122,6 @@ MonoBehaviour:
         Value: 8
       - Key: 1
         Value: 72
-      - Key: 2
-        Value: 20
     _boolStats:
       _serializedList: []
     _intStats:
@@ -150,8 +137,6 @@ MonoBehaviour:
         Value: 7
       - Key: 1
         Value: 80
-      - Key: 2
-        Value: 20
     _boolStats:
       _serializedList: []
     _intStats:
@@ -167,8 +152,6 @@ MonoBehaviour:
         Value: 6.5
       - Key: 1
         Value: 88
-      - Key: 2
-        Value: 20
     _boolStats:
       _serializedList: []
     _intStats:
@@ -184,8 +167,6 @@ MonoBehaviour:
         Value: 5
       - Key: 1
         Value: 100
-      - Key: 2
-        Value: 20
     _boolStats:
       _serializedList: []
     _intStats:

@@ -103,7 +103,7 @@ namespace Assets.Code.AbilitySystem.Base
 
         private Ability CreateShuriken()
         {
-            return new Shuriken(_configs[AbilityType.Shuriken], _abilityUnlockLevel, _heroCenter, _timeService, _battleMetrics);
+            return new Shuriken(_configs[AbilityType.Shuriken], _abilityUnlockLevel, _heroCenter, _timeService, _battleMetrics, 9);
         }
 
         private Ability CreateFireball()

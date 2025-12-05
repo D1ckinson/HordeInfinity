@@ -1,4 +1,5 @@
-﻿using Assets.Code.CharactersLogic.GeneralLogic;
+﻿using Assets.Code.AbilitySystem.Interfaces;
+using Assets.Code.CharactersLogic.GeneralLogic;
 using Assets.Code.Core;
 using Assets.Code.Data.Base;
 using Assets.Code.Tools.Base;
@@ -14,23 +15,18 @@ namespace Assets.Code.AbilitySystem.Projectiles
         [SerializeField][Min(1f)] private float _lifeTime = 3f;
         [SerializeField] private SoundPause _soundPause;
 
-        private readonly Collider[] _colliders = new Collider[10];
-
-        private LayerMask _damageLayer;
         private float _damage;
-        private float _searchRadius;
         private int _maxBounces;
         private int _currentBounces;
         private Vector3 _moveDirection;
-        private Collider _target;
-        private Collider _lastTarget;
         private Pool<AudioSource> _hitSound;
+        private ITargetSelector _targetSelector;
 
         public event Action<HitResult> Hit;
 
         private void OnTriggerEnter(Collider other)
         {
-            if (_target.IsNotNull() && other != _target)
+            if (_targetSelector.Target.IsNotNull() && other != _targetSelector.Target)
             {
                 return;
             }
@@ -38,12 +34,24 @@ namespace Assets.Code.AbilitySystem.Projectiles
             if (TryDamage(other))
             {
                 _currentBounces++;
-                SetTarget();
-            }
 
-            if (_currentBounces == _maxBounces)
+                if (_currentBounces == _maxBounces)
+                {
+                    this.SetActive(false);
+                }
+
+                _targetSelector.FindTarget(transform.position);
+                _moveDirection = Utilities.GenerateRandomDirection();
+                TimerService.StartTimer(_lifeTime, Disable, this);
+            }
+        }
+
+        private void OnTriggerStay(Collider other)
+        {
+            if (other == _targetSelector.Target)
             {
-                this.SetActive(false);
+                _targetSelector.ResetTarget();
+                _moveDirection = Utilities.GenerateRandomDirection();
             }
         }
 
@@ -54,53 +62,26 @@ namespace Assets.Code.AbilitySystem.Projectiles
             TimerService.StopTimer(this, Disable);
         }
 
-        private bool TryDamage(Collider collider)
+        public ShurikenProjectile Initialize(ITargetSelector targetSelector, Pool<AudioSource> hitSound, ITimeService timeService)
         {
-            if (_damageLayer.Contains(collider.gameObject.layer) && collider.TryGetComponent(out Health health))
-            {
-                Hit?.Invoke(health.TakeDamage(_damage));
-                _hitSound.Get(transform).PlayRandomPitch();
-                _lastTarget = _target;
-                _target = null;
-
-                return true;
-            }
-
-            return false;
-        }
-
-        public ShurikenProjectile Initialize(
-            LayerMask damageLayer,
-            float damage,
-            float searchRadius,
-            int maxBounces,
-            Pool<AudioSource> hitSound,
-            ITimeService timeService)
-        {
-            _damageLayer = damageLayer.ThrowIfNull();
+            _targetSelector = targetSelector.ThrowIfNull();
             _soundPause.Initialize(timeService);
             _hitSound = hitSound.ThrowIfNull();
-
-            SetStats(damage, searchRadius, maxBounces);
 
             return this;
         }
 
-        public void SetStats(
-            float damage,
-            float searchRadius,
-            int maxBounces)
+        public void SetStats(float damage, int maxBounces)
         {
             _damage = damage.ThrowIfNegative();
-            _searchRadius = searchRadius.ThrowIfNegative();
             _maxBounces = maxBounces.ThrowIfNegative();
         }
 
         public void Launch(Vector3 from, Vector3 direction)
         {
             this.SetActive(true);
-            _target = null;
-            _lastTarget = null;
+            _targetSelector.ResetTarget();
+
             _moveDirection = direction.ThrowIfNotNormalize();
 
             transform.position = from;
@@ -111,6 +92,24 @@ namespace Assets.Code.AbilitySystem.Projectiles
             TimerService.StartTimer(_lifeTime, Disable, this);
         }
 
+        private bool TryDamage(Collider collider)
+        {
+            if (_targetSelector.DamageLayer.Contains(collider.gameObject.layer) && collider.TryGetComponent(out Health health))
+            {
+                ApplyDamage(health);
+
+                return true;
+            }
+
+            return false;
+        }
+
+        private void ApplyDamage(Health health)
+        {
+            Hit?.Invoke(health.TakeDamage(_damage));
+            _hitSound.Get(transform).PlayRandomPitch();
+        }
+
         private void Disable()
         {
             this.SetActive(false);
@@ -118,58 +117,30 @@ namespace Assets.Code.AbilitySystem.Projectiles
 
         private void CalculateDirection(float fixedDeltaTime)
         {
-            if (_target.IsNull())
+            if (_targetSelector.Target.IsNull())
             {
                 return;
             }
 
-            if (_target.IsActive() == false)
+            if (_targetSelector.Target.IsActive() == false)
             {
-                _target = null;
+                _targetSelector.ResetTarget();
+                _moveDirection = Utilities.GenerateRandomDirection();
 
                 return;
             }
 
-            Vector3 direction = (_target.transform.position - transform.position).normalized;
+            Vector3 direction = (_targetSelector.Target.transform.position - transform.position).normalized;
             direction.y = Constants.Zero;
 
             _moveDirection = direction;
         }
 
+        public Vector3 Direction => _moveDirection;
+
         private void Move(float deltaTime)
         {
             transform.position += _speed * deltaTime * _moveDirection;
-        }
-
-        private void SetTarget()
-        {
-            int count = Physics.OverlapSphereNonAlloc(transform.position, _searchRadius, _colliders, _damageLayer);
-            float sqrDistance = float.MaxValue;
-
-            for (int i = Constants.Zero; i < count; i++)
-            {
-                Collider collider = _colliders[i];
-
-                if (collider == _lastTarget)
-                {
-                    continue;
-                }
-
-                float sqrMagnitude = (collider.transform.position - transform.position).sqrMagnitude;
-
-                if (sqrMagnitude < sqrDistance)
-                {
-                    _target = collider;
-                    sqrDistance = sqrMagnitude;
-                }
-            }
-
-            if (_target.IsNull())
-            {
-                _moveDirection = Utilities.GenerateRandomDirection();
-            }
-
-            TimerService.StartTimer(_lifeTime, Disable, this);
         }
     }
 }

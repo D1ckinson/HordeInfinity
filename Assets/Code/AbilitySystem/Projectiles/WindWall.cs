@@ -1,4 +1,5 @@
-﻿using Assets.Code.CharactersLogic.EnemyLogic;
+﻿using Assets.Code.AbilitySystem.Interfaces;
+using Assets.Code.CharactersLogic.EnemyLogic;
 using Assets.Code.Data.Base;
 using Assets.Code.Tools.Base;
 using System;

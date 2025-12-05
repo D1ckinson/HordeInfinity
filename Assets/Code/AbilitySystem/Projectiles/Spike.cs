@@ -1,4 +1,5 @@
-﻿using Assets.Code.CharactersLogic.GeneralLogic;
+﻿using Assets.Code.AbilitySystem.Interfaces;
+using Assets.Code.CharactersLogic.GeneralLogic;
 using Assets.Code.Data.Base;
 using Assets.Code.Tools.Base;
 using DG.Tweening;

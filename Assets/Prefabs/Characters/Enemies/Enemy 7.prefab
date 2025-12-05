@@ -150,7 +150,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _speedBoost: 0.4
-  _healthBoost: 10
+  _healthBoost: 20
   _healthBoostTime: 9
   _speedBoostTime: 7
 --- !u!114 &2714567282262177081

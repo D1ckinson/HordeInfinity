@@ -90,5 +90,5 @@ MonoBehaviour:
   <BackgroundMusic>k__BackingField: {fileID: 3938373483914223881, guid: 155aac6fcb4fcaf48a2d000bdbbc50d9, type: 3}
   <MenuMusic>k__BackingField: {fileID: 4333468301660195507, guid: 29ca130072e109246a0570d85be56e6f, type: 3}
   _fixedExperience: 100
-  _experienceCoefficient: 50
+  _experienceCoefficient: 48
   _degree: 1.3

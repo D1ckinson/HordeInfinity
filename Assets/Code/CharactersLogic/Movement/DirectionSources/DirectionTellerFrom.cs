@@ -6,27 +6,24 @@ using UnityEngine;
 
 namespace Assets.Code.CharactersLogic.Movement.DirectionSources
 {
-    public class DirectionTellerFrom : ITargetDirectionTeller
+    public class DirectionTellerFrom : ITellDirection
     {
         private const float CalculateDelay = 0.15f;
         private const float SqrMoveRange = 180;
 
         private readonly Transform _owner;
-        private Transform _target;
+        private readonly Transform _target;
+
         private Vector3 _moveDirection;
         private float _time;
 
-        public DirectionTellerFrom(Transform owner)
+        public DirectionTellerFrom(Transform owner, Transform target)
         {
             _owner = owner.ThrowIfNull();
+            _target = target.ThrowIfNull();
         }
 
         public event Action<Vector3> DirectionChanged;
-
-        public void SetTarget(Transform target)
-        {
-            _target = target.ThrowIfNull();
-        }
 
         public void Enable()
         {

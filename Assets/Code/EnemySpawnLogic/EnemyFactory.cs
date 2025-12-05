@@ -23,9 +23,9 @@ namespace Assets.Code.EnemySpawnLogic
         public EnemyFactory(
             Dictionary<CharacterType, CharacterConfig> enemiesConfigs,
             LootSpawner lootSpawner,
-            Transform hero, 
-            EnemySpawnerSettings spawnerSettings, 
-            GameAreaSettings gameAreaSettings, 
+            Transform hero,
+            EnemySpawnerSettings spawnerSettings,
+            GameAreaSettings gameAreaSettings,
             CharacterConfig goldEnemy)
         {
             _lootSpawner = lootSpawner.ThrowIfNull();
@@ -81,9 +81,9 @@ namespace Assets.Code.EnemySpawnLogic
         private EnemyComponents Create(CharacterConfig config)
         {
             EnemyComponents enemy = config.Prefab.Instantiate().GetComponentOrThrow<EnemyComponents>();
-            DirectionTellerTo directionSource = new(enemy.transform);
+            DirectionTellerTo directionSource = new(enemy.transform, _hero);
 
-            directionSource.SetTarget(_hero);
+            //directionSource.SetTarget(_hero);
             enemy.Initialize(config, directionSource, _lootSpawner);
 
             return enemy;
@@ -92,9 +92,9 @@ namespace Assets.Code.EnemySpawnLogic
         private EnemyComponents CreateGoldEnemy()
         {
             EnemyComponents enemy = _goldEnemy.Prefab.Instantiate().GetComponentOrThrow<EnemyComponents>();
-            DirectionTellerFrom directionSource = new(enemy.transform);
+            DirectionTellerFrom directionSource = new(enemy.transform, _hero);
 
-            directionSource.SetTarget(_hero);
+            //directionSource.SetTarget(_hero);
             enemy.Initialize(_goldEnemy, directionSource, _lootSpawner);
 
             return enemy;

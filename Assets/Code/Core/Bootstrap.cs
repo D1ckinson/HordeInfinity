@@ -42,10 +42,9 @@ namespace Assets.Code.Core
 
             Camera.main.GetComponentOrThrow<Follower>().Follow(hero.transform);
 
-            LootSpawner lootSpawner = new(_gameConfig.Loots,_gameConfig.LootSpawnSettings);
+            LootSpawner lootSpawner = new(_gameConfig.Loots, _gameConfig.LootSpawnSettings);
             EnemyFactory enemyFactory = new(_gameConfig.EnemyConfigs, lootSpawner, hero.transform, _gameConfig.EnemySpawnerSettings,
-                _gameConfig.GameAreaSettings, _gameConfig.GoldEnemy);
-
+                _gameConfig.GameAreaSettings, _gameConfig.GoldEnemy, _gameConfig.SocialConfig);
 
             Dictionary<AbilityType, AbilityConfig> abilityConfigs = _gameConfig.AbilityConfigs;
             LevelUpWindow levelUpWindow = new(_uIConfig.LevelUpCanvas, _uIConfig.LevelUpButton);
@@ -76,7 +75,7 @@ namespace Assets.Code.Core
             stateMachine
                 .AddState(new MenuState(stateMachine, uiFactory, _gameConfig.MenuMusic.Instantiate(hero.transform)))
                 .AddState(new GameState(stateMachine, hero, enemySpawner, abilityFactory, uiFactory,
-                playerData, inputService, timeService, upgradeTrigger, _gameConfig.BackgroundMusic, bookSpawner,adRewarder));
+                playerData, inputService, timeService, upgradeTrigger, _gameConfig.BackgroundMusic, bookSpawner, adRewarder));
 
             stateMachine.SetState<MenuState>();
         }

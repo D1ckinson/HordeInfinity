@@ -1,4 +1,5 @@
 ﻿using Assets.Code.CharactersLogic.EnemyLogic;
+using Assets.Code.CharactersLogic.Movement.Configs;
 using Assets.Code.CharactersLogic.Movement.DirectionSources;
 using Assets.Code.Core;
 using Assets.Code.Data.Base;
@@ -19,6 +20,7 @@ namespace Assets.Code.EnemySpawnLogic
         private readonly GameAreaSettings _gameAreaSettings;
         private readonly Dictionary<CharacterType, Pool<EnemyComponents>> _pools;
         private readonly CharacterConfig _goldEnemy;
+        private readonly SocialDirectionTellerConfig _socialConfig;
 
         public EnemyFactory(
             Dictionary<CharacterType, CharacterConfig> enemiesConfigs,
@@ -26,7 +28,8 @@ namespace Assets.Code.EnemySpawnLogic
             Transform hero,
             EnemySpawnerSettings spawnerSettings,
             GameAreaSettings gameAreaSettings,
-            CharacterConfig goldEnemy)
+            CharacterConfig goldEnemy,
+            SocialDirectionTellerConfig socialConfig)
         {
             _lootSpawner = lootSpawner.ThrowIfNull();
             _hero = hero.ThrowIfNull();
@@ -34,6 +37,7 @@ namespace Assets.Code.EnemySpawnLogic
 
             _spawnerSettings = spawnerSettings.ThrowIfDefault();
             _gameAreaSettings = gameAreaSettings.ThrowIfDefault();
+            _socialConfig = socialConfig.ThrowIfNull();
 
             _pools = new();
 
@@ -81,10 +85,11 @@ namespace Assets.Code.EnemySpawnLogic
         private EnemyComponents Create(CharacterConfig config)
         {
             EnemyComponents enemy = config.Prefab.Instantiate().GetComponentOrThrow<EnemyComponents>();
-            DirectionTellerTo directionSource = new(enemy.transform, _hero);
+            LayerMask layer = Constants.One << enemy.gameObject.layer;
 
-            //directionSource.SetTarget(_hero);
-            enemy.Initialize(config, directionSource, _lootSpawner);
+            SocialDirectionTeller directionTeller = new(enemy.transform, _hero, _socialConfig, enemy.Collider, layer);
+
+            enemy.Initialize(config, directionTeller, _lootSpawner);
 
             return enemy;
         }
@@ -94,7 +99,6 @@ namespace Assets.Code.EnemySpawnLogic
             EnemyComponents enemy = _goldEnemy.Prefab.Instantiate().GetComponentOrThrow<EnemyComponents>();
             DirectionTellerFrom directionSource = new(enemy.transform, _hero);
 
-            //directionSource.SetTarget(_hero);
             enemy.Initialize(_goldEnemy, directionSource, _lootSpawner);
 
             return enemy;

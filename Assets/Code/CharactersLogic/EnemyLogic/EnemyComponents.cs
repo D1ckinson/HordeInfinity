@@ -17,6 +17,8 @@ namespace Assets.Code.CharactersLogic.EnemyLogic
     [RequireComponent(typeof(EnemyBooster))]
     public class EnemyComponents : MonoBehaviour
     {
+        [field: SerializeField] public Collider Collider { get; private set; }
+
         public Health Health { get; private set; }
         public CollisionDamage CollisionDamage { get; private set; }
         public DeathTriger DeathTriger { get; private set; }

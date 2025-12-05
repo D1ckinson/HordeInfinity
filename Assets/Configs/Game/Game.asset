@@ -52,6 +52,7 @@ MonoBehaviour:
     <Type>k__BackingField: 6
   - <Time>k__BackingField: 300
     <Type>k__BackingField: 7
+  <SocialConfig>k__BackingField: {fileID: 11400000, guid: 2c6247ead12ced9489932a04a75f4cb2, type: 2}
   <BooksSpawnerSettings>k__BackingField:
     MinDelay: 60
     MaxDelay: 180

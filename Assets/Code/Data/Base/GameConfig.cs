@@ -1,5 +1,6 @@
 using Assets.Code.AbilitySystem.Base;
 using Assets.Code.BuffSystem.Base;
+using Assets.Code.CharactersLogic.Movement.Configs;
 using Assets.Code.Core;
 using Assets.Code.Data.SettingsStructures;
 using Assets.Code.LootSystem;
@@ -27,6 +28,7 @@ namespace Assets.Code.Data.Base
         [field: Header("Enemy Spawn Settings")]
         [field: SerializeField] public EnemySpawnerSettings EnemySpawnerSettings { get; private set; }
         [field: SerializeField] public SpawnTypeByTime[] SpawnTypeByTimes { get; private set; }
+        [field: SerializeField] public SocialDirectionTellerConfig SocialConfig { get; private set; }
 
         [field: Header("Book Spawn Settings")]
         [field: SerializeField] public BooksSpawnerSettings BooksSpawnerSettings { get; private set; }

@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 871468ed7984fbe4bbe7ebfc339cd469, type: 3}
+  m_Name: Boid Raycast Settings
+  m_EditorClassIdentifier: 
+  Speed: 10
+  RotationSpeed: 15
+  MaxAcceleration: 3
+  VisionDistance: 8
+  VisionAngle: 60
+  UpdateBehaviorDelay: 0.05
+  AvoidanceWeight: 2
+  TargetWeight: 4
+  TargetStopDistance: 0.2

@@ -7,32 +7,40 @@ namespace Assets.Test.Boids.BoidsFinal
     {
         [Header("Movement Settings")]
         [Tooltip("Максимальная скорость бойдов")]
-        public float Speed = 8f; // Увеличил для быстрого движения
+        public float Speed = 10f;
         [Tooltip("Скорость вращения бойдов")]
-        public float RotationSpeed = 10f; // Увеличил для быстрого поворота
+        public float RotationSpeed = 15f;
         [Tooltip("Максимальное ускорение")]
-        public float MaxAcceleration = 2f; // Увеличил для резкого движения
+        public float MaxAcceleration = 3f;
 
         [Header("Behavior Settings")]
-        [Tooltip("Радиус восприятия других бойдов")]
-        public float PerceptionRadius = 3f;
+        [Tooltip("Радиус восприятия других бойдов (для классического подхода)")]
+        public float PerceptionRadius = 4f;
         [Tooltip("Желаемое расстояние разделения")]
-        public float DesiredSeparation = 1f; // Уменьшил для меньшего разделения
+        public float DesiredSeparation = 1.5f;
         [Tooltip("Задержка обновления поведения (оптимизация)")]
-        public float UpdateBehaviorDelay = 0.1f; // Чаще обновляем
+        public float UpdateBehaviorDelay = 0.05f;
 
         [Header("Social Settings")]
         [Tooltip("Вес силы разделения")]
-        public float SeparationWeight = 0.3f; // Ослабил
+        public float SeparationWeight = 0.3f;
         [Tooltip("Вес силы выравнивания")]
-        public float AlignmentWeight = 0.2f; // Ослабил
+        public float AlignmentWeight = 0.2f;
         [Tooltip("Вес силы сплочения")]
-        public float CohesionWeight = 0.1f; // Ослабил
+        public float CohesionWeight = 0.1f;
 
         [Header("Target Following")]
-        [Tooltip("Дистанция остановки у цели (очень маленькая)")]
-        public float TargetStopDistance = 0.1f; // Очень маленькая для близкого подхода
-        [Tooltip("Сила притяжения к цели (высокий приоритет)")]
-        public float TargetWeight = 3.0f; // Увеличил для приоритета цели
+        [Tooltip("Дистанция остановки у цели")]
+        public float TargetStopDistance = 0.2f;
+        [Tooltip("Сила притяжения к цели")]
+        public float TargetWeight = 4.0f;
+
+        [Header("Raycast Settings (если используем Raycast подход)")]
+        [Tooltip("Дальность зрения для Raycast")]
+        public float VisionDistance = 8f;
+        [Tooltip("Угол обзора для Raycast")]
+        public float VisionAngle = 60f;
+        [Tooltip("Сила избегания препятствий")]
+        public float AvoidanceWeight = 2f;
     }
 }

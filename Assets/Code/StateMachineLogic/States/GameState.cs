@@ -112,8 +112,7 @@ namespace Assets.Code.StateMachineLogic.States
 
         private void EnableGame()
         {
-            //_hero.AbilityContainer.Add(_abilityFactory.Create(_playerData.StartAbility));
-            _hero.AbilityContainer.Add(_abilityFactory.Create(AbilityType.Shuriken));
+            _hero.AbilityContainer.Add(_abilityFactory.Create(_playerData.StartAbility));
             _hero.AbilityContainer.Run();
             _hero.Health.Died += ShowDeathWindow;
             _hero.LootCollector.Run();

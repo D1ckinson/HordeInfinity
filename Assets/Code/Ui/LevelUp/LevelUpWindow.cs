@@ -1,5 +1,4 @@
-﻿using Assets.Code;
-using Assets.Code.Data.Base;
+﻿using Assets.Code.Data.Base;
 using Assets.Code.LevelUpSystem;
 using Assets.Code.Tools.Base;
 using System;

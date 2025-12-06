@@ -49,7 +49,6 @@ namespace Assets.Code.CharactersLogic.GeneralLogic
             }
             else
             {
-                direction.ThrowIfNotNormalize();
                 direction.y = Constants.Zero;
                 _direction = direction;
             }

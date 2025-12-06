@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fada023500d4a3e488e79e343c0a1ba6, type: 3}
   m_Name: Social Direction Teller Config
   m_EditorClassIdentifier: 
-  Delay: 0.15
+  Delay: 0.23
   NeighborDistance: 6
   StopDistance: 1.4
-  NeighborCount: 20
-  SeparationWeight: 1.5
+  NeighborCount: 6
+  SeparationWeight: 3.3
   AlignmentWeight: 2
   CohesionWeight: 1

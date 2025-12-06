@@ -5,6 +5,10 @@ using UnityEngine.EventSystems;
 
 public class Joystick : BaseWindow, IPointerDownHandler, IDragHandler, IPointerUpHandler
 {
+    [Header("Response Curve")]
+    [SerializeField] private AnimationCurve responseCurve = AnimationCurve.Linear(0, 0, 1, 1);
+    [SerializeField] private bool useResponseCurve = true;
+
     public float Horizontal { get { return (snapX) ? SnapFloat(input.x, AxisOptions.Horizontal) : input.x; } }
     public float Vertical { get { return (snapY) ? SnapFloat(input.y, AxisOptions.Vertical) : input.y; } }
     public Vector2 Direction { get { return new Vector2(Horizontal, Vertical); } }
@@ -92,20 +96,25 @@ public class Joystick : BaseWindow, IPointerDownHandler, IDragHandler, IPointerU
 
         if (magnitude > deadZone)
         {
-            if (magnitude > 1)
-            {
-                input = normalised;
-            }
+            float normalizedMagnitude = Mathf.Clamp01((magnitude - deadZone) / (1 - deadZone));
+
+            float curvedMagnitude = useResponseCurve ?
+                responseCurve.Evaluate(normalizedMagnitude) :
+                normalizedMagnitude;
+
+            input = normalised * curvedMagnitude;
         }
         else
         {
             input = Vector2.zero;
         }
 
-        if (input != previousInput)
+        if (input == previousInput)
         {
-            DirectionChanged?.Invoke(Direction);
+            return;
         }
+
+        DirectionChanged?.Invoke(input);
     }
 
     private void FormatInput()
